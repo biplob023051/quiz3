@@ -221,3 +221,12 @@ Type::build('datetime')
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
+
+/**
+ * Here you can change your email, where the invoice sent.
+ */
+Configure::write('AdminEmail', 'pietu.halonen@gmail.com');
+
+// google analytical code
+Configure::write('google-analytics.tracker-code', false); // disables Google Analytics
+Configure::write('google-analytics.tracker-code', 'UA-3180550-5'); // enables Google Analytics

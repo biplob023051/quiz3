@@ -39,6 +39,7 @@ class PagesController extends AppController
      */
     public function display()
     {
+        $this->viewBuilder()->layout('default');
         $path = func_get_args();
 
         $count = count($path);
@@ -66,5 +67,20 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+    }
+
+    // Method for home page display
+    public function index()
+    {
+        $this->loadModel('Helps');  
+        $query = $this->Helps->find('all')
+            ->where(['Helps.type' => 'home', 'Helps.status' => 1])
+            ->contain([])
+            ->order(['Helps.id' => 'desc']);
+        $home_video = $query->first()->toArray();
+        // pr($home_video);
+        // exit;
+        $this->set(compact('home_video'));
+        $this->set('title_for_layout', __('Welcome to Verkkotesti'));   
     }
 }
