@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\Auth\SimplePasswordHasher; //include this line
+use App\Auth\SimplePasswordHasher;
 use Cake\ORM\Entity;
 
 /**

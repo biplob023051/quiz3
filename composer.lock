@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d8c082f656bd3e981932ad404f964fc",
-    "content-hash": "8ff4b464cc5fcf2fbd4731d1f8d4cd00",
+    "hash": "6d104b76916e78e48aa4c8274f011289",
+    "content-hash": "cc8ca22c3dbb184fe9c97221dcca5117",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -343,6 +343,47 @@
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
             "time": "2016-04-28 03:01:34"
+        },
+        {
+            "name": "holt59/cakephp3-bootstrap-helpers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Holt59/cakephp3-bootstrap-helpers.git",
+                "reference": "98cb4efc45d1974d2a5ffd75ceddf273e4c3abda"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Holt59/cakephp3-bootstrap-helpers/zipball/98cb4efc45d1974d2a5ffd75ceddf273e4c3abda",
+                "reference": "98cb4efc45d1974d2a5ffd75ceddf273e4c3abda",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": ">=3.2.3"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "dev-master",
+                "phpunit/phpunit": "*"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bootstrap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Bootstrap Helpers for CakePHP 3.0",
+            "keywords": [
+                "bootstrap",
+                "cakephp"
+            ],
+            "time": "2016-12-13 12:37:02"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -1412,6 +1453,7 @@
     "aliases": [],
     "minimum-stability": "beta",
     "stability-flags": {
+        "holt59/cakephp3-bootstrap-helpers": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

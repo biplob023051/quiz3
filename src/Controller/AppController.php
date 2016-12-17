@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\Auth\SimplePasswordHasher; //include this line
 
 /**
  * Application Controller
@@ -28,6 +29,20 @@ use Cake\Core\Configure;
  */
 class AppController extends Controller
 {
+    public $helpers = [
+        'Html' => [
+            'className' => 'Bootstrap.BootstrapHtml'
+        ],
+        'Form' => [
+            'className' => 'Bootstrap.BootstrapForm'
+        ],
+        'Paginator' => [
+            'className' => 'Bootstrap.BootstrapPaginator'
+        ],
+        'Modal' => [
+            'className' => 'Bootstrap.BootstrapModal'
+        ]
+    ];
 
     /**
      * Initialization hook method.
@@ -48,7 +63,7 @@ class AppController extends Controller
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
-                    'scope' =>  ['User.activation' => null],
+                    //'scope' =>  ['Users.activation' => null],
                     'fields' => [
                         'username' => 'email',
                         'password' => 'password'
@@ -56,7 +71,15 @@ class AppController extends Controller
                     'passwordHasher' => [
                         'className' => 'Simple',
                         'hashType' => 'sha256'
+                        // 'hashers' => [
+                        //     'Default',
+                        //     'Weak' => ['hashType' => 'sha1']
+                        // ]
                     ]
+                    // 'passwordHasher' => [
+                    //     'className' => 'Simple',
+                    //     'hashType' => 'sha256'
+                    // ]
                 ]
             ],
             'loginAction' => [
@@ -68,7 +91,7 @@ class AppController extends Controller
                 'action' => 'index'
             ],
             'logoutRedirect' => [
-                'controller' => 'user',
+                'controller' => 'Users',
                 'action' => 'login'
             ],
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on

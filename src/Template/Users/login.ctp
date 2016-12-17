@@ -8,14 +8,7 @@ $this->assign('title', __('Login'));
 
 
 <div id="login-container">
-    <?php
-    echo $this->Form->create('User', array(
-        // 'inputDefaults' => array(
-        //     'div' => array('class' => 'form-group'),
-        //     'class' => 'form-control',
-        // )
-    ));
-    ?>
+    <?= $this->Form->create(); ?>
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <?php

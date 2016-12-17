@@ -1,7 +1,4 @@
 (function ($) {
-
-	var appData = $.parseJSON($("#app-data").text());
-
 	$('[data-toggle="tooltip"]').tooltip();
 
 	$("#UserCreateForm").submit(function(event) {
@@ -94,7 +91,7 @@
 	    var result;
 	    $.ajax({
 	        dataType: 'json',
-	        url: appData.baseUrl + 'user/ajax_user_checking',
+	        url: projectBaseUrl + 'users/ajax_user_checking',
 	        type: 'post',
 	        async: false,
 	        data: {'email': email},

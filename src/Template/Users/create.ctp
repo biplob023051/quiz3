@@ -19,11 +19,6 @@ $form_data = $session->read('UserCreateFormData');
             </div>
         </div>
         <?php
-        $myTemplates = [
-    'inputContainer' => '<div class="col-md-4 input {{type}}{{required}}">{{content}}</div>',
-    'inputContainerError' => '<div class="col-md-4 input {{type}}{{required}} error">{{content}}{{error}}</div>'
-];
-$this->Form->templates($myTemplates);
         echo $this->Form->create($user, array(
             'class' => 'form-horizontal',
             // 'inputDefaults' => array(
@@ -37,12 +32,12 @@ $this->Form->templates($myTemplates);
         ));
 
         echo $this->Form->input('name', array(
-            'default' => $form_data['User']['name'],
+            'default' => $form_data['name'],
             'placeholder' => __('Enter Your Name')
         ));
 
         echo $this->Form->input('email', array(
-            'default' => $form_data['User']['email'],
+            'default' => $form_data['email'],
             'placeholder' => __('Enter Valid Email'),
             'data-toggle' => 'tooltip',
             'data-placement' => 'bottom',
@@ -76,13 +71,7 @@ $this->Form->templates($myTemplates);
         </div>
        
         <?php
-        echo $this->Form->submit(array(
-            'label' => __("Create Account & Log In"),
-            'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'),
-            'before' => '<div class="form-group">',
-            'after' => '</div>',
-            'class' => 'btn btn-success btn-block btn-lg'
-        ));
+        echo $this->Form->submit();
         ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -97,13 +86,6 @@ $this->Form->templates($myTemplates);
     </div>
 </div>
 
-<script id="app-data" type="application/json">
-    <?php
-    echo json_encode(array(
-        'baseUrl' => $this->Html->url('/', true)
-    ));
-    ?>
-</script>
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
     <?php if (!empty($create_video)) : ?>

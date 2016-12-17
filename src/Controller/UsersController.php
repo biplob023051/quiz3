@@ -130,6 +130,23 @@ class UsersController extends AppController
         }
     }
 
+    public function add22()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
     public function create() {
         // load MathCaptchaComponent on fly
         $site_language = Configure::read('Config.language');
@@ -142,13 +159,25 @@ class UsersController extends AppController
         }
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            // $this->request->data['User']['activation'] = $this->User->randText(16);
+            // $this->request->data['activation'] = $this->User->randText(16);
             // pr($this->request->data);
             // exit;
-            if ($this->MathCaptcha->validate($this->request->data['User']['captcha'])) {
-                $this->request->data['User']['account_level'] = 22;
-                $this->request->data['User']['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
-                $this->request->data['User']['activation'] = $this->randText(16);
+            if ($this->MathCaptcha->validate($this->request->data['captcha'])) {
+                $this->request->data['account_level'] = 22;
+                $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
+                $this->request->data['activation'] = $this->randText(16);
+
+                $user = $this->Users->patchEntity($user, $this->request->data);
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                }
+                pr($user);
+                exit;
+
                 $this->User->set($this->request->data);
                 if ($this->User->validates()) {
                     $user = $this->User->save();
@@ -167,9 +196,9 @@ class UsersController extends AppController
                     $this->Session->setFlash($error, 'error_form', array(), 'error');
                 }
             } else {
-                $this->Session->setFlash(__('The result of the calculation was incorrect. Please try again.'), 'error_form', array(), 'error');
+                $this->Flash->error(__('The result of the calculation was incorrect. Please try again.'));
             }
-            $this->Session->write('UserCreateFormData', $this->request->data);
+            $this->request->session()->write('UserCreateFormData', $this->request->data);
             return $this->redirect(array('action' => 'create'));
         } else {
             $this->set('captcha', $this->MathCaptcha->getCaptcha());
@@ -257,27 +286,40 @@ class UsersController extends AppController
         }
     }
 
-    public function login() {
-        if ($this->Auth->user()) { // Redirect user if logged in already
-            $this->redirect($this->Auth->redirectUrl());
-        }
+    // public function login() 
+    // {
+    //     if ($this->Auth->user()) { // Redirect user if logged in already
+    //         $this->redirect($this->Auth->redirectUrl());
+    //     }
+    //     if ($this->request->is('post')) {
+    //         if ($this->Auth->login()) {
+    //             // save statistics data
+    //             $this->loadModel('Statistic');
+    //             $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
+    //             $arrayToSave['Statistic']['type'] = 'user_login';
+    //             $this->Statistic->save($arrayToSave);
+    //             return $this->redirect($this->Auth->redirectUrl());
+    //         }
+
+    //         $this->Session->setFlash($this->Auth->authError, 'error_form', array(), 'error');
+    //     }
+    // }
+
+    public function login()
+    {
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                // save statistics data
-                $this->loadModel('Statistic');
-                $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
-                $arrayToSave['Statistic']['type'] = 'user_login';
-                $this->Statistic->save($arrayToSave);
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-
-            $this->Session->setFlash($this->Auth->authError, 'error_form', array(), 'error');
+            $this->Flash->error('Your username or password is incorrect.');
         }
     }
 
-    public function logout() {
-        $this->Session->destroy();
-        $this->Session->setFlash(__('You have logged out'), 'notification_form', array(), 'notification');
+    public function logout()
+    {
+        $this->Flash->success('You have logged out');
         return $this->redirect($this->Auth->logout());
     }
 
@@ -353,7 +395,7 @@ class UsersController extends AppController
         $this->set('title_for_layout', __('Password Recover'));
         if ($this->request->is('post')) {
             $this->User->unbindModelAll();
-            $user = $this->User->findByEmail($this->request->data['User']['email']);
+            $user = $this->User->findByEmail($this->request->data['email']);
             $dataToSave['User']['reset_code'] = $this->User->randText(16);
             $dataToSave['User']['resettime'] = $this->User->getCurrentDateTime();
             $dataToSave['User']['id'] = $user['User']['id'];
@@ -365,7 +407,7 @@ class UsersController extends AppController
                 $Email->from(array('admin@webquiz.fi' => 'WebQuiz.fi'));
                 $Email->template('reset_password');
                 $Email->emailFormat('html');
-                $Email->to($this->request->data['User']['email']);
+                $Email->to($this->request->data['email']);
                 $Email->subject(__('Reset password for your account on Verkkotesti'));
                 if ($Email->send()) {
                     $this->Session->setFlash(__('Your request has been received, please check you email.'), 'notification_form', array(), 'notification');    
@@ -410,8 +452,8 @@ class UsersController extends AppController
             throw new NotFoundException(__('Password Reset Link Expired.'));
         }
         if ($this->request->is(array('post', 'put'))){
-            $this->request->data['User']['reset_code'] = NULL;
-            $this->request->data['User']['resettime'] = NULL;
+            $this->request->data['reset_code'] = NULL;
+            $this->request->data['resettime'] = NULL;
             if ($this->User->validates($this->request->data)) {
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('Your password has been successfully changed.'), 'notification_form', array(), 'notification');    
@@ -437,20 +479,20 @@ class UsersController extends AppController
     }
 
     public function buy_create() {
-        $this->request->data['User']['activation'] = $this->randText(16);
+        $this->request->data['activation'] = $this->randText(16);
 
         $date = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
 
-        if ($this->request->data['User']['package'] == 29) {
+        if ($this->request->data['package'] == 29) {
             $package =  __('29 E/Y');
-            $this->request->data['User']['account_level'] = 1;
+            $this->request->data['account_level'] = 1;
         } else {
             $package = __('49 E/Y');
-            $this->request->data['User']['account_level'] = 2;
+            $this->request->data['account_level'] = 2;
         }
 
-        unset($this->request->data['User']['package']);
-        $this->request->data['User']['expired'] = $date;
+        unset($this->request->data['package']);
+        $this->request->data['expired'] = $date;
 
         // pr($this->request->data);
         // exit;

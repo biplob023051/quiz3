@@ -84,10 +84,6 @@ class UsersTable extends Table
             ->notEmpty('password');
 
         $validator
-            ->requirePresence('language', 'create')
-            ->notEmpty('language');
-
-        $validator
             ->allowEmpty('subjects');
 
         $validator

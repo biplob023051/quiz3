@@ -222,6 +222,8 @@ if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
 
+Plugin::load('Bootstrap');
+
 /**
  * Here you can change your email, where the invoice sent.
  */

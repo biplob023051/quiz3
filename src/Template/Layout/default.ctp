@@ -87,7 +87,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?php
     echo $this->Html->scriptBlock('
         var projectBaseUrl = "'.Router::url('/', true).'";
-        ', array('inline' => true)
+        ', array('inline' => false)
     );
     if ($authUser): // Add these script if logged in user
         echo $this->Html->script(array(
