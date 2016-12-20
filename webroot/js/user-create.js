@@ -1,16 +1,17 @@
 (function ($) {
-	$('[data-toggle="tooltip"]').tooltip();
-
-	$("#UserCreateForm").submit(function(event) {
+	//$("#UserCreateForm").submit(function(event) {
+        
+    //$("#create_acc").click(function(event) {
+    $(document).on('click', "#create_acc", function(event) {
         event.preventDefault();
         // not empty name
-        if ($('#UserName').val() == '') {
+        if ($('#name').val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_name']);
             return;
         }
         // check characters validation
-        var verify = validateName($('#UserName').val());
+        var verify = validateName($('#name').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['invalid_characters']);
@@ -18,13 +19,13 @@
         }
 
         // not empty email
-        if ($('#UserEmail').val() == '') {
+        if ($('#email').val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_email']);
             return;
         }
         // validate email address
-        verify = validateEmail($('#UserEmail').val());
+        verify = validateEmail($('#email').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['invalid_email']);
@@ -32,39 +33,39 @@
         }
         
         // password verify
-        if ($("#UserPassword").val() == '') {
+        if ($("#password").val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_password']);
             return;
         }
 
-        if ($("#UserPassword").val().length < 8) {
+        if ($("#password").val().length < 8) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['character_count']);
             return;
         }
 
-        if ($("#UserPasswordVerify").val() == '') {
+        if ($("#passwordverify").val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['varify_password']);
             return;
         }
 
-        if ($("#UserPassword").val() != $("#UserPasswordVerify").val()) {
+        if ($("#password").val() != $("#passwordverify").val()) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['varify_password']);
             return;
         }
 
         // check if empty captcha
-        if ($("#UserCaptcha").val() == '') {
+        if ($("#captcha").val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_captcha']);
             return;
         }
 
         // check If email registered
-        verify = validateEmailExistance($('#UserEmail').val());
+        verify = validateEmailExistance($('#email').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['unique_email']);
@@ -72,10 +73,11 @@
             return;
         }
         $("#email-exist").hide();
-
         $("#error-message").hide();
         $('#UserCreateForm').unbind('submit').submit();
     });
+
+    $('[data-toggle="tooltip"]').tooltip();
 
 	function validateEmail(email) {
 	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;

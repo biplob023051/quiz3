@@ -1,5 +1,5 @@
 <?php
-    $this->Html->script('buy', array('inline' => false));
+    echo $this->Html->script('buy', array('inline' => false));
 ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><?php echo $this->Html->link(__('Register Now!'), '/user/create', array('class' => 'btn btn-success')); ?></td>
+                        <td><?php echo $this->Html->link(__('Register Now!'), '/users/create', array('class' => 'btn btn-success')); ?></td>
                         <td><button type="button" id="buy-button-29" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
                         <td><button type="button" id="buy-button-49" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
                     </tr>
@@ -57,12 +57,12 @@
         </div>
     </div>
 </div>
-<?php echo $this->element('Page/buy_modal', array('package' => __('29 E/Y'))); ?>
+<?php echo $this->element('Page/buy_modal'); ?>
 <script id="app-data" type="application/json">
     <?php
-    echo json_encode(array(
-        'baseUrl' => $this->Html->url('/', true)
-    ));
+    // echo json_encode(array(
+    //     'baseUrl' => $this->Html->url('/', true)
+    // ));
     ?>
 </script>
 <script type="text/javascript">

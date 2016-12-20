@@ -11,7 +11,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<?php 
-			echo $this->Html->link(__('Log in'), array('controller' => 'user', 'action' => 'login')); 
+			echo $this->Html->link(__('Log in'), array('controller' => 'users', 'action' => 'login')); 
 		?>
 	</div>
 </div>

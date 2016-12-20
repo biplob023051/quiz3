@@ -36,7 +36,7 @@ class UsersTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        $this->addBehavior('Common');
         $this->table('users');
         $this->displayField('name');
         $this->primaryKey('id');
@@ -81,7 +81,14 @@ class UsersTable extends Table
 
         $validator
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->notEmpty('password')
+            ->add('password', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'Password must be 8 characters long',
+                ]
+            ]);
+
 
         $validator
             ->allowEmpty('subjects');

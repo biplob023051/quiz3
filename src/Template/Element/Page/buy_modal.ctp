@@ -9,26 +9,32 @@
                 <div id="email-exist" style="display: none;">
                     <div class="col-sm-4 col-xs-12"><?php echo __('Already Registered?'); ?></div>
                     <div class="col-md-4 col-xs-12">
-                        <?php echo $this->Html->link(__('Login and Buy'), '/user/login'); ?>
+                        <?php echo $this->Html->link(__('Login and Buy'), '/users/login'); ?>
                     </div>
                     <div class="col-md-4 col-xs-12">
-                        <?php echo $this->Html->link(__('Password Recover'), '/user/password_recover'); ?>
+                        <?php echo $this->Html->link(__('Password Recover'), '/users/password_recover'); ?>
                     </div>
                 </div>
                 <br />
                 <?php
-                    echo $this->Form->create('User', array(
-                        'class' => 'form-horizontal',
-                        'inputDefaults' => array(
-                            'class' => 'form-control',
-                            'div' => array('class' => 'form-group'),
-                            'label' => array('class' => 'col-sm-4 control-label'),
-                            'between' => '<div class="col-md-7 col-xs-12">',
-                            'after' => '</div>'
-                        ),
+                    echo $this->Form->create('', [
+                        'horizontal' => true,
+                        'id' => 'UserCreateForm',
+                        'columns' => [ 
+                            'sm' => [
+                                'label' => 4,
+                                'input' => 7,
+                                'error' => 7
+                            ],
+                            'md' => [
+                                'label' => 4,
+                                'input' => 7,
+                                'error' => 7
+                            ]
+                        ],
                         'novalidate' => 'novalidate',
-                        'url' => array('controller'=>'user', 'action'=>'buy_create')
-                    ));
+                        'url' => ['controller'=>'user', 'action'=>'buy_create']
+                    ]);
 
                     echo $this->Form->input('name', array(
                         'placeholder' => __('Enter Your Name')
@@ -51,18 +57,13 @@
                         'placeholder' => __('Password Verify')
                     ));
 
-                    echo $this->Form->hidden('package', array('value' => $package));
+                    echo $this->Form->hidden('package', ['id' => 'package']);
                 ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel'); ?></button>
-                <?php
-                    echo $this->Form->end(array(
-                        'label' => __('Submit'),
-                        'class' => 'btn btn-danger btn-ok',
-                        'div' => false
-                    ));
-                ?>
+                <input class="btn btn-danger btn-ok" type="submit" id="create-user" value="Submit">
+                <?= $this->Form->end(); ?>
             </div>
         </div>
     </div>

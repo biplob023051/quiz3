@@ -1,31 +1,29 @@
 (function ($) {
-
-    var appData = $.parseJSON($("#app-data").text());
-
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).on('click', 'button#buy-button-29', function () {
-        $('#UserPackage').val('29');
+        $('#package').val('29');
         $('.modal-header').html(lang_strings['package_29']);
         $('#buy-modal').modal('show');
     });
 
     $(document).on('click', 'button#buy-button-49', function () {
-        $('#UserPackage').val('49');
+        $('#package').val('49');
         $('.modal-header').html(lang_strings['package_49']);
         $('#buy-modal').modal('show');
     });
 
-    $("#UserDisplayForm").submit(function(event) {
+    //$("#UserCreateForm").submit(function(event) {
+    $(document).on('click', "#create-user", function(event){
         event.preventDefault();
         // not empty name
-        if ($('#UserName').val() == '') {
+        if ($('#name').val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_name']);
             return;
         }
         // check characters validation
-        var verify = validateName($('#UserName').val());
+        var verify = validateName($('#name').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['invalid_characters']);
@@ -33,13 +31,13 @@
         }
 
         // not empty email
-        if ($('#UserEmail').val() == '') {
+        if ($('#email').val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_email']);
             return;
         }
         // validate email address
-        verify = validateEmail($('#UserEmail').val());
+        verify = validateEmail($('#email').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['invalid_email']);
@@ -47,32 +45,32 @@
         }
         
         // password verify
-        if ($("#UserPassword").val() == '') {
+        if ($("#password").val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_password']);
             return;
         }
 
-        if ($("#UserPassword").val().length < 8) {
+        if ($("#password").val().length < 8) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['character_count']);
             return;
         }
 
-        if ($("#UserPasswordVerify").val() == '') {
+        if ($("#passwordverify").val() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['varify_password']);
             return;
         }
 
-        if ($("#UserPassword").val() != $("#UserPasswordVerify").val()) {
+        if ($("#password").val() != $("#passwordverify").val()) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['varify_password']);
             return;
         }
 
         // check If email registered
-        verify = validateEmailExistance($('#UserEmail').val());
+        verify = validateEmailExistance($('#email').val());
         if (verify == false) {
             $("#error-message").show();
             $("#error-message").html(lang_strings['unique_email']);
@@ -82,7 +80,7 @@
         $("#email-exist").hide();
 
         $("#error-message").hide();
-        $('#UserDisplayForm').unbind('submit').submit();
+        //$('#UserCreateForm').unbind('submit').submit();
     });
 
     function validateEmail(email) {
@@ -99,7 +97,7 @@
         var result;
         $.ajax({
             dataType: 'json',
-            url: appData.baseUrl + 'user/ajax_user_checking',
+            url: projectBaseUrl + 'users/ajax_user_checking',
             type: 'post',
             async: false,
             data: {'email': email},

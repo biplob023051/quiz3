@@ -13,7 +13,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use Cake\Routing\Router;
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->meta('favicon.ico', '/img/favicon.ico', array('type' => 'icon')); ?>
     <?= $this->fetch('meta'); ?>
 
-    <title><?= $this->fetch('title'); ?></title>
+    <title><?= (isset($title_for_layout)) ? $title_for_layout : $this->fetch('title'); ?></title>
 
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
@@ -35,6 +34,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             'bootstrap.min',
             'style',
         ));
+    ?>
+    <?php
+    echo $this->Html->scriptBlock('
+        var projectBaseUrl = "'.Router::url('/', true).'";
+        ', array('inline' => false)
+    );
     ?>
     <?= $this->Html->script(array(
         /* production */
@@ -85,10 +90,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     endif;
     ?>
     <?php
-    echo $this->Html->scriptBlock('
-        var projectBaseUrl = "'.Router::url('/', true).'";
-        ', array('inline' => false)
-    );
     if ($authUser): // Add these script if logged in user
         echo $this->Html->script(array(
             'jquery.countdownTimer.min',

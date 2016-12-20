@@ -99,7 +99,7 @@ class AppController extends Controller
 
         // Allow the display action so our pages controller
         // continues to work.
-        $this->Auth->allow(['display', 'index', 'logout', 'create']);
+        $this->Auth->allow(['display', 'index', 'logout']);
 
         /*
          * Enable the following components for recommended CakePHP security settings.

@@ -3,7 +3,6 @@
 <?php
 $session = $this->request->session();
 $this->assign('title', __('Create Account'));
-$form_data = $session->read('UserCreateFormData');
 ?>
 <?= $this->Flash->render() ?>
 <div class="row">
@@ -12,50 +11,54 @@ $form_data = $session->read('UserCreateFormData');
         <div id="email-exist" style="display : none;">
             <div class="col-sm-4 col-xs-12"><?php echo __('Already Registered?'); ?></div>
             <div class="col-md-4 col-xs-12">
-                <?php echo $this->Html->link(__('Login'), '/user/login'); ?>
+                <?php echo $this->Html->link(__('Login'), '/users/login'); ?>
             </div>
             <div class="col-md-4 col-xs-12">
-                <?php echo $this->Html->link(__('Password Recover'), '/user/password_recover'); ?>
+                <?php echo $this->Html->link(__('Password Recover'), '/users/password_recover'); ?>
             </div>
         </div>
         <?php
-        echo $this->Form->create($user, array(
-            'class' => 'form-horizontal',
-            // 'inputDefaults' => array(
-            //     'class' => 'form-control',
-            //     'div' => array('class' => 'form-group'),
-            //     'label' => array('class' => 'col-sm-4 control-label'),
-            //     'between' => '<div class="col-md-7 col-xs-12">',
-            //     'after' => '</div>'
-            // ),
+        echo $this->Form->create($user, [
+            'horizontal' => true,
+            'id' => 'UserCreateForm',
+            'columns' => [ 
+                'sm' => [
+                    'label' => 4,
+                    'input' => 8,
+                    'error' => 8
+                ],
+                'md' => [
+                    'label' => 4,
+                    'input' => 8,
+                    'error' => 8
+                ]
+            ],
             'novalidate' => 'novalidate'
-        ));
+        ]);
 
-        echo $this->Form->input('name', array(
-            'default' => $form_data['name'],
-            'placeholder' => __('Enter Your Name')
-        ));
+        echo $this->Form->input('name', [
+            'placeholder' => __('Enter Your Name'),
+        ]);
 
-        echo $this->Form->input('email', array(
-            'default' => $form_data['email'],
+        echo $this->Form->input('email', [
             'placeholder' => __('Enter Valid Email'),
             'data-toggle' => 'tooltip',
             'data-placement' => 'bottom',
             'data-original-title' => __('We\'ll send a confirmation email there')
-        ));
+        ]);
 
-        echo $this->Form->input('password', array(
+        echo $this->Form->input('password', [
             'type' => 'password',
             'placeholder' => __('Enter Password'),
             'data-toggle' => 'tooltip',
             'data-placement' => 'bottom',
             'data-original-title' => __('Password must be 8 characters long')
-        ));
+        ]);
 
-        echo $this->Form->input('passwordVerify', array(
+        echo $this->Form->input('passwordVerify', [
             'type' => 'password',
             'placeholder' => __('Password Verify')
-        ));
+        ]);
         ?>
 
         <div class="form-group required">
@@ -71,7 +74,7 @@ $form_data = $session->read('UserCreateFormData');
         </div>
        
         <?php
-        echo $this->Form->submit();
+        echo $this->Form->submit(__("Create Account & Log In"), ['class' => 'btn btn-success btn-block btn-lg', 'id' => 'create_acc']);
         ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

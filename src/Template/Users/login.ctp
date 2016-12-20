@@ -2,8 +2,6 @@
 $this->assign('title', __('Login'));
 ?>
 
-<?php //echo $this->Session->flash('notification'); ?>
-<?php //echo $this->Session->flash('error'); ?>
 <?= $this->Flash->render() ?>
 
 
@@ -34,27 +32,18 @@ $this->assign('title', __('Login'));
                 <button type="submit" class="btn btn-success btn-lg btn-block"><?php echo __('Login') ?></button>
             </div>
         </div>
-        <!--<div class="col-md-3 col-xs-12">
-            <div class="form-group">
-        <?php
-        echo $this->Html->link(__('Register'), '/user/create', array(
-            'class' => 'btn btn-primary btn-lg btn-block'
-        ));
-        ?>
-            </div>
-        </div>-->
     </div>
 
-    <?php echo $this->Form->end(); ?>
+    <?= $this->Form->end(); ?>
 </div>
 
 <p class="text-center text-muted">
     <?php echo __('If you don’t have account?'); ?> 
-    <?php echo $this->Html->link(__('Register Now!'), '/user/create'); ?>
+    <?php echo $this->Html->link(__('Register Now!'), '/users/create'); ?>
 </p>
 <p class="text-center text-muted">
     <?php echo __('If you forgot password?'); ?> 
-    <?php echo $this->Html->link(__('Password Recover'), '/user/password_recover'); ?>
+    <?php echo $this->Html->link(__('Password Recover'), '/users/password_recover'); ?>
 </p>
 
 

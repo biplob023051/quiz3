@@ -1,55 +1,54 @@
 (function($) {
-
-	var appData = $.parseJSON($("#app-data").text());
    	$('[data-toggle="tooltip"]').tooltip();
-   	$("#UserPasswordRecoverForm").submit(function(event) {
+   
+   	$(document).on('click', '#send_request', function(event){
 		event.preventDefault();
-		if ($("#UserEmail").val() == '') {
+		if ($("#email").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['empty_email']);
-			return;
+			return false;
 		}
 
-		var verify = validateEmail($('#UserEmail').val());
+		var verify = validateEmail($('#email').val());
 		if (verify == false) {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['invalid_email']);
-			return;
+			return false;
 		}
 
-		verify = validateEmailExistance($('#UserEmail').val());
+		verify = validateEmailExistance($('#email').val());
 		
 		if (verify == false) {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['not_found_email']);
-			return;
+			return false;
+		} else {
+			$('#UserPasswordRecoverForm').unbind('submit').submit();
 		}
-
-		$('#UserPasswordRecoverForm').unbind('submit').submit();
 
 	});
 
 	$("#UserResetPasswordForm").submit(function(event) {
 		event.preventDefault();
-		if ($("#UserPassword").val() == '') {
+		if ($("#password").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['empty_password']);
 			return;
 		}
 
-		if ($("#UserPassword").val().length < 8) {
+		if ($("#password").val().length < 8) {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['character_count']);
 			return;
 		}
 
-		if ($("#UserPasswordVerify").val() == '') {
+		if ($("#passwordverify").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['varify_password']);
 			return;
 		}
 
-		if ($("#UserPassword").val() != $("#UserPasswordVerify").val()) {
+		if ($("#password").val() != $("#passwordverify").val()) {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings['varify_password']);
 			return;
@@ -66,9 +65,9 @@
 
 	function validateEmailExistance(email) {
 		var result;
-	    $.ajax({
+		$.ajax({
             dataType: 'json',
-            url: appData.baseUrl + 'user/ajax_email_checking',
+            url: projectBaseUrl + 'users/ajax_email_checking',
             type: 'post',
             async: false,
             data: {'email': email},

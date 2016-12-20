@@ -22,7 +22,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo $this->request->base; ?>/users/create"><?php echo __('If you don’t have account?') . ' '; ?><span class="text-primary"><?php echo __('Register Now!'); ?></span></a></li>
-                    <li><a href="<?php echo $this->request->base; ?>/user/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('Login'); ?></button></a></li>
+                    <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('Login'); ?></button></a></li>
                 </ul>
             </div>
         <?php else : ?>

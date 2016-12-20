@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -11,6 +12,13 @@ use Cake\Core\Configure;
  */
 class UsersController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Email');
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking']);
+    }
 
     /**
      * Index method
@@ -130,23 +138,6 @@ class UsersController extends AppController
         }
     }
 
-    public function add22()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
     public function create() {
         // load MathCaptchaComponent on fly
         $site_language = Configure::read('Config.language');
@@ -166,43 +157,31 @@ class UsersController extends AppController
                 $this->request->data['account_level'] = 22;
                 $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
                 $this->request->data['activation'] = $this->randText(16);
-
                 $user = $this->Users->patchEntity($user, $this->request->data);
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('The user has been saved.'));
+                $user = $this->Users->save($user);
+                // pr($user);
+                // exit;
+                if (!empty($user->id)) {
+                    // Send email to user for email confirmation
+                    $user_email = $this->Email->sendMail($user->email, __('[Verkkotesti Signup] Please confirm your email address!'), $user, 'user_email');
+                    //pr($user_email);
+                    // Send email to admin
+                    //Configure::read('AdminEmail')
+                    $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] New User!'), $user, 'user_create');
+                    // pr($admin_email);
+                    // exit;
+                    $this->request->session()->write('registration', true);
+                    $this->redirect(array('action' => 'success'));
 
-                    return $this->redirect(['action' => 'index']);
                 } else {
                     $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 }
-                pr($user);
-                exit;
 
-                $this->User->set($this->request->data);
-                if ($this->User->validates()) {
-                    $user = $this->User->save();
-                    $this->Session->delete('UserCreateFormData');
-                    // Send email to user for email confirmation
-                    $user_email = $this->Email->sendMail($user['User']['email'], __('[Verkkotesti Signup] Please confirm your email address!'), $user, 'user_email');
-                    // Send email to admin
-                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
-                    $this->Session->write('registration', true);
-                    $this->redirect(array('action' => 'success'));
-                } else {
-                    $error = array();
-                    foreach ($this->User->validationErrors as $_error) {
-                        $error[] = $_error[0];
-                    }
-                    $this->Session->setFlash($error, 'error_form', array(), 'error');
-                }
             } else {
                 $this->Flash->error(__('The result of the calculation was incorrect. Please try again.'));
             }
-            $this->request->session()->write('UserCreateFormData', $this->request->data);
-            return $this->redirect(array('action' => 'create'));
-        } else {
-            $this->set('captcha', $this->MathCaptcha->getCaptcha());
         }
+        $this->set('captcha', $this->MathCaptcha->getCaptcha());
         // language strings
         $lang_strings['empty_name'] = __('Require Name');
         $lang_strings['invalid_characters'] = __('Name contains invalid character');
@@ -214,17 +193,6 @@ class UsersController extends AppController
         $lang_strings['character_count'] = __('Password must be 8 characters long');
         $lang_strings['empty_captcha'] = __('Require Captcha');
         $this->set(compact('lang_strings'));
-
-        // load video
-        // $this->loadModel('Help');
-        // $create_video = $this->Help->find('first', array(
-        //     'conditions' => array(
-        //         'Help.type' => 'create',
-        //         'Help.status' => 1
-        //     ),
-        //     'order' => array('Help.id desc')
-        // ));
-        // $this->set(compact('create_video'));
 
         $this->loadModel('Helps');
         $query_video = $this->Helps->find('all')
@@ -243,10 +211,10 @@ class UsersController extends AppController
 
     public function success() {
         $this->set('title_for_layout', __('Registration Success'));
-        if ($this->Session->check('registration')) {
-            $this->Session->setFlash(__('Thanks for your registration!'), 'success_form', array(), 'success');
+        if ($this->request->session()->check('registration')) {
+            $this->Flash->success(__('Thanks for your registration!'));
         } else {
-            $this->Session->setFlash(__('No direct access to this page!'), 'error_form', array(), 'error');
+            $this->Flash->error(__('No direct access to this page!'));
             $this->redirect(array('action' => 'login'));
         }
     }
@@ -286,31 +254,19 @@ class UsersController extends AppController
         }
     }
 
-    // public function login() 
-    // {
-    //     if ($this->Auth->user()) { // Redirect user if logged in already
-    //         $this->redirect($this->Auth->redirectUrl());
-    //     }
-    //     if ($this->request->is('post')) {
-    //         if ($this->Auth->login()) {
-    //             // save statistics data
-    //             $this->loadModel('Statistic');
-    //             $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
-    //             $arrayToSave['Statistic']['type'] = 'user_login';
-    //             $this->Statistic->save($arrayToSave);
-    //             return $this->redirect($this->Auth->redirectUrl());
-    //         }
-
-    //         $this->Session->setFlash($this->Auth->authError, 'error_form', array(), 'error');
-    //     }
-    // }
-
     public function login()
     {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+                //save statistics data
+                $statisticsTable = TableRegistry::get('Statistics');
+                $statistic = $statisticsTable->newEntity();
+                $statistic->user_id = $this->Auth->user('id');
+                $statistic->type = 'user_login';
+                $statistic->created = date("Y-m-d H:i:s");
+                $statisticsTable->save($statistic);
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error('Your username or password is incorrect.');
@@ -391,15 +347,18 @@ class UsersController extends AppController
     /*
     * Request for password recover
     */
-    public function password_recover() {
+    public function passwordRecover() {
         $this->set('title_for_layout', __('Password Recover'));
         if ($this->request->is('post')) {
-            $this->User->unbindModelAll();
-            $user = $this->User->findByEmail($this->request->data['email']);
-            $dataToSave['User']['reset_code'] = $this->User->randText(16);
-            $dataToSave['User']['resettime'] = $this->User->getCurrentDateTime();
-            $dataToSave['User']['id'] = $user['User']['id'];
-            if ($this->User->save($dataToSave)) {
+            $usersTable = TableRegistry::get('Users');
+            $user = $this->Users->findByEmail($this->request->data['email'])->first();
+            // pr($user);
+            // exit;
+            $user->reset_code = $usersTable->randText(16);
+            $user->resettime = $usersTable->getCurrentDateTime();
+            pr($user);
+            exit;
+            if ($this->Users->save($dataToSave)) {
                 $Email = new CakeEmail();
                 $vairables['loginUrl'] = Router::url('/',true);
                 $vairables['reset_code'] = $dataToSave['User']['reset_code']; 
@@ -429,10 +388,9 @@ class UsersController extends AppController
     /* 
     * Email existance checking for password reset
     */
-    public function ajax_email_checking() {
+    public function ajaxEmailChecking() {
         $this->autoRender = false;
-        $this->User->unbindModelAll();
-        $user = $this->User->findByEmail($this->request->data['email']);
+        $user = $this->Users->findByEmail($this->request->data['email'])->first();
         if (empty($user)) {
             $response['success'] = false;
         } else {
@@ -446,7 +404,6 @@ class UsersController extends AppController
         if (empty($reset_code)) {
             return $this->redirect('/');
         }
-        $this->User->unbindModelAll();
         $user = $this->User->findByResetCode($reset_code);
         if (empty($user)) {
             throw new NotFoundException(__('Password Reset Link Expired.'));
@@ -535,10 +492,9 @@ class UsersController extends AppController
      /* 
     * Email existance checking for new registration
     */
-    public function ajax_user_checking() {
+    public function ajaxUserChecking() {
         $this->autoRender = false;
-        $this->User->unbindModelAll();
-        $user = $this->User->findByEmail($this->request->data['email']);
+        $user = $this->Users->findByEmail($this->request->data['email'])->first();
         if (empty($user)) {
             $response['success'] = true;
         } else {
