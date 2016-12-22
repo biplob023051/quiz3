@@ -28,7 +28,8 @@
 
 	});
 
-	$("#UserResetPasswordForm").submit(function(event) {
+	//$("#UserResetPasswordForm").submit(function(event) {
+	$(document).on('click', '#do-reset', function() {
 		event.preventDefault();
 		if ($("#password").val() == '') {
 			$("#error-message").show();

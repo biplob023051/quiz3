@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Users Controller
@@ -17,7 +18,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit']);
     }
 
     /**
@@ -356,25 +357,19 @@ class UsersController extends AppController
             // exit;
             $user->reset_code = $usersTable->randText(16);
             $user->resettime = $usersTable->getCurrentDateTime();
-            pr($user);
-            exit;
-            if ($this->Users->save($dataToSave)) {
-                $Email = new CakeEmail();
-                $vairables['loginUrl'] = Router::url('/',true);
-                $vairables['reset_code'] = $dataToSave['User']['reset_code']; 
-                $Email->viewVars($vairables);
-                $Email->from(array('admin@webquiz.fi' => 'WebQuiz.fi'));
-                $Email->template('reset_password');
-                $Email->emailFormat('html');
-                $Email->to($this->request->data['email']);
-                $Email->subject(__('Reset password for your account on Verkkotesti'));
-                if ($Email->send()) {
-                    $this->Session->setFlash(__('Your request has been received, please check you email.'), 'notification_form', array(), 'notification');    
+            // pr($user);
+            // exit;
+            if ($this->Users->save($user)) {
+                $email_success = $this->Email->sendMail($user->email, __('Reset password for your account on Verkkotesti'), $user, 'reset_password');
+                pr($email_success);
+                exit;
+                if ($email_success) {
+                    $this->Flash->success(__('Your request has been received, please check you email.'));
                 } else {
-                    $this->Session->setFlash(__('Something went wrong, please try again later'), 'error_form', array(), 'error');
+                    $this->Flash->error(__('Something went wrong, please try again later'));
                 }
             } else {
-                $this->Session->setFlash(__('Something went wrong, please try again later'), 'error_form', array(), 'error');
+                $this->Flash->error(__('Something went wrong, please try again later'));
             }
             return $this->redirect(array('action' => 'password_recover'));
         } 
@@ -399,40 +394,42 @@ class UsersController extends AppController
         echo json_encode($response);
     }
 
-    public function reset_password($reset_code) {
+    public function resetPassword($reset_code) {
         $this->set('title_for_layout', __('Reset Password'));
         if (empty($reset_code)) {
             return $this->redirect('/');
         }
-        $user = $this->User->findByResetCode($reset_code);
+        $user = $this->Users->findByResetCode($reset_code)->first();
+        // pr($user);
+        // exit;
         if (empty($user)) {
             throw new NotFoundException(__('Password Reset Link Expired.'));
         }
+
         if ($this->request->is(array('post', 'put'))){
+            if ($user->id != $this->request->data['id']) {
+                $this->Flash->error(__('Something went wrong, please try again later'));
+                return $this->redirect('/');
+            }
             $this->request->data['reset_code'] = NULL;
             $this->request->data['resettime'] = NULL;
-            if ($this->User->validates($this->request->data)) {
-                if ($this->User->save($this->request->data)) {
-                    $this->Session->setFlash(__('Your password has been successfully changed.'), 'notification_form', array(), 'notification');    
-                    return $this->redirect(array('controller'=>'user', 'action'=>'login'));
-                } else {
-                    $this->Session->setFlash(__('Something went wrong, please try again later'), 'error_form', array(), 'error');
-                }
+            // pr($this->request->data);
+            // exit;
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            // pr($user);
+            // exit;
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Your password has been successfully changed.'));    
+                return $this->redirect(array('controller'=>'users', 'action'=>'login'));
             } else {
-                $error = array();
-                foreach ($this->User->validationErrors as $_error) {
-                    $error[] = $_error[0];
-                }
-                $this->Session->setFlash($error, 'error_form', array(), 'error');
+                $this->Flash->error(__('Something went wrong, please try again later'));
             }
-        } else {
-            unset($user['User']['password']);
-            $this->request->data = $user;
-            $lang_strings['empty_password'] = __('Require New Password');
-            $lang_strings['varify_password'] = __('Password did not match, please try again');
-            $lang_strings['character_count'] = __('Password must be 8 characters long');
-            $this->set(compact('lang_strings'));
-        }
+        } 
+        unset($user->password);
+        $lang_strings['empty_password'] = __('Require New Password');
+        $lang_strings['varify_password'] = __('Password did not match, please try again');
+        $lang_strings['character_count'] = __('Password must be 8 characters long');
+        $this->set(compact('lang_strings', 'user'));
     }
 
     public function buy_create() {

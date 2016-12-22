@@ -26,15 +26,7 @@
                 'placeholder' => __('Enter your email')
             ));
 
-            // echo $this->Form->end(array(
-            //     'label' => __("Send Request"),
-            //     'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'),
-            //     'before' => '<div class="form-group">',
-            //     'after' => '</div>',
-            //     'class' => 'btn btn-success btn-block btn-lg'
-            // ));
-
-            echo $this->Form->submit(__("Send Request"), ['id' => 'send_request']);
+            echo $this->Form->submit(__("Send Request"), ['id' => 'send_request', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
 
             echo $this->Form->end();
         ?>

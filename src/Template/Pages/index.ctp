@@ -4,7 +4,7 @@
         <h2 class="text-center"><?php echo __('Web test enables a teacher'); ?></h2>
         <h3 class="text-center"><?php echo __('to give a quiz to students quickly and easily'); ?><br /><?php echo __('with their '); ?><span class="text-black"><?php echo __('mobile phones'); ?></span></h3>
         <hr class="invisible" />
-        <p class="text-center"><a href="<?php echo $this->request->base; ?>/user/create" class="btn btn-success btn-lg"><?php echo __('Create Account'); ?></a></p>
+        <p class="text-center"><a href="<?php echo $this->request->base; ?>/users/create" class="btn btn-success btn-lg"><?php echo __('Create Account'); ?></a></p>
     </div>
 </div>
 

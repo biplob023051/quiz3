@@ -42,7 +42,7 @@ echo $this->Flash->render();
             //     'class' => 'btn btn-success btn-block btn-lg'
             // ));
 
-            echo $this->Form->submit(__("Reset"), ['before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg'])
+            echo $this->Form->submit(__("Reset"), ['id' => 'do-reset', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
 
             echo $this->Form->end();
         ?>

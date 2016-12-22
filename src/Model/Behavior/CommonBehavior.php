@@ -2,7 +2,7 @@
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
-use Cake\Utility\CakeTime;
+use Carbon\Carbon;
 
 class CommonBehavior extends Behavior
 {
@@ -77,7 +77,7 @@ class CommonBehavior extends Behavior
 
     //get current date time
 	public function getCurrentDateTime(){
-		return CakeTime::format('Y-m-d H:i:s',CakeTime::convert(time(),CakeTime::timezone()));
+		return Carbon::now('Europe/Helsinki');
 	}
 
 	/*
