@@ -33,7 +33,7 @@
                             ]
                         ],
                         'novalidate' => 'novalidate',
-                        'url' => ['controller'=>'user', 'action'=>'buy_create']
+                        'url' => ['controller'=>'users', 'action'=>'buy_create']
                     ]);
 
                     echo $this->Form->input('name', array(

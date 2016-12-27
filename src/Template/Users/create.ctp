@@ -2,6 +2,8 @@
 
 <?php
 $session = $this->request->session();
+// pr($session);
+// exit;
 $this->assign('title', __('Create Account'));
 ?>
 <?= $this->Flash->render() ?>

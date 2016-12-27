@@ -7,18 +7,18 @@
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <h3><?php echo __('Get in Touch'); ?></h3>
-        <form class="form-horizontal" style="margin-top:30px;"  method="post" action="<?php echo $this->request->base; ?>/user/contact" id="contactForm" novalidate="novalidate" accept-charset="utf-8">
+        <form class="form-horizontal" style="margin-top:30px;"  method="post" action="<?php echo $this->request->base; ?>/users/contact" id="contactForm" novalidate="novalidate" accept-charset="utf-8">
             <div class="alert alert-danger" id="error-message" style="display: none;"></div>
             <div class="form-group">
                 <label for="" class="col-sm-4 control-label"><?php echo __('Your Email'); ?></label>
                 <div class="col-sm-7">
-                    <input type="email" name='data[email]' class="form-control" id="email" placeholder="">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="">
                 </div>
             </div>
             <div class="form-group">
                 <label for="" class="col-sm-4 control-label"><?php echo __('Message'); ?></label>
                 <div class="col-sm-7">
-                    <textarea name='data[message]' id="message" rows="5" class="form-control"></textarea>
+                    <textarea name="message" id="message" rows="5" class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group">

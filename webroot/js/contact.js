@@ -1,5 +1,5 @@
 (function ($) {
-	$("#contactForm").submit(function(event) {
+	$(document).on('click', "#submitForm", function(){
 		event.preventDefault();
 		if ($('#email').val() == '') {
 			$("#error-message").show();

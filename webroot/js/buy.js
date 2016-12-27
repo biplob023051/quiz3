@@ -80,7 +80,7 @@
         $("#email-exist").hide();
 
         $("#error-message").hide();
-        //$('#UserCreateForm').unbind('submit').submit();
+        $('#UserCreateForm').unbind('submit').submit();
     });
 
     function validateEmail(email) {

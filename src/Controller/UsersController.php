@@ -18,7 +18,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation']);
     }
 
     /**
@@ -140,6 +140,9 @@ class UsersController extends AppController
     }
 
     public function create() {
+        if ($this->Auth->user()) {
+            return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+        }
         // load MathCaptchaComponent on fly
         $site_language = Configure::read('Config.language');
         if ($site_language == 'fin') {
@@ -222,37 +225,42 @@ class UsersController extends AppController
 
     public function confirmation($code = null) {
         if (empty($code)) {
-            $this->Session->setFlash(__('No direct access to this page!'), 'error_form', array(), 'error');
+            $this->Flash->error(__('No direct access to this page!'));
             $this->redirect(array('action' => 'create'));
         }
         $response = explode('y-s', $code);
-        $user = $this->User->find('first', array(
-            'conditions' => array(
-                'User.id' => $response[0],
-                'User.activation' => $response[1]
-            ),
-            'recursive' => -1
-        ));
+        if (count($response) == 2) {
+            $user_query = $this->Users->find('all')
+                ->where(['Users.id' => $response[0], 'Users.activation' => $response[1]])
+                ->contain([]);
+            $user = $user_query->first();
+        } else {
+            $user = array();
+        }
+
         if (empty($user)) {
-            $this->Session->setFlash(__('This is embrassing, we didn\'t find you!'), 'error_form', array(), 'error');
+            $this->Flash->error(__('This is embrassing, we didn\'t find you!'));
             $this->redirect(array('action' => 'create'));
         }
-        $this->User->id = $user['User']['id'];
-        $this->User->saveField('activation', NULL);
-        
-        $user = $user['User'];
-        if ($this->Auth->login($user)) {
-            // save statistics data
-            $this->loadModel('Statistic');
-            $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
-            $arrayToSave['Statistic']['type'] = 'user_login';
-            $this->Statistic->save($arrayToSave);
 
-            $this->Session->setFlash(__('Registration success'), 'notification_form', array(), 'notification');
+        $user->activation = NULL;
+        // pr($user);
+        // exit;
+        if ($this->Users->save($user)) {
+            $this->Auth->setUser($user);
+            //save statistics data
+            $statisticsTable = TableRegistry::get('Statistics');
+            $statistic = $statisticsTable->newEntity();
+            $statistic->user_id = $this->Auth->user('id');
+            $statistic->type = 'user_login';
+            $statistic->created = date("Y-m-d H:i:s");
+            $statisticsTable->save($statistic);
             return $this->redirect($this->Auth->redirectUrl());
         } else {
-            $this->Session->setFlash($this->Auth->authError, 'error_form', array(), 'error');    
+            $this->Flash->error(__('This is embrassing, we couldn\'t save you! Please try again.'));
+            $this->redirect(array('action' => 'create'));
         }
+        
     }
 
     public function login()
@@ -329,20 +337,21 @@ class UsersController extends AppController
     }
 
     public function contact() {
-        $Email = new CakeEmail();
-        $Email->viewVars($this->request->data);
-        $Email->from(array('admin@webquiz.fi' => 'WebQuiz.fi'));
-        $Email->template('inquary');
-        $Email->emailFormat('html');
-        $Email->to(Configure::read('AdminEmail'));
-        $Email->subject(__('General Inquary'));
-        if ($Email->send()) {
-            $this->Session->setFlash(__('Your email sent successfully'), 'notification_form', array(), 'notification');    
-        } else {
-            $this->Session->setFlash(__('Something went wrong, please try again later'), 'error_form', array(), 'error');
-        }
-        return $this->redirect($this->referer());
-        
+        if ($this->request->is('post')) {
+            if (!empty($this->request->data['email']) && !empty($this->request->data['message'])) {
+                $email_success = $this->Email->sendMail('test@test.com', __('General Inquary'), $this->request->data, 'inquary');
+            } else {
+                $email_success = array();
+            }
+            // pr($email_success);
+            // exit;
+            if ($email_success) {
+                $this->Flash->success(__('Your email sent successfully'));    
+            } else {
+                $this->Flash->error(__('Something went wrong, please try again later'));
+            }
+            return $this->redirect($this->referer());
+        }   
     }
 
     /*
@@ -361,8 +370,8 @@ class UsersController extends AppController
             // exit;
             if ($this->Users->save($user)) {
                 $email_success = $this->Email->sendMail($user->email, __('Reset password for your account on Verkkotesti'), $user, 'reset_password');
-                pr($email_success);
-                exit;
+                // pr($email_success);
+                // exit;
                 if ($email_success) {
                     $this->Flash->success(__('Your request has been received, please check you email.'));
                 } else {
@@ -432,57 +441,47 @@ class UsersController extends AppController
         $this->set(compact('lang_strings', 'user'));
     }
 
-    public function buy_create() {
-        $this->request->data['activation'] = $this->randText(16);
+    public function buyCreate() {
+        if ($this->request->is(array('post', 'put'))) {
+            $this->request->data['activation'] = $this->randText(16);
+            //ate("Y-m-d H:i:s")
+            $date = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
 
-        $date = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
-
-        if ($this->request->data['package'] == 29) {
-            $package =  __('29 E/Y');
-            $this->request->data['account_level'] = 1;
-        } else {
-            $package = __('49 E/Y');
-            $this->request->data['account_level'] = 2;
-        }
-
-        unset($this->request->data['package']);
-        $this->request->data['expired'] = $date;
-
-        // pr($this->request->data);
-        // exit;
-
-        $this->User->set($this->request->data);
-        if ($this->User->validates()) {
-            $user = $this->User->save();
-            
-            // Send email to user for email confirmation
-            $user_email = $this->Email->sendMail($user['User']['email'], __('[Verkkotesti Signup] Please confirm your email address!'), $user, 'user_email');
-            // Send email to admin
-            $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
-            
-            // Send email for upgrade notice to the admin 
-            $Email = new CakeEmail();
-            $Email->viewVars(array('User' => $user['User'], 'package' => $package));
-            $Email->from(array('admin@webquiz.fi' => 'WebQuiz.fi'));
-            $Email->template('invoice');
-            $Email->emailFormat('html');
-            $Email->to(Configure::read('AdminEmail'));
-            $Email->subject(__('Upgrade Account'));
-            $Email->send();
-
-            $this->Session->write('registration', true);
-            $this->redirect(array('action' => 'success'));
-
-                // $this->Session->setFlash(__('Registration success and we will contact you soon to upgrade your account'), 'notification_form', array(), 'notification');
-                // return $this->redirect($this->Auth->redirectUrl());
-            
-        } else {
-            $error = array();
-            foreach ($this->User->validationErrors as $_error) {
-                $error[] = $_error[0];
+            if ($this->request->data['package'] == 29) {
+                $package =  __('29 E/Y');
+                $this->request->data['account_level'] = 1;
+            } else {
+                $package = __('49 E/Y');
+                $this->request->data['account_level'] = 2;
             }
-            $this->Session->setFlash($error, 'error_form', array(), 'error');
-            return $this->redirect('/');
+            unset($this->request->data['package']);
+            $this->request->data['expired'] = $date;
+            $user = $this->Users->newEntity();
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            // pr($user);
+            // exit;
+            $user = $this->Users->save($user);
+            // pr($user);
+            // exit;
+            if (!empty($user->id)) {
+                // Send email to user for email confirmation
+                $user_email = $this->Email->sendMail($user->email, __('[Verkkotesti Signup] Please confirm your email address!'), $user, 'user_email');
+                // Send email to admin
+                $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] New User!'), $user, 'user_create');
+                
+                $user->package = $package;
+                // Send email for upgrade notice to the admin 
+                $upgrade_email = $this->Email->sendMail('test@test.com', __('Upgrade Account'), $user, 'invoice');
+                // pr($user_email);
+                // pr($admin_email);
+                // pr($upgrade_email);
+                // exit;
+                $this->Flash->write('registration', true);
+                return $this->redirect(array('action' => 'success'));
+            } else {
+                $this->Flash->error(__('Something went wrong, please try again later!'));
+                return $this->redirect($this->referer());
+            }
         }
     }
 
