@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -265,6 +266,9 @@ class UsersController extends AppController
 
     public function login()
     {
+        if ($this->Auth->user()) {
+            return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+        }
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -338,17 +342,26 @@ class UsersController extends AppController
 
     public function contact() {
         if ($this->request->is('post')) {
-            if (!empty($this->request->data['email']) && !empty($this->request->data['message'])) {
-                $email_success = $this->Email->sendMail('test@test.com', __('General Inquary'), $this->request->data, 'inquary');
-            } else {
-                $email_success = array();
-            }
-            // pr($email_success);
+            require_once(ROOT . '/vendor' . DS . '/recaptcha/src/autoload.php');
+            $secret = RECAPTCHA_SERVER_KEY;
+            $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+            // pr($recaptcha);
             // exit;
-            if ($email_success) {
-                $this->Flash->success(__('Your email sent successfully'));    
+            $resp = $recaptcha->verify($this->request->data['g-recaptcha-response'], Router::url('/', true));
+            // pr($resp);
+            // exit;
+            if ($resp->isSuccess()) {
+                if (!empty($this->request->data['email']) && !empty($this->request->data['message'])) {
+                    $email_success = $this->Email->sendMail('test@test.com', __('General Inquary'), $this->request->data, 'inquary');
+                    $this->Flash->success(__('Your email sent successfully')); 
+                } else {
+                    $this->Flash->error(__('Something went wrong, please try again later'));
+                }
             } else {
-                $this->Flash->error(__('Something went wrong, please try again later'));
+                foreach ($resp->getErrorCodes() as $code) {
+                    $message = '<tt>' . $code  . '</tt> ';
+                }
+                $this->Flash->error($message);
             }
             return $this->redirect($this->referer());
         }   

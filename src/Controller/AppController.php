@@ -53,6 +53,7 @@ class AppController extends Controller
      *
      * @return void
      */
+    public $Session;
     public function initialize()
     {
         parent::initialize();
@@ -107,6 +108,7 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+        $this->Session = $this->request->session();
     }
 
     public function beforeFilter(\Cake\Event\Event $event)
@@ -154,35 +156,30 @@ class AppController extends Controller
     // check account expiration
     public function accountStatus() 
     {
-        $this->loadModel('User');
-        $c_user = $this->User->find('first', array(
-            'conditions' => array(
-                'User.id' => $this->Auth->user('id'),
-            ),
-            'recursive' => -1
-        ));
+        $this->loadModel('Users');
+        $c_user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first()->toArray();
         $access = false;
-        if (!empty($c_user['User']['expired'])) {
-            $days_left = floor((strtotime($c_user['User']['expired'])-time())/(60*60*24));
+        if (!empty($c_user['expired'])) {
+            $days_left = floor((strtotime($c_user['expired'])-time())/(60*60*24));
         }
 
         // For admin role 51 always true
         // For paid users role 1 check expire date
         // For unpaid old user role 0, always true
         // For unpaid new user, check 30 days of expire 
-        if ($c_user['User']['account_level'] == 51) { // for admin
+        if ($c_user['account_level'] == 51) { // for admin
             $access = true;
-        } elseif(($c_user['User']['account_level'] == 1) && ($days_left >= 0)) { // for paid users
+        } elseif(($c_user['account_level'] == 1) && ($days_left >= 0)) { // for paid users
             $access = true;
-        } elseif($c_user['User']['account_level'] == 22) { // if new user unpaid 
-            $days_left_created = floor((strtotime($c_user['User']['created'])-time())/(60*60*24));
+        } elseif($c_user['account_level'] == 22) { // if new user unpaid 
+            $days_left_created = floor((strtotime($c_user['created'])-time())/(60*60*24));
             if ($days_left_created >= -30) {
                 $access = true;
             }
             
-        } elseif($c_user['User']['account_level'] == 2) { // if new user unpaid 
+        } elseif($c_user['account_level'] == 2) { // if new user unpaid 
             $access = true;
-        } elseif($c_user['User']['account_level'] == 0) { // for old user
+        } elseif($c_user['account_level'] == 0) { // for old user
             $access = true;
         }
 
@@ -203,7 +200,7 @@ class AppController extends Controller
             'recursive' => -1
         ));
 
-        if (!in_array($c_user['User']['account_level'], array(2, 22, 51))) {
+        if (!in_array($c_user['account_level'], array(2, 22, 51))) {
             if ($this->request->is('ajax')) {
                 echo $this->render('/Elements/no_permission_modal');
                 exit;
@@ -216,13 +213,10 @@ class AppController extends Controller
     // check user status
     public function userPermissions()
     {
-        $this->loadModel('User');
-        $c_user = $this->User->find('first', array(
-            'conditions' => array(
-                'User.id' => $this->Auth->user('id'),
-            ),
-            'recursive' => -1
-        ));
+        $this->loadModel('Users');
+        $c_user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first()->toArray();
+            // pr($c_user);
+            // exit;
         $access = false;
         $canCreateQuiz = false;
         $request_sent = false;
@@ -233,8 +227,8 @@ class AppController extends Controller
             'request_sent' => false,
             'days_left' => 0
         );
-        if (!empty($c_user['User']['expired'])) {
-            $days_left = floor((strtotime($c_user['User']['expired'])-time())/(60*60*24));
+        if (!empty($c_user['expired'])) {
+            $days_left = floor((strtotime($c_user['expired'])-time())/(60*60*24));
         } else {
             $days_left = 365; // always acccess for old unpaid users
         }
@@ -242,20 +236,20 @@ class AppController extends Controller
         // For paid users role 1 check expire date
         // For unpaid old user role 0, always true
         // For unpaid new user, check 30 days of expire 
-        if ($c_user['User']['account_level'] == 51) { // for admin
+        if ($c_user['account_level'] == 51) { // for admin
             $permissions['access'] = true;
             $permissions['canCreateQuiz'] = true;
             $permissions['upgraded'] = true;
             $permissions['quiz_bank_access'] = true;
-        } elseif(($c_user['User']['account_level'] == 1) && ($days_left >= 0)) { // for paid users
+        } elseif(($c_user['account_level'] == 1) && ($days_left >= 0)) { // for paid users
             $permissions['access'] = true;
             $permissions['canCreateQuiz'] = true;
             $permissions['upgraded'] = true;
-        } elseif($c_user['User']['account_level'] == 22) { // if new user unpaid 
+        } elseif($c_user['account_level'] == 22) { // if new user unpaid 
             if ($days_left > 30) { // if days left greater than 30 then upgrade request sent
                 $permissions['request_sent'] = true;
             }
-            $days_left_created = floor((strtotime($c_user['User']['created'])-time())/(60*60*24));
+            $days_left_created = floor((strtotime($c_user['created'])-time())/(60*60*24));
 
             if ($days_left_created >= -30) {
                 $permissions['access'] = true;
@@ -263,12 +257,12 @@ class AppController extends Controller
                 $permissions['quiz_bank_access'] = true;
             }
             
-        } elseif($c_user['User']['account_level'] == 2) { // if new user unpaid 
+        } elseif($c_user['account_level'] == 2) { // if new user unpaid 
             $permissions['access'] = true;
             $permissions['canCreateQuiz'] = true;
             $permissions['upgraded'] = true;
             $permissions['quiz_bank_access'] = true;
-        } elseif($c_user['User']['account_level'] == 0) { // for old user
+        } elseif($c_user['account_level'] == 0) { // for old user
             $this->loadModel('Quiz');
             $quiz = $this->Quiz->find('first', array(
                 'conditions' => array(
@@ -278,7 +272,7 @@ class AppController extends Controller
             ));
             $permissions['access'] = true;
             $permissions['canCreateQuiz'] = empty($quiz) ? true : false;
-            if (!empty($c_user['User']['expired'])) {
+            if (!empty($c_user['expired'])) {
                 $permissions['request_sent'] = true;
             }
         }

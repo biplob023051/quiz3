@@ -1,3 +1,4 @@
+<script src='https://www.google.com/recaptcha/api.js?hl=fi'></script>
 <?= $this->Html->script('contact', array('inline' => false)); ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
@@ -19,6 +20,11 @@
                 <label for="" class="col-sm-4 control-label"><?php echo __('Message'); ?></label>
                 <div class="col-sm-7">
                     <textarea name="message" id="message" rows="5" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group required">
+                <div class="col-sm-offset-4 col-sm-7">
+                    <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SECRET_KEY; ?>"></div>
                 </div>
             </div>
             <div class="form-group">

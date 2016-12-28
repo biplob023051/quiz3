@@ -232,3 +232,6 @@ Configure::write('AdminEmail', 'pietu.halonen@gmail.com');
 // google analytical code
 Configure::write('google-analytics.tracker-code', false); // disables Google Analytics
 Configure::write('google-analytics.tracker-code', 'UA-3180550-5'); // enables Google Analytics
+
+define('RECAPTCHA_SERVER_KEY', '6LeWzg8UAAAAAIq1Nmz9bm0eqSyR5UgE5-lMLDQX');
+define('RECAPTCHA_SECRET_KEY', '6LeWzg8UAAAAAEyLeOZGi8o44UZPwV7xOL10HvIz');

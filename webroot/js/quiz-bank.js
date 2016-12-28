@@ -1,7 +1,6 @@
 // Require Bootstrap.js
 
 (function ($) {
-    var appData = $.parseJSON($("#app-data").text());
     var subject_list = [];
     var class_list = [];
     var page_no = 1;
@@ -76,7 +75,7 @@
         $.ajax({
             data: {page_no : page_no, subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: appData.baseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quiz/test_link',
             dataType: 'html',
             success: function (data)
             {
@@ -104,7 +103,7 @@
         $.ajax({
             data: {order_type : order, order_field : order_field, page_no : page_no, subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: appData.baseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quiz/test_link',
             dataType: 'html',
             success: function (data)
             {
@@ -121,7 +120,7 @@
         $.ajax({
             data: {random_id : random_id},
             type: 'post',
-            url: appData.baseUrl + 'quiz/ajax_preview',
+            url: projectBaseUrl + 'quiz/ajax_preview',
             dataType: 'html',
             success: function (data)
             {
@@ -162,7 +161,7 @@
         $.ajax({
             data: {random_id : random_id},
             type: 'post',
-            url: appData.baseUrl + 'quiz/ajax_import',
+            url: projectBaseUrl + 'quiz/ajax_import',
             dataType: 'json',
             success: function (response)
             {
@@ -191,10 +190,10 @@
                         html += '<tr class="activeQuiz">';
                         html +=  '<td style="vertical-align:middle">';
                         html +=  '<div style="width: 40%; float: left">';
-                        html +=  '<a href="'+appData.baseUrl+'quiz/edit/'+val.id+'" class="quiz-name">'+val.name+'</a></div>';
+                        html +=  '<a href="'+projectBaseUrl+'quiz/edit/'+val.id+'" class="quiz-name">'+val.name+'</a></div>';
                         html +=  '<div style="width: 60%; float: left">';
-                        html +=  '<a href="'+appData.baseUrl+'quiz/present/'+val.id+'">Give test!</a>';                                                                        
-                        html +=  '<mark><a href="'+appData.baseUrl+'quiz/table/'+val.id+'">Answers (0)</a></mark>';
+                        html +=  '<a href="'+projectBaseUrl+'quiz/present/'+val.id+'">Give test!</a>';                                                                        
+                        html +=  '<mark><a href="'+projectBaseUrl+'quiz/table/'+val.id+'">Answers (0)</a></mark>';
                         html +=  '</div>';               
                         html +=  '</td>';
                         html +=  '<td align="right">';
@@ -242,7 +241,7 @@
         $.ajax({
             data: {subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: appData.baseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quiz/test_link',
             dataType: 'html',
             success: function (data)
             {
