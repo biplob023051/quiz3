@@ -97,7 +97,7 @@ class QuizzesController extends AppController
                 break;
         }
 
-        $options['Quizzes.user_id'] = 5;
+        $options['Quizzes.user_id'] = $userId;
 
         $this->Quizzes->virtualFields = array(
             'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'

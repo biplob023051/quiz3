@@ -81,45 +81,13 @@ class QuizzesTable extends Table
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
-
-        $validator
-            ->allowEmpty('description');
-
-        $validator
-            ->integer('student_count')
-            ->requirePresence('student_count', 'create')
-            ->notEmpty('student_count');
-
-        $validator
-            ->integer('status')
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
-        $validator
-            ->boolean('show_result')
-            ->allowEmpty('show_result');
-
-        $validator
-            ->boolean('anonymous')
-            ->allowEmpty('anonymous');
-
-        $validator
-            ->allowEmpty('subjects');
-
-        $validator
-            ->allowEmpty('classes');
-
-        $validator
-            ->boolean('shared')
-            ->allowEmpty('shared');
-
-        $validator
-            ->integer('is_approve')
-            ->allowEmpty('is_approve');
-
-        $validator
-            ->allowEmpty('comment');
+            ->notEmpty('name')
+            ->add('name', [
+                'alphaNumericWithSpace' => [
+                    'rule' => ['custom', "/[a-zA-Z0-9]+/"],
+                    'message' => 'Quiz name must be alphanumeric',
+                ]
+            ]);
 
         return $validator;
     }
@@ -134,8 +102,6 @@ class QuizzesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['random_id'], 'Randoms'));
-
         return $rules;
     }
 }

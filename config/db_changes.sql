@@ -1,0 +1,1 @@
+ALTER TABLE `quizzes` CHANGE `random_id` `random_id` BIGINT(20) NULL;
