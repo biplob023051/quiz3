@@ -104,4 +104,9 @@ class QuizzesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+
+    public function checkPermission($quizId, $user_id) {
+        $result = $this->findByIdAndUserId($quizId, $user_id)->select(['id'])->first();
+        return $result;
+    }
 }

@@ -47,10 +47,10 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><?php echo $this->Html->link(__('Settings'), '/user/settings'); ?></li>
+                            <li><?php echo $this->Html->link(__('Settings'), '/users/settings'); ?></li>
                         </ul>
                     </li>
-                    <li><?php echo $this->Html->link(__('Logout'), '/user/logout'); ?></li>
+                    <li><?php echo $this->Html->link(__('Logout'), '/users/logout'); ?></li>
                     <!--/nocache-->
                 <?php else: ?>
 

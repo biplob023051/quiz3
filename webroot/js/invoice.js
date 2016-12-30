@@ -67,18 +67,22 @@
         $.ajax({
             data: {'quiz_id': quiz_id},
             type: 'post',
-            url: projectBaseUrl + 'quiz/single',
+            url: projectBaseUrl + 'quizzes/single',
             dataType: 'json',
             success: function (response)
             {
-                var bodyData = lang_strings['delete_quiz_1'] + response.no_of_answers + lang_strings['delete_quiz_2'] + response.no_of_students +
-                lang_strings['delete_quiz_3'] + response.no_of_questions + lang_strings['delete_quiz_4'];
-                var headerData = lang_strings['delete_quiz_5'] + response.quiz_name + '?';
-                var link = projectBaseUrl + 'quiz/quizDelete/' + response.id;
-                infoModal.find('.modal-body').html(bodyData);
-                infoModal.find('.modal-header').html(headerData);
-                infoModal.find('.modal-footer a').attr('href', link);
-                infoModal.modal('show');
+                if (response.success == 1) {
+                    var bodyData = lang_strings['delete_quiz_1'] + response.no_of_answers + lang_strings['delete_quiz_2'] + response.no_of_students +
+                    lang_strings['delete_quiz_3'] + response.no_of_questions + lang_strings['delete_quiz_4'];
+                    var headerData = lang_strings['delete_quiz_5'] + response.quiz_name + '?';
+                    var link = projectBaseUrl + 'quizzes/quizDelete/' + response.id;
+                    infoModal.find('.modal-body').html(bodyData);
+                    infoModal.find('.modal-header').html(headerData);
+                    infoModal.find('.modal-footer a').attr('href', link);
+                    infoModal.modal('show');
+                } else {
+                    window.location.reload();
+                }
             }
         });   
         

@@ -165,7 +165,7 @@ $this->assign('title', __('My Quizzes'));
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <?php if (!empty($quiz->question_count)) : ?>
+                                            <?php if (!empty($quiz->questions)) : ?>
                                                 <li>
                                                     <?php if (empty($quiz->shared)) : ?>
                                                         <button type="button" class="btn btn-success btn-sm share-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" quiz-name="<?php echo $quiz->name; ?>" title="<?php echo __('Share quiz'); ?>"><i class="glyphicon share"></i> <?php echo __('Share quiz'); ?></button>

@@ -88,7 +88,7 @@ class AppController extends Controller
                 'action' => 'login'
             ],
             'loginRedirect' => [
-                'controller' => 'quiz',
+                'controller' => 'quizzes',
                 'action' => 'index'
             ],
             'logoutRedirect' => [

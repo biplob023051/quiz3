@@ -97,13 +97,26 @@ class QuizzesController extends AppController
                 break;
         }
 
-        $options['Quizzes.user_id'] = $userId;
+        //$options['Quizzes.user_id'] = $userId;
+        $options['Quizzes.user_id'] = 5;
 
-        $this->Quizzes->virtualFields = array(
-            'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'
-        );
+        // $this->Quizzes->virtualFields = array(
+        //     'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'
+        // );
 
-        $quizzes = $this->Quizzes->find('all')->where($options)->order($orders)->toArray();
+        $quizzes = $this->Quizzes->find()
+        ->where($options)
+        ->contain([
+            'Questions' => function($q) {
+                $q->select([
+                     'Questions.quiz_id',
+                     'total' => $q->func()->count('Questions.quiz_id')
+                ])
+                ->group(['Questions.quiz_id']);
+                return $q;
+            }
+        ])
+        ->order($orders)->toArray();
 // pr($quizzes);
 // exit;
         $data = array(
@@ -731,27 +744,104 @@ class QuizzesController extends AppController
     public function single() {
         $this->autoRender = false;
         $quizId = $this->request->data['quiz_id'];
-        $quizInfo = $this->Quizzes->find('first',
-            array(
-                'conditions' => array(
-                    'Quizzes.id' => $quizId
-                    ),
-                'recursive' => 2
-            )
-        );
-        
-        // response data
-        $response['id'] = $quizInfo['Quiz']['id'];
-        $response['quiz_name'] = $quizInfo['Quiz']['name'];
-        $response['no_of_questions'] = count($quizInfo['Question']);
-        $response['no_of_students'] = $quizInfo['Quiz']['student_count'];
-        $answers = 0;
-        foreach ($quizInfo['Question'] as $key => $value) {
-            if (!empty($value['Answer'])) {
-               $answers = $answers + count($value['Answer']);
+
+
+// select * from bdg left join res on bdg.bid = res.bid ;
+// select * from (answers as Answer left join questions as Question on Answer.question_id = Question.id) 
+//     left join quizzes as Quiz on Question.quiz_id = Quiz.id;
+
+// select * from (bdg left join res on bdg.bid = res.bid) 
+//     left join dom on res.rid = dom.rid where dom.rid is NULL;
+// select * from (bdg left join res on bdg.bid = res.bid) 
+//     left join dom on res.rid = dom.rid where res.rid is NULL;
+// select * from (bdg left join res on bdg.bid = res.bid) 
+//     left join dom on res.rid = dom.rid 
+//     where dom.rid is NULL and res.rid is not NULL;
+
+
+        // $this->Quizzes->virtualFields['no_of_answers'] = 'select count(*) from (answers as Answers left join questions as Questions on Answers.question_id = Questions.id) left join quizzes as Quizzes on Questions.quiz_id = Quizzes.id where Quizzes.id = {$quizId}';
+
+        // $this->Quizzes->virtualFields = array(
+        //     'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'
+        // );
+
+        // $quizzes = $this->Quizzes->find()
+        // ->where($options)
+        // ->contain([
+        //     'Questions' => function($q) {
+        //         $q->select([
+        //              'Questions.quiz_id',
+        //              'total' => $q->func()->count('Questions.quiz_id')
+        //         ])
+        //         ->group(['Questions.quiz_id']);
+        //         return $q;
+        //     }
+        // ])
+        // ->order($orders)->toArray();
+
+
+        // $quizInfo = $this->Quizzes->find('all')
+        // ->where(['Quizzes.id' => $quizId])
+        // ->contain([
+        //     'Questions' => function($q) {
+        //         $q->select([
+        //             'Questions.id',
+        //             'Questions.quiz_id',
+        //             'no_of_questions' => $q->func()->count('Questions.quiz_id')
+        //         ])
+        //         ->group(['Questions.quiz_id'])
+        //         ->contain([
+        //             'Answers' => function ($q2) {
+        //                $q2->select([
+        //                      'Answers.question_id',
+        //                      'no_of_answers' => $q2->func()->count('Answers.question_id')
+        //                 ])
+        //                 ->group(['Answers.question_id']);
+        //                 return $q2;
+        //             }
+        //         ]);
+        //         return $q;
+        //     }
+        // ])
+        // ->first();
+
+
+        $quizInfo = $this->Quizzes->find()
+        ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $this->Auth->user('id')])
+        //->where(['Quizzes.id' => $quizId])
+        ->contain([
+            //'Questions' => ['Answers']
+            'Questions' => function ($q) {
+                return $q->autoFields(false)
+                         ->select(['id', 'quiz_id'])
+                         ->contain([
+                                'Answers' => function ($q) {
+                                    return $q->autoFields(false)
+                                             ->select(['id', 'question_id']);
+                                }
+                            ]);
             }
+        ])
+        ->first();
+
+        if (empty($quizInfo)) {
+            $this->Flash->error(__('Invalid try, please try again later!'));
+            $response['success'] = 0;
+        } else {
+            // response data
+            $response['success'] = 1;
+            $response['id'] = $quizInfo->id;
+            $response['quiz_name'] = $quizInfo->name;
+            $response['no_of_questions'] = count($quizInfo['questions']);
+            $response['no_of_students'] = $quizInfo->student_count;
+            $answers = 0;
+            foreach ($quizInfo['questions'] as $key => $value) {
+                if (!empty($value['answers'])) {
+                   $answers = $answers + count($value['answers']);
+                }
+            }
+            $response['no_of_answers'] = $answers;
         }
-        $response['no_of_answers'] = $answers;
 
         echo json_encode($response);
         exit;
@@ -761,19 +851,30 @@ class QuizzesController extends AppController
         $this->accountStatus(); 
         // authenticate or not
         $checkPermission = $this->Quizzes->checkPermission($quizId, $this->Auth->user('id'));
+        //$checkPermission = $this->Quizzes->checkPermission($quizId, 5);
+     
         if (empty($checkPermission)) {
-            throw new ForbiddenException;
+            $this->Flash->error(__('Invalid try, please try again later!'));
+            return $this->redirect($this->referer());
         }
-        $questionIds = $this->Quizzes->Question->find('list', array('conditions' => array('Question.quiz_id' => $quizId), 'fields' => array('Question.id', 'Question.id')));
-        $this->Quizzes->Question->Choice->deleteAll(array('Choice.question_id' => $questionIds));
-        $this->Quizzes->Question->Answer->deleteAll(array('Answer.question_id' => $questionIds));
-        $this->Quizzes->Student->deleteAll(array('Student.quiz_id' => $quizId));
-        $this->Quizzes->Ranking->deleteAll(array('Ranking.quiz_id' => $quizId));
-        $this->Quizzes->Question->deleteAll(array('Question.quiz_id' => $quizId));
-        if ($this->Quizzes->delete($quizId)) {
+
+        $questionIds = $this->Quizzes->Questions->find('list', ['keyField' => 'id', 'valueField' => 'id'])->where(['Questions.quiz_id' => $quizId])->toArray();
+
+        // pr($questionIds);
+        // exit;
+
+        foreach ($questionIds as $key => $id) {
+            # code...
+            $this->Quizzes->Questions->Choices->deleteAll(array('question_id' => $id));
+            $this->Quizzes->Questions->Answers->deleteAll(array('question_id' => $id));
+        }
+        $this->Quizzes->Students->deleteAll(array('quiz_id' => $quizId));
+        $this->Quizzes->Rankings->deleteAll(array('quiz_id' => $quizId));
+        $this->Quizzes->Questions->deleteAll(array('quiz_id' => $quizId));
+        if ($this->Quizzes->deleteAll(['id' => $quizId])) {
             $this->Flash->success(__('You have Successfuly deleted quiz'));
-            return $this->redirect('/');
         }
+        return $this->redirect($this->referer());
     }
 
     public function no_permission() {
