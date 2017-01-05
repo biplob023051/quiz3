@@ -2,34 +2,34 @@
     $templateOptions = array('header', 'youtube_video', 'image_url');
     $inlinePointTemplates = array('short_auto', 'short_manual', 'essay');
 ?>
-<tr id="q<?php echo $id ?>"<?php if (in_array($QuestionType['template_name'], $templateOptions)) : ?> class="others_type<?php if ($QuestionType['template_name'] == 'header') : ?> header_type<?php endif; ?>"<?php endif; ?>>
+<tr id="q<?php echo $question->id ?>"<?php if (in_array($question->question_type->template_name, $templateOptions)) : ?> class="others_type<?php if ($question->question_type->template_name == 'header') : ?> header_type<?php endif; ?>"<?php endif; ?>>
 <td>
     <div class="row">
         <div class="col-xs-12 col-md-6">            
             <p>
-                <?php if ($QuestionType['template_name'] == 'header') : ?>
+                <?php if ($question->question_type->template_name == 'header') : ?>
                     <span class="h4 header"><?php echo $text; ?></span>
                     <br />
-                <?php elseif ($QuestionType['template_name'] == 'youtube_video') : ?>
+                <?php elseif ($question->question_type->template_name == 'youtube_video') : ?>
                     
-                <?php elseif ($QuestionType['template_name'] == 'image_url') : ?>
+                <?php elseif ($question->question_type->template_name == 'image_url') : ?>
                     
                 <?php else : ?>
-                    <span class="h4"><?php echo '<span class="question_number">' . $number . '</span>. ' .  $text; ?></span>
+                    <span class="h4"><?php echo '<span class="question_number">' . $question->number . '</span>. ' .  $question->text; ?></span>
                     <br />
                 <?php endif; ?>
-                <span class="text-muted"><?php echo $explanation ?></span>
-                <?php if (!empty($max_allowed)) : ?>
+                <span class="text-muted"><?php echo $question->explanation ?></span>
+                <?php if (!empty($question->max_allowed)) : ?>
                     <p>
                         <span class="text-muted">
                             <strong>
                                 <?php echo __('Choose at most'); ?>
                             </strong>
-                            <?php echo $max_allowed; ?>
+                            <?php echo $question->max_allowed; ?>
                         </span>
                     </p>
                 <?php endif; ?>
-                <?php if (!empty($case_sensitive)) : ?>
+                <?php if (!empty($question->case_sensitive)) : ?>
                     <p>
                         <span class="text-muted">
                             <strong>
@@ -42,16 +42,16 @@
         </div>
         <div class="col-xs-12 col-md-3">
             <?php 
-                if (in_array($QuestionType['template_name'], $inlinePointTemplates)) :
-                    echo !empty($Choice[0]['points']) ? $Choice[0]['points'] : '0.00';
+                if (in_array($question->question_type->template_name, $inlinePointTemplates)) :
+                    echo !empty($question->choices[0]->points) ? $question->choices[0]->points : '0.00';
                 endif; 
             ?>
         </div>
     </div>
     <div class="preview"> <!-- before it was choices -->
         <?php
-        foreach ($Choice as $c) {
-            echo $this->element("Quiz/preview/choice.{$QuestionType['template_name']}", $c);
+        foreach ($question->choices as $c) {
+            echo $this->element("Quiz/preview/choice.{$question->question_type->template_name}", array('choice' => $c));
         }
         ?>
     </div>  

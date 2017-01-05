@@ -1,13 +1,5 @@
 <?php
-echo $this->Form->create('Student', array(
-    'inputDefaults' => array(
-        'label' => array('class' => 'sr-only'),
-        'div' => array('class' => 'form-group'),
-        'class' => 'form-control input-lg basic-info',
-    ),
-    'novalidate' => true,
-    'url' => 'javascript:void(0)'
-));
+    echo $this->Form->create('Student');
 ?>
 
 <div class="panel panel-primary" id="small-margin">
@@ -17,7 +9,7 @@ echo $this->Form->create('Student', array(
                 <h4><?php echo __('Quiz student view'); ?></h4>
             </div>
         </div>
-        <?php if (empty($data['Quiz']['anonymous'])) : ?>
+        <?php if (empty($data->anonymous)) : ?>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <?php
@@ -44,7 +36,7 @@ echo $this->Form->create('Student', array(
         <?php endif; ?>
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <p><?php echo $data['Quiz']['description']; ?></p>
+                <p><?php echo $data->description; ?></p>
             </div>
         </div>
     </div>
@@ -55,17 +47,17 @@ echo $this->Form->create('Student', array(
                 $i = 1;
                 $othersQuestionType = array(6, 7, 8); // this categories for others type questions
                 $answered = array();
-                foreach ($data['Question'] as $question) {
+                foreach ($data['questions'] as $question) {
                     $question['given_answer'] = '';
-                    $choices_number = count($question['Choice']);
-                    if (!$question['QuestionType']['multiple_choices'] && $choices_number > 1) {
+                    $choices_number = count($question->choices);
+                    if (!$question['question_type']['multiple_choices'] && $choices_number > 1) {
                         for ($i = 1; $i < $choices_number; ++$i) {
-                            unset($question['Choice'][$i]);
+                            unset($question->choices[$i]);
                         }
                     }
                     $question['number'] = $i;
-                    echo $this->element('Quiz/live/question', $question);
-                    if (!in_array($question['question_type_id'], $othersQuestionType)) { 
+                    echo $this->element('Quiz/preview/question', array('question' => $question));
+                    if (!in_array($question->question_type_id, $othersQuestionType)) { 
                         // only considered main question for numbering
                         // not others type questions
                         ++$i;

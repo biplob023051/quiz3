@@ -1,4 +1,7 @@
-<?php $no_access = $this->Quiz->downloadCount(); ?>
+<?php $no_access = $this->Quiz->downloadCount(); 
+// pr($quizzes);
+// exit;
+?>
 <div class="table-responsive">
     <?php if(!empty($no_access)) : ?>
         <div class="col-md-12" id="import-error">
@@ -9,7 +12,7 @@
     <table cellpadding="0" cellspacing="0"  class="table table-bordered">
         <thead>
             <tr>
-                <th class="pbutton text-center"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('value'=>'deleteall','name'=>'selectAll','label'=>false,'id'=>'selectAll','hiddenField'=>false, 'disabled' => true)) : $this->Form->checkbox('checkbox', array('value'=>'deleteall','name'=>'selectAll','label'=>false,'id'=>'selectAll','hiddenField'=>false));?></th>
+                <th class="pbutton text-center"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('name'=>'selectAll','label'=>false,'id'=>'selectAll','hiddenField'=>false, 'disabled' => true)) : $this->Form->checkbox('checkbox', array('name'=>'selectAll','label'=>false,'id'=>'selectAll','hiddenField'=>false));?></th>
                 <th class="text-center" id="name-sort">
                     <?php if (!empty($order_field) && ($order_field == 'name') && !empty($order_type)) : ?>
                         <a href="javascript:void(0)" data-rel="<?php echo $order_type; ?>"><?php echo __('Name'); ?></a>
@@ -38,12 +41,12 @@
             <?php else : ?>
                 <?php foreach ($quizzes as $quiz): ?>
                     <tr>
-                        <td class="pbutton"><?php echo !empty($no_access) ? $this->Form->checkbox(false, array('value' => $quiz['Quiz']['random_id'],'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox(false, array('value' => $quiz['Quiz']['random_id'],'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
-                        <td class="text-center"><?php echo h($quiz['Quiz']['name']); ?></td>
+                        <td class="pbutton"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
+                        <td class="text-center"><?php echo h($quiz->name); ?></td>
                         <?php
                             $related_subjects = '';
-                            if ($quiz['Quiz']['subjects']) {
-                                $subjects = json_decode($quiz['Quiz']['subjects'], true);
+                            if ($quiz->subjects) {
+                                $subjects = json_decode($quiz->subjects, true);
                                 foreach ($subjects as $key => $subject) {
                                     if ($subject == 0) {
                                         $related_subjects .= !empty($subjectOptions[$subject]) ? $subjectOptions[$subject] : '';
@@ -57,8 +60,8 @@
                         <td class="text-center"><?php echo !empty($related_subjects) ? rtrim($related_subjects, ', ') : __('Undefined'); ?></td>
                         <?php
                             $related_classes = '';
-                            if ($quiz['Quiz']['classes']) {
-                                $classes = json_decode($quiz['Quiz']['classes'], true);
+                            if ($quiz->classes) {
+                                $classes = json_decode($quiz->classes, true);
                                 foreach ($classes as $key => $class) {
                                     if ($class == 0) {
                                         $related_classes .= !empty($classOptions[$class]) ? $classOptions[$class] : '';
@@ -70,10 +73,10 @@
                             }
                         ?>
                         <td class="text-center"><?php echo !empty($related_classes) ? rtrim($related_classes, ', ') : __('Undefined'); ?></td>
-                        <td class="text-center"><?php echo $quiz['Quiz']['created']; ?></td>
+                        <td class="text-center"><?php echo $quiz->created; ?></td>
                         <td class="text-center action-box">
-                            <button type="button" class="btn btn-success btn-sm import-quiz"<?php echo !empty($no_access) ? '  disabled' : ''; ?> random-id="<?php echo $quiz['Quiz']['random_id']; ?>" title="<?php echo __('Import Quiz'); ?>"><i class="glyphicon glyphicon-save"></i></button>
-                            <button type="button" class="btn btn-success btn-sm view-quiz" random-id="<?php echo $quiz['Quiz']['random_id']; ?>" title="<?php echo __('Preview Quiz'); ?>"><i class="glyphicon glyphicon-search"></i></button>
+                            <button type="button" class="btn btn-success btn-sm import-quiz"<?php echo !empty($no_access) ? '  disabled' : ''; ?> random-id="<?php echo $quiz->random_id; ?>" title="<?php echo __('Import Quiz'); ?>"><i class="glyphicon glyphicon-save"></i></button>
+                            <button type="button" class="btn btn-success btn-sm view-quiz" random-id="<?php echo $quiz->random_id; ?>" title="<?php echo __('Preview Quiz'); ?>"><i class="glyphicon glyphicon-search"></i></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -91,9 +94,11 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <ul class="pagination pagination-sm">
-            <?php echo $this->Paginator->prev('&larr; ' . __('Previous'),array('tag'=>'li','escape'=>false),'<a>&larr; '. __('Previous') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));
+            <?php 
+            echo $this->Paginator->prev('&larr; ' . __('Previous'),array('tag'=>'li','escape'=>false),'<a>&larr; '. __('Previous') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));
             echo $this->Paginator->numbers(array('tag'=>'li','separator'=>null,'currentClass'=>'active','currentTag'=>'a','modulus'=>'4','first' => 2, 'last' => 2,'ellipsis'=>'<li><a>...</a></li>'));
-            echo $this->Paginator->next(__('Next') . ' &rarr;',array('tag'=>'li','escape'=>false),'<a>&rarr; '. __('Next') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));?>
+            echo $this->Paginator->next(__('Next') . ' &rarr;',array('tag'=>'li','escape'=>false),'<a>&rarr; '. __('Next') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));
+            ?>
         </ul>
     </div>
 </div>

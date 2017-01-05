@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Randoms
- * @property \Cake\ORM\Association\HasMany $ImportedQuizzes
+ * @property \Cake\ORM\Association\HasMany $Downloads
  * @property \Cake\ORM\Association\HasMany $Questions
  * @property \Cake\ORM\Association\HasMany $Rankings
  * @property \Cake\ORM\Association\HasMany $Students
@@ -53,7 +53,7 @@ class QuizzesTable extends Table
             'foreignKey' => 'random_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('ImportedQuizzes', [
+        $this->hasMany('Downloads', [
             'foreignKey' => 'quiz_id'
         ]);
         $this->hasMany('Questions', [

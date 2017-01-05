@@ -235,3 +235,5 @@ Configure::write('google-analytics.tracker-code', 'UA-3180550-5'); // enables Go
 
 define('RECAPTCHA_SERVER_KEY', '6LeWzg8UAAAAAIq1Nmz9bm0eqSyR5UgE5-lMLDQX');
 define('RECAPTCHA_SECRET_KEY', '6LeWzg8UAAAAAEyLeOZGi8o44UZPwV7xOL10HvIz');
+
+define('DOWNLOAD_LIMIT', 3);

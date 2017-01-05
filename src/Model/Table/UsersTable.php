@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Users Model
  *
  * @property \Cake\ORM\Association\HasMany $Helps
- * @property \Cake\ORM\Association\HasMany $ImportedQuizzes
+ * @property \Cake\ORM\Association\HasMany $Downloads
  * @property \Cake\ORM\Association\HasMany $Quizzes
  * @property \Cake\ORM\Association\HasMany $Statistics
  *
@@ -47,7 +47,7 @@ class UsersTable extends Table
         $this->hasMany('Helps', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('ImportedQuizzes', [
+        $this->hasMany('Downloads', [
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Quizzes', [

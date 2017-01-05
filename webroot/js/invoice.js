@@ -95,7 +95,7 @@
         $.ajax({
             data: {'quiz_id': quiz_id, 'status': status},
             type: 'post',
-            url: projectBaseUrl + 'quiz/changeStatus',
+            url: projectBaseUrl + 'quizzes/changeStatus',
             dataType: 'json',
             success: function (response)
             {
@@ -120,14 +120,14 @@
         $.ajax({
             data: {'quiz_id': quiz_id},
             type: 'post',
-            url: projectBaseUrl + 'quiz/duplicate',
+            url: projectBaseUrl + 'quizzes/duplicate',
             dataType: 'json',
             success: function (response)
             {
                 if (response.result === 1)
                 {
                     if (response.id != '') {
-                        window.location.href = projectBaseUrl + 'quiz/edit/' + response.id;
+                        window.location.href = projectBaseUrl + 'quizzes/edit/' + response.id;
                     } else {
                         location.reload();
                     } 
@@ -164,7 +164,7 @@
         $.ajax({
             data: {},
             type: 'get',
-            url: projectBaseUrl + 'quiz/ajax_bank',
+            url: projectBaseUrl + 'quizzes/ajax_bank',
             dataType: 'html',
             success: function (data)
             {

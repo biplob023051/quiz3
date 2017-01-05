@@ -1,6 +1,8 @@
 <?php
 namespace App\View\Helper;
 use Cake\View\Helper;
+use Cake\ORM\TableRegistry;
+
 class QuizHelper extends Helper {
 
 	public $helpers = array('Time', 'Text');
@@ -39,18 +41,14 @@ class QuizHelper extends Helper {
 
 	// Quiz bank download
 	public function downloadCount() {
-		$account_level = AuthComponent::user('account_level');
-		if ($account_level != 22) {
-			return false;
-		}
-		$user_id = AuthComponent::user('id');
-		App::import('Model', 'ImportedQuiz');
-        $imported_quizzes = new ImportedQuiz();
-        $download = $imported_quizzes->find('count', array(
-        	'conditions' => array(
-        		'ImportedQuiz.user_id' => $user_id,
-        	)
-        )); 
+		$account_level = $this->request->session()->read('account_level');
+		// if ($account_level != 22) {
+		// 	return false;
+		// }
+		$user_id = $this->request->session()->read('id');
+
+		$imported_quizzes = TableRegistry::get('Downloads');
+        $download = $imported_quizzes->find()->where(['Downloads.user_id' => $user_id])->count();
         if ($download >= DOWNLOAD_LIMIT) {
         	return true;
         } else {

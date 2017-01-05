@@ -4,8 +4,8 @@
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Helps'), ['controller' => 'Helps', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Help'), ['controller' => 'Helps', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Imported Quizzes'), ['controller' => 'ImportedQuizzes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Imported Quiz'), ['controller' => 'ImportedQuizzes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Imported Quizzes'), ['controller' => 'Downloads', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Imported Quiz'), ['controller' => 'Downloads', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Quizzes'), ['controller' => 'Quizzes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Quiz'), ['controller' => 'Quizzes', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Statistics'), ['controller' => 'Statistics', 'action' => 'index']) ?></li>

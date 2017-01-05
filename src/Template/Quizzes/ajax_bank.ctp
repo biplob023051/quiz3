@@ -5,16 +5,18 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body" id="quiz-bank">
+        <?php //pr(array_keys($classOptions)); ?>
             <div class="row">
                 <div class="col-md-12">
                     <?php 
                         echo $this->Form->input('subjects', array(
+                            'templates' => [ 
+                                'checkboxWrapper' => '<div class="subjects no-border">{{label}}</div>',
+                            ],
                             'options' => $subjectOptions,
-                            'div' => array('class' => 'form-group'),
-                            'class' => 'subjects no-border',
                             'type' => 'select',
                             'multiple' => 'checkbox',
-                            'selected' => empty($selectedSubjects) ? array_keys($subjectOptions) : $selectedSubjects,
+                            'value' => empty($selectedSubjects) ? array_keys($subjectOptions) : $selectedSubjects,
                             'label' => false
                         ));
                     ?>
@@ -22,12 +24,13 @@
                 <div class="col-md-12">
                     <?php 
                         echo $this->Form->input('classes', array(
+                            'templates' => [ 
+                                'checkboxWrapper' => '<div class="classes no-border">{{label}}</div>',
+                            ],
                             'options' => $classOptions,
-                            'div' => array('class' => 'form-group'),
-                            'class' => 'classes no-border',
                             'type' => 'select',
                             'multiple' => 'checkbox',
-                            'selected' => array_keys($classOptions),
+                            'value' => array_keys($classOptions),
                             'label' => false
                         ));
                     ?>

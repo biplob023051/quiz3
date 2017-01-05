@@ -29,8 +29,11 @@ class UsersController extends AppController
      */
     public function index()
     {
+        //pr();
+        //$this->request->query['page'] = 5;
         $users = $this->paginate($this->Users);
-
+        // pr($users);
+        // exit;
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
     }
@@ -45,7 +48,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Helps', 'ImportedQuizzes', 'Quizzes', 'Statistics']
+            'contain' => ['Helps', 'Downloads', 'Quizzes', 'Statistics']
         ]);
 
         $this->set('user', $user);
@@ -288,6 +291,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+        $this->Session->destroy();
         $this->Flash->success('You have logged out');
         return $this->redirect($this->Auth->logout());
     }

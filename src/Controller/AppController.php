@@ -36,9 +36,9 @@ class AppController extends Controller
         'Form' => [
             'className' => 'Bootstrap.BootstrapForm'
         ],
-        'Paginator' => [
-            'className' => 'Bootstrap.BootstrapPaginator'
-        ],
+        // 'Paginator' => [
+        //     'className' => 'Bootstrap.BootstrapPaginator'
+        // ],
         'Modal' => [
             'className' => 'Bootstrap.BootstrapModal'
         ]
@@ -192,14 +192,10 @@ class AppController extends Controller
     // Method for accessing of quiz bank
     public function hasQuizBankAccess()
     {
-        $this->loadModel('User');
-        $c_user = $this->User->find('first', array(
-            'conditions' => array(
-                'User.id' => $this->Auth->user('id'),
-            ),
-            'recursive' => -1
-        ));
-
+        $this->loadModel('Users');
+        $c_user = $this->Users->find()->where(['Users.id' => $this->Auth->user('id')])->first();
+        // pr($c_user);
+        // exit;
         if (!in_array($c_user['account_level'], array(2, 22, 51))) {
             if ($this->request->is('ajax')) {
                 echo $this->render('/Elements/no_permission_modal');

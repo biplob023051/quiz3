@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Quizzes Controller
@@ -10,15 +12,20 @@ use App\Controller\AppController;
  */
 class QuizzesController extends AppController
 {
+    public $paginate = [
+        'limit' => 3
+    ];
+
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('Paginator');
         $this->loadComponent('Email');
         $this->Auth->allow(['present', 'live', 'no_permission']);
     }
 
     public function ajax_student_update() {
-        $this->layout = 'ajax';
+        $this->viewBuilder()->layout('ajax');
         $student = $this->Quizzes->Student->findById($this->request->data['student_id']);
         $student['id'] = $student['Student']['id'];
         $student['fname'] = $student['Student']['fname'];
@@ -50,8 +57,8 @@ class QuizzesController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->data;
-            if (isset($data['Quiz'])) {
-                $filter = $data['Quiz']['status'];
+            if (isset($data['status'])) {
+                $filter = $data['status'];
                 $this->Session->write('Quizzes.status', $filter);
             }
         } else {
@@ -98,11 +105,10 @@ class QuizzesController extends AppController
         }
 
         //$options['Quizzes.user_id'] = $userId;
-        $options['Quizzes.user_id'] = 5;
+        $options['Quizzes.user_id'] = $userId;
 
-        // $this->Quizzes->virtualFields = array(
-        //     'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'
-        // );
+        // pr($options);
+        // exit;
 
         $quizzes = $this->Quizzes->find()
         ->where($options)
@@ -145,15 +151,16 @@ class QuizzesController extends AppController
         $this->accountStatus();
         // Check permission
         $userId = $this->Auth->user('id');
-        $result = $this->Quizzes->find('count', array(
-            'conditions' => array(
-                'Quizzes.id = ' => $quizId,
-                'Quizzes.user_id = ' => $userId
-            )
-        ));
         
-        if ($result < 1)
-            throw new ForbiddenException;
+        // $result = $this->Quizzes->find('count', array(
+        //     'conditions' => array(
+        //         'Quizzes.id = ' => $quizId,
+        //         'Quizzes.user_id = ' => $userId
+        //     )
+        // ));
+        
+        // if ($result < 1)
+        //     throw new ForbiddenException;
         
         if ($this->request->is('post')) {
             if (!empty($this->request->data['Quiz']['subjects'])) {
@@ -186,32 +193,35 @@ class QuizzesController extends AppController
             }
         }
 
-        $this->Quizzes->Behaviors->load('Containable');
-        $data = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'id = ' => $quizId,
-                'user_id = ' => $userId
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice' => array('order' => array('Choice.weight DESC', 'Choice.id ASC')),
-                    'QuestionType' => array(
-                        'fields' => array('template_name', 'id', 'multiple_choices')
-                    ),
-                    'order' => array('Question.weight DESC', 'Question.id ASC')
-                )
-            )
-        ));
+        $data = $this->Quizzes->find()
+            ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $userId])
+            ->contain([
+                'Questions' => function($q) {
+                    $q->contain([
+                        'Choices' => function($q2) {
+                            return $q2->order(['Choices.weight DESC', 'Choices.id ASC']);
+                        },
+                        'QuestionTypes' => function($q3) {
+                            return $q3->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
+                        }
+                    ])
+                    ->order(['Questions.weight DESC', 'Questions.id ASC']);
+                    return $q;
+                } 
+            ])
+            ->first();
+        //pr($data);
+        // exit;
 
         if (empty($data))
             throw new NotFoundException;
 
-        $this->QuestionType->Behaviors->load('Containable');
-        $this->QuestionType->contain();
-        $data['QuestionTypes'] = $this->QuestionType->find('all', array(
-            'fields' => array('name', 'template_name', 'multiple_choices', 'id', 'type')
-        ));
+        $data['QuestionTypes'] = $this->Quizzes->Questions->QuestionTypes->find()
+            ->select(['name', 'template_name', 'multiple_choices', 'id', 'type'])
+            ->all();
 
+        // pr($data['QuestionTypes']);
+        // exit;
         if (!empty($initial)) {
             $this->set(compact('initial'));
         } 
@@ -238,31 +248,33 @@ class QuizzesController extends AppController
         $lang_strings['empty_header'] = __('Please enter Header text');
 
         // Load available classes (created by admin)
-        $this->loadModel('Subject');
-        $classOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL,
-                'Subject.type' => 1
-            ),
-            'recursive' => -1
-        ));
+        $this->loadModel('Subjects');
+
+        $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])
+            ->where(['Subjects.isactive' => 1, 'Subjects.is_del IS NULL', 'Subjects.type' => 1])
+            ->toArray();
+
+
+        // pr($classOptions);
+        // exit;
 
         $subject_cond[] = array(
-            'Subject.isactive' => 1,
-            'Subject.is_del' => NULL,
-            'Subject.type' => NULL
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL',
+            'Subjects.type IS NULL'
         );
         $c_user = $this->Session->read('Auth.User');
+        // pr($c_user);
+        // exit;
         if (!empty($c_user['subjects'])) {
             $selectedSubjects = json_decode($c_user['subjects'], true);
-            $subject_cond[] = array('Subject.id' => $selectedSubjects);
+            $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }
 
-        $subjectOptions = $this->Subject->find('list', array(
-            'conditions' => $subject_cond,
-            'recursive' => -1
-        ));
+        $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where($subject_cond)->toArray();
+
+        // pr($subjectOptions);
+        // exit;
 
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('All Subjects')) + $subjectOptions;
@@ -284,49 +296,52 @@ class QuizzesController extends AppController
         $this->accountStatus(); 
 
         $userId = $this->Auth->user('id');
-        // if (!$this->User->canCreateQuiz($userId))
+        // if (!$this->Users->canCreateQuiz($userId))
         //     return $this->redirect(array('action' => 'index'));  
 
-        $this->Quizzes->create();
-        $this->Quizzes->save(array(
-            'Quiz' => array(
-                'name' => __('Name the quiz'),
-                'user_id' => $userId
-            )
-        ));
+        $quiz = $this->Quizzes->newEntity();
+        $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('Name the quiz'), 'user_id' => $userId]);
+        // pr($quiz);
+        // exit;
+        $this->Quizzes->save($quiz);
         // save random number as random_id
-        $random_id = $this->Quizzes->id . $this->Quizzes->randText(2);
-        $this->Quizzes->saveField('random_id', $random_id);
-        // save statistics data
-        $this->loadModel('Statistic');
-        $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
-        $arrayToSave['Statistic']['type'] = 'quiz_create';
-        $this->Statistic->save($arrayToSave);
+        $quiz->random_id = $quiz->id . $this->randText(2);
+        $this->Quizzes->save($quiz);
+        
+        //save statistics data
+        $statisticsTable = TableRegistry::get('Statistics');
+        $statistic = $statisticsTable->newEntity();
+        $statistic->user_id = $userId;
+        $statistic->type = 'quiz_create';
+        $statistic->created = date("Y-m-d H:i:s");
+        $statisticsTable->save($statistic);
+
+        // pr($quiz);
+        // pr($statisticsTable);
+        // exit;
 
         // check if free user creating first quiz send email notification to admin
         $user = $this->Auth->user();
         if (empty($user['account_level']) || ($user['account_level'] == 22)) { // if this is the free user
             // check if its first quiz
-            $quiz_count = $this->User->Quizzes->find('count', array(
-                'conditions' => array(
-                    'Quizzes.user_id' => $this->Auth->user('id')
-                )
-            ));
+            $quiz_count = $this->Quizzes->find()->where(['Quizzes.user_id' => $userId])->count();
+            // pr($quiz_count);
+            // exit;
+            // $quiz_count = $query->select(['count' => $query->func()->count('*')])->toArray();
+            // pr($quiz_count);
+            // exit;
+
             if ($quiz_count == 1) {
-                $Email = new CakeEmail();
-                $Email->viewVars(array('user' => $user));
-                $Email->from(array('pietu.halonen@verkkotesti.fi' => 'WebQuizzes.fi'));
-                $Email->template('first_quiz_create');
-                $Email->emailFormat('html');
-                $Email->to(Configure::read('AdminEmail'));
-                $Email->subject(__('[Verkkotesti] First quiz created'));
-                $Email->send();
+                $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
+                // pr($admin_email);
+                // exit;
             } 
         }
 
         return $this->redirect(array(
+                    'controller' => 'quizzes',
                     'action' => 'edit',
-                    $this->Quizzes->id,
+                    $quiz->id,
                     'initial'
         ));
     }
@@ -343,36 +358,30 @@ class QuizzesController extends AppController
     }
 
     // ajax_preview
-    public function ajax_preview() {
-        $this->layout = 'ajax';
-        $this->Quizzes->Behaviors->load('Containable');
-        $this->Quizzes->bindModel(
-               array(
-                 'belongsTo'=>array(
-                     'User'=>array(
-                       'className'  =>  'User',
-                       'foreignKey' => 'user_id'
-                   )          
-               )
-            ), false // Note the false here!
-        );
-        $data = $this->Quizzes->find('first', array(
+    public function ajaxPreview() {
+        $this->viewBuilder()->layout('ajax');
+        $data = $this->Quizzes->find('all', array(
             'conditions' => array(
-                'Quizzes.random_id = ' => $this->request->data['random_id'],
+                'Quizzes.random_id' => $this->request->data['random_id'],
                 'Quizzes.shared' => 1,
                 'Quizzes.is_approve' => 1
             ),
             'contain' => array(
-                'Question' => array(
-                    'Choice' => array('order' => array('Choice.weight DESC', 'Choice.id ASC')),
-                    'QuestionType' => array(
-                        'fields' => array('template_name', 'id', 'multiple_choices')
-                    ),
-                    'order' => array('Question.weight DESC', 'Question.id ASC')
-                ),
-                'User'
+                'Questions' => function($q) {
+                    $q->contain([
+                        'Choices' => function($q) {                        
+                        return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
+                        },
+                        'QuestionTypes' => array(
+                            'fields' => array('QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices')
+                        )
+                    ])
+                    ->order(['Questions.weight DESC', 'Questions.id ASC']);
+                    return $q;
+                },
+                'Users'
             )
-        ));
+        ))->first();
 
         // pr($data);
         // exit;
@@ -395,7 +404,6 @@ class QuizzesController extends AppController
             $lang_strings['browser_switch'] = __('Sorry, you are not allowed to switch browser tab');
             $lang_strings['leave_quiz'] = __('Are you sure that you want to leave this quiz?');
 
-            $this->disableCache();
             $this->set(compact('lang_strings', 'data'));
             $this->set('quizRandomId', $this->request->data['random_id']);
 
@@ -708,27 +716,26 @@ class QuizzesController extends AppController
 
         $this->autoRender = false;
         $data = $this->request->data;
+        // pr($data);
+        // exit;
         // Check permission
         $userId = $this->Auth->user('id');
-        $result = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'Quizzes.id = ' => $data['quiz_id'],
-                'Quizzes.user_id = ' => $userId
-            ),
-            'recursive' => -1
-        ));
         
+        $quiz = $this->Quizzes->find()->where(['Quizzes.id' => $data['quiz_id'], 'Quizzes.user_id' => $userId])->first();
 
-        if (empty($result)) {
+        // pr($result);
+        // exit;
+
+        if (empty($quiz)) {
             $response['result'] = 0;
             $response['message'] = __('You are not authorized to do this action');
             echo json_encode($response);
             exit;
         }
 
-        $status = empty($data['status']) ? 1 : 0;
-        $this->Quizzes->id = $result['Quiz']['id'];
-        if ($this->Quizzes->saveField('status', $status)) {
+        $quiz->status = empty($data['status']) ? 1 : 0;
+
+        if ($this->Quizzes->save($quiz)) {
              if ($this->Session->check('Quizzes.status')) {
                 $filter = $this->Session->read('Quizzes.status');
             } else {
@@ -903,19 +910,24 @@ class QuizzesController extends AppController
 
         $response['result'] = 0;
 
-        $this->Quizzes->Behaviors->load('Containable');
         $quizId = $this->request->data['quiz_id'];
-        $quizInfo = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'Quizzes.id' => $quizId,
-                'Quizzes.user_id' => $this->Auth->user('id')
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice'
-                )
-            )
-        ));
+
+        $quizInfo = $this->Quizzes->find()->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $this->Auth->user('id')])->contain(['Questions'])->first();
+
+        pr($quizInfo);
+        exit;
+
+        // , array(
+        //     'conditions' => array(
+        //         'Quizzes.id' => $quizId,
+        //         'Quizzes.user_id' => $this->Auth->user('id')
+        //     ),
+        //     'contain' => array(
+        //         'Question' => array(
+        //             'Choice'
+        //         )
+        //     )
+        // ));
 
         if (!empty($quizInfo)) {
             $quizInfo['Quiz']['id'] = '';
@@ -1012,31 +1024,36 @@ class QuizzesController extends AppController
     }
 
     // Method for listing all quizzes from quiz bank
-    public function ajax_bank() {
+    public function ajaxBank() {
         $this->temp_common();
     }
 
     public function temp_common() {
-        $this->layout = 'ajax';
+        $this->viewBuilder()->layout('ajax');
         $this->hasQuizBankAccess();
-        $this->loadModel('Subject');
-        $subjectOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.type' => NULL,
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL
-            )
-        ));
+        $this->loadModel('Subjects');
+        $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
+            'Subjects.type IS NULL',
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL'
+        ])->toArray();
 
-        $classOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.type' => 1,
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL
-            )
-        ));
+        // pr($subjectOptions);
+        // exit;
+
+        $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
+            'Subjects.type' => 1,
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL'
+        ])->toArray();
+
+        // pr($classOptions);
+        // exit;
         // Selected subjects
         $selectedSubjects = $this->Session->read('Auth.User.subjects');
+
+        // pr($selectedSubjects);
+        // exit;
 
         if (!empty($selectedSubjects)) {
             $selectedSubjects = json_decode($selectedSubjects, true);
@@ -1046,31 +1063,39 @@ class QuizzesController extends AppController
 
         // pr($selectedSubjects);
         // exit;
-        $this->Paginator->settings = $this->paginate;
         foreach ($selectedSubjects as $term) {
             $term = trim($term);
             if (!empty($term)) {
-                $this->Paginator->settings['conditions']['OR'][] = array('Quizzes.subjects LIKE' => '%' . '"' . $term . '"' . '%');
+                $conditions['OR'][] = array('Quizzes.subjects LIKE' => '%' . '"' . $term . '"' . '%');
             }
         }
 
         $user_id = $this->Auth->user('id');
 
-        $this->Quizzes->virtualFields['imported'] = 'SELECT count(*) FROM imported_quizzes AS ImportedQuiz WHERE (ImportedQuizzes.user_id = '.$user_id.' AND ImportedQuizzes.quiz_id = Quizzes.id)';
-
-        $this->Paginator->settings['recursive'] = -1;
+        //$this->Quizzes->virtualFields['imported'] = 'SELECT count(*) FROM imported_quizzes AS ImportedQuiz WHERE (Downloads.user_id = '.$user_id.' AND Downloads.quiz_id = Quizzes.id)';
 
         // Get pagination
-        $this->Paginator->settings['conditions'][] = array(
+        $conditions[] = array(
             'Quizzes.shared' => 1,
             'Quizzes.is_approve' => 1,
-            'Quizzes.imported' => 0
+            'Downloads.id IS NULL'
         );
 
         // pr($this->Paginator->settings);
         // exit;
 
-        $quizzes = $this->Paginator->paginate('Quiz');
+        $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
+            ->join([
+                'downloads' => [
+                    'table' => 'Downloads',
+                    'type' => 'LEFT',
+                    'conditions' => [
+                        'Downloads.quiz_id = Quizzes.id',
+                        'Downloads.user_id' => $user_id
+                    ]
+                ]
+            ])
+        );
 
 
         // pr($quizzes);
@@ -1094,28 +1119,24 @@ class QuizzesController extends AppController
     }
 
     // Test method 
-    public function test_link() {
-        $this->layout = 'ajax';
+    public function testLink() {
+        $this->viewBuilder()->layout('ajax');
         $this->hasQuizBankAccess();
-        $this->loadModel('Subject');
-        $subjectOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.type' => NULL,
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL
-            )
-        ));
+        $this->loadModel('Subjects');
 
-        $classOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.type' => 1,
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL
-            )
-        ));
+        $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
+            'Subjects.type IS NULL',
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL'
+        ])->toArray();
 
-       
-        $this->Paginator->settings = $this->paginate;
+        // pr($subjectOptions);
+        // exit;
+        $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
+            'Subjects.type' => 1,
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL'
+        ])->toArray();
 
         if (empty($this->request->data['subject_list'])) {
             $selectedSubjects = $this->Session->read('Auth.User.subjects');
@@ -1125,9 +1146,9 @@ class QuizzesController extends AppController
         }
 
         if (empty($this->request->data['page_no'])) {
-            $this->request->params['named']['page'] = 1;
+            $this->request->query['page'] = 1;
         } else {
-            $this->request->params['named']['page'] = $this->request->data['page_no'];
+            $this->request->query['page'] = $this->request->data['page_no'];
         }
 
         // pr($this->request->data);
@@ -1137,7 +1158,7 @@ class QuizzesController extends AppController
             foreach ($this->request->data['subject_list'] as $term) {
                 $term = trim($term);
                 if (!empty($term)) {
-                    $this->Paginator->settings['conditions'][0]['OR'][] = array('Quizzes.subjects LIKE' => '%' . '"' . $term . '"' . '%');
+                    $conditions[0]['OR'][] = array('Quizzes.subjects LIKE' => '%' . '"' . $term . '"' . '%');
                 }
             }
         }
@@ -1146,59 +1167,90 @@ class QuizzesController extends AppController
             foreach ($this->request->data['class_list'] as $term) {
                 $term = trim($term);
                 if (!empty($term)) {
-                    $this->Paginator->settings['conditions'][1]['OR'][] = array('Quizzes.classes LIKE' => '%' . '"' . $term . '"' . '%');
+                    $conditions[1]['OR'][] = array('Quizzes.classes LIKE' => '%' . '"' . $term . '"' . '%');
                 }
             }
         }
 
         $user_id = $this->Auth->user('id');
-        $this->Quizzes->virtualFields['imported'] = 'SELECT count(*) FROM imported_quizzes AS ImportedQuiz WHERE (ImportedQuizzes.user_id = '.$user_id.' AND ImportedQuizzes.quiz_id = Quizzes.id)';
 
         // Get pagination
-        $this->Paginator->settings['conditions'][2] = array(
+        $conditions[2] = array(
             'Quizzes.shared' => 1,
             'Quizzes.is_approve' => 1,
-            'Quizzes.imported' => 0
+            'Downloads.id IS NULL'
         );
 
-        $this->Paginator->settings['recursive'] = -1;
-
         if (!empty($this->request->data['order_type']) && !empty($this->request->data['order_field'])) {
-            $this->Paginator->settings['order'] = 'Quizzes.' . $this->request->data['order_field'] . ' ' . $this->request->data['order_type'];
+            $order = ['Quizzes.' . $this->request->data['order_field'] . ' ' . $this->request->data['order_type']];
             $order_type = ($this->request->data['order_type'] == 'asc') ? 'desc' : 'asc';
             $this->set('order_type', $order_type);
             $this->set('order_field', $this->request->data['order_field']);
+        } else {
+            $order = ['Quizzes.created ASC'];
         }
 
         // pr($this->Paginator->settings);
         // exit;
 
+        // pr($this->request->params);
+        // exit;
+
         try {
-            $quizzes = $this->Paginator->paginate('Quiz');
+            // pr($conditions);
+            // exit;
+            $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
+                ->join([
+                    'downloads' => [
+                        'table' => 'Downloads',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Downloads.quiz_id = Quizzes.id',
+                            'Downloads.user_id' => $user_id
+                        ]
+                    ]
+                ])
+                ->order($order)
+                //->page($this->request->params['named']['page'])
+            );
         } catch (NotFoundException $e) { 
-            $this->request->params['named']['page'] = 1;
-            $quizzes = $this->Paginator->paginate('Quiz');
+            $this->request->query['page'] = 1;
+            $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
+                ->join([
+                    'downloads' => [
+                        'table' => 'Downloads',
+                        'type' => 'LEFT',
+                        'conditions' => [
+                            'Downloads.quiz_id = Quizzes.id',
+                            'Downloads.user_id' => $user_id
+                        ]
+                    ]
+                ])
+            );
         }
 
         $this->set(compact('quizzes', 'subjectOptions', 'classOptions'));
-        $this->render('/Elements/Quiz/quiz_bank_pagination');
+        $this->render('/Element/Quiz/quiz_bank_pagination');
     }
 
     // ajax duplicate
     // Duplicate quiz
     // Only quiz name, questions and choices will be duplicated
-    public function ajax_import() {
+    public function ajaxImport() {
         $this->autoRender = false;
         $this->accountStatus();
         $response['result'] = 0;
 
+        $user_id = $this->Auth->user('id');
+
+        // pr($this->request->data);
+        // exit;
+
         // Check maximum import permission
         if ($this->Auth->user('account_level') == 22) {
-            $imported_quiz_count = $this->Quizzes->User->ImportedQuizzes->find('count', array(
-                'conditions' => array(
-                    'ImportedQuizzes.user_id' => $this->Auth->user('id')
-                )
-            ));
+            $imported_quiz_count = $this->Quizzes->Users->Downloads->find()->where(['Downloads.user_id' => $user_id])->count();
+            // pr($imported_quiz_count);
+            // exit;
             if ($imported_quiz_count >= DOWNLOAD_LIMIT) {
                 $response['message'] = __('Sorry, you have exceeded maximum limit of import quiz. Please upgrade your account to get unlimited access on quiz bank!');
             } else {
@@ -1212,70 +1264,112 @@ class QuizzesController extends AppController
             exit;
         }
 
-        $this->Quizzes->Behaviors->load('Containable');
-        $quizInfo = $this->Quizzes->find('all', array(
-            'conditions' => array(
-                'Quizzes.random_id' => $this->request->data['random_id'],
-                'Quizzes.shared' => 1
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice'
-                )
-            )
-        ));
+        // $quizInfo = $this->Quizzes->find('all', array(
+        //     'conditions' => array(
+        //         'Quizzes.random_id IN' => $this->request->data['random_id'],
+        //         'Quizzes.shared' => 1
+        //     ),
+        //     'contain' => array(
+        //         'Questions' => array(
+        //             'Choices'
+        //         )
+        //     )
+        // ))->toArray();
 
+        $quizInfo = $this->Quizzes->find()
+        ->where([
+            'Quizzes.random_id IN' => $this->request->data['random_id'],
+            'Quizzes.shared' => 1
+        ])
+        ->contain([
+            'Questions' => function($q) {
+                return $q->contain([
+                    'Choices'
+                ]);
+            }
+        ])
+        ->toArray();
+
+        // pr($this->request->data['random_id']);
         // pr($quizInfo);
         // exit;
 
         if (!empty($quizInfo) && (count($quizInfo) == count($this->request->data['random_id']))) {
             foreach ($quizInfo as $key => $quiz) {
                 // Check if already imported
-                $is_imported = $this->Quizzes->User->ImportedQuizzes->find('count', array(
+                $is_imported = $this->Quizzes->Users->Downloads->find('all', array(
                     'conditions' => array(
-                        'ImportedQuizzes.quiz_id' => $quiz['Quiz']['id'],
-                        'ImportedQuizzes.user_id' => $this->Auth->user('id')
+                        'Downloads.quiz_id' => $quiz->id,
+                        'Downloads.user_id' => $user_id
                     )
-                ));
+                ))->count();
+                // pr($is_imported);
+                // exit;
                 // End of checking
                 if (empty($is_imported)) { // if Not imported before
                     // Imported quiz data
-                    $saveImportedQuiz['ImportedQuiz']['user_id'] = $this->Auth->user('id');
-                    $saveImportedQuiz['ImportedQuiz']['quiz_id'] = $quiz['Quiz']['id'];
+                    $download = $this->Quizzes->Downloads->newEntity();
+                    $download->user_id = $user_id;
+                    $download->quiz_id = $quiz->id;
 
-                    $quiz['Quiz']['id'] = '';
-                    $quiz['Quiz']['status'] = 1;
-                    $quiz['Quiz']['shared'] = NULL;
-                    $quiz['Quiz']['user_id'] = $this->Auth->user('id');
-                    $quiz['Quiz']['name'] = __('Copy of:') . ' ' . $quiz['Quiz']['name'];
-                    unset($quiz['Quiz']['created']);
-                    unset($quiz['Quiz']['modified']);
-                    unset($quiz['Quiz']['student_count']);
-                    unset($quiz['Quiz']['random_id']);
+                    // pr($download);
+                    // exit;
 
-                    foreach ($quiz['Question'] as $key1 => $question) {
-                        $quiz['Question'][$key1]['id'] = '';
-                        $quiz['Question'][$key1]['quiz_id'] = '';
-                        unset($quiz['Question'][$key1]['created']);
-                        unset($quiz['Question'][$key1]['modified']);
-                        if (!empty($question['Choice'])) {
-                            foreach ($question['Choice'] as $key2 => $choice) {
-                                $quiz['Question'][$key1]['Choice'][$key2]['id'] = '';
-                                $quiz['Question'][$key1]['Choice'][$key2]['question_id'] = '';
+                    $new_quiz = array();
+                    $new_quiz['name'] = __('Copy of:') . ' ' . $quiz->name;
+                    $new_quiz['user_id'] = $user_id;
+                    $new_quiz['description'] = $quiz->description;
+                    $new_quiz['status'] = 1;
+                    $new_quiz['show_result'] = $quiz->show_result;
+                    $new_quiz['anonymous'] = $quiz->anonymous;
+                    $new_quiz['subjects'] = $quiz->subjects;
+                    $new_quiz['classes'] = $quiz->classes;
+
+                    // pr($new_quiz);
+                    // exit;
+
+                    foreach ($quiz['questions'] as $key1 => $question) {
+                        $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
+                        $new_quiz['questions'][$key1]['text'] = $question->text;
+                        $new_quiz['questions'][$key1]['explanation'] = $question->explanation;
+                        $new_quiz['questions'][$key1]['weight'] = $question->weight;
+                        $new_quiz['questions'][$key1]['max_allowed'] = $question->max_allowed;
+                        $new_quiz['questions'][$key1]['case_sensitive'] = $question->case_sensitive;
+
+                        if (!empty($question['choices'])) {
+                            foreach ($question['choices'] as $key2 => $choice) {
+                                $new_quiz['questions'][$key1]['choices'][$key2]['text'] = $choice->text;
+                                $new_quiz['questions'][$key1]['choices'][$key2]['points'] = $choice->points;
+                                $new_quiz['questions'][$key1]['choices'][$key2]['weight'] = $choice->weight;
                             }
                         }
                     }
 
+                    // pr($new_quiz);
+                    // exit;
+
+                    $new_quiz = $this->Quizzes->newEntity($new_quiz, [
+                        'associated' => [
+                            'Questions' => ['associated' => ['Choices']]
+                        ]
+                    ]);
+
+                    //pr($quizInfo);
+            
+                    // pr($new_quiz);
+                    // exit;
+                    
+                    // $quiz = $this->Quizzes->save($quiz);
+
                     // pr($quiz);
                     // exit;
 
-                    if ($this->Quizzes->saveAll($quiz, array('deep' => true))) {
-                        $random_id = $this->Quizzes->id . $this->Quizzes->randText(2);
-                        $this->Quizzes->saveField('random_id', $random_id);
-                        $response['Quiz'][$key]['id'] = $this->Quizzes->id;
-                        $response['Quiz'][$key]['name'] = $quiz['Quiz']['name'];
-                        $this->Quizzes->User->ImportedQuizzes->create();
-                        $this->Quizzes->User->ImportedQuizzes->save($saveImportedQuiz); 
+                    if ($this->Quizzes->save($new_quiz)) {
+                        $random_id = $new_quiz->id . $this->randText(2);
+                        $this->Quizzes->save($new_quiz);
+                        $response['Quiz'][$key]['id'] = $new_quiz->id;
+                        $response['Quiz'][$key]['name'] = $new_quiz->name;
+                        $this->Quizzes->Users->Downloads->save($download); 
                     } else {
                         $response['message'] = __('Something went wrong, please try again later!');
                     }
@@ -1538,7 +1632,7 @@ class QuizzesController extends AppController
     public function view_1($id = null)
     {
         $quiz = $this->Quizzes->get($id, [
-            'contain' => ['Users', 'Randoms', 'ImportedQuizzes', 'Questions', 'Rankings', 'Students']
+            'contain' => ['Users', 'Randoms', 'Downloads', 'Questions', 'Rankings', 'Students']
         ]);
 
         $this->set('quiz', $quiz);
@@ -1563,7 +1657,7 @@ class QuizzesController extends AppController
                 $this->Flash->error(__('The quiz could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Quizzes->Users->find('list', ['limit' => 200]);
+        $users = $this->Quizzes->Userss->find('list', ['limit' => 200]);
         $randoms = $this->Quizzes->Randoms->find('list', ['limit' => 200]);
         $this->set(compact('quiz', 'users', 'randoms'));
         $this->set('_serialize', ['quiz']);
@@ -1591,7 +1685,7 @@ class QuizzesController extends AppController
                 $this->Flash->error(__('The quiz could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Quizzes->Users->find('list', ['limit' => 200]);
+        $users = $this->Quizzes->Userss->find('list', ['limit' => 200]);
         $randoms = $this->Quizzes->Randoms->find('list', ['limit' => 200]);
         $this->set(compact('quiz', 'users', 'randoms'));
         $this->set('_serialize', ['quiz']);

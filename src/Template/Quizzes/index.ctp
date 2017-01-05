@@ -78,7 +78,7 @@ $this->assign('title', __('My Quizzes'));
     <?php if (!empty($userPermissions['canCreateQuiz'])): ?>
         <div class="col-xa-12 col-md-4">
             <div class="form-group">
-                <a href="<?php echo $this->Url->build('/quiz/add'); ?>" class="btn btn-primary btn-block">
+                <a href="<?php echo $this->Url->build('/quizzes/add'); ?>" class="btn btn-primary btn-block">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <?php echo __('Create New Quiz'); ?>
                 </a>
@@ -91,7 +91,7 @@ $this->assign('title', __('My Quizzes'));
             <form class="form" id="quiz-filter" method="post">
                 <div class="form-group">
                     <div class="input select">
-                        <select name="data[Quiz][status]" class="form-control" id="QuizStatus">
+                        <select name="status" class="form-control" id="QuizStatus">
                             <optgroup label="<?php echo __('QUIZ ARCHIVING'); ?>">
                                 <?php 
                                     foreach ($quizTypes as $key => $value) {

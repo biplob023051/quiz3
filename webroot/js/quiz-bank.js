@@ -6,35 +6,35 @@
     var page_no = 1;
 
     // Subjects
-    $(document).on('change', '#Subjects0', function() { 
+    $(document).on('change', '#subjects-0', function() { 
         $(".subjects").find('input').prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
     });
     //.subjects change 
     $(document).on('change', '.subjects input', function() { 
         //uncheck "select all", if one of the listed checkbox item is unchecked
         if(false == $(this).prop("checked")){ //if this item is unchecked
-            $("#Subjects0").prop('checked', false); //change "select all" checked status to false
+            $("#subjects-0").prop('checked', false); //change "select all" checked status to false
         }
         //check "select all" if all checkbox items are checked
         if ($('.subjects input:checked').length == ($('.subjects input').length-1) ){
-            $("#Subjects0").prop('checked', true);
+            $("#subjects-0").prop('checked', true);
         }
         // Get each checked
         loadQuizzes();
     });
     // 
-    $(document).on('change', '#Classes0', function() {
+    $(document).on('change', '#classes-0', function() {
         $(".classes").find('input').prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
     });
     //.classes change 
     $(document).on('change', '.classes input', function() { 
         //uncheck "select all", if one of the listed checkbox item is unchecked
         if(false == $(this).prop("checked")){ //if this item is unchecked
-            $("#Classes0").prop('checked', false); //change "select all" checked status to false
+            $("#classes-0").prop('checked', false); //change "select all" checked status to false
         }
         //check "select all" if all checkbox items are checked
         if ($('.classes input:checked').length == ($('.classes input').length-1) ){
-            $("#Classes0").prop('checked', true);
+            $("#classes-0").prop('checked', true);
         }
         // Get each checked
         loadQuizzes();
@@ -62,20 +62,11 @@
         if ($(this).parent().hasClass('disabled') || $(this).parent().hasClass('active')) {
             return false;
         }
-        c_page_no = parseInt($(this).text());
-        if (isNaN(c_page_no)) {
-            if($(this).parent().hasClass('prev')) {
-                page_no = page_no - 1;
-            } else if($(this).parent().hasClass('next')) {
-                page_no = page_no + 1;
-            }
-        } else {
-            page_no = c_page_no;
-        }
+        var res = $(this).attr('href').split("?page=");
         $.ajax({
-            data: {page_no : page_no, subject_list : subject_list, class_list : class_list},
+            data: {page_no : res[1], subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: projectBaseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quizzes/test_link',
             dataType: 'html',
             success: function (data)
             {
@@ -103,7 +94,7 @@
         $.ajax({
             data: {order_type : order, order_field : order_field, page_no : page_no, subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: projectBaseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quizzes/test_link',
             dataType: 'html',
             success: function (data)
             {
@@ -120,7 +111,7 @@
         $.ajax({
             data: {random_id : random_id},
             type: 'post',
-            url: projectBaseUrl + 'quiz/ajax_preview',
+            url: projectBaseUrl + 'quizzes/ajax_preview',
             dataType: 'html',
             success: function (data)
             {
@@ -145,7 +136,7 @@
     $(document).on('click', '.multiple-import-quiz' , function(e) {
         var random_id = [];
         $('.chkselect:checked').each(function() {
-            random_id.push($(this).val());
+            random_id.push($(this).attr('data-id'));
         });
         if (random_id.length < 1) {
             $("#alert-box").html('<div class="alert alert-danger"><span class="close">&times;</span>'+lang_strings['check_select']+'</div>').show();
@@ -161,7 +152,7 @@
         $.ajax({
             data: {random_id : random_id},
             type: 'post',
-            url: projectBaseUrl + 'quiz/ajax_import',
+            url: projectBaseUrl + 'quizzes/ajax_import',
             dataType: 'json',
             success: function (response)
             {
@@ -241,7 +232,7 @@
         $.ajax({
             data: {subject_list : subject_list, class_list : class_list},
             type: 'post',
-            url: projectBaseUrl + 'quiz/test_link',
+            url: projectBaseUrl + 'quizzes/test_link',
             dataType: 'html',
             success: function (data)
             {

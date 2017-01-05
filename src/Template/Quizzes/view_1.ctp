@@ -7,8 +7,8 @@
         <li><?= $this->Html->link(__('New Quiz'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Imported Quizzes'), ['controller' => 'ImportedQuizzes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Imported Quiz'), ['controller' => 'ImportedQuizzes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Imported Quizzes'), ['controller' => 'Downloads', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Imported Quiz'), ['controller' => 'Downloads', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Questions'), ['controller' => 'Questions', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Question'), ['controller' => 'Questions', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Rankings'), ['controller' => 'Rankings', 'action' => 'index']) ?> </li>
@@ -101,9 +101,9 @@
                 <td><?= h($importedQuizzes->user_id) ?></td>
                 <td><?= h($importedQuizzes->quiz_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ImportedQuizzes', 'action' => 'view', $importedQuizzes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ImportedQuizzes', 'action' => 'edit', $importedQuizzes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ImportedQuizzes', 'action' => 'delete', $importedQuizzes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $importedQuizzes->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Downloads', 'action' => 'view', $importedQuizzes->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Downloads', 'action' => 'edit', $importedQuizzes->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Downloads', 'action' => 'delete', $importedQuizzes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $importedQuizzes->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

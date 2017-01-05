@@ -1,5 +1,5 @@
 <?php
-$this->Html->script(array(
+echo $this->Html->script(array(
     'jquery-ui',
     /* production */
     //'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
@@ -11,12 +11,12 @@ $this->Html->script(array(
     //'tests/edit'
         ), array('inline' => false)
 );
-$this->Html->css(array(
+echo $this->Html->css(array(
     //'qunit-1.17.1'
     'jquery-ui'
         ), array('inline' => false)
 );
-$this->assign('title', __('Edit Quiz'));
+echo $this->assign('title', __('Edit Quiz'));
 
 if (!empty($data['Quiz']['subjects'])) {
     $selectedSubjects = json_decode($data['Quiz']['subjects'], true);
@@ -31,7 +31,7 @@ if (!empty($data['Quiz']['classes'])) {
 }
 ?>
 
-<?php echo $this->Session->flash('error'); ?>
+<?= $this->Flash->render() ?>
 
 <?php
 echo $this->Form->create('Quiz', array(
