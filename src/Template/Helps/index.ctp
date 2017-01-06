@@ -1,61 +1,56 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Help'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="helps index large-9 medium-8 columns content">
-    <h3><?= __('Helps') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('parent_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('slug') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sub_title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('url') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('url_src') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('status') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('type') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($helps as $help): ?>
-            <tr>
-                <td><?= $this->Number->format($help->id) ?></td>
-                <td><?= $help->has('user') ? $this->Html->link($help->user->name, ['controller' => 'Users', 'action' => 'view', $help->user->id]) : '' ?></td>
-                <td><?= $help->has('parent_help') ? $this->Html->link($help->parent_help->title, ['controller' => 'Helps', 'action' => 'view', $help->parent_help->id]) : '' ?></td>
-                <td><?= h($help->title) ?></td>
-                <td><?= h($help->slug) ?></td>
-                <td><?= h($help->sub_title) ?></td>
-                <td><?= h($help->url) ?></td>
-                <td><?= h($help->url_src) ?></td>
-                <td><?= $this->Number->format($help->status) ?></td>
-                <td><?= h($help->type) ?></td>
-                <td><?= h($help->created) ?></td>
-                <td><?= h($help->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $help->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $help->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $help->id], ['confirm' => __('Are you sure you want to delete # {0}?', $help->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<!-- Help list -->
+<div class="well">
+    <div role="tabpanel">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="nav nav-tabs nav-stacked" role="tablist">
+                    <?php $count = 0; // Initialize count ?>
+                    <?php foreach ($helps as $parent => $help) : ?>
+                        <?php if ($count == 0) : ?>
+                            <li class="active"><a href="#<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>" role="tab" data-toggle="tab"><?php echo $parent; ?></a></li>
+                        <?php else : ?>
+                            <li><a href="#<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>" role="tab" data-toggle="tab"><?php echo $parent; ?></a></li>
+                        <?php endif; $count++; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <?php $count = 0; // Reset count ?>
+                    <?php foreach ($helps as $parent => $help) : ?>
+                        <?php if ($count == 0) : ?>
+                            <div class="tab-pane fade in active" id="<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>">
+                        <?php else : ?>
+                            <div role="tabpanel" class="tab-pane" id="<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>">
+                        <?php endif; $count++; ?>
+                            <h3><?php echo $parent; ?></h3>
+                            <div class="panel-group" id="accordion-<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>">
+                                <?php foreach ($help as $key => $value) : ?>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion-<?php echo strtolower(preg_replace('/\s+/', '', $parent)) ; ?>" href="#collapseOne-<?php echo $value->id; ?>"><?php echo $value->title; ?></a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne-<?php echo $value->id; ?>" class="panel-collapse collapse <?php if ($key == 0) : ?>in<?php endif; ?>">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <?php echo $value->body; ?>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?php echo $value->url_src; ?>" frameborder="0" allowfullscreen></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

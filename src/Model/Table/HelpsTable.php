@@ -119,4 +119,13 @@ class HelpsTable extends Table
 
         return $rules;
     }
+
+    // list of active parent 
+    public function parentsOptions() {
+        $options = $this->find('list', ['keyField' => 'id', 'valueField' => 'title'])
+            ->where(['status' => 1, 'type' => 'help', 'parent_id IS NULL'])
+            ->order(['lft'=>' DESC', 'rght'=>' ASC'])
+            ->toArray();
+        return $options;
+    } 
 }

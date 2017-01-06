@@ -109,4 +109,27 @@ class QuizzesTable extends Table
         $result = $this->findByIdAndUserId($quizId, $user_id)->select(['id'])->first();
         return $result;
     }
+
+    // Find individual quiz
+    // params $id, $user_id, $contain array
+    public function getAQuizRel($id, $user_id) {
+        $result = $this->find('all', array(
+            'conditions' => array(
+                'Quizzes.id' => $id,
+                'Quizzes.user_id' => $user_id
+            )
+        ))
+        ->contain([
+            'Questions' => function($q) {
+                $q->select([
+                     'Questions.quiz_id',
+                     'total' => $q->func()->count('Questions.quiz_id')
+                ])
+                ->group(['Questions.quiz_id']);
+                return $q;
+            },
+            'Users'
+        ])->first();
+        return $result;
+    }
 }

@@ -970,20 +970,19 @@ class QuizzesController extends AppController
         $this->autoRender = false;
         $this->accountStatus(); 
         // authenticate or not
-        $quiz = $this->Quizzes->getAQuizRel($quiz_id, $this->Auth->user('id'), array('User'));
+        $quiz = $this->Quizzes->getAQuizRel($quiz_id, $this->Auth->user('id'));
 
+        if (empty($quiz) || empty($quiz->questions[0]->total)) {
+            $this->Flash->error(__('Invalid quiz'));
+            return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+        }   
         // pr($quiz);
         // exit;
-
-        if (empty($quiz) || empty($quiz['Quiz']['question_count'])) {
-            throw new ForbiddenException;
-        }   
-
-        if (empty($shared) && ($quiz['Quiz']['shared'] == 1) && empty($quiz['Quiz']['is_approve'])) {
+        if (empty($shared) && ($quiz->shared == 1) && empty($quiz->is_approve)) {
             $message = __('You had already shared this quiz. Please wait for admin approval!');
-        } else if (empty($shared) && ($quiz['Quiz']['shared'] == 1) && ($quiz['Quiz']['is_approve'] == 1)) {
+        } else if (empty($shared) && ($quiz->shared == 1) && ($quiz->is_approve == 1)) {
             $message = __('Your quiz already shared and approved!');
-        } else if (empty($shared) && ($quiz['Quiz']['shared'] == 1) && ($quiz['Quiz']['is_approve'] == 2)) {
+        } else if (empty($shared) && ($quiz->shared == 1) && ($quiz->is_approve == 2)) {
             $message = __('Sorry, your sharing has been declined by admin.');
         } else {
             // Proceed to next
@@ -991,22 +990,22 @@ class QuizzesController extends AppController
 
         if (!empty($message)) {
             $this->Flash->error($message);
-            $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+            return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         }
         // pr($quiz);
         // exit;
 
 
         // Update shared field
-        $this->Quizzes->id = $quiz_id;
-        if ($this->Quizzes->saveField('shared', empty($shared) ? 1 : NULL)) {
+        $quiz->shared = empty($shared) ? 1 : NULL;
+        if ($this->Quizzes->save($quiz)) {
             // Send email to the admin
             if (empty($shared)) {
                 $subject = __('[Verkkotesti] A quiz has been shared!');
                 $template = 'quiz_shared';
                 $message = __('You have successfully shared the quiz. Please hold for admin approval.');
 
-                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), $subject, $quiz, $template);
+                $admin_email = $this->Email->sendMail('test@test.com', $subject, $quiz, $template);
                 //$admin_email = $this->Email->sendMail('biplob.weblancer@gmail.com', $subject, $quiz, $template);
 
                 // pr($admin_email);
@@ -1020,7 +1019,7 @@ class QuizzesController extends AppController
         } else {
             $this->Flash->error(__('Something went wrong, please try again later!'));
         }
-        $this->redirect($this->referer());
+        return $this->redirect($this->referer());
     }
 
     // Method for listing all quizzes from quiz bank

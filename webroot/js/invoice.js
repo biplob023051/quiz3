@@ -144,7 +144,7 @@
             quiz_name = $(this).attr('quiz-name');
         $('#confirm-delete').find('.modal-body').html(lang_strings['share_quiz_question']);
         $('#confirm-delete').find('.modal-header').html(lang_strings['share_quiz'] + ': <b>' + quiz_name + '</b>?');
-        $('#confirm-delete').find('.modal-footer a').attr('href', projectBaseUrl + 'quiz/share/' + quiz_id).removeClass('btn-danger').addClass('btn-success').html(lang_strings['share_quiz']);
+        $('#confirm-delete').find('.modal-footer a').attr('href', projectBaseUrl + 'quizzes/share/' + quiz_id).removeClass('btn-danger').addClass('btn-success').html(lang_strings['share_quiz']);
         $('#confirm-delete').modal('show');
     });
 
@@ -154,7 +154,7 @@
             quiz_name = $(this).attr('quiz-name');
         $('#confirm-delete').find('.modal-body').html(lang_strings['remove_share_question']);
         $('#confirm-delete').find('.modal-header').html(lang_strings['remove_share'] + ' ' + quiz_name + '?');
-        $('#confirm-delete').find('.modal-footer a').attr('href', projectBaseUrl + 'quiz/share/' + quiz_id + '/1').removeClass('btn-danger').addClass('btn-success').html(lang_strings['remove_shared_quiz']);
+        $('#confirm-delete').find('.modal-footer a').attr('href', projectBaseUrl + 'quizzes/share/' + quiz_id + '/1').removeClass('btn-danger').addClass('btn-success').html(lang_strings['remove_shared_quiz']);
         $('#confirm-delete').modal('show');
     });
 

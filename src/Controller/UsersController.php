@@ -145,7 +145,7 @@ class UsersController extends AppController
 
     public function create() {
         if ($this->Auth->user()) {
-            return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+            return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }
         // load MathCaptchaComponent on fly
         $site_language = Configure::read('Config.language');
@@ -270,7 +270,7 @@ class UsersController extends AppController
     public function login()
     {
         if ($this->Auth->user()) {
-            return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+            return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
