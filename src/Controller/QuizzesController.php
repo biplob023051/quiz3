@@ -216,9 +216,9 @@ class QuizzesController extends AppController
         if (empty($data))
             throw new NotFoundException;
 
-        $data['QuestionTypes'] = $this->Quizzes->Questions->QuestionTypes->find()
+        $data->question_type = $this->Quizzes->Questions->QuestionTypes->find()
             ->select(['name', 'template_name', 'multiple_choices', 'id', 'type'])
-            ->all();
+            ->toArray();
 
         // pr($data['QuestionTypes']);
         // exit;
@@ -285,6 +285,9 @@ class QuizzesController extends AppController
         }
 
         // pr($this->Session->read('Auth.User'));
+        // exit;
+
+        // pr($data);
         // exit;
 
         $this->set('data', $data);

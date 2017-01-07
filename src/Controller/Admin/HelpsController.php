@@ -101,7 +101,7 @@ class HelpsController extends AppController
         
         $options = array(
             'conditions' => array(
-                'Helps.parent_id' => null,
+                'Helps.parent_id IS NULL',
                 'Helps.type' => 'help'
             ),
             'order' => array(
@@ -111,7 +111,7 @@ class HelpsController extends AppController
         );
         
         try {
-            $this->set('helps', $this->Helps->find('all', $options));
+            $this->set('helps', $this->Helps->find('all', $options)->toArray());
         } catch (NotFoundException $e) { 
             // when pagination error found redirect to first page e.g. paging page not found
             return $this->redirect(array('controller' => 'helps', 'action' => 'index', 'admin' => true));

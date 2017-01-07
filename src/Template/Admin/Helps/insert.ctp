@@ -1,5 +1,5 @@
 <?php
-$this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
+echo $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
     'inline' => false
 ));
 ?>
@@ -19,20 +19,20 @@ $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
     </div>
     <div class="panel-body"> 
         <?php echo $this->Form->create('Help', array(
-            'inputDefaults' => array(
-                'div' => 'form-group',
-                'label' => array(
-                    'class' => 'col col-sm-3 control-label'
-                ),
-                'wrapInput' => 'col col-sm-7',
-                'class' => 'form-control'
-            ),
+            // 'inputDefaults' => array(
+            //     'div' => 'form-group',
+            //     'label' => array(
+            //         'class' => 'col col-sm-3 control-label'
+            //     ),
+            //     'wrapInput' => 'col col-sm-7',
+            //     'class' => 'form-control'
+            // ),
             'type' => 'file',
             'novalidate'=>'novalidate'
         )); ?>
     
             <?php
-                echo $this->Form->input('id');
+                echo $this->Form->input('id', ['type' => 'hidden']);
                 echo $this->Form->input('parent_id', array('label'=>array('text'=>__('Main Title')),'options' => $parentsOptions, 'empty' => __('Select One') ));
                 echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('Please insert help title')));
                 echo $this->Form->input('sub_title', array('label'=>array('text'=>__('Sub Title')), 'placeholder' => __('Please insert help sub title')));
@@ -42,10 +42,10 @@ $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
             ?>
             <div class="form-group">
                 <div class="col col-sm-7 col-sm-offset-3">
-                    <?php if(empty($this->params['url']['redirect_url'])) : ?>
+                    <?php if(empty($this->request->params['url']['redirect_url'])) : ?>
                         <?php echo $this->Html->link(__('BACK'),array('controller'=>'helps','action'=>'index', 'admin' => true),array('class'=>'btn btn-danger'));?>
                     <?php else : ?>
-                        <?php echo $this->Html->link(__('BACK'),urldecode($this->params['url']['redirect_url']),array('class'=>'btn btn-danger'));?>
+                        <?php echo $this->Html->link(__('BACK'),urldecode($this->request->params['url']['redirect_url']),array('class'=>'btn btn-danger'));?>
                     <?php endif; ?>
                     <?php echo $this->Form->submit(__('SAVE'), array(
                         'div' => false,

@@ -24,11 +24,11 @@
                     <?php
                     $_data = array();
                     $_others = array();
-                    foreach ($data['QuestionTypes'] as $qt) {
-                        if (empty($qt['QuestionType']['type'])) {
-                            $_data[$qt['QuestionType']['id']] = __($qt['QuestionType']['name']);
+                    foreach ($data->question_type as $qt) {
+                        if (empty($qt->type)) {
+                            $_data[$qt->id] = __($qt->name);
                         } else {
-                            $_others[$qt['QuestionType']['id']] = __($qt['QuestionType']['name']);
+                            $_others[$qt->id] = __($qt->name);
                         }
                     }
                     //array_unshift($_data, __('Question types'));

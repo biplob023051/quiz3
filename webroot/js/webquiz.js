@@ -32,9 +32,9 @@ var webQuiz = {
 
         $.each(this.questionTypes, function (index, value)
         {
-            webQuiz.questionTypes[index].QuestionType.id = parseInt(webQuiz.questionTypes[index].QuestionType.id);
+            webQuiz.questionTypes[index].id = parseInt(webQuiz.questionTypes[index].id);
 
-            var tplName = value.QuestionType.template_name;
+            var tplName = value.template_name;
 
             webQuiz.choiceTpl[tplName] = Handlebars.compile(
                     $("#choice-" + tplName + "-edit-template").html()
@@ -48,6 +48,7 @@ var webQuiz = {
 
         Handlebars.registerHelper('choice', function (items, config)
         {
+            console.log(config.data.root);
             var output = [],
                     root = config.data.root,
                     tplName = root.QuestionType.template_name,
@@ -684,10 +685,10 @@ var webQuiz = {
             }
         });
 
-        console.log(question_ids);
+        //console.log(question_ids);
         $.ajax({
             data: {question_ids: question_ids},
-            url: this.baseUrl + 'question/ajax_sort',
+            url: this.baseUrl + 'questions/ajax_sort',
             dataType: 'json',
             type: 'post',
             success: function (response)
