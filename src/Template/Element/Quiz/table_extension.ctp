@@ -4,21 +4,21 @@
         <thead>
             <tr>
                 <th class="serial sortable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <?php if (empty($quizDetails['Quiz']['anonymous'])) : ?>
+                <?php if (empty($quizDetails->anonymous)) : ?>
                     <th class="sortable std-name"><?php echo __('Name'); ?></th>
                 <?php endif; ?>
                 <th class="sortable"><?php echo __('Timestamp'); ?></th>
-                <?php if (empty($quizDetails['Quiz']['anonymous'])) : ?>
+                <?php if (empty($quizDetails->anonymous)) : ?>
                     <th class="sortable class-th"><?php echo __('Class'); ?></th>
                 <?php endif; ?>
                 <th class="sortable point-th"><?php echo __('Total Points'); ?></th>
                 <th class="sortable"><?php echo __('Progress'); ?></th>
-                <?php $i = 1; foreach ($quizDetails['Question'] as $question): ?>
-                    <?php if (!in_array($question['question_type_id'], $othersQuestionType)) : ?>
+                <?php $i = 1; foreach ($quizDetails->questions as $question): ?>
+                    <?php if (!in_array($question->question_type_id, $othersQuestionType)) : ?>
                         <th class="question-collapse">
                             <?php echo $i; ?>
                             . &nbsp;
-                            <?php echo $question['text']; ?>
+                            <?php echo $question->text; ?>
                         </th>
                     <?php ++$i; endif; ?>
                 <?php endforeach; ?>
@@ -26,33 +26,33 @@
         </thead>
         <tbody>
             <?php $sl = 0; if (!empty($quizDetails)) : ?>
-                <?php $question_count = count($quizDetails['Question']); ?>
-                <?php foreach ($quizDetails['Student'] as $key1 => $value1) : $sl++;  ?>
+                <?php $question_count = count($quizDetails->questions); ?>
+                <?php foreach ($quizDetails->students as $key1 => $value1) : $sl++;  ?>
                     <?php //pr($value1); ?>
-                    <tr id="student-<?php echo $value1['id']; ?>">
+                    <tr id="student-<?php echo $value1->id; ?>">
                         <td class="serial">
-                            <?php if (in_array($value1['id'], $onlineStds)) : ?><i class="glyphicon online"></i><?php $paddingClass = 'small-padding-false'; else : $paddingClass = 'small-padding-true'; ?><?php endif; ?>
+                            <?php if (in_array($value1->id, $onlineStds)) : ?><i class="glyphicon online"></i><?php $paddingClass = 'small-padding-false'; else : $paddingClass = 'small-padding-true'; ?><?php endif; ?>
                             <span class="question-serial <?php echo $paddingClass; ?>"><?php echo $sl; ?></span>
                             <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1['id']; ?>" title="<?php echo __('Remove answer'); ?>">
                                 <i class="glyphicon trash"></i>
                             </button>
                             <span class="ajax-loader"><img src="<?php echo $this->request->webroot; ?>img/ajax-loader.gif" /></span>
                         </td>
-                        <?php if (empty($quizDetails['Quiz']['anonymous'])) : ?>
+                        <?php if (empty($quizDetails->anonymous)) : ?>
                             <td class="std-name">
-                                <span class="std-info" style="margin-right: 5px;"><?php echo !empty($value1['lname']) ? $value1['lname'] : __('Last Name'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter last name'); ?>" class="form-control update-std" name="lname" data-rel="lname-<?php echo $value1['id']; ?>" value="<?php echo $value1['lname']; ?>">
+                                <span class="std-info" style="margin-right: 5px;"><?php echo !empty($value1->lname) ? $value1->lname : __('Last Name'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter last name'); ?>" class="form-control update-std" name="lname" data-rel="lname-<?php echo $value1->id; ?>" value="<?php echo $value1->lname; ?>">
                                 
-                                <span class="std-info"><?php echo !empty($value1['fname']) ? $value1['fname'] : __('First Name'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter first name'); ?>" class="form-control update-std" name="fname" data-rel="fname-<?php echo $value1['id']; ?>" value="<?php echo $value1['fname']; ?>">
+                                <span class="std-info"><?php echo !empty($value1->fname) ? $value1->fname : __('First Name'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter first name'); ?>" class="form-control update-std" name="fname" data-rel="fname-<?php echo $value1->id; ?>" value="<?php echo $value1->fname; ?>">
                             </td>
                         <?php endif; ?>
-                        <td><?php echo $value1['submitted'] ?></td>
-                        <?php if (empty($quizDetails['Quiz']['anonymous'])) : ?>
-                            <td class="class-th"><span class="std-info"><?php echo !empty($value1['class']) ? $value1['class'] : __('Class'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter class'); ?>" class="form-control update-std" name="class" data-rel="class-<?php echo $value1['id']; ?>" value="<?php echo $value1['class']; ?>"></td>
+                        <td><?php echo $value1->submitted ?></td>
+                        <?php if (empty($quizDetails->anonymous)) : ?>
+                            <td class="class-th"><span class="std-info"><?php echo !empty($value1->class) ? $value1->class : __('Class'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter class'); ?>" class="form-control update-std" name="class" data-rel="class-<?php echo $value1->id; ?>" value="<?php echo $value1->class; ?>"></td>
                         <?php endif; ?>
-                        <?php foreach ($quizDetails['Ranking'] as $key2 => $value2) : ?>
-                            <?php if ($value1['id'] == $value2['student_id']) : ?>
+                        <?php foreach ($quizDetails->rankings as $key2 => $value2) : ?>
+                            <?php if ($value1->id == $value2->student_id) : ?>
                                 <td class="point-th">
-                                    <span id="studentscr1-<?php echo $value1['id']; ?>"><?php echo ($value2['score']+0); ?></span>/<?php echo ($value2['total']+0); ?>
+                                    <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value2->score+0); ?></span>/<?php echo ($value2->total+0); ?>
                                 </td>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -60,9 +60,9 @@
                             <?php
                                 $answer_array = array();
                                 $answer_count = 0;
-                                foreach ($value1['Answer'] as $answer) {
-                                    if (!in_array($answer['question_id'], $answer_array)) {
-                                        $answer_array[] = $answer['question_id'];
+                                foreach ($value1->answers as $answer) {
+                                    if (!in_array($answer->question_id, $answer_array)) {
+                                        $answer_array[] = $answer->question_id;
                                         $answer_count++;
                                     }
                                 }
@@ -74,8 +74,8 @@
                                 </div>
                             </div>
                         </td>
-                        <?php foreach ($quizDetails['Question'] as $key3 => $value3): ?>
-                            <?php if (!in_array($value3['question_type_id'], $othersQuestionType)) : ?>
+                        <?php foreach ($quizDetails->questions as $key3 => $value3): ?>
+                            <?php if (!in_array($value3->question_type_id, $othersQuestionType)) : ?>
                                 <td class="question-collapse">
                                     <?php echo $this->element('Quiz/table', array('value3' => $value3, 'value1' => $value1)); ?>
                                 </td>

@@ -105,8 +105,8 @@ class QuizzesTable extends Table
         return $rules;
     }
 
-    public function checkPermission($quizId, $user_id) {
-        $result = $this->findByIdAndUserId($quizId, $user_id)->select(['id'])->first();
+    public function checkPermission($quizId, $user_id, $contain = []) {
+        $result = $this->findByIdAndUserId($quizId, $user_id)->select(['id', 'random_id'])->contain($contain)->first();
         return $result;
     }
 
@@ -132,4 +132,94 @@ class QuizzesTable extends Table
         ])->first();
         return $result;
     }
+
+    public function quizDetails($quizId, $filter) {
+        $studentOptions = array();
+        
+        if (isset($filter['daterange']) && $filter['daterange'] !== 'all') {
+
+            switch ($filter['daterange']) {
+                case 'today':
+                    if (isset($filter['class']) and $filter['class'] !== 'all') {
+                        $studentOptions = array(
+                            "DAY(Students.submitted) = DAY(CURDATE())",
+                            "Students.class" => $filter['class']
+                        );
+
+                    } else {
+                        $studentOptions = array(
+                            "DAY(Students.submitted) = DAY(CURDATE())"
+                        );       
+                    }
+                    break;
+                case 'this_week':
+                    if (isset($filter['class']) and $filter['class'] !== 'all') {
+                        $studentOptions = array(
+                            "WEEK(Students.submitted) = WEEK(CURDATE())",
+                            "Students.class" => $filter['class']
+                        );
+                    } else {
+                        $studentOptions = array(
+                            "WEEK(Students.submitted) = WEEK(CURDATE())",
+                        );
+                    }
+                    break;
+                case 'this_month':
+                    if (isset($filter['class']) and $filter['class'] !== 'all') {
+                        $studentOptions = array(
+                            "MONTH(Students.submitted) = MONTH(CURDATE())",
+                            "Students.class" => $filter['class']
+                        );
+                    } else {
+                        $studentOptions = array(
+                            "MONTH(Students.submitted) = MONTH(CURDATE())",
+                        );
+                    }
+                    break;
+                case 'this_year':
+                    if (isset($filter['class']) and $filter['class'] !== 'all') {
+                        $studentOptions = array(
+                            "YEAR(Students.submitted) = YEAR(CURDATE())",
+                            "Students.class" => $filter['class']
+                        );
+                    } else {
+                        $studentOptions = array(
+                            "YEAR(Students.submitted) = YEAR(CURDATE())",
+                        );
+                    }
+                    break;
+            }
+        } else {
+            if (isset($filter['class']) and $filter['class'] !== 'all') {
+                $studentOptions = array(
+                    "Students.class" => $filter['class']
+                );
+            }
+        }
+
+        // pr($studentOptions);
+        // exit;
+
+        $result = $this->find('all', array(
+                'conditions' => array(
+                    'Quizzes.id' => $quizId,
+                ),
+                //'recursive' => 2
+                'contain' => array(
+                    'Users', 
+                    'Questions' => function($q) {
+                        $q->where(['Questions.question_type_id IN' => array(1,2,3,4,5)])
+                        ->contain(['Answers', 'Choices', 'QuestionTypes'])
+                        ->order(['Questions.weight DESC', 'Questions.id ASC']);
+                        return $q;
+                    }, 
+                    'Students' => array('conditions' => $studentOptions, 'Rankings', 'Answers'), 
+                    'Rankings'
+                )
+            )
+        )->first();
+        
+        return $result;
+    }
+
 }

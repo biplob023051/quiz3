@@ -151,9 +151,9 @@ $this->assign('title', __('My Quizzes'));
                                 </div>
                                 <div style="width: 60%; float: left">
                                     <?php if ($quiz->status) : ?>
-                                        <?php echo $this->Html->link(__("Give test!"), '/quiz/present/' . $quiz->id); ?>
+                                        <?php echo $this->Html->link(__("Give test!"), '/quizzes/present/' . $quiz->id); ?>
                                     <?php endif; ?>
-                                    <mark><?php echo $this->Html->link(__("Answers (" . $quiz->student_count . ')'), '/quiz/table/' . $quiz->id); ?></mark>
+                                    <mark><?php echo $this->Html->link(__("Answers (" . $quiz->student_count . ')'), '/quizzes/table/' . $quiz->id); ?></mark>
                                 </div>
                                
                             </td>

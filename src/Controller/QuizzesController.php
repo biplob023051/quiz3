@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Hash;
 
 /**
  * Quizzes Controller
@@ -350,13 +352,12 @@ class QuizzesController extends AppController
     }
 
     public function present($id) {
-        $quiz = $this->Quizzes->find('first', array(
-            'conditions' => array('Quizzes.id' => $id),
-            'recursive' => -1
-        ));
+        $quiz = $this->Quizzes->find('all', array(
+            'conditions' => array('Quizzes.id' => $id)
+        ))->first();
 
         if (empty($quiz))
-            throw new NotFoundException;
+            throw new NotFoundException(__('Invalid quiz!'));
         $this->set(compact('quiz', 'id'));
     }
 
@@ -546,7 +547,10 @@ class QuizzesController extends AppController
         $this->accountStatus();
 
         // authenticate or not
-        $checkPermission = $this->Quizzes->checkPermission($quizId, $this->Auth->user('id'));
+        $checkPermission = $this->Quizzes->checkPermission($quizId, $this->Auth->user('id'), ['Students']);
+        // pr($checkPermission);
+        // exit;
+
         if (empty($checkPermission)) {
             throw new ForbiddenException;
         }
@@ -571,25 +575,29 @@ class QuizzesController extends AppController
 
         // pr($quizDetails);
         // exit;
+
         // get student id's for ajax auto checking
         $studentIds = array();
-        foreach ($quizDetails['Student'] as $key1 => $value1) {
-            $diff = strtotime(date('Y-m-d H:i:s')) - strtotime($value1['submitted']);
-            if (empty($value1['status']) && ($diff < 3600)) {
+        foreach ($quizDetails->students as $key1 => $value1) {
+            $diff = strtotime(date('Y-m-d H:i:s')) - strtotime($value1->submitted);
+            if (empty($value1->status) && ($diff < 3600)) {
                 $informations = array();
-                $informations[] = array('fname' => $value1['fname'], 'lname' => $value1['lname'], 'class' => $value1['class']);
+                $informations[] = array('fname' => $value1->fname, 'lname' => $value1->lname, 'class' => $value1->class);
                 $answers = array();
-                foreach ($value1['Answer'] as $key2 => $value2) {
-                    $answers[$value2['question_id']] = $value2['text'];
+                foreach ($value1->answers as $key2 => $value2) {
+                    $answers[$value2->question_id] = $value2->text;
                 }
                 $informations[] = $answers;
-                $studentIds[$value1['id']] = $informations;
+                $studentIds[$value1->id] = $informations;
             }
         }
+
+        // pr($studentIds);
+        // exit;
     
         
         // find online students
-        $onlineStds = $this->checkOnlineStudent($quizDetails['Quiz']['random_id']);
+        $onlineStds = $this->checkOnlineStudent($quizDetails->random_id);
         $this->set(compact('onlineStds'));
 
         $studentIds = json_encode(array('studentIds' => $studentIds, 'onlineStds' => $onlineStds));
@@ -598,24 +606,20 @@ class QuizzesController extends AppController
         // exit;
 
         // get student classes
-        $classes = Hash::combine($checkPermission['Student'], '{n}.class', '{n}.class');
-        
-        function cmp($a, $b) {
-            if ($a == $b) {
-                return 0;
-            }
-            return ($a < $b) ? -1 : 1;
-        }
-        uasort($classes, 'cmp');
-        // classes merge with all class
-       
-        // $class_ar = array();
-        // foreach ($classes as $key => $ind_class) {
-        //     $new_class = strtolower(preg_replace('/\s+/', '', $ind_class));
-        //     if (!in_array($new_class, $class_ar)) {
-        //         $class_ar[$new_class] = $new_class;
+        $classes = Hash::combine($checkPermission->students, '{n}.class', '{n}.class');
+        $classes = array_filter($classes);
+        sort($classes);
+        // pr($classes);
+        // exit;
+        // function cmp($a, $b) {
+        //     if ($a == $b) {
+        //         return 0;
         //     }
+        //     return ($a < $b) ? -1 : 1;
         // }
+        // uasort($classes, 'cmp');
+        //// classes merge with all class
+       
         
         $classes = Hash::merge(array('all' => __('All Classes')), $classes);
 
@@ -635,7 +639,18 @@ class QuizzesController extends AppController
         $onlineStds = array();
         //$time = time()+14400-60; // (14400 == 4 huors and 10 mins = 600)
         $time = time()+14400-60; // (14400 == 4 huors and 10 mins = 600)
-        $sessions = $this->Quizzes->query('SELECT data FROM ' . $this->Quizzes->tablePrefix . 'cake_sessions WHERE expires > ' . $time . ' AND data LIKE ' . "'%" . '"' . $random_id . '"' . "%'");
+
+        $conn = ConnectionManager::get('default');
+
+        // pr($conn);
+        // exit;
+        $stmt = $conn->execute('SELECT data FROM sessions WHERE expires > ' . $time . ' AND data LIKE ' . "'%" . '"' . $random_id . '"' . "%'");
+        $sessions = $stmt ->fetchAll('assoc');
+        // pr($sessions);
+        // exit;
+
+
+        // $sessions = $this->Quizzes->query('SELECT data FROM sessions WHERE expires > ' . $time . ' AND data LIKE ' . "'%" . '"' . $random_id . '"' . "%'")->toArray();
         // pr($sessions);
         // exit;
         foreach ($sessions as $session) {

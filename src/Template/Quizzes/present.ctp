@@ -1,6 +1,6 @@
 <?php 
-    $url = $this->Html->url(array('controller' => $quiz['Quiz']['random_id']), true); 
-    $this->assign('title', $quiz['Quiz']['name']);
+    $url = $this->Url->build('/' . $quiz->random_id , true);
+    $this->assign('title', $quiz->name);
 ?>
 <div class="row">
     <div class="col-md-10 col-xs-12">

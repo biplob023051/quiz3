@@ -1,9 +1,9 @@
 <?php
-$this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array(
+echo $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array(
     'inline' => false
 ));
 
-$this->Html->css('answer-table', array(
+echo $this->Html->css('answer-table', array(
     'inline' => false
 ));
 
@@ -31,7 +31,7 @@ $this->assign('title', __('Answer Table'));
         </div>
         <div class="col-md-3 col-xs-12">
             <?php 
-                if (empty($quizDetails['Quiz']['anonymous'])) {
+                if (empty($quizDetails->anonymous)) {
                     echo $this->Form->input('Filter.class', array(
                         'options' => $classes,
                         'div' => array('class' => 'form-group'),
@@ -71,13 +71,6 @@ $this->assign('title', __('Answer Table'));
 </div>
 <div id="print_div" style="display: none;"></div>
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-<script id="app-data" type="application/json">
-    <?php
-    echo json_encode(array(
-        'baseUrl' => $this->Html->url('/', true)
-    ));
-    ?>
-</script>
 
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
