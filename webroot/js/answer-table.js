@@ -20,7 +20,7 @@ function getUpdated() {
     $.ajax({
         async: false,
         type: "POST",
-        url: projectBaseUrl + 'quiz/ajax_latest',
+        url: projectBaseUrl + 'quizzes/ajax_latest',
         data: {quizId:quizId},
         async: true,
         success: function(data) {
@@ -48,7 +48,7 @@ function getUpdated() {
                     async: false,
                     dataType: 'JSON',
                     type: "POST",
-                    url: projectBaseUrl + 'quiz/ajax_update',
+                    url: projectBaseUrl + 'quizzes/ajax_update',
                     data: {quizId:quizId, currentTab:openTab, old_data:old_data.studentIds, new_data:new_data.studentIds},
                     async: true,
                     success: function(data) {
@@ -80,7 +80,7 @@ function updateIndividulaStudent(student_id) {
         async: false,
         dataType: 'html',
         type: "POST",
-        url: projectBaseUrl + 'quiz/ajax_student_update',
+        url: projectBaseUrl + 'quizzes/ajax_student_update',
         data: {student_id:student_id, sl:sl},
         async: true,
         success: function(data) {
@@ -211,7 +211,7 @@ $(document).ready(function(){
         $.ajax({
             async: false,
             dataType: 'json',
-            url: projectBaseUrl + 'student/confirmDeleteStudent',
+            url: projectBaseUrl + 'students/confirmDeleteStudent',
             type: 'post',
             data: {'student_id': std_id},
             success: function (response)
@@ -239,7 +239,7 @@ $(document).ready(function(){
        $.ajax({
             async: false,
             dataType: 'json',
-            url: projectBaseUrl + 'student/deleteStudent',
+            url: projectBaseUrl + 'students/deleteStudent',
             type: 'post',
             data: {'student_id': std_id},
             success: function (response)
@@ -276,7 +276,7 @@ $(document).ready(function(){
             async: false,
             dataType: 'html',
             type: "POST",
-            url: projectBaseUrl + 'quiz/ajax_print_answer',
+            url: projectBaseUrl + 'quizzes/ajax_print_answer',
             data: {quizId:quizId},
             async: true,
             success: function(data) {
@@ -341,7 +341,7 @@ $(document).ready(function(){
         $.ajax({
             async: false,
             dataType: 'json',
-            url: projectBaseUrl + 'student/ajax_std_update',
+            url: projectBaseUrl + 'students/ajax_std_update',
             type: 'post',
             data: {'std_info' : std_info, 'value_info' : value_info},
             success: function (response)
@@ -459,7 +459,7 @@ function testFunc() {
         $.ajax({
             async: false,
             dataType: 'json',
-            url: projectBaseUrl + 'score/update',
+            url: projectBaseUrl + 'students/update_score',
             type: 'post',
             data: {'id': q_id, 'student_id': std_id, 'score': marks, 'current_score' : current_score, 'max' : max},
             success: function (response)

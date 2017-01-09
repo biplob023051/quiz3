@@ -558,6 +558,8 @@ class QuizzesController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->data;
+            // pr($data);
+            // exit;
             if (isset($data['Filter'])) {
                 $filter = array('class' => !empty($data['Filter']['class']) ? $data['Filter']['class'] : 'all', 'daterange' => $data['Filter']['daterange']);
                 $this->Session->write('Filter', $filter);
@@ -570,6 +572,9 @@ class QuizzesController extends AppController
                 $filter = $this->Session->read('Filter');
             }
         }
+
+        // pr($filter);
+        // exit;
 
         $quizDetails = $this->Quizzes->quizDetails($quizId, $filter);
 
@@ -607,10 +612,13 @@ class QuizzesController extends AppController
 
         // get student classes
         $classes = Hash::combine($checkPermission->students, '{n}.class', '{n}.class');
+        //pr($classes);
         $classes = array_filter($classes);
         sort($classes);
-        // pr($classes);
-        // exit;
+        $new_class = array();
+        foreach ($classes as $key => $cls) {
+            $new_class[$cls] = $cls;
+        }
         // function cmp($a, $b) {
         //     if ($a == $b) {
         //         return 0;
@@ -621,7 +629,7 @@ class QuizzesController extends AppController
         //// classes merge with all class
        
         
-        $classes = Hash::merge(array('all' => __('All Classes')), $classes);
+        $classes = Hash::merge(array('all' => __('All Classes')), $new_class);
 
         $lang_strings['remove_question'] = __('Are you sure you want to remove ');
         $lang_strings['with_points'] = __(') answer with points ');
@@ -668,7 +676,7 @@ class QuizzesController extends AppController
     }
 
     // Ajax latest
-    public function ajax_latest() {
+    public function ajaxLatest() {
         $this->autoRender = false;
         if (!$this->Session->check('Filter')) {
             $filter = array('class' => 'all', 'daterange' => 'all');
@@ -677,16 +685,18 @@ class QuizzesController extends AppController
             $filter = $this->Session->read('Filter');
         }
         $quizDetails = $this->Quizzes->checkNewUpdate((int) $this->request->data['quizId'], $filter);
+        // pr($quizDetails);
+        // exit;
         $studentIds = array();
-        foreach ($quizDetails['Student'] as $key1 => $value1) {
+        foreach ($quizDetails->students as $key1 => $value1) {
             $informations = array();
-            $informations[] = array('fname' => $value1['fname'], 'lname' => $value1['lname'], 'class' => $value1['class']);
+            $informations[] = array('fname' => $value1->fname, 'lname' => $value1->lname, 'class' => $value1->class);
             $answers = array();
-            foreach ($value1['Answer'] as $key2 => $value2) {
-                $answers[$value2['question_id']] = $value2['text'];
+            foreach ($value1->answers as $key2 => $value2) {
+                $answers[$value2->question_id] = $value2->text;
             }
             $informations[] = $answers;
-            $studentIds[$value1['id']] = $informations;
+            $studentIds[$value1->id] = $informations;
         }
 
         $onlineStds = $this->checkOnlineStudent($quizDetails['Quiz']['random_id']);
@@ -929,49 +939,55 @@ class QuizzesController extends AppController
         $response['result'] = 0;
 
         $quizId = $this->request->data['quiz_id'];
+        $user_id = $this->Auth->user('id');
 
-        $quizInfo = $this->Quizzes->find()->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $this->Auth->user('id')])->contain(['Questions'])->first();
+        $quiz = $this->Quizzes->find()
+        ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $user_id])
+        ->contain(['Questions'  => function($q) {
+            return $q->contain(['Choices']);
+        }])
+        ->first();
 
-        pr($quizInfo);
-        exit;
+        if (!empty($quiz)) {
+            $new_quiz = array();
+            $new_quiz['name'] = __('Copy of:') . ' ' . $quiz->name;
+            $new_quiz['user_id'] = $user_id;
+            $new_quiz['description'] = $quiz->description;
+            $new_quiz['status'] = 1;
+            $new_quiz['show_result'] = $quiz->show_result;
+            $new_quiz['anonymous'] = $quiz->anonymous;
+            $new_quiz['subjects'] = $quiz->subjects;
+            $new_quiz['classes'] = $quiz->classes;
 
-        // , array(
-        //     'conditions' => array(
-        //         'Quizzes.id' => $quizId,
-        //         'Quizzes.user_id' => $this->Auth->user('id')
-        //     ),
-        //     'contain' => array(
-        //         'Question' => array(
-        //             'Choice'
-        //         )
-        //     )
-        // ));
-
-        if (!empty($quizInfo)) {
-            $quizInfo['Quiz']['id'] = '';
-            $quizInfo['Quiz']['name'] = __('Copy of:') . ' ' . $quizInfo['Quiz']['name'];
-            unset($quizInfo['Quiz']['created']);
-            unset($quizInfo['Quiz']['modified']);
-            unset($quizInfo['Quiz']['student_count']);
-            unset($quizInfo['Quiz']['random_id']);
-
-            foreach ($quizInfo['Question'] as $key1 => $question) {
-                $quizInfo['Question'][$key1]['id'] = '';
-                $quizInfo['Question'][$key1]['quiz_id'] = '';
-                unset($quizInfo['Question'][$key1]['created']);
-                unset($quizInfo['Question'][$key1]['modified']);
-                foreach ($question['Choice'] as $key2 => $choice) {
-                    $quizInfo['Question'][$key1]['Choice'][$key2]['id'] = '';
-                    $quizInfo['Question'][$key1]['Choice'][$key2]['question_id'] = '';
+            foreach ($quiz->questions as $key1 => $question) {
+                $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
+                $new_quiz['questions'][$key1]['text'] = $question->text;
+                $new_quiz['questions'][$key1]['explanation'] = $question->explanation;
+                $new_quiz['questions'][$key1]['weight'] = $question->weight;
+                $new_quiz['questions'][$key1]['max_allowed'] = $question->max_allowed;
+                $new_quiz['questions'][$key1]['case_sensitive'] = $question->case_sensitive;
+                foreach ($question->choices as $key2 => $choice) {
+                    $new_quiz['questions'][$key1]['choices'][$key2]['text'] = $choice->text;
+                    $new_quiz['questions'][$key1]['choices'][$key2]['points'] = $choice->points;
+                    $new_quiz['questions'][$key1]['choices'][$key2]['weight'] = $choice->weight;
                 }
             }
 
-            if ($this->Quizzes->saveAll($quizInfo, array('deep' => true))) {
-                $random_id = $this->Quizzes->id . $this->Quizzes->randText(2);
-                $this->Quizzes->saveField('random_id', $random_id);
+            $new_quiz = $this->Quizzes->newEntity($new_quiz, [
+                'associated' => [
+                    'Questions' => ['associated' => ['Choices']]
+                ]
+            ]);
+
+            // pr($new_quiz);
+            // exit;
+
+            if ($this->Quizzes->save($new_quiz)) {
+                $random_id = $new_quiz->id . $this->randText(2);
+                $this->Quizzes->save($new_quiz);
                 $response['message'] = __('Duplicated Successfully');
                 $response['result'] = 1;
-                $response['id'] = $this->Quizzes->id;
+                $response['id'] = $new_quiz->id;
             } else {
                 $response['message'] = __('Something went wrong, please try again later!');
             }
@@ -1345,7 +1361,7 @@ class QuizzesController extends AppController
                     // pr($new_quiz);
                     // exit;
 
-                    foreach ($quiz['questions'] as $key1 => $question) {
+                    foreach ($quiz->questions as $key1 => $question) {
                         $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
                         $new_quiz['questions'][$key1]['text'] = $question->text;
                         $new_quiz['questions'][$key1]['explanation'] = $question->explanation;
@@ -1353,8 +1369,8 @@ class QuizzesController extends AppController
                         $new_quiz['questions'][$key1]['max_allowed'] = $question->max_allowed;
                         $new_quiz['questions'][$key1]['case_sensitive'] = $question->case_sensitive;
 
-                        if (!empty($question['choices'])) {
-                            foreach ($question['choices'] as $key2 => $choice) {
+                        if (!empty($question->choices)) {
+                            foreach ($question->choices as $key2 => $choice) {
                                 $new_quiz['questions'][$key1]['choices'][$key2]['text'] = $choice->text;
                                 $new_quiz['questions'][$key1]['choices'][$key2]['points'] = $choice->points;
                                 $new_quiz['questions'][$key1]['choices'][$key2]['weight'] = $choice->weight;

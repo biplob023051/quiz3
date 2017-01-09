@@ -84,4 +84,11 @@ class AnswersTable extends Table
 
         return $rules;
     }
+
+    public function updateScore($questionId, $studentId, $score) {
+        return $this->updateAll(
+            ['score' => $score], // fields
+            ['question_id' => $questionId, 'student_id' => $studentId] // conditions
+        );
+    }
 }

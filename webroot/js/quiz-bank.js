@@ -181,10 +181,10 @@
                         html += '<tr class="activeQuiz">';
                         html +=  '<td style="vertical-align:middle">';
                         html +=  '<div style="width: 40%; float: left">';
-                        html +=  '<a href="'+projectBaseUrl+'quiz/edit/'+val.id+'" class="quiz-name">'+val.name+'</a></div>';
+                        html +=  '<a href="'+projectBaseUrl+'quizzes/edit/'+val.id+'" class="quiz-name">'+val.name+'</a></div>';
                         html +=  '<div style="width: 60%; float: left">';
-                        html +=  '<a href="'+projectBaseUrl+'quiz/present/'+val.id+'">Give test!</a>';                                                                        
-                        html +=  '<mark><a href="'+projectBaseUrl+'quiz/table/'+val.id+'">Answers (0)</a></mark>';
+                        html +=  '<a href="'+projectBaseUrl+'quizzes/present/'+val.id+'">Give test!</a>';                                                                        
+                        html +=  '<mark><a href="'+projectBaseUrl+'quizzes/table/'+val.id+'">Answers (0)</a></mark>';
                         html +=  '</div>';               
                         html +=  '</td>';
                         html +=  '<td align="right">';

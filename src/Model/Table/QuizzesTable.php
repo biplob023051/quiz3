@@ -204,7 +204,6 @@ class QuizzesTable extends Table
                 'conditions' => array(
                     'Quizzes.id' => $quizId,
                 ),
-                //'recursive' => 2
                 'contain' => array(
                     'Users', 
                     'Questions' => function($q) {
@@ -213,8 +212,51 @@ class QuizzesTable extends Table
                         ->order(['Questions.weight DESC', 'Questions.id ASC']);
                         return $q;
                     }, 
-                    'Students' => array('conditions' => $studentOptions, 'Rankings', 'Answers'), 
+                    'Students' => function($q) use ($studentOptions) {
+                        return $q->where($studentOptions)->contain(['Rankings', 'Answers']);
+                    }, 
                     'Rankings'
+                )
+            )
+        )->first();
+
+        // pr($result);
+        // exit;
+        
+        return $result;
+    }
+
+    // Method for checking ajax_latest
+    public function checkNewUpdate($quizId, $filter) {
+        $studentOptions[] = array(
+            'Students.status IS NULL',
+            'Students.submitted >=' => date('Y-m-d H:i:s', strtotime('-1 hour'))
+        );
+    
+        if (isset($filter['class']) && ($filter['class'] !== 'all')) {
+            $studentOptions[] = array(
+                'Students.class' => $filter['class']
+            );
+        }
+
+        $result = $this->find('all', array(
+                'conditions' => array(
+                    'Quizzes.id' => $quizId,
+                ),
+                'contain' => array(
+                    'Users', 
+                    'Questions' => function($q) {
+                        return $q->where(['Questions.question_type_id IN' => [1,2,3,4,5]])
+                        ->order(['Questions.weight DESC', 'Questions.id ASC'])
+                        ->contain([
+                            'Answers', 
+                            'Choices', 
+                            'QuestionTypes'
+                        ]);
+                    }, 
+                    'Students' => function($q) use ($studentOptions) {
+                        return $q->where($studentOptions)->contain(['Rankings', 'Answers']);
+                    }
                 )
             )
         )->first();
