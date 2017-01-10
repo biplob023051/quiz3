@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use Cake\Utility\Hash;
 
 use App\Controller\AppController;
 
@@ -10,6 +11,13 @@ use App\Controller\AppController;
  */
 class StudentsController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Email');
+        $this->Auth->allow(['updateStudent']);
+    }
 
     public function updateScore() {
         $this->autoRender = false;
@@ -66,7 +74,7 @@ class StudentsController extends AppController
             $this->request->data['student_id'] = $response['student_id'];
         } 
 
-        $student = $this->Students->findById($this->request->data['student_id']);
+        $student = $this->Students->findById($this->request->data['student_id'])->first();
 
         $checkbox_record_delete = $this->request->data['checkbox_record_delete'];
         $checkBox = $this->request->data['checkBox'];
@@ -203,7 +211,7 @@ class StudentsController extends AppController
         exit;
     }
 
-    public function update_student() {
+    public function updateStudent() {
         $this->autoRender = false;
         $response = $this->recordStudentData($this->request->data);
         echo json_encode($response);
@@ -213,34 +221,47 @@ class StudentsController extends AppController
     // student information updating
     private function recordStudentData() {
         $response = array('success' => false);
-        $this->loadModel('Quiz');
         if (!empty($this->request->data['student_id']) || $this->Session->check('student_id')) {
             // Update student information
-            $data['Student']['id'] = !empty($this->request->data['student_id']) ? $this->request->data['student_id'] : (int) $this->Session->read('student_id');
+            $student_id = !empty($this->request->data['student_id']) ? $this->request->data['student_id'] : (int) $this->Session->read('student_id');
+            $student = $this->Students->get($student_id);
+
+            // pr($student);
+            // exit;
+
+            $student->fname = $this->request->data['fname'];
+            $student->lname = $this->request->data['lname'];
+            //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
+            $student->class = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
+            $student->submitted = date('Y-m-d H:i:s');
+            $student = $this->Students->save($student);
         } else {
             // Find quiz id
-            $quiz = $this->Quizzes->findByRandomId((int)$this->request->data['random_id']);
-            $questions = Hash::combine($quiz['Question'], '{n}.id', '{n}.id');
-            $data['Student']['quiz_id'] = $quiz['Quiz']['id'];
+            $quiz = $this->Students->Quizzes->findByRandomId((int)$this->request->data['random_id'])->contain(['Questions'])->first();
+            $questions = Hash::combine($quiz->questions, '{n}.id', '{n}.id');
+            $data['quiz_id'] = $quiz->id;
             
             $total = 0;
             
-            $this->loadModel('Choice');
+            $this->loadModel('Choices');
 
-            $choices = $this->Choices->find('all', array('conditions' => array('Choices.question_id' => $questions)));
+            $choices = $this->Choices->find('all', array('conditions' => array('Choices.question_id IN' => $questions)))->contain(['Questions'])->toArray();
+
+            // pr($choices);
+            // exit;
 
             //pr($choices);
             $checkQuestion = array();
             foreach ($choices as $key => $value) {
-                if ($value['Question']['question_type_id'] == 1) {
-                    if (!in_array($value['Question']['id'], $checkQuestion)) {
-                        array_push($checkQuestion, $value['Question']['id']);
+                if ($value->question->question_type_id == 1) {
+                    if (!in_array($value->question->id, $checkQuestion)) {
+                        array_push($checkQuestion, $value->question->id);
                         $checkMax = 0;
                         foreach ($choices as $key1 => $value1) {
-                            if ($value1['Question']['question_type_id'] == 1) {
-                                if ($value['Question']['id'] == $value1['Question']['id']) {
-                                    if ($value1['Choice']['points'] > 0) {
-                                        $checkMax = $checkMax < $value1['Choice']['points'] ? $value1['Choice']['points'] : $checkMax;    
+                            if ($value1->question->question_type_id == 1) {
+                                if ($value->question->id == $value1->question->id) {
+                                    if ($value1->points > 0) {
+                                        $checkMax = $checkMax < $value1->points ? $value1->points : $checkMax;    
                                     }
                                 }
                             }
@@ -248,59 +269,56 @@ class StudentsController extends AppController
                         $total = $total + $checkMax;   
                     }
                         
-                } elseif (($value['Question']['question_type_id'] == 3) || ($value['Question']['question_type_id'] == 2)) {
-                    if ($value['Choice']['points'] > 0) {
-                        $total = $total + $value['Choice']['points'];    
+                } elseif (($value->question->question_type_id == 3) || ($value->question->question_type_id == 2)) {
+                    if ($value->points > 0) {
+                        $total = $total + $value->points;    
                     }
                         
-                } elseif ($value['Question']['question_type_id'] == 4) {
-                    if (!empty($value['Choice']['points'])) {
-                        $total = $total + $value['Choice']['points'];
-                    } else {
-                        $total = $total + $manual_scoring_short['QuestionType']['manual_scoring'];
+                } elseif ($value->question->question_type_id == 4) {
+                    if (!empty($value->points)) {
+                        $total = $total + $value->points;
                     }
                 } else {
-                    if (!empty($value['Choice']['points'])) {
-                        $total = $total + $value['Choice']['points'];
-                    } else {
-                        $total = $total + $manual_scoring_essay['QuestionType']['manual_scoring'];
+                    if (!empty($value->points)) {
+                        $total = $total + $value->points;
                     }
                 }
             }
             
             // save data in ranking table
-            $data['Ranking']['quiz_id'] = $quiz['Quiz']['id'];
-            $data['Ranking']['total'] = $total;
-            $data['Ranking']['score'] = 0;
+            $data['rankings'][0]['quiz_id'] = $quiz->id;
+            $data['rankings'][0]['total'] = $total;
+            $data['rankings'][0]['score'] = 0;
+
+            $data['fname'] = $this->request->data['fname'];
+            $data['lname'] = $this->request->data['lname'];
+            //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
+            $data['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
+            $data['submitted'] = date('Y-m-d H:i:s');
+
+            $data = $this->Students->newEntity($data, [
+                'validate' => 'InitialRecord',
+                'associated' => ['Rankings']
+            ]);
+
+            $student = $this->Students->save($data);
         }
 
-        $data['Student']['fname'] = $this->request->data['fname'];
-        $data['Student']['lname'] = $this->request->data['lname'];
-        //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
-        $data['Student']['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
-        $data['Student']['submitted'] = date('Y-m-d H:i:s');
-
-        $student = $this->Students->saveAssociated($data);
+        // pr($student);
+        // exit;
         if (!empty($student)) {
             // send email to the admin
             // first 3 students answer taken for any first quiz
             // access level should be free user
-            if (!empty($quiz) && (empty($quiz['User']['account_level']) || ($quiz['User']['account_level'] == 22)) && ($quiz['Quiz']['student_count'] == 2)) {
-                $user = $quiz['User'];
-                $Email = new CakeEmail();
-                $Email->viewVars(array('user' => $user));
-                $Email->from(array('pietu.halonen@verkkotesti.fi' => 'WebQuiz.fi'));
-                $Email->template('quiz_taken_started');
-                $Email->emailFormat('html');
-                $Email->to(Configure::read('AdminEmail'));
-                $Email->subject(__('[Verkkotesti] Quiz given to students'));
-                $Email->send();
+            if (!empty($quiz) && (empty($quiz->user->account_level) || ($quiz->user->account_level == 22)) && ($quiz->student_count == 2)) {
+                $user = $quiz->user;
+                $user_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] Quiz given to students'), $user, 'quiz_taken_started');
             }
             if (!$this->Session->check('student_id')) {
-                $this->Session->write('student_id', $this->Students->id);
+                $this->Session->write('student_id', $student->id);
             }
             $response['success'] = true;
-            $response['student_id'] = $this->Students->id;
+            $response['student_id'] = $student->id;
 
             $response['message'] = __('Student saved');
         } else {

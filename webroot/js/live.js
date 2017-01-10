@@ -1,10 +1,9 @@
 (function($) {
-	// right click disabled
-	$(document).on("contextmenu",function(e){
-        e.preventDefault();
-        alert(lang_strings['right_click_disabled']);
-    });
-	var appData = $.parseJSON($("#app-data").text());
+	// // right click disabled
+	// $(document).on("contextmenu",function(e){
+ //        e.preventDefault();
+ //        alert(lang_strings['right_click_disabled']);
+ //    });
 	if (!student_id || student_id == '') {
 		setTimeout(saveStudentRecord,500);
 	}
@@ -35,7 +34,7 @@
  		//console.log('question', student_id);
  		$.ajax({
             dataType: 'json',
-            url: appData.baseUrl + 'student/update_answer',
+            url: projectBaseUrl + 'students/update_answer',
             type: 'post',
             data: {'student_id' : student_id, 'question_id': question.question_id, 'text' : question.answer_text, 'checkbox_record' : question.checkbox_record, 'checkBoxDelete' : question.checkBoxDelete, 'checkbox_record_delete' : question.checkbox_record_delete, 'checkBox' : question.checkBox, 'random_id' : question.random_id, 'case_sensitive' : question.case_sensitive},
             success: function (response)
@@ -100,7 +99,7 @@
         }
     });
 
-	$('#StudentFname, #StudentLname, #StudentClass').donetyping(function(){
+	$('#fname, #lname, #class').donetyping(function(){
 		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
 		if (navigator.onLine) {
 			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -111,15 +110,15 @@
 	});
 
 	function updateStudentBasicInfo() {
-		var fname = $('#StudentFname').val();
-		var lname = $('#StudentLname').val();
-		var std_class = $('#StudentClass').val();
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		var std_class = $('#class').val();
 		if ((fname != '') || (lname != '') || (std_class != '')) { // only save if 3 basic information exist
 			// Execute for student information save
 			//$(".basic-info").not($(this)).attr('disabled', true);
 			$.ajax({
 	            dataType: 'json',
-	            url: appData.baseUrl + 'student/update_student',
+	            url: projectBaseUrl + 'students/update_student',
 	            type: 'post',
 	            data: {'student_id' : student_id, 'fname': fname, 'lname' : lname, 'class' : std_class, 'random_id' : random_id},
 	            success: function (response)
@@ -220,7 +219,7 @@
 		jQuery.ajaxSetup({async:false});
 		re="";
 		r=Math.round(Math.random() * 10000);
-		$.get(appData.baseUrl + 'img/dot.png',{subins:r},function(d){
+		$.get(projectBaseUrl + 'img/dot.png',{subins:r},function(d){
 		re=true;
 		}).error(function(){
 		re=false;
@@ -371,13 +370,13 @@
 		$(".ajax-loader").show();
 		//$( "#StudentLiveForm" ).prop( "disabled", true );
 		$("#StudentLiveForm :input").attr("disabled", true);
-		var fname = $('#StudentFname').val();
-		var lname = $('#StudentLname').val();
-		var std_class = $('#StudentClass').val();
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		var std_class = $('#class').val();
     	$.ajax({
     		async: false,
 	        dataType: 'json',
-	        url: appData.baseUrl + 'student/update_student',
+	        url: projectBaseUrl + 'students/update_student',
 	        type: 'post',
 	        data: {'fname': fname, 'lname' : lname, 'class' : std_class, 'random_id' : random_id},
 	        success: function (response)
@@ -390,5 +389,5 @@
 	        }
 	    });
     }
-    document.getElementById("StudentLiveForm").reset();
+    //document.getElementById("StudentLiveForm").reset();
 })(jQuery);

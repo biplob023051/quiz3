@@ -1,4 +1,5 @@
-<?php if (!empty($this->request->data['Student']['id'])) : ?>
+<?php 
+if (!empty($this->request->data['Student']['id'])) : ?>
     <script type="text/javascript">
         var student_id = '<?php echo $this->request->data['Student']['id']; ?>';
     </script>
@@ -8,39 +9,42 @@
     </script>
 <?php endif; ?>
 <?php
-    $this->Html->script(array(
+    echo $this->Html->script(array(
         'webquiz',
         'live',
-            ), array('inline' => false)
+        ), array('inline' => false)
     );
 
-    $this->assign('title', __('Quiz: ') . $data['Quiz']['name']);
+    $this->assign('title', __('Quiz: ') . $data->name);
 
-    echo $this->Session->flash('error'); 
+    echo $this->Flash->render(); 
 
     echo $this->Form->create('Student', array(
-        'inputDefaults' => array(
-            'label' => array('class' => 'sr-only'),
-            'div' => array('class' => 'form-group'),
-            'class' => 'form-control input-lg basic-info',
-        ),
+        // 'inputDefaults' => array(
+        //     'label' => array('class' => 'sr-only'),
+        //     'div' => array('class' => 'form-group'),
+        //     'class' => 'form-control input-lg basic-info',
+        // ),
         'novalidate' => true,
-        'url' => array('controller' => 'student', 'action' => 'submit', $data['Quiz']['random_id']),
-        'name' => 'student_form'
+        'url' => array('controller' => 'students', 'action' => 'submit', $data->random_id),
+        'name' => 'student_form',
+        'id' => 'StudentLiveForm'
     ));
 
 ?>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <?php if (empty($data['Quiz']['anonymous'])) : ?>
+        <?php if (empty($data->anonymous)) : ?>
             <?php // pr($this->request->data); ?>
             <div class="alert alert-danger" id="error-message" style="display: none;"></div>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('fname', array(
-                        'placeholder' => __('First Name')
+                        'placeholder' => __('First Name'),
+                        'label' => false,
+                        'class' => 'basic-info'
                     ));
                     ?>
                     <?php if (!empty($this->request->data['Student']['fname'])) : ?>
@@ -52,7 +56,9 @@
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('lname', array(
-                        'placeholder' => __('Last Name')
+                        'placeholder' => __('Last Name'),
+                        'label' => false,
+                        'class' => 'basic-info'
                     ));
                     ?>
                     <?php if (!empty($this->request->data['Student']['lname'])) : ?>
@@ -64,7 +70,9 @@
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('class', array(
-                        'placeholder' => __('Class')
+                        'placeholder' => __('Class'),
+                        'label' => false,
+                        'class' => 'basic-info'
                     ));
                     ?>
                     <?php if (!empty($this->request->data['Student']['class'])) : ?>
@@ -106,32 +114,32 @@
                         }
                     }
 
-                } elseif ($this->Session->check($this->request->query['runningFor'])) { 
+                } elseif ($this->request->session()->check($this->request->query['runningFor'])) { 
                     // if session found
-                    $answered = $this->Session->read($this->request->query['runningFor']); 
+                    $answered = $this->request->session()->read($this->request->query['runningFor']); 
                 } else {
                     $answered = array();
                 }
 
 
-                foreach ($data['Question'] as $question) {
+                foreach ($data->questions as $question) {
                     //pr($question);
                     // if answered previuosly and stored on session
-                    if (isset($answered[$question['id']])) {
-                        $question['given_answer'] = $answered[$question['id']];
+                    if (isset($answered[$question->id])) {
+                        $question->given_answer = $answered[$question->id];
                     } else {
-                        $question['given_answer'] = '';
+                        $question->given_answer = '';
                     }
 
-                    $choices_number = count($question['Choice']);
-                    if (!$question['QuestionType']['multiple_choices'] && $choices_number > 1) {
+                    $choices_number = count($question->choices);
+                    if (!$question->question_type->multiple_choices && $choices_number > 1) {
                         for ($i = 1; $i < $choices_number; ++$i) {
-                            unset($question['Choice'][$i]);
+                            unset($question->choices[$i]);
                         }
                     }
 
-                    $question['number'] = $i;
-                    echo $this->element('Quiz/live/question', $question);
+                    $question->number = $i;
+                    echo $this->element('Quiz/live/question', array('question' => $question));
                     if (!in_array($question['question_type_id'], $othersQuestionType)) { 
                         // only considered main question for numbering
                         // not others type questions
@@ -157,52 +165,44 @@
 
 <?php echo $this->Form->end(); ?>
 
-<script id="app-data" type="application/json">
-    <?php
-    echo json_encode(array(
-        'baseUrl' => $this->Html->url('/', true)
-    ));
-    ?>
-</script>
-
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
     var random_id = <?php echo $quizRandomId ?>;
-    // Browser tab navigation
-    var vis = (function(){
-        var stateKey, eventKey, keys = {
-            hidden: "visibilitychange",
-            webkitHidden: "webkitvisibilitychange",
-            mozHidden: "mozvisibilitychange",
-            msHidden: "msvisibilitychange"
-        };
-        for (stateKey in keys) {
-            if (stateKey in document) {
-                eventKey = keys[stateKey];
-                break;
-            }
-        }
-        return function(c) {
-            if (c) document.addEventListener(eventKey, c);
-            return !document[stateKey];
-        }
-    })();
+    // // Browser tab navigation
+    // var vis = (function(){
+    //     var stateKey, eventKey, keys = {
+    //         hidden: "visibilitychange",
+    //         webkitHidden: "webkitvisibilitychange",
+    //         mozHidden: "mozvisibilitychange",
+    //         msHidden: "msvisibilitychange"
+    //     };
+    //     for (stateKey in keys) {
+    //         if (stateKey in document) {
+    //             eventKey = keys[stateKey];
+    //             break;
+    //         }
+    //     }
+    //     return function(c) {
+    //         if (c) document.addEventListener(eventKey, c);
+    //         return !document[stateKey];
+    //     }
+    // })();
 
-    vis(function(){
-      if (!vis()) {
-        alert(lang_strings['browser_switch']);
-        // return;
-      } else {
-        window.btn_clicked = true;
-        window.location.reload();
-      }
-    });
-    // Leave page alert
-    window.onbeforeunload = function(){
-        if(!window.btn_clicked){
-            return lang_strings['leave_quiz'];
-        }
-    };
+    // vis(function(){
+    //   if (!vis()) {
+    //     alert(lang_strings['browser_switch']);
+    //     // return;
+    //   } else {
+    //     window.btn_clicked = true;
+    //     window.location.reload();
+    //   }
+    // });
+    // // Leave page alert
+    // window.onbeforeunload = function(){
+    //     if(!window.btn_clicked){
+    //         return lang_strings['leave_quiz'];
+    //     }
+    // };
 </script>
 
 <style type="text/css">

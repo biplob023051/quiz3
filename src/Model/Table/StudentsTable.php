@@ -103,4 +103,12 @@ class StudentsTable extends Table
 
         return $rules;
     }
+
+    public function validationInitialRecord(Validator $validator) {
+        $validator = $this->validationDefault($validator);
+        $validator->remove('fname');
+        $validator->remove('lname');
+        $validator->remove('class');
+        return $validator;
+    }
 }

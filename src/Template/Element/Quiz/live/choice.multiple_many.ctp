@@ -2,7 +2,7 @@
 	$disabled_print = '';
 	$disabled_class = '';
 	$checked = '';
-	if ((is_array($given_answer) && in_array($text, $given_answer)) || ($text == $given_answer)) {
+	if ((is_array($choice->given_answer) && in_array($choice->text, $choice->given_answer)) || ($choice->text == $choice->given_answer)) {
 		$checked = 'checked';
 	} else { 
 		if (!empty($disabled)) {
@@ -15,8 +15,8 @@
     <div class="col-xs-12 col-md-6">
         <div class="checkbox">
             <label>
-                <input type="checkbox" class="form-input tick-mark <?php echo $disabled_class; ?>" <?php echo $checked . ' ' . $disabled_print; ?> value="<?php echo $text ?>" name="data[Answer][<?php echo $number ?>][text][]" />
-                <?php echo $text ?>
+                <input type="checkbox" class="form-input tick-mark <?php echo $disabled_class; ?>" <?php echo $checked . ' ' . $disabled_print; ?> value="<?php echo $choice->text ?>" name="data[Answer][<?php echo $choice->number ?>][text][]" />
+                <?php echo $choice->text ?>
             </label>
         </div>
     </div>

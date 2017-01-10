@@ -333,7 +333,8 @@ $(document).ready(function(){
         }, 10000);
     });
 
-    $('#answer-table input.update-std').donetyping(function(){
+    $('input.update-std').donetyping(function(){
+        alert('sd');
         var std_info = $(this).attr('data-rel');
         var value_info = $(this).val();
         var inputField = $(this);

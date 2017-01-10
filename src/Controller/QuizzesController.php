@@ -422,7 +422,7 @@ class QuizzesController extends AppController
             $randomString = $this->randText(10);
             $this->Session->write('started', $randomString);
             $this->Session->write('random_id', $quizRandomId); // Write random_id on session to keey track of online students
-            $this->redirect(array('controller' => 'quiz', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
+            $this->redirect(array('controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
         }
 
         if (!empty($this->request->query['runningFor']) && ($this->request->query['runningFor'] == $this->Session->read('started'))) {
@@ -437,60 +437,54 @@ class QuizzesController extends AppController
             $randomString = $this->randText(10);
             $this->Session->write('started', $randomString);
             $this->Session->write('random_id', $quizRandomId);
-            $this->redirect(array('controller' => 'quiz', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
+            $this->redirect(array('controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
         }
 
-        $this->Quizzes->Behaviors->load('Containable');
-        $this->Quizzes->bindModel(
-               array(
-                 'belongsTo'=>array(
-                     'User'=>array(
-                       'className'  =>  'User',
-                       'foreignKey' => 'user_id'
-                   )          
-               )
-            ), false // Note the false here!
-        );
-        $data = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'random_id = ' => $quizRandomId,
-                'Quizzes.status' => 1
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice' => array('order' => array('Choice.weight DESC', 'Choice.id ASC')),
-                    'QuestionType' => array(
-                        'fields' => array('template_name', 'id', 'multiple_choices')
-                    ),
-                    'order' => array('Question.weight DESC', 'Question.id ASC')
-                ),
-                'User'
-            )
-        ));
+        $data = $this->Quizzes->find('all')
+        ->where([
+            'Quizzes.random_id' => $quizRandomId,
+            'Quizzes.status' => 1
+        ])
+        ->contain([
+            'Questions' => function($q) {
+                return $q->order(['Questions.weight DESC', 'Questions.id ASC'])
+                ->contain([
+                    'Choices' => function($q) {
+                        return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
+                    },
+                    'QuestionTypes' => function($q) {
+                        return $q->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
+                    }
+                ]);
+            },
+            'Users'
+        ])->first();
+
+        // pr($data);
+        // exit;
 
         if (empty($data)) {
             $this->set('title_for_layout', __('Closed'));
             $this->render('not_found');
         } else {
             // check user access level
-            if ((($data['User']['account_level'] == 0) || 
-                (($data['User']['account_level'] == 1) && (strtotime($data['User']['expired']) < time()))) 
-                && ($data['Quiz']['student_count'] >= 40)) {
+            if ((($data->user->account_level == 0) || 
+                (($data->user->account_level == 1) && (strtotime($data->user->expired) < time()))) 
+                && ($data->student_count >= 40)) {
                 $this->Flash->error(__('Sorry, only allow 40 students to take this quiz.'));
-                return $this->redirect(array('controller' => 'quiz', 'action' => 'no_permission'));
+                return $this->redirect(array('controller' => 'quizzes', 'action' => 'no_permission'));
             }
 
             // Check session if student page reloaded
             if ($this->Session->check('student_id')) {
-                $student = $this->Quizzes->Student->find('first', array(
-                    'conditions' => array(
-                        'Student.id' => (int) $this->Session->read('student_id')
-                    ),
-                    'contain' => array('Answer', 'Ranking')
-                ));
-                $this->request->data = $student;
-                // pr($this->request->data);
+                $student = $this->Quizzes->Students->find('all')
+                ->where(['Students.id' => (int) $this->Session->read('student_id')])
+                ->contain(['Answers', 'Rankings'])
+                ->first();
+                // pr($student);
                 // exit;
+                // $this->request->data = $student;
+                $this->set(compact('student'));
             }
 
             $lang_strings[0] = __('Internet connection has been lost, please try again later.');
@@ -511,7 +505,6 @@ class QuizzesController extends AppController
             $lang_strings['disabled_submit'] = __('Please hold, your answers are saving...');
             $lang_strings['enabled_submit'] = __('Turn in your quiz');
 
-            $this->disableCache();
             $this->set('data', $data);
             $this->set(compact('lang_strings'));
             $this->set(compact('quizRandomId'));

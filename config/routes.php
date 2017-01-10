@@ -56,6 +56,16 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
+    // Good one
+    // $routes->connect('quiz/:action/*', array('controller' => 'Quizzes'));
+    // $routes->connect('quiz', array('controller' => 'Quizzes', 'action' => 'index'));
+
+    $routes->connect(
+        '/:id',
+        array('controller' => 'Quizzes', 'action' => 'live'),
+        array('pass' => array('id'), 'id' => "[0-9]+")
+    );
+
     /**
      * Connect catchall routes for all controllers.
      *

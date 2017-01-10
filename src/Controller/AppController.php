@@ -64,7 +64,7 @@ class AppController extends Controller
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
-                    //'scope' =>  ['Users.activation' => null],
+                    'scope' =>  ['Users.activation IS NULL'],
                     'fields' => [
                         'username' => 'email',
                         'password' => 'password'
@@ -87,10 +87,7 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            'loginRedirect' => [
-                'controller' => 'quizzes',
-                'action' => 'index'
-            ],
+            'loginRedirect' => '/',
             'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login'

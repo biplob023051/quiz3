@@ -33,7 +33,7 @@
                                 <li <?php if (($c_controller == 'maintenance') && ($c_action == 'admin_settings')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Maintenance'), array('controller' => 'maintenance', 'action' => 'settings', 'admin' => true)); ?></li>
                                 <?php $video_actions = array('admin_videos', 'admin_create'); ?>
                                 <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Site Videos'), array('controller' => 'helps', 'action' => 'videos', 'admin' => true)); ?></li>
-                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Shared Quizzes'), array('controller' => 'quiz', 'action' => 'shared', 'admin' => true)); ?></li>
+                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Shared Quizzes'), array('controller' => 'Quizzes', 'action' => 'shared', 'prefix' => 'admin')); ?></li>
                             </ul>
                         </li>
                     <?php endif ?>
