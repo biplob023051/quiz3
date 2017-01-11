@@ -300,4 +300,11 @@ class AppController extends Controller
         $settings = $this->Settings->find('list', ['keyField' => 'field', 'valueField' => 'value'])->toArray();
         return $settings;
     }
+
+    // Admin checking and redirection
+    public function isAdminUser() {
+        if ($this->Auth->user('account_level') != 51) {
+            return $this->redirect(['controller' => 'Users', 'action' => 'logout', 'prefix' => false]);
+        }
+    }
 }

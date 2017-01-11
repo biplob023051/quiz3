@@ -19,7 +19,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SubjectsTable extends Table
+class StandardsTable extends Table
 {
 
     /**
@@ -58,7 +58,7 @@ class SubjectsTable extends Table
                 'isUnique' => [
                     'rule' => 'validateUnique',
                     'provider' => 'table',
-                    'message' => 'Subject already created',
+                    'message' => 'Class already created',
                 ]
             ]);
 
