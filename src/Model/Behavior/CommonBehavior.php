@@ -3,6 +3,7 @@ namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
 use Carbon\Carbon;
+use Cake\ORM\TableRegistry;
 
 class CommonBehavior extends Behavior
 {
@@ -15,8 +16,10 @@ class CommonBehavior extends Behavior
 	/*
 	* Make slug
 	*/
-	public function makeSlug ($string, $id=null, $fieldname='slug',$translate=false) {
+	public function makeSlug ($string, $model, $id=null, $fieldname='slug',$translate=false) {
 		$slug = $string;
+
+		$table = TableRegistry::get($model);
 				
 		//remove non unicode character from string
 		$regx = '/([\x00-\x7F]|[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3})|./s';
@@ -43,21 +46,21 @@ class CommonBehavior extends Behavior
 		
 		$slug=trim($slug,"_-");
 		
-		$params = array ();
-		$params ['conditions']= array();
-		$params ['conditions'][$this->alias.'.'.$fieldname]= $slug;
+		$params = array();
+		$params['conditions']= array();
+		$params['conditions'][$model.'.'.$fieldname]= $slug;
 		if (!is_null($id)) {
-			$params ['conditions']['not'] = array($this->alias.'.id'=>$id);
+			$params['conditions']['not'] = array($this->alias.'.id'=>$id);
 		}
 		$i = 0;		
 		//check and make unique slug
-		while (count($this->find ('all',$params))) {
-			if (!preg_match ('/-{1}[0-9]+$/', $slug )) {
+		while(count($table->find('all',$params)->toArray())) {
+			if (!preg_match('/-{1}[0-9]+$/', $slug )) {
 				$slug .= '-' . ++$i;
 			} else {
-				$slug = preg_replace ('/[0-9]+$/', ++$i, $slug );
+				$slug = preg_replace('/[0-9]+$/', ++$i, $slug );
 			}
-			$params ['conditions'][$this->alias.'.'.$fieldname]= $slug;
+			$params['conditions'][$this->alias.'.'.$fieldname]= $slug;
 		}
 		return $slug;
 	}

@@ -53,15 +53,15 @@
                             </td>
                              <td class="text-center" nowrap="nowrap">
                                 <?php if($help->status):?>
-                                    <?php echo $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('On').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('Off').'</button></div>', array('action' => 'active', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false), __('Confirm inactive title %s?', trim($help->id))); ?>
+                                    <?php echo $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('On').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('Off').'</button></div>', array('action' => 'active', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("Confirm inactive title ''{0}''?", trim($help->title)))); ?>
                                 <?php else :?>
-                                    <?php echo $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('On').'</button><button type="button" class="btn btn-default btn-xs active">'.__('Off').'</button></div>', array('action' => 'active', $help->id,1,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false), __('Confirm active title %s?', trim($help->id))); ?>
+                                    <?php echo $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('On').'</button><button type="button" class="btn btn-default btn-xs active">'.__('Off').'</button></div>', array('action' => 'active', $help->id,1,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("Confirm active title ''{0}''?", trim($help->title)))); ?>
                                 <?php endif;?>
                             </td>
                             <td class="text-center" nowrap="nowrap">
                                 <?php echo $this->Html->link(__('Edit'), array('action' => 'insert', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>
                                 <?php if(!$help->status):?>
-                                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false), __('Confirm delete of title %s?', trim($help->id))); ?>
+                                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false, 'confirm' => __("Confirm delete of title ''{0}''?", trim($help->title)))); ?>
                                 <?php endif;?>
                             </td>
                         </tr>

@@ -44,6 +44,8 @@ class HelpsTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('Tree');
 
+        $this->addBehavior('Common');
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
@@ -72,35 +74,21 @@ class HelpsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title');
+            ->notEmpty('title', 'Title is required');
 
         $validator
-            ->allowEmpty('slug');
+            ->requirePresence('parent_id', 'create')
+            ->notEmpty('parent_id', 'Main title is required');
 
         $validator
-            ->allowEmpty('sub_title');
-
-        $validator
-            ->allowEmpty('body');
-
-        $validator
-            ->allowEmpty('url');
-
-        $validator
-            ->requirePresence('url_src', 'create')
-            ->notEmpty('url_src');
-
-        $validator
-            ->allowEmpty('photo');
-
-        $validator
-            ->integer('status')
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
-        $validator
-            ->requirePresence('type', 'create')
-            ->notEmpty('type');
+            ->requirePresence('url', 'create')
+            ->notEmpty('url', 'Youtube video url is required')
+            ->add('url', [
+                'valid-url' => [
+                    'rule' => 'url',
+                    'message' => 'Valid youtube video url is required'
+                ]
+            ]);
 
         return $validator;
     }
@@ -118,6 +106,14 @@ class HelpsTable extends Table
         $rules->add($rules->existsIn(['parent_id'], 'ParentHelps'));
 
         return $rules;
+    }
+
+    public function validationMainTitle($validator)
+    {
+        $validator
+            ->requirePresence('title', 'create')
+            ->notEmpty('title', 'Title is required');
+        return $validator;
     }
 
     // list of active parent 

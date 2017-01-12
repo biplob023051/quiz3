@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Helps Controller
@@ -12,8 +13,7 @@ class HelpsController extends AppController
 {
 
     public function index($parent_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+        $this->isAdminUser();
         $this->set('title_for_layout',__('Helps List'));
         // find the main tile
         $this->set('parentsOptions', $this->Helps->parentsOptions());
@@ -37,68 +37,52 @@ class HelpsController extends AppController
         }
     }
 
-    public function insert($help_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-        if(empty($help_id)){
+    public function insert($id = null) {
+        $this->isAdminUser();
+        if(empty($id)){
+            $help = $this->Helps->newEntity();
             $this->set('title_for_layout',__('New Help'));
         } else {
+            $help = $this->Helps->get($id, ['contain' => []]);
             $this->set('title_for_layout',__('Edit Help'));
         }
-
-        $this->set('parentsOptions', $this->Helps->parentsOptions());
         
         if ($this->request->is(array('post','put'))) {
-            if(empty($this->request->data['Help']['slug'])) {
-                $this->request->data['Help']['slug']=$this->request->data['Help']['title'];
+            if(empty($id)){
+                $this->request->data['slug'] = $this->Helps->makeSlug($this->request->data['title'], 'Helps');
+                $this->request->data['user_id'] = $this->Auth->user('id');
             }
             
-            $this->request->data['Help']['slug'] = $this->Helps->makeSlug($this->request->data['Help']['slug'], $this->request->data['Help']['id']);
-    
-            $this->request->data['Help']['user_id'] = $this->Auth->user('id');
-            if (!empty($this->request->data['Help']['url'])) {
-                $youtube = explode('?', $this->request->data['Help']['url']);
+            if (!filter_var($this->request->data['url'], FILTER_VALIDATE_URL) === false) {
+                $youtube = explode('?', $this->request->data['url']);
                 $youtube = explode('=', $youtube[1]);
                 $youtube = explode('&', $youtube[1]);   
-                $this->request->data['Help']['url_src'] = $youtube[0];
+                $this->request->data['url_src'] = $youtube[0];
             }
-            
-            if ($this->Helps->saveAll($this->request->data)) {
-                $this->Session->setFlash(__('Help saved successfully'), 'notification_form', array(), 'notification');
-                if(isset($this->params['url']['redirect_url'])){            
-                    return $this->redirect(urldecode($this->params['url']['redirect_url']));
+// pr($this->request->data);
+// exit;
+            $help = $this->Helps->patchEntity($help, $this->request->data);
+            // pr($help);
+            // exit;
+            if ($this->Helps->save($help)) {
+                $this->Flash->success(__('Help saved successfully'));
+                if(isset($this->request->query['redirect_url'])){            
+                    return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
-                    return $this->redirect(array('controller' => 'helps', 'action' => 'index', 'admin' => true));
+                    return $this->redirect(array('controller' => 'helps', 'action' => 'index'));
                 }
             } else {
-                $this->Session->setFlash(__('Help saved failed'), 'error_form', array(), 'error');
+                $this->Flash->error(__('Help saved failed'));
             }
-        } elseif(!empty($help_id)) {
-            $conditions = array(
-                'Helps.id' => $help_id,
-                'Helps.status'=> 1,
-                'Helps.type'=> 'help'
-            );
-            
-            if ($this->Helps->hasAny($conditions)){              
-                $options = array(
-                    'conditions'=>$conditions
-                );
-                $this->request->data=$this->Helps->find('first',$options);
-            } else {
-                $this->Session->setFlash(__('Help not found'), 'error_form', array(), 'error');
-                $this->redirect($this->referer());
-            }
-
-        }
+        } 
+        $this->set('parentsOptions', $this->Helps->parentsOptions());
+        $this->set(compact('help'));
 
     }
 
     public function titles() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+        $this->isAdminUser();
         $this->set('title_for_layout',__('Main Title List'));
-        
         $options = array(
             'conditions' => array(
                 'Helps.parent_id IS NULL',
@@ -114,56 +98,44 @@ class HelpsController extends AppController
             $this->set('helps', $this->Helps->find('all', $options)->toArray());
         } catch (NotFoundException $e) { 
             // when pagination error found redirect to first page e.g. paging page not found
-            return $this->redirect(array('controller' => 'helps', 'action' => 'index', 'admin' => true));
+            return $this->redirect(array('controller' => 'helps', 'action' => 'index'));
         }
     }
 
-    public function add($help_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-        if(empty($help_id)){
+    public function add($id = null) {
+        $this->isAdminUser();
+        if(empty($id)){
+            $help = $this->Helps->newEntity();
             $this->set('title_for_layout',__('New Main Title'));
         } else {
+            $help= $this->Helps->get($id, [
+                'contain' => []
+            ]);
             $this->set('title_for_layout',__('Edit Main Title'));
         }
         
         if ($this->request->is(array('post','put'))) {
-
-            $this->request->data['Help']['user_id'] = $this->Auth->user('id');
-
-            if ($this->Helps->saveAll($this->request->data)) {
-                $this->Session->setFlash(__('Title saved successfully'), 'notification_form', array(), 'notification');
-                if(isset($this->params['url']['redirect_url'])){            
-                    return $this->redirect(urldecode($this->params['url']['redirect_url']));
+            if(empty($id)){
+                $this->request->data['user_id'] = $this->Auth->user('id');
+            }
+            $help = $this->Helps->patchEntity($help, $this->request->data, ['validate' => 'MainTitle']);
+            if ($this->Helps->save($help)) {
+                $this->Flash->success(__('Title saved successfully'));
+                if(isset($this->request->query['redirect_url'])){            
+                    return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
-                    return $this->redirect(array('controller' => 'helps', 'action' => 'titles', 'admin' => true));
+                    return $this->redirect(array('controller' => 'helps', 'action' => 'titles'));
                 }
             } else {
-                $this->Session->setFlash(__('Title saved failed'), 'error_form', array(), 'error');
+                $this->Flash->error(__('Title saved failed'));
             }
-        } elseif(!empty($help_id)) {
-            $conditions = array(
-                'Helps.id' => $help_id,
-                'Helps.parent_id' => null
-            );
-            
-            if ($this->Helps->hasAny($conditions)){              
-                $options = array(
-                    'conditions'=>$conditions
-                );
-                $this->request->data=$this->Helps->find('first',$options);
-            } else {
-                $this->Session->setFlash(__('Title not found'), 'error_form', array(), 'error');
-                $this->redirect($this->referer());
-            }
-
         }
+        $this->set(compact('help'));
 
     }
 
     public function create($help_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+        $this->isAdminUser();
         if(empty($help_id)){
             $this->set('title_for_layout', __('New Site Video'));
         } else {
@@ -232,8 +204,7 @@ class HelpsController extends AppController
     }
 
     public function videos() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+        $this->isAdminUser();
         $this->set('title_for_layout',__('Site Videos List'));
         // find the siteOptions
         $this->set('siteOptions', $this->Helps->siteOptions);
@@ -259,118 +230,64 @@ class HelpsController extends AppController
     /**
     * method of help soft delete from admin
     */
-    public function delete($help_id) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+    public function delete($id) {
+        $this->isAdminUser();
         $this->autoRender=false;
-        
-        $conditions = array(
-            'Helps.id' => $help_id,
-            'Helps.status'=> 0,
-        );
-        
-        if ($this->Helps->hasAny($conditions)){
-            $this->Helps->delete($help_id);
+        $help = $this->Helps->get($id, ['contain' => []]);
+        if ($help){
+            $this->Helps->delete($help);
+            $this->Flash->success(__('You have successfully deleted!'));
         } else {
-            $this->Session->setFlash(__('Can not delete'), 'error_form', array(), 'error');
+            $this->Flash->error(__('Not delete'));
         }       
-            
-        if(isset($this->params['url']['redirect_url'])){            
-            return $this->redirect(urldecode($this->params['url']['redirect_url']));
-        } else {
-            return $this->redirect(array('controller' => 'helps', 'action' => 'index', 'admin' => true));
-        }
-        
+        return $this->redirect($this->referer());
     }
     
     /**
     * method of help active/deactive from admin
     */
-    public function active($help_id,$active=NULL) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+    public function active($id, $active=NULL) {
+        $this->isAdminUser();
         $this->autoRender=false;
-        
-        $conditions = array(
-            'Helps.id' => $help_id,
-        );
-        
-        if ($this->Helps->hasAny($conditions)){
-            $this->Helps->updateAll(
-                array(
-                    'Helps.status' =>$active
-                ),
-                $conditions
-            );
-            $this->Helps->afterSave(false);
+        $help = $this->Helps->get($id, ['contain' => []]);
+        if ($help){
+            $help->status = $active;
+            $this->Helps->save($help);
+            $message = empty($active) ? __('You have successfully deactivated!') : __('You have successfully activated');
+            $this->Flash->success($message);
         } else {
-            $this->Session->setFlash(__('Can not save'), 'error_form', array(), 'error');
-        }           
-        
-        if(isset($this->params['url']['redirect_url'])){            
-            return $this->redirect(urldecode($this->params['url']['redirect_url']));
-        } else {
-            return $this->redirect(array('controller' => 'helps', 'action' => 'index', 'admin' => true));
+            $this->Flash->error(__('Can not save'));
         }
-        
+        return $this->redirect($this->referer());
     }
 
 
-    function  moveup($help_id) {      
+    public function moveup($id) { 
+        $this->isAdminUser();     
         $this->autoRender=false;
-        
-        $conditions = array(
-            'Helps.id' => $help_id
-        );
-        
-        if ($this->Helps->hasAny($conditions)){
-            $options = array(
-                'conditions'=>$conditions,
-                'contain'=>array()
-            );
-            $help=$this->Helps->find('first',$options);
-            if($help){
-                $this->Helps->id=$help['Help']['id'];
-                if($this->Helps->moveDown()==false)
-                    $this->Session->setFlash(__('Sort failed'), 'error_form', array(), 'error');
-            }   
+        $help = $this->Helps->get($id, ['contain' => []]);
+        if (!empty($help)){
+            if($this->Helps->moveDown($help)==false) {
+                $this->Flash->error(__('Sort failed'));
+            }
         } else {
-            $this->Session->setFlash(__('Sort failed'), 'error_form', array(), 'error');
-        }           
-            
-        if(isset($this->params['url']['redirect_url'])){            
-            return $this->redirect(urldecode($this->params['url']['redirect_url']));
-        } else {
-            return $this->redirect(array('action' => 'index'));
-        }   
-        
+            $this->Flash->error(__('Sort failed'));
+        }
+        return $this->redirect($this->referer());
     }
     
-    function movedown($help_id) {
-        $conditions = array(
-            'Helps.id' => $help_id
-        );
-        
-        if ($this->Helps->hasAny($conditions)){
-            $options = array(
-                'conditions'=>$conditions,
-                'contain'=>array()
-            );
-            $help=$this->Helps->find('first',$options);
-            if($help){
-                $this->Helps->id=$help['Help']['id'];
-                if($this->Helps->moveUp()==false)
-                    $this->Session->setFlash(__('Sort failed'), 'error_form', array(), 'error');
-            }   
+    public function movedown($id) {
+        $this->isAdminUser();     
+        $this->autoRender=false;
+        $help = $this->Helps->get($id, ['contain' => []]);
+        if (!empty($help)){
+            if($this->Helps->moveUp($help)==false) {
+                $this->Flash->error(__('Sort failed'));
+            }
         } else {
-            $this->Session->setFlash(__('Sort failed'), 'error_form', array(), 'error');
-        }       
-            
-        if(isset($this->params['url']['redirect_url'])){            
-            return $this->redirect(urldecode($this->params['url']['redirect_url']));
-        } else {
-            return $this->redirect(array('action' => 'index'));
+            $this->Flash->error(__('Sort failed'));
         }
+        return $this->redirect($this->referer());
     }
 
 

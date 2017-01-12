@@ -1,8 +1,6 @@
-<?php
-echo $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
-    'inline' => false
-));
-?>
+<?= $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array('inline' => false)); ?>
+<?= $this->Flash->render(); ?>
+<?php $this->assign('title', $title_for_layout); ?>
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
@@ -15,45 +13,19 @@ echo $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), arra
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title"><span class="glyphicon glyphicon-th"></span> <b><?php echo $title_for_layout;?></b></h3>
+        <h3 class="panel-title"><span class="glyphicon glyphicon-th"></span> <b><?= $title_for_layout;?></b></h3>
     </div>
     <div class="panel-body"> 
-        <?php echo $this->Form->create('Help', array(
-            // 'inputDefaults' => array(
-            //     'div' => 'form-group',
-            //     'label' => array(
-            //         'class' => 'col col-sm-3 control-label'
-            //     ),
-            //     'wrapInput' => 'col col-sm-7',
-            //     'class' => 'form-control'
-            // ),
-            'type' => 'file',
-            'novalidate'=>'novalidate'
-        )); ?>
-    
-            <?php
-                echo $this->Form->input('id', ['type' => 'hidden']);
-                echo $this->Form->input('parent_id', array('label'=>array('text'=>__('Main Title')),'options' => $parentsOptions, 'empty' => __('Select One') ));
-                echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('Please insert help title')));
-                echo $this->Form->input('sub_title', array('label'=>array('text'=>__('Sub Title')), 'placeholder' => __('Please insert help sub title')));
-                echo $this->Form->input('url', array('label'=>array('text'=>__('Youtube Video Url')), 'placeholder' => __('Please insert youtube video url here')));
-                echo $this->Form->input('body', array('label'=>array('text'=>__('Description')), 'placeholder' => __('Description here'), 'type' => 'textarea'));
-                
+        <?php 
+            echo $this->Form->create($help, ['novalidate'=>'novalidate']);
+            echo $this->Form->input('parent_id', array('label'=>array('text'=>__('Main Title')),'options' => $parentsOptions, 'empty' => __('Select One') ));
+            echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('Please insert help title')));
+            echo $this->Form->input('sub_title', array('label'=>array('text'=>__('Sub Title')), 'placeholder' => __('Please insert help sub title')));
+            echo $this->Form->input('url', array('label'=>array('text'=>__('Youtube Video Url')), 'placeholder' => __('Please insert youtube video url here')));
+            echo $this->Form->input('body', array('label'=>array('text'=>__('Description')), 'placeholder' => __('Description here'), 'type' => 'textarea'));   
+            echo $this->Form->button(__('SAVE'), ['class' => 'btn btn-primary btn-xlarge']) . ' '; 
+            echo empty($this->request->query['redirect_url']) ? $this->Html->link(__('BACK'),array('controller'=>'helps','action'=>'index'),array('class'=>'btn btn-danger')) : $this->Html->link(__('BACK'), urldecode($this->request->query['redirect_url']),array('class'=>'btn btn-danger'));
+            echo $this->Form->end();
             ?>
-            <div class="form-group">
-                <div class="col col-sm-7 col-sm-offset-3">
-                    <?php if(empty($this->request->params['url']['redirect_url'])) : ?>
-                        <?php echo $this->Html->link(__('BACK'),array('controller'=>'helps','action'=>'index', 'admin' => true),array('class'=>'btn btn-danger'));?>
-                    <?php else : ?>
-                        <?php echo $this->Html->link(__('BACK'),urldecode($this->request->params['url']['redirect_url']),array('class'=>'btn btn-danger'));?>
-                    <?php endif; ?>
-                    <?php echo $this->Form->submit(__('SAVE'), array(
-                        'div' => false,
-                        'class' => 'btn btn-primary btn-xlarge'
-                    )); ?>                
-                </div>
-            </div>
-            
-        <?php echo $this->Form->end(); ?>
     </div>
 </div>

@@ -17,37 +17,6 @@ class MaintenanceController extends AppController
         $this->Auth->allow(['notice']);
     }
 
-    // Method for site settings
-    public function admin_settings() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-        if ($this->request->is(array('post','put'))) {
-            $setting = $this->_getSettings();
-            if (!isset($this->request->data['visible'])) {
-                $this->request->data['visible'] = NULL;
-            }
-            if (!isset($this->request->data['offline_status'])) {
-                $this->request->data['offline_status'] = NULL;
-            } else {
-                if ($this->Auth->user('id') != 1) {
-                    $this->Session->setFlash('Sorry, you are not authorized to make the site offline!', 'error_form', array(), 'error');
-                    $this->redirect($this->request->referer());
-                }
-            }
-            App::uses('Sanitize', 'Utility');
-            foreach ($this->request->data as $key => $value) {
-                if (array_key_exists($key, $setting) && $setting[$key] != $value) {
-                    $this->Setting->updateAll(array('value' => '"' . Sanitize::escape($value) . '"'), array('field' => $key));
-                }
-            }
-            
-            $this->Session->setFlash('Changes have been saved', 'success_form', array(), 'success');
-            $this->redirect($this->request->referer());
-        }
-        $this->set('title_for_layout', 'System Settings');
-
-    }
-
     public function notice() {
         // Remove maintenance mode
         $setting = $this->_getSettings();
@@ -55,24 +24,6 @@ class MaintenanceController extends AppController
         $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         $this->set('title_for_layout', __('Pardon for the dust!'));
         $this->render('/Elements/Maintenance/notice');
-    }
-
-    public function admin_import() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new NotFoundException(__('No permission!'));
-        $this->set('title_for_layout',__('Import Demo Quiz'));
-
-        if ($this->request->is('post')) {
-            if (empty($this->request->data['Maintenance']['user_id'])) {
-                $this->Flash->error(__('Please enter an user id'));
-            } elseif (!is_numeric($this->request->data['Maintenance']['user_id'])) {
-                $this->Flash->error(__('Please enter a numeric id'));
-            } else {
-                $this->importQuizzes($this->request->data['Maintenance']['user_id']);
-                $this->Flash->success(__('Imported successfully'));
-            }
-            $this->redirect($this->referer());
-        }
     }
 
     public function loadDummyData() {
