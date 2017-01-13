@@ -15,7 +15,10 @@ use Cake\Utility\Hash;
 class QuizzesController extends AppController
 {
     public $paginate = [
-        'limit' => 3
+        'limit' => 3,
+        'sortWhitelist' => [
+            'id', 'name', 'Users.name', 'created', 'is_approve'
+        ]
     ];
 
     public function initialize()
@@ -28,10 +31,7 @@ class QuizzesController extends AppController
 
     // List of shared quiz
     public function shared() {
-        if ($this->Auth->user('account_level') != 51) {
-            $this->Flash->success(__('No permission!'));
-            return $this->redirect(['controller' => 'users', 'action' => 'logout', 'prefix' => false]);
-        }
+        $this->isAdminUser();
         $this->set('title_for_layout',__('Shared Quiz List'));
 
         if ($this->request->is('post')) {
@@ -77,7 +77,8 @@ class QuizzesController extends AppController
             $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
                 ->contain($contain)
                 ->order($order)
-            );
+            )->toArray();
+            $this->set(compact('quizzes'));
         } catch (NotFoundException $e) { 
             // when pagination error found redirect to first page e.g. paging page not found
             return $this->redirect(array('controller' => 'quiz', 'action' => 'shared'));
@@ -96,30 +97,28 @@ class QuizzesController extends AppController
     }
 
     // Admin decline method
-    public function manage_share() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-
+    public function manageShare() {
+        $this->isAdminUser();
         if ($this->request->is('post')) {
-            $quiz = $this->Quizzes->find('first', array(
+            $quiz = $this->Quizzes->find('all', array(
                 'conditions' => array(
-                    'Quizzes.random_id' => $this->request->data['Quiz']['random_id'],
+                    'Quizzes.random_id' => $this->request->data['random_id'],
                     'Quizzes.shared' => 1
-                ),
-                'recursive' => -1,
-                'fields' => array('Quizzes.id')
-            ));
+                )
+            ))->first();
+
+            // pr($quiz);
+            // exit;
 
             if (empty($quiz)) {
                 $this->Flash->error(__('Something went wrong, please try again later!'));
             } else {
-                unset($this->request->data['Quiz']['random_id']);
-                $this->request->data['Quiz']['id'] = $quiz['Quiz']['id'];
-                $message = ($this->request->data['Quiz']['is_approve'] == 1) ? __('You have successfully approved!') : __('You have successfully declined!');
-                // pr($this->request->data);
+                $message = ($this->request->data['is_approve'] == 1) ? __('You have successfully approved!') : __('You have successfully declined!');
+                unset($this->request->data['random_id']);
+                $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data, ['validate' => '']);
+                // pr($quiz);
                 // exit;
-                $this->Quizzes->validator()->remove('name');
-                if ($this->Quizzes->save($this->request->data)) {
+                if ($this->Quizzes->save($quiz)) {
                      $this->Flash->success($message);
                 } else {
                      $this->Flash->error(__('Something went wrong, please try again later!'));
@@ -131,40 +130,45 @@ class QuizzesController extends AppController
 
     // Admin preview quiz
     public function preview($quiz_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
+        $this->isAdminUser();
         if (empty($quiz_id)) {
             $this->Flash->error(__('No direct access to this location!'));
-            $this->redirect(array('controller' => 'quiz', 'action' => 'shared', 'admin' => true));
+            return $this->redirect(array('controller' => 'quizzes', 'action' => 'shared'));
         }
 
-        $this->Quizzes->Behaviors->load('Containable');
-        $data = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'Quizzes.id = ' => $quiz_id
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice' => array('order' => array('Choice.weight DESC', 'Choice.id ASC')),
-                    'QuestionType' => array(
-                        'fields' => array('template_name', 'id', 'multiple_choices')
-                    ),
-                    'order' => array('Question.weight DESC', 'Question.id ASC')
-                ),
-                'User'
-            )
-        ));
+        $data = $this->Quizzes->find('all')
+            ->where(['Quizzes.id' => $quiz_id])
+            ->contain([
+                'Users',
+                'Questions' => function($q) {
+                    return $q->contain([
+                            'Choices' => function($q) {
+                                return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
+                            },
+                            'QuestionTypes' => function($q) {
+                                return $q->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
+                            }
 
-        if (empty($data))
-            throw new NotFoundException;
+                        ])
+                        ->order(['Questions.weight DESC', 'Questions.id ASC']);
+                }
+            ])
+            ->first();
 
-        $this->QuestionType->Behaviors->load('Containable');
-        $this->QuestionType->contain();
-        $data['QuestionTypes'] = $this->QuestionType->find('all', array(
-            'fields' => array('name', 'template_name', 'multiple_choices', 'id', 'type')
-        ));
+        // pr($data);
+        // exit;
 
-        if (empty($data['Question'])) {
+        if (empty($data)) {
+            $this->Flash->error(__('Quiz not found'));
+            return $this->redirect(array('controller' => 'quizzes', 'action' => 'shared'));
+        }
+
+        $data->question_type = $this->Quizzes->Questions->QuestionTypes->find('all')->select(['name', 'template_name', 'multiple_choices', 'id', 'type'])->toArray();
+
+        // pr($data);
+        // exit;
+
+        if (empty($data->questios)) {
             $this->set('no_question', true);
         }
 
@@ -186,31 +190,32 @@ class QuizzesController extends AppController
         $lang_strings['empty_header'] = __('Please enter Header text');
 
         // Load available classes (created by admin)
-        $this->loadModel('Subject');
-        $classOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL,
-                'Subject.type' => 1
-            ),
-            'recursive' => -1
-        ));
+        $this->loadModel('Subjects');
+        $classOptions = $this->Subjects->find('list')
+        ->where([
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL',
+            'Subjects.type' => 1
+        ])
+        ->toArray();
+
+        // pr($classOptions);
+        // exit;
 
         $subject_cond[] = array(
-            'Subject.isactive' => 1,
-            'Subject.is_del' => NULL,
-            'Subject.type' => NULL
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL',
+            'Subjects.type IS NULL'
         );
 
-        if (!empty($data['User']['subjects'])) {
-            $selectedSubjects = json_decode($data['User']['subjects'], true);
-            $subject_cond[] = array('Subject.id' => $selectedSubjects);
+        if (!empty($data->user->subjects)) {
+            $selectedSubjects = json_decode($data->user->subjects, true);
+            $subject_cond[] = array('Subjects.id' => $selectedSubjects);
         }
 
-        $subjectOptions = $this->Subject->find('list', array(
-            'conditions' => $subject_cond,
-            'recursive' => -1
-        ));
+        $subjectOptions = $this->Subjects->find('list')->where($subject_cond)->toArray();
+        // pr($subjectOptions);
+        // exit;
 
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('All Subject')) + $subjectOptions;
@@ -228,6 +233,8 @@ class QuizzesController extends AppController
 
         $this->set('data', $data);
         $this->set(compact('lang_strings', 'classOptions', 'subjectOptions'));
+
+        //$this->render('\Quizzes\preview');
     }
 
     private function quizTypes() {

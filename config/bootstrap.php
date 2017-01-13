@@ -239,8 +239,13 @@ Configure::write('google-analytics.tracker-code', 'UA-3180550-5'); // enables Go
 define('RECAPTCHA_SERVER_KEY', '6LeWzg8UAAAAAIq1Nmz9bm0eqSyR5UgE5-lMLDQX');
 define('RECAPTCHA_SECRET_KEY', '6LeWzg8UAAAAAEyLeOZGi8o44UZPwV7xOL10HvIz');
 
-define('DOWNLOAD_LIMIT', 3);
 
-//DispatcherFactory::add('H');
+// define constant values
+define('VIDEO_AVATAR_WIDTH', 817);
+define('VIDEO_AVATAR_HEIGHT', 399);
+define('THUMB_WIDTH', 170);
+define('THUMB_HEIGHT', 170);
+define('RESULT_LIMIT', 10);
+define('DOWNLOAD_LIMIT', 3);
 
 DispatcherFactory::add('RoutingExtend', ['for' => '/']);

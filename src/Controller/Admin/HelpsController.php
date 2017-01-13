@@ -134,82 +134,66 @@ class HelpsController extends AppController
 
     }
 
-    public function create($help_id = null) {
+    public function create($id = null) {
         $this->isAdminUser();
-        if(empty($help_id)){
+        if(empty($id)){
+            $video = $this->Helps->newEntity();
             $this->set('title_for_layout', __('New Site Video'));
         } else {
+            $video = $this->Helps->get($id, ['contain' => []]);
             $this->set('title_for_layout', __('Edit Site Video'));
         }
 
-        $this->set('siteOptions', $this->Helps->siteOptions);
+        $this->set('siteOptions', $this->siteOptions());
         
         if ($this->request->is(array('post','put'))) {
-            if(empty($this->request->data['Help']['slug'])) {
-                $this->request->data['Help']['slug']=$this->request->data['Help']['title'];
+            if(empty($id)){
+                $this->request->data['slug'] = $this->Helps->makeSlug($this->request->data['title'], 'Helps');
+                $this->request->data['user_id'] = $this->Auth->user('id');
             }
-            
-            $this->request->data['Help']['slug'] = $this->Helps->makeSlug($this->request->data['Help']['slug'], $this->request->data['Help']['id']);
-    
-            $this->request->data['Help']['user_id'] = $this->Auth->user('id');
-            if (!empty($this->request->data['Help']['url'])) {
-                $youtube = explode('?', $this->request->data['Help']['url']);
+            if (!filter_var($this->request->data['url'], FILTER_VALIDATE_URL) === false) {
+                $youtube = explode('?', $this->request->data['url']);
                 $youtube = explode('=', $youtube[1]);
                 $youtube = explode('&', $youtube[1]);   
-                $this->request->data['Help']['url_src'] = $youtube[0];
+                $this->request->data['url_src'] = $youtube[0];
             }
 
-            if (empty($this->request->data['Help']['id']) && !empty($this->request->data['Help']['photo'])) {
-                $newpath = WWW_ROOT . 'uploads' . DS . 'videos';
-                if (!file_exists($newpath)) {
-                    mkdir($newpath, 0777, true);
-                }
-                copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo'], $newpath . DS . $this->request->data['Help']['photo']);
-                copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo'], $newpath . DS . 't_' . $this->request->data['Help']['photo']);
+            // if (empty($this->request->data['Help']['id']) && !empty($this->request->data['Help']['photo'])) {
+            //     $newpath = WWW_ROOT . 'uploads' . DS . 'videos';
+            //     if (!file_exists($newpath)) {
+            //         mkdir($newpath, 0777, true);
+            //     }
+            //     copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo'], $newpath . DS . $this->request->data['Help']['photo']);
+            //     copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo'], $newpath . DS . 't_' . $this->request->data['Help']['photo']);
 
-                unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo']);
-                unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo']);
-            }
+            //     unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo']);
+            //     unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo']);
+            // }
+
+            $video = $this->Helps->patchEntity($video, $this->request->data, ['validate' => 'VideoSection']);
             
-            if ($this->Helps->saveAll($this->request->data)) {
-                $this->Session->setFlash(__('Site videos saved successfully'), 'notification_form', array(), 'notification');
-                if(isset($this->params['url']['redirect_url'])){            
-                    return $this->redirect(urldecode($this->params['url']['redirect_url']));
+            if ($this->Helps->save($video)) {
+                $this->Flash->success(__('Site videos saved successfully'));
+                if(isset($this->request->query['redirect_url'])){            
+                    return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
-                    return $this->redirect(array('controller' => 'helps', 'action' => 'videos', 'admin' => true));
+                    return $this->redirect(array('controller' => 'helps', 'action' => 'videos'));
                 }
             } else {
-                $this->Session->setFlash(__('Site videos saved failed'), 'error_form', array(), 'error');
+                $this->Flash->error(__('Site videos saved failed'));
             }
-        } elseif(!empty($help_id)) {
-            $conditions = array(
-                'Helps.id' => $help_id,
-                'Helps.status' => 1,
-                'Helps.type !=' => 'help'
-            );
-            
-            if ($this->Helps->hasAny($conditions)){              
-                $options = array(
-                    'conditions'=>$conditions
-                );
-                $this->request->data=$this->Helps->find('first',$options);
-            } else {
-                $this->Session->setFlash(__('Site videos not found'), 'error_form', array(), 'error');
-                $this->redirect($this->referer());
-            }
-
-        }
+        } 
         $lang_strings['upload_button'] = __('Upload a Picture');
-        $this->set(compact('lang_strings'));
+        $this->set(compact('video', 'lang_strings'));
     }
 
     public function videos() {
         $this->isAdminUser();
         $this->set('title_for_layout',__('Site Videos List'));
         // find the siteOptions
-        $this->set('siteOptions', $this->Helps->siteOptions);
+        $this->set('siteOptions', $this->siteOptions());
         
-        $conditions = array('Helps.parent_id = ' => null, 'Helps.type !=' => 'help');
+        $conditions = array('Helps.parent_id IS NULL', 'Helps.type !=' => 'help');
         
         $options = array(
             'conditions' => $conditions,
@@ -223,7 +207,7 @@ class HelpsController extends AppController
             $this->set('helps', $this->Helps->find('all', $options));
         } catch (NotFoundException $e) { 
             // when pagination error found redirect to first page e.g. paging page not found
-            return $this->redirect(array('controller' => 'helps', 'action' => 'videos', 'admin' => true));
+            return $this->redirect(array('controller' => 'helps', 'action' => 'videos'));
         }
     }
 
@@ -288,6 +272,10 @@ class HelpsController extends AppController
             $this->Flash->error(__('Sort failed'));
         }
         return $this->redirect($this->referer());
+    }
+
+    private function siteOptions() {
+        return ['home' => __('Home Page'), 'create' => __('User Create Page')];
     }
 
 

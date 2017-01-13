@@ -1,5 +1,3 @@
-<?= $this->Html->script(['user-create'], ['inline' => false]); ?>
-
 <?php
 $session = $this->request->session();
 // pr($session);
@@ -92,14 +90,15 @@ $this->assign('title', __('Create Account'));
 </div>
 
 <script type="text/javascript">
-    var lang_strings = <?php echo json_encode($lang_strings) ?>;
+    var lang_strings = <?php echo json_encode($lang_strings); ?>;
     <?php if (!empty($create_video)) : ?>
-        var url_src = <?php echo json_encode($create_video['Help']['url_src']) ?>;
+        var url_src = '<?php echo $create_video['url_src']; ?>';
     <?php else: ?>
         var url_src = '';
     <?php endif; ?>
-
 </script>
+
+<?= $this->Html->script(['user-create'], ['inline' => false]); ?>
 
 <style type="text/css">
     .form-group.required .control-label:after {

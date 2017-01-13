@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <?php echo $create_video['Help']['title']; ?>
+                <?php echo $create_video['title']; ?>
             </div>
             <div class="modal-body"> 
                  <iframe width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>

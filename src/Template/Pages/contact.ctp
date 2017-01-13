@@ -1,5 +1,4 @@
 <script src='https://www.google.com/recaptcha/api.js?hl=fi'></script>
-<?= $this->Html->script('contact', array('inline' => false)); ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
 <h2><?php echo __('Contact'); ?></h2>
@@ -45,3 +44,4 @@
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
+<?= $this->Html->script('contact', array('inline' => false)); ?>

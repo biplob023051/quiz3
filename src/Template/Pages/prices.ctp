@@ -1,6 +1,3 @@
-<?php
-    echo $this->Html->script('buy', array('inline' => false));
-?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
     <h2><?php echo __('Prices'); ?></h2>
@@ -68,3 +65,5 @@
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
+
+<?= $this->Html->script('buy', array('inline' => false)); ?>

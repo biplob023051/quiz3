@@ -116,6 +116,33 @@ class HelpsTable extends Table
         return $validator;
     }
 
+    public function validationVideoSection(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        $validator
+            ->requirePresence('title', 'create')
+            ->notEmpty('title', 'Title is required');
+
+        $validator
+            ->requirePresence('type', 'create')
+            ->notEmpty('type', 'Display page is required');
+
+        $validator
+            ->requirePresence('url', 'create')
+            ->notEmpty('url', 'Youtube video url is required')
+            ->add('url', [
+                'valid-url' => [
+                    'rule' => 'url',
+                    'message' => 'Valid youtube video url is required'
+                ]
+            ]);
+
+        return $validator;
+    }
+
     // list of active parent 
     public function parentsOptions() {
         $options = $this->find('list', ['keyField' => 'id', 'valueField' => 'title'])

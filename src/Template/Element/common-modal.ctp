@@ -2,12 +2,7 @@
     <div class="modal-dialog">
         <?php
             echo $this->Form->create('', array(
-                'inputDefaults' => array(
-                    'label' => array('class' => 'sr-only'),
-                    'div' => array('class' => 'form-group'),
-                    'class' => 'form-control',
-                ),
-                'url' => array('controller' => 'quiz', 'action' => 'decline_share', 'admin' => true),
+                'url' => array('controller' => 'quizzes', 'action' => 'decline_share', 'prefix' => 'admin'),
                 'id' => 'modal_form'
             ));
         ?>

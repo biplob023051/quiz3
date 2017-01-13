@@ -1,4 +1,3 @@
-<?= $this->Html->script('index', array('inline' => true)); ?>
 <div id="hero-unit">
     <div class="container">
         <h2 class="text-center"><?php echo __('Web test enables a teacher'); ?></h2>
@@ -62,4 +61,5 @@
 <?php endif; ?>
 </script>
 
+<?= $this->Html->script('index', array('inline' => true)); ?>
 <!-- $this->request->query['play'] -->
