@@ -297,51 +297,51 @@ class UsersController extends AppController
     }
 
     public function settings() {
-        $data = $this->request->data;
-        $this->User->id = $this->Auth->user('id');
-
-        if ($this->request->is('post')) {
-            if (!empty($data['User']['subjects'])) {
-                $data['User']['subjects'] = json_encode($data['User']['subjects']);
+        $user_id = $this->Auth->user('id');
+        $user = $this->Users->get($user_id, ['contain' => []]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            // pr($this->request->data);
+            // exit;
+            if (!empty($this->request->data['subjects'])) {
+                $this->request->data['subjects'] = json_encode($this->request->data['subjects']);
             } 
-            $this->User->set($data);
-            if (empty($data['User']['password'])) {
-                $this->User->validator()->remove('password');
-                unset($data['User']['password']);
+            
+            if (empty($this->request->data['password'])) {
+                unset($this->request->data['password']);
             }
-            if ($this->User->validates()) {
-                $this->User->save();
-                $this->Session->write('Auth.User.language', $data['User']['language']);
-                $this->Session->write('Auth.User.name', $data['User']['name']);
-                $this->Session->write('Auth.User.subjects', $data['User']['subjects']);
-                $this->Session->setFlash(__('Settings has been saved'), 'success_form', array(), 'success');
-                return $this->redirect(array('controller' => 'quiz'));
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if (empty($this->request->data['password'])) {
+                unset($user->password);
+            }
+            // pr($user);
+            // exit;
+            if ($this->Users->save($user)) {
+                $this->Auth->setUser($user);
+                // $this->Session->write('Auth.User.language', $data['User']['language']);
+                // $this->Session->write('Auth.User.name', $data['User']['name']);
+                // $this->Session->write('Auth.User.subjects', $data['User']['subjects']);
+                $this->Flash->success(__('Settings has been saved'));
+                return $this->redirect(array('controller' => 'quizzes'));
             } else {
-                $error = array();
-                foreach ($this->User->validationErrors as $_error) {
-                    $error[] = $_error[0];
-                }
-                $this->Session->setFlash($error, 'error_form', array(), 'error');
-                return $this->redirect(array('action' => 'settings'));
+                $this->Flash->error(__('Save failed!'));
             }
         }
 
         $userPermissions = $this->userPermissions();
         $this->set(compact('userPermissions'));
-        
-        $data = $this->User->getUser();
+        unset($user->password);
         // pr($data);
         // exit;
-        $data['canCreateQuiz'] = $this->User->canCreateQuiz();
-        $this->loadModel('Subject');
-        $data['subjects'] = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL,
-                'Subject.type' => NULL
-            )
-        ));
-        $this->set(compact('data'));
+        //$data['canCreateQuiz'] = $this->Users->canCreateQuiz();
+        $this->loadModel('Subjects');
+        $subjects = $this->Subjects->find('list')
+        ->where([
+            'Subjects.isactive' => 1,
+            'Subjects.is_del IS NULL',
+            'Subjects.type IS NULL'
+        ])
+        ->toArray();
+        $this->set(compact('user', 'subjects'));
     }
 
     public function contact() {
