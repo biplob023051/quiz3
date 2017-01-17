@@ -165,33 +165,19 @@ class QuizzesController extends AppController
         //     throw new ForbiddenException;
         
         if ($this->request->is('post')) {
-            if (!empty($this->request->data['Quiz']['subjects'])) {
-                $this->request->data['Quiz']['subjects'] = json_encode($this->request->data['Quiz']['subjects'], true);
+            $quiz = $this->Quizzes->get($quizId, ['contain' => []]);
+            if (!empty($this->request->data['subjects'])) {
+                $this->request->data['subjects'] = json_encode($this->request->data['subjects'], true);
             }
 
-            if (!empty($this->request->data['Quiz']['classes'])) {
-                $this->request->data['Quiz']['classes'] = json_encode($this->request->data['Quiz']['classes'], true);
+            if (!empty($this->request->data['classes'])) {
+                $this->request->data['classes'] = json_encode($this->request->data['classes'], true);
             }
-
-            $data = $this->request->data;
-            // pr($data);
-            // exit;
-            $this->Quizzes->id = $quizId;
-            $this->Quizzes->set($data['Quiz']);
-            if ($this->Quizzes->validates()) {
-                $this->Quizzes->save();
+            $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
+            if ($this->Quizzes->save($quiz)) {
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $error = array();
-                foreach ($this->Quizzes->validationErrors as $_error) {
-                    $error[] = $_error[0];
-                }
-                $this->Flash->error($error);
-                if (!empty($initial)) {
-                    return $this->redirect(array('action' => 'edit', $quizId, $initial));
-                } else {
-                    return $this->redirect(array('action' => 'edit', $quizId));
-                }
+                $this->Flash->error(__('Save Failed!'));
             }
         }
 
