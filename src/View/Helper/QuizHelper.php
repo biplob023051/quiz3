@@ -20,10 +20,9 @@ class QuizHelper extends Helper {
 	}
 
 	public function getImageUtubeChoice($question_id) {
-		App::import('Model', 'Choice');
-        $choice = new Choice();
-        $result = $choice->findByQuestionId($question_id, array('Choice.text'));
-        return empty($result) ? '' : $result['Choice']['text'];
+		$choices = TableRegistry::get('Choices');
+        $result = $choices->findByQuestionId($question_id)->select(['text'])->first();
+        return empty($result) ? '' : $result->text;
 	}
 
 	// Function to check if there has points or not in choice array

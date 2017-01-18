@@ -1,7 +1,6 @@
-<?php 
-if (!empty($this->request->data['Student']['id'])) : ?>
+<?php if (!empty($student->id)) : ?>
     <script type="text/javascript">
-        var student_id = '<?php echo $this->request->data['Student']['id']; ?>';
+        var student_id = '<?php echo $student->id; ?>';
     </script>
 <?php else : ?>
     <script type="text/javascript">
@@ -9,22 +8,10 @@ if (!empty($this->request->data['Student']['id'])) : ?>
     </script>
 <?php endif; ?>
 <?php
-    echo $this->Html->script(array(
-        'webquiz',
-        'live',
-        ), array('inline' => false)
-    );
-
     $this->assign('title', __('Quiz: ') . $data->name);
-
     echo $this->Flash->render(); 
 
-    echo $this->Form->create('Student', array(
-        // 'inputDefaults' => array(
-        //     'label' => array('class' => 'sr-only'),
-        //     'div' => array('class' => 'form-group'),
-        //     'class' => 'form-control input-lg basic-info',
-        // ),
+    echo $this->Form->create('', array(
         'novalidate' => true,
         'url' => array('controller' => 'students', 'action' => 'submit', $data->random_id),
         'name' => 'student_form',
@@ -44,10 +31,11 @@ if (!empty($this->request->data['Student']['id'])) : ?>
                     echo $this->Form->input('fname', array(
                         'placeholder' => __('First Name'),
                         'label' => false,
-                        'class' => 'basic-info'
+                        'class' => 'basic-info',
+                        'value' => !empty($student->fname) ? $student->fname : ''
                     ));
                     ?>
-                    <?php if (!empty($this->request->data['Student']['fname'])) : ?>
+                    <?php if (!empty($student->fname)) : ?>
                         <span id="std-fname" class="glyphicon glyphicon-ok-sign text-success std-basic-info"></span>
                     <?php else : ?>
                         <span id="std-fname" class="glyphicon std-basic-info"></span>
@@ -58,10 +46,11 @@ if (!empty($this->request->data['Student']['id'])) : ?>
                     echo $this->Form->input('lname', array(
                         'placeholder' => __('Last Name'),
                         'label' => false,
-                        'class' => 'basic-info'
+                        'class' => 'basic-info',
+                        'value' => !empty($student->lname) ? $student->lname : ''
                     ));
                     ?>
-                    <?php if (!empty($this->request->data['Student']['lname'])) : ?>
+                    <?php if (!empty($student->lname)) : ?>
                         <span id="std-lname" class="glyphicon glyphicon-ok-sign text-success std-basic-info"></span>
                     <?php else : ?>
                         <span id="std-lname" class="glyphicon std-basic-info"></span>
@@ -72,10 +61,11 @@ if (!empty($this->request->data['Student']['id'])) : ?>
                     echo $this->Form->input('class', array(
                         'placeholder' => __('Class'),
                         'label' => false,
-                        'class' => 'basic-info'
+                        'class' => 'basic-info',
+                        'value' => !empty($student->class) ? $student->class : ''
                     ));
                     ?>
-                    <?php if (!empty($this->request->data['Student']['class'])) : ?>
+                    <?php if (!empty($student->class)) : ?>
                         <span id="std-class" class="glyphicon glyphicon-ok-sign text-success std-basic-info"></span>
                     <?php else : ?>
                         <span id="std-class" class="glyphicon std-basic-info"></span>
@@ -85,7 +75,7 @@ if (!empty($this->request->data['Student']['id'])) : ?>
         <?php endif; ?>
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <p><?php echo $data['Quiz']['description']; ?></p>
+                <p><?php echo $data->description; ?></p>
             </div>
         </div>
     </div>
@@ -97,20 +87,20 @@ if (!empty($this->request->data['Student']['id'])) : ?>
                 $i = 1;
                 $othersQuestionType = array(6, 7, 8); // this categories for others type questions
                 // If value exist
-                if (!empty($this->request->data['Answer'])) { 
+                if (!empty($student->answers)) { 
                     // if answer found
                     $temp = array();
                     $question_count = array();
-                    foreach ($this->request->data['Answer'] as $key => $value) {
-                        $temp[] = $value['question_id'];
+                    foreach ($student->answers as $key => $value) {
+                        $temp[] = $value->question_id;
                     }
                     $question_count = array_count_values($temp);
                     
-                    foreach ($this->request->data['Answer'] as $key => $value) {
-                        if ($question_count[$value['question_id']] < 2) { // Not multiple choice
-                            $answered[$value['question_id']] = $value['text'];
+                    foreach ($student->answers as $key => $value) {
+                        if ($question_count[$value->question_id] < 2) { // Not multiple choice
+                            $answered[$value->question_id] = $value->text;
                         } else {
-                            $answered[$value['question_id']][] = $value['text'];
+                            $answered[$value->question_id][] = $value->text;
                         }
                     }
 
@@ -160,10 +150,17 @@ if (!empty($this->request->data['Student']['id'])) : ?>
 </div>
 
 <div style="display: none">
-<input type="number" name="data[Student][id]" id="studentId" value="<?php echo !empty($this->request->data['Student']['id']) ? $this->request->data['Student']['id'] : 0; ?>">
+<input type="number" name="id" id="studentId" value="<?php echo !empty($student->id) ? $student->id : 0; ?>">
 </div>
 
 <?php echo $this->Form->end(); ?>
+
+<?php 
+    echo $this->Html->script(array(
+        'live',
+        ), array('inline' => false)
+    );
+?>
 
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;

@@ -16,7 +16,7 @@ class StudentsController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['updateStudent']);
+        $this->Auth->allow(['updateStudent', 'updateAnswer', 'submit', 'success']);
     }
 
     public function updateScore() {
@@ -60,7 +60,7 @@ class StudentsController extends AppController
     }
 
     // Update answer
-    public function update_answer() {
+    public function updateAnswer() {
         $this->autoRender = false;
         $response = array('success' => true);
         // pr($this->request->data);
@@ -74,7 +74,10 @@ class StudentsController extends AppController
             $this->request->data['student_id'] = $response['student_id'];
         } 
 
-        $student = $this->Students->findById($this->request->data['student_id'])->first();
+        $student = $this->Students->findById($this->request->data['student_id'])->contain(['Rankings', 'Answers'])->first();
+
+        // pr($student);
+        // exit;
 
         $checkbox_record_delete = $this->request->data['checkbox_record_delete'];
         $checkBox = $this->request->data['checkBox'];
@@ -85,25 +88,25 @@ class StudentsController extends AppController
         $data = array();
         $points = 0;
         $total_change = false;
-        $ranking['Ranking'] = $student['Ranking'];
+        $ranking = $student->rankings[0];
 
-        if (!empty($student['Answer'])) { // Check if answer exist, then modify or delete
-            foreach ($student['Answer'] as $key => $answer) {
+        if (!empty($student->answers)) { // Check if answer exist, then modify or delete
+            foreach ($student->answers as $key => $answer) {
                 if (empty($checkBox)) { // if not check box
-                    if ($answer['question_id'] == $this->request->data['question_id']) { // if question id exist
-                        $data['Answer']['id'] = $answer['id'];
-                        $points = empty($answer['score']) ? 0 : $answer['score']; // Need to deduct from ranking point
+                    if ($answer->question_id == $this->request->data['question_id']) { // if question id exist
+                        $data['id'] = $answer->id;
+                        $points = empty($answer->score) ? 0 : $answer->score; // Need to deduct from ranking point
                     }
                 } else {
-                    if (($answer['question_id'] == $this->request->data['question_id']) && ($answer['text'] == $this->request->data['text'])) { // if question id exist
-                        $data['Answer']['id'] = $answer['id'];
-                        $points = empty($answer['score']) ? 0 : $answer['score']; // Need to deduct from ranking point
+                    if (($answer->question_id == $this->request->data['question_id']) && ($answer->text == $this->request->data['text'])) { // if question id exist
+                        $data['id'] = $answer->id;
+                        $points = empty($answer->score) ? 0 : $answer->score; // Need to deduct from ranking point
                     }
                 }    
             }
             if ((!empty($checkbox_record_delete) && empty($checkBox))) {
                 // Deduct point whatever it is
-                $ranking['Ranking']['score'] = $ranking['Ranking']['score']-$points;
+                $ranking->score = $ranking->score-$points;
             } 
         } 
 
@@ -113,97 +116,106 @@ class StudentsController extends AppController
         }
 
         // Compare with choice if its correct or not
-        $this->loadModel('Choice');
-        $choices = $this->Choices->find('all', array(
-            'conditions' => array(
-                'Choices.question_id' => (int)$this->request->data['question_id']
-            )
-        ));
+        $this->loadModel('Choices');
+        $choices = $this->Choices->find('all')
+        ->where(['Choices.question_id IN' => (int)$this->request->data['question_id']])
+        ->contain(['Questions'])
+        ->toArray();
         // pr($choices);
         // exit;
         $checkMax = 0;
         $correct_answer = 0;
         foreach ($choices as $key2 => $value2) {
             // get maxvalue as a total point increment
-            if ($checkMax < $value2['Choice']['points']) {
-                $checkMax = $value2['Choice']['points'];
+            if ($checkMax < $value2->points) {
+                $checkMax = $value2->points;
             }
 
-            if (($value2['Question']['question_type_id'] == 1) || 
-                ($value2['Question']['question_type_id'] == 3)) {
+            if (($value2->question->question_type_id == 1) || 
+                ($value2->question->question_type_id == 3)) {
                 // multiple choice one or many
-                if ($value2['Choice']['text'] == $this->request->data['text']) {
-                    $data['Answer']['score'] = $value2['Choice']['points'];
+                if ($value2->text == $this->request->data['text']) {
+                    $data['score'] = $value2->points;
                     if ((empty($checkbox_record_delete) && !empty($checkBox)) || (!empty($checkbox_record_delete) && empty($checkBox))) {
-                        $correct_answer = $correct_answer + $value2['Choice']['points'];
+                        $correct_answer = $correct_answer + $value2->points;
                     } else {
-                        $correct_answer = $correct_answer - $value2['Choice']['points'];
+                        $correct_answer = $correct_answer - $value2->points;
                     }
                 } 
 
 
-            } elseif ($value2['Question']['question_type_id'] == 2) { // short automatic point
+            } elseif ($value2->question->question_type_id == 2) { // short automatic point
                 $student_answer = $this->request->data['text'];
                 if (empty($this->request->data['case_sensitive'])) {
                     $student_answer = strtolower($student_answer);
-                    $value2['Choice']['text'] = strtolower($value2['Choice']['text']);
+                    $value2->text = strtolower($value2->text);
                 }
                 $student_answer = preg_replace('/\s+/', ' ', trim($student_answer));
-                $ans_string = preg_replace('/\s+/', ' ', trim($value2['Choice']['text']));
+                $ans_string = preg_replace('/\s+/', ' ', trim($value2->text));
 
                 if ($student_answer === $ans_string) { // Compare whole string
-                    $data['Answer']['score'] = $value2['Choice']['points'];
-                    $correct_answer = $correct_answer + $value2['Choice']['points'];
+                    $data['score'] = $value2->points;
+                    $correct_answer = $correct_answer + $value2->points;
                 } else {
                     $student_answer = preg_replace('/\s+/', '', $student_answer);
-                    $ans_string = preg_replace('/\s+/', '', $value2['Choice']['text']);
+                    $ans_string = preg_replace('/\s+/', '', $value2->text);
                     $words = explode(';', $student_answer);
                     $matched_word = explode(';', $ans_string);
                     foreach ($words as $key => $value) {
                         //if (!empty($value) && (strpos(strtolower($value2['Choice']['text']), strtolower(trim($value))) !== false)) {
                         if (!empty($value) && (in_array($value, $matched_word))) {
-                            $data['Answer']['score'] = $value2['Choice']['points'];
-                            $correct_answer = $correct_answer + $value2['Choice']['points'];
+                            $data['score'] = $value2->points;
+                            $correct_answer = $correct_answer + $value2->points;
                             break;
                         } else {
-                            $data['Answer']['score'] = 0;
+                            $data['score'] = 0;
                         }
                     }
                 }
-                $data['Answer']['text'] = $this->request->data['text'];
-            } elseif ($value2['Question']['question_type_id'] == 4) {
+                $data['text'] = $this->request->data['text'];
+            } elseif ($value2->question->question_type_id == 4) {
                 // short manual point
-                $data['Answer']['score'] = null;
+                $data['score'] = null;
 
             } else {
-                $data['Answer']['score'] = null;
+                $data['score'] = null;
             }
         }
         // pr($checkbox_record_delete);
         // exit;
 
         if ((empty($checkbox_record_delete) && !empty($checkBox)) || (!empty($checkbox_record_delete) && empty($checkBox))) {
-            $data['Answer']['text'] = $this->request->data['text'];
+            $data['text'] = $this->request->data['text'];
         } else {
-            $data['Answer']['text'] = '';
+            $data['text'] = '';
         }
 
-        $ranking['Ranking']['score'] = $ranking['Ranking']['score']+$correct_answer;
+        $ranking->score = $ranking->score+$correct_answer;
         
         // pr($data);
         // pr($ranking);
         // exit;
 
-        if (empty($data['Answer']['text']) && !empty($data['Answer']['id'])) {
+        if (empty($data['text']) && !empty($data['id'])) {
             // Deleted answer
-            $this->Students->Answers->delete($data['Answer']['id']);
+            $this->Students->Answers->deleteAll(['Answers.id' => $data['id']]);
         } else { // Update or add new answer
             if (!empty($this->request->data['checkbox_record'])) {
-                $data['Answer']['id'] = '';
+                $data['id'] = '';
             }
-            $data['Answer']['question_id'] = (int) $this->request->data['question_id'];
-            $data['Answer']['student_id'] = (int) $this->request->data['student_id'];
-            $this->Students->Answers->save($data);
+            $data['question_id'] = (int) $this->request->data['question_id'];
+            $data['student_id'] = (int) $this->request->data['student_id'];
+            if (empty($data['id'])) {
+                $answer = $this->Students->Answers->newEntity();
+                $answer = $this->Students->Answers->patchEntity($answer, $data);
+                $this->Students->Answers->save($answer);
+            } else {
+                $answer_id = $data['id'];
+                unset($data['id']);
+                $this->Students->Answers->updateAll($data, ['Answers.id' => $answer_id]);
+            }
+            // pr($answer);
+            // exit;
         }
         $this->Students->Rankings->save($ranking);
 
@@ -224,7 +236,7 @@ class StudentsController extends AppController
         if (!empty($this->request->data['student_id']) || $this->Session->check('student_id')) {
             // Update student information
             $student_id = !empty($this->request->data['student_id']) ? $this->request->data['student_id'] : (int) $this->Session->read('student_id');
-            $student = $this->Students->get($student_id);
+            $student = $this->Students->get($student_id, ['contain' => []]);
 
             // pr($student);
             // exit;
@@ -328,34 +340,20 @@ class StudentsController extends AppController
     }
 
     public function submit($quizRandomId) {
-
-        // remove unwanted space and make uppercase for student class
-        $this->request->data['Student']['class'] = !empty($this->request->data['Student']['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['Student']['class'])) : '';
-        $data = $this->request->data;
-        $this->Students->set($data['Student']);
-        if (!$this->Students->validates()) {
-            $error = array();
-            foreach ($this->Students->validationErrors as $_error) {
-                $error[] = $_error[0];
-            }
-            $this->Session->write('FormData', $data);
-            $this->Session->setFlash($error, 'error_form', array(), 'error');
-            return $this->redirect(array(
-                        'controller' => 'Quiz',
-                        'action' => 'live',
-                        $quizRandomId
-            ));
-        }
-
-        $this->loadModel('Quiz');
-        $this->Quizzes->unBindModelAll();
-        $quiz = $this->Quizzes->findByRandomId($quizRandomId);
-
-        $this->request->data['Student']['status'] = 1;
-        $this->request->data['Student']['submitted'] = date('Y-m-d H:i:s');
-        unset($this->request->data['Answer']);
         
-        $this->Students->save($this->request->data);
+        // remove unwanted space and make uppercase for student class
+        $this->request->data['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
+        $quiz = $this->Students->Quizzes->findByRandomId($quizRandomId, ['contain' => []])->select(['id', 'show_result'])->first();
+// pr($quiz);
+// exit;
+        $this->request->data['status'] = 1;
+        $this->request->data['submitted'] = date('Y-m-d H:i:s');
+        unset($this->request->data['Answer']);
+        unset($this->request->data['data']);
+
+        $student_id = $this->request->data['id'];
+        unset($this->request->data['id']);
+        $this->Students->updateAll($this->request->data, ['Students.id' => $student_id]);
     
         // Delete session data for student quiz auto update
         $runningFor = $this->Session->read('started');
@@ -364,9 +362,9 @@ class StudentsController extends AppController
         $this->Session->delete('student_id');
 
         // save std id
-        if (!empty($quiz['Quiz']['show_result'])) {
+        if (!empty($quiz->show_result)) {
             $this->Session->write('show_result', true);
-            return $this->redirect(array('action' => 'success', $this->Students->id));
+            return $this->redirect(array('action' => 'success', $student_id));
         } else {
             return $this->redirect(array('action' => 'success'));
         }
@@ -374,20 +372,20 @@ class StudentsController extends AppController
     
     public function success($std_id = null) {
         if ($this->Session->check('show_result')) { // show result true
-            $student_result = $this->Students->find('first', array(
-                'conditions' => array('Students.id' => $std_id)
-            ));
-            $this->Students->Quizzes->Behaviors->load('Containable');
-            $quiz = $this->Students->Quizzes->find('first', array(
-                'conditions' => array(
-                    'Quizzes.id' => $student_result['Quiz']['id'],
-                ),
-                'contain' => array(
-                    'Question' => array(
-                        'order' => array('Questions.weight DESC', 'Questions.id ASC'),
-                    ),
-                )
-            ));
+            $student_result = $this->Students->find('all')
+            ->where(['Students.id' => $std_id])
+            ->contain(['Answers', 'Rankings'])
+            ->first();
+
+            $quiz = $this->Students->Quizzes->find('all')
+            ->where(['Quizzes.id' => $student_result->quiz_id])
+            ->contain([
+                'Questions' => function($q) {
+                    return $q->order(['Questions.weight DESC', 'Questions.id ASC']);
+                }
+            ])
+            ->first();
+
             $this->set(compact('student_result', 'quiz'));
             $this->Session->delete('show_result');
         }

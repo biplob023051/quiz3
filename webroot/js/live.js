@@ -25,7 +25,7 @@
  			if (!$.isEmptyObject(answered) && !std_updated) {
  				clearInterval(interval);
  				runAjaxCall(0);
- 			} 
+ 			}
  		}
  	}
 
@@ -147,7 +147,8 @@
 	}
 
 	// For checkbox and radio buttons
-	$(".tick-mark").change(function() { 
+	//$(".tick-mark").change(function() {
+	$(document).on('change', ".tick-mark", function(){
 		answering($(this));
 	});
 
@@ -214,23 +215,10 @@
 			}
 		} 
 	}
-
-	function checkNetConnection(){
-		jQuery.ajaxSetup({async:false});
-		re="";
-		r=Math.round(Math.random() * 10000);
-		$.get(projectBaseUrl + 'img/dot.png',{subins:r},function(d){
-		re=true;
-		}).error(function(){
-		re=false;
-		});
-		return re;
-	} 
    	
    	$("#StudentLiveForm").submit(function(event) {
 		event.preventDefault();
-		var netConnection = checkNetConnection();
-		if (netConnection == false) {
+		if (!navigator.onLine) {
 			alert(lang_strings[0]);
 			return;
 		}
@@ -323,19 +311,19 @@
 
 	function checkValidation() {
 
-		if ($("#StudentFname").val() == '') {
+		if ($("#fname").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings[5]);
 			return true;
 		}
 
-		if ($("#StudentLname").val() == '') {
+		if ($("#lname").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings[6]);
 			return true;
 		}
 
-		if ($("#StudentClass").val() == '') {
+		if ($("#class").val() == '') {
 			$("#error-message").show();
 			$("#error-message").html(lang_strings[7]);
 			return true;
