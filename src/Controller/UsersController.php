@@ -149,7 +149,7 @@ class UsersController extends AppController
         }
         // load MathCaptchaComponent on fly
         $site_language = Configure::read('Config.language');
-        if ($site_language == 'fin') {
+        if ($site_language == 'fi') {
             //$this->MathCaptcha = $this->Components->load('MathCaptcha');
             $this->MathCaptcha = $this->loadComponent('MathCaptcha');
         } else {

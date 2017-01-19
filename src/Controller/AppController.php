@@ -129,7 +129,7 @@ class AppController extends Controller
         //     $this->Session->delete('Choice');
         // }
 
-        Configure::write('Config.language', 'fin');
+        Configure::write('Config.language', 'fi');
 
         $this->set('authUser', $this->Auth->user());
     }
