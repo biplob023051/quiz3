@@ -83,7 +83,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-xs-12 col-md-2">
         <div class="form-group">
             <?php
-            echo $this->Html->link(__("Cancel"), '/quiz', array(
+            echo $this->Html->link(__("Cancel"), '/', array(
                 'class' => 'btn btn-default btn-block'
             ));
             ?>

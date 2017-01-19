@@ -26,18 +26,9 @@ class QuizzesController extends AppController
         $this->Auth->allow(['present', 'live', 'no_permission']);
     }
 
-    public function ajax_student_update() {
+    public function ajaxStudentUpdate() {
         $this->viewBuilder()->layout('ajax');
-        $student = $this->Quizzes->Student->findById($this->request->data['student_id']);
-        $student['id'] = $student['Student']['id'];
-        $student['fname'] = $student['Student']['fname'];
-        $student['lname'] = $student['Student']['lname'];
-        $student['class'] = $student['Student']['class'];
-        $student['submitted'] = $student['Student']['submitted'];
-        $student['quiz_id'] = $student['Student']['quiz_id'];
-        $student['status'] = $student['Student']['status'];
-        unset($student['Student']);
-        
+        $student = $this->Quizzes->Students->get($this->request->data['student_id'], ['contain' => ['Answers']]);
         $this->set('value1', $student);
         $filter = $this->Session->read('Filter');
         $quizDetails = $this->Quizzes->quizDetails($student['quiz_id'], $filter);
@@ -127,6 +118,16 @@ class QuizzesController extends AppController
         ->order($orders)->toArray();
 // pr($quizzes);
 // exit;
+        if (empty($quizzes)) {
+            $quiz_created = $this->Quizzes->find('all')
+            ->where(['Quizzes.user_id' => $userId])
+            ->contain([])
+            ->select(['id'])
+            ->first();
+            $quiz_created = empty($quiz_created) ? false : true;
+        } else {
+            $quiz_created = true;
+        }
         $data = array(
             'quizzes' => $quizzes,
         );
@@ -145,7 +146,7 @@ class QuizzesController extends AppController
         $lang_strings['check_select'] = __('Please choose at least one quiz to import!');
         $lang_strings['import_success'] = __('Quiz imported successfully');
 
-        $this->set(compact('data', 'filter', 'lang_strings'));
+        $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
     }
 
     public function edit($quizId, $initial = '') {
@@ -598,15 +599,6 @@ class QuizzesController extends AppController
         foreach ($classes as $key => $cls) {
             $new_class[$cls] = $cls;
         }
-        // function cmp($a, $b) {
-        //     if ($a == $b) {
-        //         return 0;
-        //     }
-        //     return ($a < $b) ? -1 : 1;
-        // }
-        // uasort($classes, 'cmp');
-        //// classes merge with all class
-       
         
         $classes = Hash::merge(array('all' => __('All Classes')), $new_class);
 
@@ -625,29 +617,16 @@ class QuizzesController extends AppController
     public function checkOnlineStudent($random_id) {
         $onlineStds = array();
         //$time = time()+14400-60; // (14400 == 4 huors and 10 mins = 600)
-        $time = time()+14400-60; // (14400 == 4 huors and 10 mins = 600)
-
+        $time = time()+1440-60; // (14400 == 4 huors and 10 mins = 600)
         $conn = ConnectionManager::get('default');
-
-        // pr($conn);
-        // exit;
-        $stmt = $conn->execute('SELECT data FROM sessions WHERE expires > ' . $time . ' AND data LIKE ' . "'%" . '"' . $random_id . '"' . "%'");
+        $stmt = $conn->execute('SELECT data FROM sessions WHERE expires > '. $time .' AND data LIKE "%started%" AND data LIKE "%' . $random_id . '%"');
         $sessions = $stmt ->fetchAll('assoc');
-        // pr($sessions);
-        // exit;
-
-
-        // $sessions = $this->Quizzes->query('SELECT data FROM sessions WHERE expires > ' . $time . ' AND data LIKE ' . "'%" . '"' . $random_id . '"' . "%'")->toArray();
-        // pr($sessions);
-        // exit;
         foreach ($sessions as $session) {
-            $tmp = explode(';random_id|', $session[$this->Quizzes->tablePrefix . 'cake_sessions']['data']);
-            if (!empty($tmp[1]) && (strpos($tmp[1], 'student_id') !== false)) {
-                $tmp = explode('student_id', $tmp[1]);
-                $q_random_id = explode('"', $tmp[0]);
-                $q_student_id = explode('"', $tmp[1]);
-                if (!empty($q_random_id[1]) && ($q_random_id[1] == $random_id) && !empty($q_student_id[1])) {
-                    $onlineStds[] = $q_student_id[1];
+            $tmp = explode('student_id|i:', $session['data']);
+            if (!empty($tmp[1])) {
+                $tmp = explode(';', $tmp[1]);
+                if (!empty($tmp[0]) && is_numeric($tmp[0])) {
+                    $onlineStds[] = $tmp[0];
                 }
             } 
         }
@@ -685,7 +664,7 @@ class QuizzesController extends AppController
         echo json_encode(array('studentIds' => $studentIds, 'onlineStds' => $onlineStds));
     }
 
-    public function ajax_update() {
+    public function ajaxUpdate() {
         $this->autoRender = false;
         // authenticate or not
         $checkPermission = $this->Quizzes->checkPermission((int)$this->request->data['quizId'], $this->Auth->user('id'));
@@ -896,9 +875,9 @@ class QuizzesController extends AppController
     }
 
     // print quiz answer
-    public function ajax_print_answer() {
+    public function ajaxPrintAnswer() {
         $this->accountStatus();
-        $this->layout = "ajax";
+        $this->viewBuilder()->layout('ajax');
         $quizId = $this->request->data['quizId'];
         // authenticate or not
         $checkPermission = $this->Quizzes->checkPermission($quizId, $this->Auth->user('id'));

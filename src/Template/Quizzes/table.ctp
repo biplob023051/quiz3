@@ -1,8 +1,4 @@
 <?php
-echo $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array(
-    'inline' => false
-));
-
 echo $this->Html->css('answer-table', array(
     'inline' => false
 ));
@@ -45,8 +41,8 @@ $this->assign('title', __('Answer Table'));
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <div class="btn-group btn-group-justified">
-                    <a href="#" class="btn btn-default" id="answer-table-overview"><?php echo __('Overview'); ?></a>
-                    <a href="#" class="btn btn-primary" id="answer-table-show"><?php echo __('Answers'); ?></a>
+                    <a href="javascript:void(0);" class="btn btn-default" id="answer-table-overview"><?php echo __('Overview'); ?></a>
+                    <a href="javascript:void(0);" class="btn btn-primary" id="answer-table-show"><?php echo __('Answers'); ?></a>
                 </div>
             </div>
         </div>
@@ -76,3 +72,9 @@ $this->assign('title', __('Answer Table'));
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
     var onlineStds = <?php echo json_encode($onlineStds) ?>;
 </script>
+
+<?php
+echo $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array(
+    'inline' => false
+));
+?>

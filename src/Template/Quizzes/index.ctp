@@ -86,7 +86,7 @@ $this->assign('title', __('My Quizzes'));
         </div>
     <?php endif; ?>
 
-    <?php if (!empty($userPermissions['access']) && !empty($data['quizzes'])) : ?>
+    <?php if (!empty($userPermissions['access']) && !empty($quiz_created)) : ?>
         <div class="col-xa-12 col-md-4 pull-right">
             <form class="form" id="quiz-filter" method="post">
                 <div class="form-group">
@@ -204,7 +204,7 @@ $this->assign('title', __('My Quizzes'));
                 <!--/nocache-->
             </table>
         <?php else : ?>
-            <?php if (empty($data['quizzes'])) : ?>
+            <?php if (empty($quiz_created)) : ?>
                 <!-- show dummy data installation module -->
                 <div class="row">
                     <div id="demo-data">

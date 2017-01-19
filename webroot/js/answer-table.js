@@ -334,7 +334,6 @@ $(document).ready(function(){
     });
 
     $('input.update-std').donetyping(function(){
-        alert('sd');
         var std_info = $(this).attr('data-rel');
         var value_info = $(this).val();
         var inputField = $(this);
@@ -350,9 +349,11 @@ $(document).ready(function(){
                 if (response.success || response.success === "true")
                 {
                     var result = std_info.split('-');
+                    // Need to fix
                     var old_data = $.parseJSON($("#prev_data").html());
                     old_data.studentIds[result[1]][0][result[0]] = response.changetext;
                     $("#prev_data").html(JSON.stringify(old_data));
+                    // Problem end
                     inputField.hide();
                     if (response.changetext == '') {
                         inputField.prev().show();
