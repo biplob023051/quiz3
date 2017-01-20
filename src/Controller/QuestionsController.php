@@ -188,49 +188,54 @@ class QuestionsController extends AppController
     }
 
     public function delete() {
+        $this->autoRender = false;
         $questionId = $this->request->data['id'];
-
         // If user is trying to delete another user quiz, cancel.
-        if (!$this->isAuthorized($questionId))
-            throw new ForbiddenException;
-
-        if ($this->Questions->delete($questionId)) {
+        if ($this->isAuthorized($questionId) && $this->Questions->deleteAll(['Questions.id' => $questionId])) {
             // delete choices related to this question
-            $this->Questions->Choices->deleteAll(array('Choices.question_id' => $questionId));
+            $this->Questions->Choices->deleteAll(['Choices.question_id' => $questionId]);
             // delete answers related to this question
-            $this->Questions->Answers->deleteAll(array('Answers.question_id' => $questionId));
-            $this->set('data', array(
-                'success' => true
-            ));
+            $this->Questions->Answers->deleteAll(['Answers.question_id' => $questionId]);
+            $response['success'] = true;
+        } else {
+            $response['success'] = false;
         }
+        echo json_encode($response);
     }
 
     public function duplicate() {
+        $this->autoRender = false;
         $questionId = $this->request->data['id'];
+        $question = $this->Questions->get($questionId, ['contain' => ['Quizzes', 'Choices']]);
 
-        // If user is trying to delete another user quiz, cancel.
-        if (!$this->isAuthorized($questionId))
-            throw new ForbiddenException;
-
-        $this->Questions->unbindModelAll(array('Choice'));
-        $question = $this->Questions->findById($questionId);
+        // pr($question);
+        // exit;
 
         $response['success'] = false;
 
-        if (!empty($question)) {
-            $question['Question']['id'] = '';
-            //$question['Question']['text'] = __('Copy of:') . ' ' . $question['Question']['text'];
-            unset($question['Question']['created']);
-            unset($question['Question']['modified']);
-            if (!empty($question['Choice'])) {
-                foreach ($question['Choice'] as $key => $choice) {
-                    $question['Choice'][$key]['id'] = '';
+        if (!empty($question) && ($question->quiz->user_id == $this->Auth->user('id'))) {
+            $copy_question['quiz_id'] = $question->quiz_id;
+            $copy_question['question_type_id'] = $question->question_type_id;
+            $copy_question['text'] = $question->text;
+            $copy_question['explanation'] = $question->explanation;
+            $copy_question['weight'] = $question->weight;
+            $copy_question['max_allowed'] = $question->max_allowed;
+            $copy_question['case_sensitive'] = $question->case_sensitive;
+
+            if (!empty($question->choices)) {
+                foreach ($question->choices as $key => $choice) {
+                    $copy_question['choices'][$key]['text'] = $choice->text;
+                    $copy_question['choices'][$key]['points'] = $choice->points;
+                    $copy_question['choices'][$key]['weight'] = $choice->weight;
                 }
             }
-            if ($this->Questions->saveAll($question, array('deep' => true))) {
+            $copy_question = $this->Questions->newEntity($copy_question, ['associated' => ['Choices']]);
+            // pr($copy_question);
+            // exit;
+            if ($this->Questions->save($copy_question)) {
                $response['message'] = __('Duplicated Successfully');
                 $response['success'] = true;
-                $response['id'] = $this->Questions->id;
+                $response['id'] = $copy_question->id;
             } else {
                 $response['message'] = __('Something went wrong, please try again later!');
             }
@@ -238,7 +243,7 @@ class QuestionsController extends AppController
             $response['message'] = __('Invalid question');
         }
 
-        $this->set('data', $response);
+        echo json_encode($response);
     }
 
     // ajax sorting question on drag drop

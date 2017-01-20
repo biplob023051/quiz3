@@ -129,7 +129,7 @@ var webQuiz = {
     {
         $.ajax({
             data: {id: questionId},
-            url: this.baseUrl + 'question/delete',
+            url: this.baseUrl + 'questions/delete',
             dataType: 'json',
             type: 'post',
             success: function (response)
@@ -163,7 +163,7 @@ var webQuiz = {
     {
         $.ajax({
             data: {id: questionId},
-            url: this.baseUrl + 'question/duplicate',
+            url: this.baseUrl + 'questions/duplicate',
             dataType: 'json',
             type: 'post',
             success: function (response)

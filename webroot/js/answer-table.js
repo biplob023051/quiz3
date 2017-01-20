@@ -348,12 +348,12 @@ $(document).ready(function(){
             {
                 if (response.success || response.success === "true")
                 {
-                    var result = std_info.split('-');
-                    // Need to fix
-                    var old_data = $.parseJSON($("#prev_data").html());
-                    old_data.studentIds[result[1]][0][result[0]] = response.changetext;
-                    $("#prev_data").html(JSON.stringify(old_data));
-                    // Problem end
+                    // var result = std_info.split('-');
+                    // var old_data = $.parseJSON($("#prev_data").html());
+                    // if (result[1] in old_data.onlineStds) {
+                    //     old_data.studentIds[result[1]][0][result[0]] = response.changetext;
+                    //     $("#prev_data").html(JSON.stringify(old_data));
+                    // }
                     inputField.hide();
                     if (response.changetext == '') {
                         inputField.prev().show();

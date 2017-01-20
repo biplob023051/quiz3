@@ -107,4 +107,11 @@ class QuestionsTable extends Table
 
         return $rules;
     }
+
+    public function getQuestionOwner($questionId, $owner_id) {
+        // checking $questionId if $owner_id created that question
+        $question = $this->get($questionId, ['contain' => ['Quizzes']]);
+        // if questionId found by $owner_id set true, otherwise false
+        return (!empty($question) && ($question->quiz->user_id == $owner_id)) ? true : false;
+    }
 }
