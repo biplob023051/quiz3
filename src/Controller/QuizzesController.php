@@ -155,16 +155,6 @@ class QuizzesController extends AppController
         // Check permission
         $userId = $this->Auth->user('id');
         
-        // $result = $this->Quizzes->find('count', array(
-        //     'conditions' => array(
-        //         'Quizzes.id = ' => $quizId,
-        //         'Quizzes.user_id = ' => $userId
-        //     )
-        // ));
-        
-        // if ($result < 1)
-        //     throw new ForbiddenException;
-        
         if ($this->request->is('post')) {
             $quiz = $this->Quizzes->get($quizId, ['contain' => []]);
             if (!empty($this->request->data['subjects'])) {
@@ -182,7 +172,7 @@ class QuizzesController extends AppController
             }
         }
 
-        $data = $this->Quizzes->find()
+        $query = $this->Quizzes->find()
             ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $userId])
             ->contain([
                 'Questions' => function($q) {
@@ -197,17 +187,21 @@ class QuizzesController extends AppController
                     ->order(['Questions.weight DESC', 'Questions.id ASC']);
                     return $q;
                 } 
-            ])
-            ->first();
-        //pr($data);
-        // exit;
+            ]);
+
+        $query->hydrate(false);
+        $data = $query->first();
+        
 
         if (empty($data))
             throw new NotFoundException;
 
-        $data->question_type = $this->Quizzes->Questions->QuestionTypes->find()
-            ->select(['name', 'template_name', 'multiple_choices', 'id', 'type'])
-            ->toArray();
+        $query = $this->Quizzes->Questions->QuestionTypes->find()
+            ->select(['name', 'template_name', 'multiple_choices', 'id', 'type']);
+        $query->hydrate(false);
+        $data['QuestionTypes'] = $query->toArray();
+        // pr($data);
+        // exit;
 
         // pr($data['QuestionTypes']);
         // exit;
@@ -215,7 +209,7 @@ class QuizzesController extends AppController
             $this->set(compact('initial'));
         } 
 
-        if (empty($data['Question'])) {
+        if (empty($data['questions'])) {
             $this->set('no_question', true);
         }
 

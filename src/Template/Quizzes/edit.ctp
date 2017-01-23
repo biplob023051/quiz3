@@ -1,44 +1,69 @@
-<?php 
+<?php
+$data['Quiz']['id'] = $data['id'];
+$data['Quiz']['user_id'] = $data['user_id'];
+$data['Quiz']['name'] = $data['name'];
+$data['Quiz']['description'] = $data['description'];
+$data['Quiz']['created'] = $data['created'];
+$data['Quiz']['modified'] = $data['modified'];
+$data['Quiz']['student_count'] = $data['student_count'];
+$data['Quiz']['status'] = $data['status'];
+$data['Quiz']['random_id'] = $data['random_id'];
+$data['Quiz']['show_result'] = $data['show_result'];
+$data['Quiz']['anonymous'] = $data['anonymous'];
+$data['Quiz']['subjects'] = $data['subjects'];
+$data['Quiz']['classes'] = $data['classes'];
+
+$data['Quiz']['shared'] = $data['shared'];
+$data['Quiz']['is_approve'] = $data['is_approve'];
+$data['Quiz']['comment'] = $data['comment'];
+
+unset($data['id']);
+unset($data['user_id']);
+unset($data['name']);
+unset($data['description']);
+unset($data['created']);
+unset($data['modified']);
+unset($data['student_count']);
+unset($data['status']);
+unset($data['random_id']);
+unset($data['show_result']);
+unset($data['anonymous']);
+unset($data['subjects']);
+unset($data['classes']);
+
+unset($data['shared']);
+unset($data['is_approve']);
+unset($data['comment']);
+
+
+foreach ($data['QuestionTypes'] as $key => $value) {
+    unset($data['QuestionTypes'][$key]);
+    $data['QuestionTypes'][$key]['QuestionType']['name'] = $value['name'];
+    $data['QuestionTypes'][$key]['QuestionType']['template_name'] = $value['template_name'];
+    $data['QuestionTypes'][$key]['QuestionType']['multiple_choices'] = $value['multiple_choices'];
+    $data['QuestionTypes'][$key]['QuestionType']['id'] = $value['id'];
+    $data['QuestionTypes'][$key]['QuestionType']['type'] = $value['type'];
+}
+
 use Cake\Routing\Router;
-?>
-<script id="app-data" type="application/json">
-<?php
-echo json_encode(array(
-    'baseUrl' => Router::url('/', true),
-    'questionTypes' => $data->question_type,
-    'quizId' => $data->id
-));
-?>
-</script>
-
-<?php
-
-echo $this->Html->css(array(
-    //'qunit-1.17.1'
-    'jquery-ui'
-        ), array('inline' => false)
-);
-
 $this->assign('title', __('Edit Quiz'));
 
-if (!empty($data->subjects)) {
-    $selectedSubjects = json_decode($data->subjects, true);
+if (!empty($data['Quiz']['subjects'])) {
+    $selectedSubjects = json_decode($data['Quiz']['subjects'], true);
 } else {
     $selectedSubjects = array_keys($subjectOptions); // By default all subjects
 }
 
-if (!empty($data->classes)) {
-    $selectedClasses = json_decode($data->classes, true);
+if (!empty($data['Quiz']['classes'])) {
+    $selectedClasses = json_decode($data['Quiz']['classes'], true);
 } else {
     $selectedClasses = array_keys($classOptions); // By default all classes
 }
 ?>
 
-<?= $this->Flash->render() ?>
+<?= $this->Flash->render(); ?>
 
-<?php
-echo $this->Form->create('Quiz');
-?>
+<?= $this->Form->create('Quiz'); ?>
 <!--<div id="qunit"></div>
 <div id="qunit-fixture"></div>-->
 <div class="row" id="settings">
@@ -54,13 +79,13 @@ echo $this->Form->create('Quiz');
     <div class="col-xs-12 col-md-12 settings-options" style="display: none;">
         <div class="form-group">
             <?php 
-                echo $this->Form->checkbox('show_result', array('default' => $data->show_result)); 
+                echo $this->Form->checkbox('show_result', array('default' => $data['Quiz']['show_result'])); 
                 echo $this->Form->label('show_result', __('Show results to the student after finishing the quiz.'));
             ?>
         </div>
         <div class="form-group">
             <?php 
-                echo $this->Form->checkbox('anonymous', array('default' => $data->anonymous)); 
+                echo $this->Form->checkbox('anonymous', array('default' => $data['Quiz']['anonymous'])); 
                 echo $this->Form->label('anonymous', __('Anonymous participation?'));
             ?>
         </div>
@@ -110,7 +135,7 @@ echo $this->Form->create('Quiz');
                     ));
                 } else {
                     echo $this->Form->input('Quiz.name', array(
-                        'default' => $data->name,
+                        'default' => $data['Quiz']['name'],
                         'placeholder' => __('Name the quiz'),
                         'class' => 'form-control input-lg'
                     ));
@@ -120,7 +145,7 @@ echo $this->Form->create('Quiz');
             <div class="col-xs-12 col-md-6">
                 <?php
                 echo $this->Form->input('Quiz.description', array(
-                    'default' => $data->description,
+                    'default' => $data['Quiz']['description'],
                     'placeholder' => __('Describe the quiz to respondents'),
                     'class' => 'form-control input-lg'
                 ));
@@ -135,23 +160,32 @@ echo $this->Form->create('Quiz');
             <?php
             $i = 1;
             $othersQuestionType = array(6, 7, 8); // this categories for others type questions
-            foreach ($data->questions as $question) {
-                
-                $choices_number = count($question->choices);
-                if (!$question->question_type->multiple_choices && $choices_number > 1) {
+            $data['Question'] = $data['questions'];
+            unset($data['questions']);
+            foreach ($data['Question'] as $key => $question) {
+                $question['Choice'] = $question['choices'];
+                $data['Question'][$key]['Choice'] = $question['choices'];
+                unset($data['Question'][$key]['choices']);
+                $question['QuestionType'] = $question['question_type'];
+                $data['Question'][$key]['QuestionType'] = $question['question_type'];
+                unset($data['Question'][$key]['question_type']);
+                $choices_number = count($question['Choice']);
+                if (!$question['QuestionType']['multiple_choices'] && $choices_number > 1) {
                     for ($i = 1; $i < $choices_number; ++$i) {
-                        unset($question->choices[$i]);
+                        unset($question['Choice'][$i]);
                     }
                 }
 
                 $question['number'] = $i;
-                echo $this->element('Quiz/edit/question', array('question' => $question));
-                if (!in_array($question->question_type_id, $othersQuestionType)) { 
+                echo $this->element('Quiz/edit/question', $question);
+                if (!in_array($question['question_type_id'], $othersQuestionType)) { 
                     // only considered main question for numbering
                     // not others type questions
                     ++$i;
                 }
             }
+            // pr($data);
+            // exit;
             ?>
             <!--/nocache-->
         </tbody>
@@ -162,7 +196,7 @@ echo $this->Form->create('Quiz');
 <div class="row">
     <div class="col-xs-12 col-md-3 col-md-offset-6">
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?php echo __('Add New Question') ?></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?= __('Add New Question') ?></button>
 
         </div>
     </div>
@@ -173,23 +207,33 @@ echo $this->Form->create('Quiz');
     </div>
 </div>
 
+<script id="app-data" type="application/json">
+<?php
+echo json_encode(array(
+    'baseUrl' => Router::url('/', true),
+    'questionTypes' => $data['QuestionTypes'],
+    'quizId' => $data['Quiz']['id']
+));
+?>
+</script>
+
 <script id="question-preview-template" type="text/x-handlebars-template">
 <?php echo $this->element('Quiz/edit/Handlebars/question.preview'); ?>
 </script>
 
 <script id="question-edit-template" type="text/x-handlebars-template">
-<?php echo $this->element("Quiz/edit/Handlebars/question.edit", array('data' => $data)); ?>
+<?php echo $this->element("Quiz/edit/Handlebars/question.edit", $data); ?>
 </script>
 
 
-<?php foreach ($data->question_type as $qt): ?>
+<?php foreach ($data['QuestionTypes'] as $qt): ?>
 
-    <script id="choice-<?php echo $qt->template_name ?>-edit-template" type="text/x-handlebars-template">
-    <?php echo $this->element("Quiz/edit/Handlebars/choice.{$qt->template_name}.edit"); ?>
+    <script id="choice-<?php echo $qt['QuestionType']['template_name'] ?>-edit-template" type="text/x-handlebars-template">
+    <?php echo $this->element("Quiz/edit/Handlebars/choice.{$qt['QuestionType']['template_name']}.edit"); ?>
     </script>
 
-    <script id="choice-<?php echo $qt->template_name ?>-preview-template" type="text/x-handlebars-template">
-        <?php echo $this->element("Quiz/edit/Handlebars/choice.{$qt->template_name}.preview"); ?>
+    <script id="choice-<?php echo $qt['QuestionType']['template_name'] ?>-preview-template" type="text/x-handlebars-template">
+        <?php echo $this->element("Quiz/edit/Handlebars/choice.{$qt['QuestionType']['template_name']}.preview"); ?>
     </script>
 
 <?php endforeach; ?>
@@ -207,6 +251,26 @@ echo $this->Form->create('Quiz');
     <?php endif; ?>
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
+
+<?php 
+    echo $this->Html->script(array(
+        'jquery-ui',
+        /* production */
+        //'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
+        'handlebars.min',
+        'jquery.serializejson.min',
+        'webquiz',
+        'edit',
+        //'qunit-1.17.1',
+        //'tests/edit'
+            ), array('inline' => false)
+    );
+    echo $this->Html->css(array(
+        //'qunit-1.17.1'
+        'jquery-ui'
+            ), array('inline' => false)
+    );
+?>
 
 <style type="text/css">
 .placeholder {
@@ -273,18 +337,3 @@ echo $this->Form->create('Quiz');
 }
 
 </style>
-
-<?php 
-    echo $this->Html->script(array(
-    'jquery-ui',
-    /* production */
-    //'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
-    'handlebars.min',
-    'jquery.serializejson.min',
-    'webquiz',
-    'edit',
-    //'qunit-1.17.1',
-    //'tests/edit'
-        ), array('inline' => false)
-);
-?>

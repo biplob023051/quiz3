@@ -129,7 +129,7 @@ var debugVar;
                     webQuiz.currentEditQid = questionId;
                     webQuiz.choiceSortable();
                 },
-                'question/setPreview/'
+                'questions/setPreview/'
             );    
         } else {
             webQuiz.setToPreview(
@@ -222,7 +222,7 @@ var debugVar;
                     return;
                 }
             }
-            var response = webQuiz.setToPreview(webQuiz.lastEditQid, $("#q" + webQuiz.lastEditQid), 'test', 'question/save/', question_number);    
+            var response = webQuiz.setToPreview(webQuiz.lastEditQid, $("#q" + webQuiz.lastEditQid), 'test', 'questions/save/', question_number);    
         }
 
         
@@ -328,7 +328,7 @@ var debugVar;
 
         if (validationError == false) {
             webQuiz.addNewQuestion();
-            var response = webQuiz.setToPreview(webQuiz.lastEditQid, $("#q" + webQuiz.lastEditQid), 'test', 'question/save/', question_number);    
+            var response = webQuiz.setToPreview(webQuiz.lastEditQid, $("#q" + webQuiz.lastEditQid), 'test', 'questions/save/', question_number);    
         }
 
     });

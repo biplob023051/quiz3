@@ -49,7 +49,7 @@ class QuestionsController extends AppController
         if ($this->Session->check('Choices.' . $data['question_id'])) {
             $choices = $this->Session->read('Choices.' . $data['question_id']);
         } else {
-            $this->Session->delete('Choice');
+            $this->Session->delete('Choices');
             $choices = $this->Questions->Choices->choicesByQuestionId($data['question_id']);
             $this->Session->write('Choices.' . $data['question_id'], $choices);
         }
@@ -70,6 +70,9 @@ class QuestionsController extends AppController
         if (!$this->isAuthorized($questionId))
             throw new ForbiddenException;
 
+        // pr($this->request->data);
+        // exit;
+
         if (isset($this->request->data['Choice'])) {
             // reorder if order break
             $this->request->data['Choice'] = array_values($this->request->data['Choice']);
@@ -86,10 +89,7 @@ class QuestionsController extends AppController
             ($data['Question']['question_type_id'] == 3)) {
             // multiple_one
             // multiple_many
-            $isMultipleChoice = $this
-                    ->Question
-                    ->QuestionType
-                    ->isMultipleChoice($data['Question']['question_type_id']);
+            $isMultipleChoice = $this->Question->QuestionType->isMultipleChoice($data['Question']['question_type_id']);
 
             if (is_null($isMultipleChoice))
                 throw new BadRequestException;

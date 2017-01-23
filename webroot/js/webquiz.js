@@ -32,9 +32,9 @@ var webQuiz = {
 
         $.each(this.questionTypes, function (index, value)
         {
-            webQuiz.questionTypes[index].id = parseInt(webQuiz.questionTypes[index].id);
+            webQuiz.questionTypes[index].QuestionType.id = parseInt(webQuiz.questionTypes[index].QuestionType.id);
 
-            var tplName = value.template_name;
+            var tplName = value.QuestionType.template_name;
 
             webQuiz.choiceTpl[tplName] = Handlebars.compile(
                     $("#choice-" + tplName + "-edit-template").html()
@@ -48,7 +48,6 @@ var webQuiz = {
 
         Handlebars.registerHelper('choice', function (items, config)
         {
-            console.log(config.data.root);
             var output = [],
                     root = config.data.root,
                     tplName = root.QuestionType.template_name,
@@ -229,7 +228,7 @@ var webQuiz = {
         if (_questionData.data.isNew === true)
             delete _questionData['question_id'];
 
-        ajax_url = typeof ajax_url !== 'undefined' ? ajax_url : 'question/save/';
+        ajax_url = typeof ajax_url !== 'undefined' ? ajax_url : 'questions/save/';
         question_number = typeof question_number !== 'undefined' ? question_number : 1;
 
         $.ajax({
@@ -378,7 +377,7 @@ var webQuiz = {
     {
         $.ajax({
             data: {question_id : question_id, choice : choice},
-            url: webQuiz.baseUrl + 'question/removeChoice',
+            url: webQuiz.baseUrl + 'questions/removeChoice',
             dataType: 'json',
             type: 'post',
             success: function (response)
@@ -685,7 +684,7 @@ var webQuiz = {
             }
         });
 
-        //console.log(question_ids);
+        console.log(question_ids);
         $.ajax({
             data: {question_ids: question_ids},
             url: this.baseUrl + 'questions/ajax_sort',
