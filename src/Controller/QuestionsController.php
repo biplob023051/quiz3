@@ -25,18 +25,22 @@ class QuestionsController extends AppController
     }
 
     public function setPreview($questionId) {
+        $this->autoRender = false;
         $this->Session->delete('Choice');
         $data = $this->request->data;
         if (empty($data['Choice'])) {
             $data['Choice'] = array();
         }
         $data['Question']['id'] = $questionId;
-        $this->set('data', array(
+        // pr($data);
+        // exit;
+        $response = array(
             'success' => true,
             'Question' => $data['Question'],
             'Choice' => $data['Choice'],
             'dummy' => true
-        ));
+        );
+        echo json_encode($response);
     }
 
     public function removeChoice() {
@@ -65,6 +69,7 @@ class QuestionsController extends AppController
     }
 
     public function save($questionId) {
+        $this->autoRender = false; 
         $this->Session->delete('Choice');
         // If user is trying to update another user quiz, cancel.
         if (!$this->isAuthorized($questionId))
@@ -89,7 +94,7 @@ class QuestionsController extends AppController
             ($data['Question']['question_type_id'] == 3)) {
             // multiple_one
             // multiple_many
-            $isMultipleChoice = $this->Question->QuestionType->isMultipleChoice($data['Question']['question_type_id']);
+            $isMultipleChoice = $this->Questions->QuestionTypes->isMultipleChoice($data['Question']['question_type_id']);
 
             if (is_null($isMultipleChoice))
                 throw new BadRequestException;
@@ -154,6 +159,9 @@ class QuestionsController extends AppController
             }
         }
 
+        // pr($data);
+        // exit;
+
         // If user leave form empty, set the default
         if (empty($data['Question']['text']))
             $data['Question']['text'] = __('New Question');
@@ -165,11 +173,23 @@ class QuestionsController extends AppController
             ));
 
             $data['Question']['id'] = $questionId;
-            $this->Questions->id = $questionId;
         }
 
-        if ($this->Questions->saveAssociated($data)) {
-            $data['Question']['id'] = $this->Questions->id;
+        $save_data = $data['Question'];
+        $save_data['choices'] = $data['Choice'];
+        if (!empty($save_data['id'])) {
+            $question = $this->Questions->get($questionId, ['contain' => []]);
+            $save_data = $this->Questions->patchEntity($question, $save_data, ['associated' => ['Choices']]);
+            //$save_data = $this->Questions->patchEntity($save_data, ['associated' => ['Choices']]);
+        } else {
+            $save_data = $this->Questions->newEntity($save_data, ['associated' => ['Choices']]);
+        }
+
+        // pr($save_data);
+        // exit;
+
+        if ($this->Questions->save($save_data)) {
+            $data['Question']['id'] = $save_data['id'];
             if (isset($this->request->data['is_sort'])) { // if choice sorting exist then rearrange array by weight
                 // sort by weight asc
                 usort($data['Choice'], function($a, $b) {
@@ -179,11 +199,13 @@ class QuestionsController extends AppController
                 $data['Choice'] = array_reverse($data['Choice']);
             }
 
-            $this->set('data', array(
+            $response = array(
                 'success' => true,
                 'Question' => $data['Question'],
                 'Choice' => empty($data['Choice']) ? array() : $data['Choice']
-            ));
+            );
+
+            echo json_encode($response);
         }
     }
 

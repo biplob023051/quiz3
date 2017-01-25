@@ -3,8 +3,8 @@ $data['Quiz']['id'] = $data['id'];
 $data['Quiz']['user_id'] = $data['user_id'];
 $data['Quiz']['name'] = $data['name'];
 $data['Quiz']['description'] = $data['description'];
-$data['Quiz']['created'] = $data['created'];
-$data['Quiz']['modified'] = $data['modified'];
+//$data['Quiz']['created'] = $data['created'];
+//$data['Quiz']['modified'] = $data['modified'];
 $data['Quiz']['student_count'] = $data['student_count'];
 $data['Quiz']['status'] = $data['status'];
 $data['Quiz']['random_id'] = $data['random_id'];
@@ -12,11 +12,9 @@ $data['Quiz']['show_result'] = $data['show_result'];
 $data['Quiz']['anonymous'] = $data['anonymous'];
 $data['Quiz']['subjects'] = $data['subjects'];
 $data['Quiz']['classes'] = $data['classes'];
-
 $data['Quiz']['shared'] = $data['shared'];
 $data['Quiz']['is_approve'] = $data['is_approve'];
 $data['Quiz']['comment'] = $data['comment'];
-
 unset($data['id']);
 unset($data['user_id']);
 unset($data['name']);
@@ -30,7 +28,6 @@ unset($data['show_result']);
 unset($data['anonymous']);
 unset($data['subjects']);
 unset($data['classes']);
-
 unset($data['shared']);
 unset($data['is_approve']);
 unset($data['comment']);
@@ -45,6 +42,19 @@ foreach ($data['QuestionTypes'] as $key => $value) {
     $data['QuestionTypes'][$key]['QuestionType']['type'] = $value['type'];
 }
 
+$data['Question'] = $data['questions'];
+unset($data['questions']);
+foreach ($data['Question'] as $key => $question) {
+    $data['Question'][$key]['QuestionType'] = $data['Question'][$key]['question_type'];
+    unset($data['Question'][$key]['question_type']);
+    $data['Question'][$key]['Choice'] = $data['Question'][$key]['choices'];
+    unset($data['Question'][$key]['choices']);
+
+    unset($data['Question'][$key]['created']);
+    unset($data['Question'][$key]['modified']);
+}
+// pr($data);
+// exit;
 use Cake\Routing\Router;
 $this->assign('title', __('Edit Quiz'));
 
@@ -59,11 +69,14 @@ if (!empty($data['Quiz']['classes'])) {
 } else {
     $selectedClasses = array_keys($classOptions); // By default all classes
 }
+
+// pr($data);
+// exit;
 ?>
 
 <?= $this->Flash->render(); ?>
 
-<?= $this->Form->create('Quiz'); ?>
+<?= $this->Form->create('Quiz', ['id' => 'QuizEditForm']); ?>
 <!--<div id="qunit"></div>
 <div id="qunit-fixture"></div>-->
 <div class="row" id="settings">
@@ -96,9 +109,10 @@ if (!empty($data['Quiz']['classes'])) {
     <div class="col-md-12 settings-options" style="display: none;">
         <?php
             echo $this->Form->input('subjects', array(
+                'templates' => [ 
+                    'checkboxWrapper' => '<div class="subjects no-border">{{label}}</div>',
+                ],
                 'options' => $subjectOptions,
-                'div' => array('class' => 'form-group'),
-                'class' => 'subjects no-border',
                 'type' => 'select',
                 'multiple' => 'checkbox',
                 'value' => $selectedSubjects,
@@ -112,9 +126,10 @@ if (!empty($data['Quiz']['classes'])) {
     <div class="col-md-12 settings-options" style="display: none;">
         <?php
             echo $this->Form->input('classes', array(
+                'templates' => [ 
+                    'checkboxWrapper' => '<div class="classes no-border">{{label}}</div>',
+                ],
                 'options' => $classOptions,
-                'div' => array('class' => 'form-group'),
-                'class' => 'classes no-border',
                 'type' => 'select',
                 'multiple' => 'checkbox',
                 'value' => $selectedClasses,
@@ -129,12 +144,12 @@ if (!empty($data['Quiz']['classes'])) {
             <div class="col-xs-12 col-md-6">
                 <?php
                 if (isset($initial)) {
-                    echo $this->Form->input('Quiz.name', array(
+                    echo $this->Form->input('name', array(
                         'placeholder' => __('Name the quiz'),
                         'class' => 'form-control input-lg'
                     ));
                 } else {
-                    echo $this->Form->input('Quiz.name', array(
+                    echo $this->Form->input('name', array(
                         'default' => $data['Quiz']['name'],
                         'placeholder' => __('Name the quiz'),
                         'class' => 'form-control input-lg'
@@ -144,7 +159,7 @@ if (!empty($data['Quiz']['classes'])) {
             </div>
             <div class="col-xs-12 col-md-6">
                 <?php
-                echo $this->Form->input('Quiz.description', array(
+                echo $this->Form->input('description', array(
                     'default' => $data['Quiz']['description'],
                     'placeholder' => __('Describe the quiz to respondents'),
                     'class' => 'form-control input-lg'
@@ -160,15 +175,8 @@ if (!empty($data['Quiz']['classes'])) {
             <?php
             $i = 1;
             $othersQuestionType = array(6, 7, 8); // this categories for others type questions
-            $data['Question'] = $data['questions'];
-            unset($data['questions']);
-            foreach ($data['Question'] as $key => $question) {
-                $question['Choice'] = $question['choices'];
-                $data['Question'][$key]['Choice'] = $question['choices'];
-                unset($data['Question'][$key]['choices']);
-                $question['QuestionType'] = $question['question_type'];
-                $data['Question'][$key]['QuestionType'] = $question['question_type'];
-                unset($data['Question'][$key]['question_type']);
+            foreach ($data['Question'] as $question) {
+                
                 $choices_number = count($question['Choice']);
                 if (!$question['QuestionType']['multiple_choices'] && $choices_number > 1) {
                     for ($i = 1; $i < $choices_number; ++$i) {
@@ -184,8 +192,6 @@ if (!empty($data['Quiz']['classes'])) {
                     ++$i;
                 }
             }
-            // pr($data);
-            // exit;
             ?>
             <!--/nocache-->
         </tbody>
@@ -196,7 +202,7 @@ if (!empty($data['Quiz']['classes'])) {
 <div class="row">
     <div class="col-xs-12 col-md-3 col-md-offset-6">
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?= __('Add New Question') ?></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?php echo __('Add New Question') ?></button>
 
         </div>
     </div>

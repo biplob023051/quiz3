@@ -9,12 +9,13 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <?php
-                    echo $this->Form->text('text', array(
+                    echo $this->Form->text('data.Question.text', array(
                         'class' => 'form-control q-text',
                         'placeholder' => __('Enter the question'),
                         'value' => '{{text}}',
                         'label' => false,
-                        'type' => 'text'
+                        'type' => 'text',
+                        'id' => 'QuestionText'
                     ));
                     ?>
                 </div>
@@ -66,12 +67,13 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <?php
-                    echo $this->Form->input('explanation', array(
+                    echo $this->Form->input('data.Question.explanation', array(
                         'class' => 'form-control q-explanation',
                         'placeholder' => __('Explanation text'),
                         'value' => '{{explanation}}',
                         'label' => false,
-                        'type' => 'text'
+                        'type' => 'text',
+                        'id' => 'QuestionExplanation'
                     ));
                     ?>
                 </div>           
@@ -81,7 +83,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <?php
-                    echo $this->Form->input('max_allowed', array(
+                    echo $this->Form->input('data.Question.max_allowed', array(
                         'class' => 'form-control q-max_allowed',
                         'placeholder' => __('Max allowed to check'),
                         'value' => '{{max_allowed}}',

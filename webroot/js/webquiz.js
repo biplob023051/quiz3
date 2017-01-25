@@ -210,12 +210,20 @@ var webQuiz = {
     },
     setToPreview: function (questionId, questionContainer, onSuccessCallback, ajax_url, question_number)
     {
+        // console.log('questionId', questionId);
+        // console.log('questionContainer', questionContainer);
+        // console.log('onSuccessCallback', onSuccessCallback);
+        // console.log('ajax_url', ajax_url);
+        // console.log('question_number', question_number);
+
         questionId = parseInt(questionId);
 
-        console.log("setToPreviewQid:", questionId);
+        //console.log("setToPreviewQid:", questionId);
 
         var question = webQuiz.getQuestion(questionId),
                 _questionData = questionContainer.find('form').serializeJSON();
+
+        console.log(_questionData);
         
         if (question.value.preview === true)
             return;

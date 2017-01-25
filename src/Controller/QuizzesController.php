@@ -155,8 +155,11 @@ class QuizzesController extends AppController
         // Check permission
         $userId = $this->Auth->user('id');
         
-        if ($this->request->is('post')) {
-            $quiz = $this->Quizzes->get($quizId, ['contain' => []]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $quiz = $this->Quizzes->find()->where(['id' => $quizId, 'user_id' => $userId])->contain([])->first();
+            // pr($this->request->data);
+            // pr($quiz);
+            // exit;
             if (!empty($this->request->data['subjects'])) {
                 $this->request->data['subjects'] = json_encode($this->request->data['subjects'], true);
             }
@@ -166,6 +169,7 @@ class QuizzesController extends AppController
             }
             $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
             if ($this->Quizzes->save($quiz)) {
+                $this->Flash->success(__('Successfuly saved.'));
                 return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Flash->error(__('Save Failed!'));

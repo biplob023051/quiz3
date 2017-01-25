@@ -177,8 +177,10 @@ var debugVar;
         //console.profileEnd();
     });
     
-    $("#add-question").on('click', function () {
+    //$("#add-question").on('click', function () {
 
+    $(document).on('click', "#add-question", function (e) {
+        console.log('cliked save');
         if(!$('#q-1').is(':visible')) {
             $('#q-1').show();
             return;
@@ -237,7 +239,9 @@ var debugVar;
         //console.profileEnd();
     });
 
-    $('#submit-quiz').on('click', function () {
+    //$('#submit-quiz').on('click', function () {
+    $(document).on('click', '#submit-quiz', function (e) {
+        console.log('submit cliked');
         if ($('#QuestionText').val() == '') {
             $("#QuizEditForm").submit();
             return;
@@ -340,34 +344,35 @@ var debugVar;
         $('.settings-options').toggle();
     });
 
-    $("#QuizSubjects0").change(function(){  //"select all" change 
+    // All Subjects
+    $(document).on('change', '#subjects-0', function() { 
         $(".subjects").find('input').prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
     });
-    //".subjects" change 
-    $('.subjects input').change(function(){ 
+    //.subjects change 
+    $(document).on('change', '.subjects input', function() { 
         //uncheck "select all", if one of the listed checkbox item is unchecked
         if(false == $(this).prop("checked")){ //if this item is unchecked
-            $("#QuizSubjects0").prop('checked', false); //change "select all" checked status to false
+            $("#subjects-0").prop('checked', false); //change "select all" checked status to false
         }
-        // //check "select all" if all checkbox items are checked
-        // if ($('.subjects input:checked').length == ($('.subjects input').length-1) ){
-        //     $("#QuizSubjects0").prop('checked', true);
-        // }
+        //check "select all" if all checkbox items are checked
+        if ($('.subjects input:checked').length == ($('.subjects input').length-1) ){
+            $("#subjects-0").prop('checked', true);
+        }
     });
-
-    $("#QuizClasses0").change(function(){  //"select all" change 
+    // All Classes
+    $(document).on('change', '#classes-0', function() {
         $(".classes").find('input').prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
     });
-    //".subjects" change 
-    $('.classes input').change(function(){ 
+    //.classes change 
+    $(document).on('change', '.classes input', function() { 
         //uncheck "select all", if one of the listed checkbox item is unchecked
         if(false == $(this).prop("checked")){ //if this item is unchecked
-            $("#QuizClasses0").prop('checked', false); //change "select all" checked status to false
+            $("#classes-0").prop('checked', false); //change "select all" checked status to false
         }
-        // //check "select all" if all checkbox items are checked
-        // if ($('.classes input:checked').length == ($('.classes input').length-1) ){
-        //     $("#QuizClasses0").prop('checked', true);
-        // }
+        //check "select all" if all checkbox items are checked
+        if ($('.classes input:checked').length == ($('.classes input').length-1) ){
+            $("#classes-0").prop('checked', true);
+        }
     });
 
 
