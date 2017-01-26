@@ -4,7 +4,7 @@
     <tr id="q{{id}}" class="EditQuestionBorder" style="display: none;">
 {{/if}}
     <td>      
-        <?php echo $this->Form->create('Question'); ?>
+        <?php echo $this->Form->create('Question', ['id' => 'QuestionEditForm']); ?>
         <div class="row">
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
@@ -89,7 +89,8 @@
                         'value' => '{{max_allowed}}',
                         'label' => false,
                         'type' => 'number',
-                        'min' => 1
+                        'min' => 1,
+                        'id' => 'QuestionMaxAllowed'
                     ));
                     ?>
                 </div>           

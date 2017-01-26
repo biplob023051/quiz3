@@ -17,7 +17,8 @@
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice')
+                            'placeholder' => __('Choice'),
+                            'id' => 'Choice{{id}}Text'
                         ));
                         ?>
                     </div>
@@ -27,7 +28,10 @@
                             'class' => 'form-control c-points',
                             'placeholder' => __('Points'),
                             'default' => '{{points}}',
-                            'label' => false
+                            'label' => false,
+                            'type' => 'number',
+                            'step' => '0.01',
+                            'id' => 'Choice{{id}}Points'
                         ));
                         ?>
                     </div>
@@ -35,7 +39,8 @@
                     echo $this->Form->input('data.Choice.{{id}}.weight', array(
                         'class' => 'c-weight',
                         'type' => 'hidden',
-                        'default' => '{{weight}}'
+                        'default' => '{{weight}}',
+                        'id' => 'Choice{{id}}Weight'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -64,7 +69,8 @@
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice')
+                            'placeholder' => __('Choice'),
+                            'id' => 'Choice{{id}}Text'
                         ));
                         ?>
                     </div>
@@ -74,7 +80,10 @@
                             'class' => 'form-control c-points',
                             'placeholder' => __('Points'),
                             'default' => 0,
-                            'label' => false
+                            'label' => false,
+                            'type' => 'number',
+                            'step' => '0.01',
+                            'id' => 'Choice{{id}}Points'
                         ));
                         ?>
                     </div>
@@ -82,7 +91,8 @@
                     echo $this->Form->input('data.Choice.{{id}}.weight', array(
                         'class' => 'c-weight',
                         'type' => 'hidden',
-                        'default' => '{{weight}}'
+                        'default' => '{{weight}}',
+                        'id' => 'Choice{{id}}Weight'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">

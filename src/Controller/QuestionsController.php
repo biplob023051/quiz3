@@ -176,7 +176,11 @@ class QuestionsController extends AppController
         }
 
         $save_data = $data['Question'];
-        $save_data['choices'] = $data['Choice'];
+        $save_data['choices'] = empty($data['Choice']) ? array() : $data['Choice'];
+
+        // pr($save_data);
+        // exit;
+        
         if (!empty($save_data['id'])) {
             $question = $this->Questions->get($questionId, ['contain' => []]);
             $save_data = $this->Questions->patchEntity($question, $save_data, ['associated' => ['Choices']]);

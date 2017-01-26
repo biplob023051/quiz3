@@ -58,11 +58,6 @@ class ChoicesTable extends Table
             ->allowEmpty('text');
 
         $validator
-            ->decimal('points')
-            ->requirePresence('points', 'create')
-            ->notEmpty('points');
-
-        $validator
             ->integer('weight')
             ->allowEmpty('weight');
 

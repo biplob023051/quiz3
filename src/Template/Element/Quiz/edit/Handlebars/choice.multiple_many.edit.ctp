@@ -13,29 +13,34 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                         <?php
-                        echo $this->Form->input('Choice.{{id}}.text', array(
+                        echo $this->Form->input('data.Choice.{{id}}.text', array(
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice')
+                            'placeholder' => __('Choice'),
+                            'id' => 'Choice{{id}}Text'
                         ));
                         ?>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
                         <?php
-                        echo $this->Form->input('Choice.{{id}}.points', array(
+                        echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
                             'placeholder' => __('Points'),
                             'default' => '{{points}}',
-                            'label' => false
+                            'label' => false,
+                            'id' => 'Choice{{id}}Points',
+                            'type' => 'number',
+                            'step' => '0.01' 
                         ));
                         ?>
                     </div>
                     <?php
-                    echo $this->Form->input('Choice.{{id}}.weight', array(
+                    echo $this->Form->input('data.Choice.{{id}}.weight', array(
                         'class' => 'c-weight',
                         'type' => 'hidden',
-                        'default' => '{{weight}}'
+                        'default' => '{{weight}}',
+                        'id' => 'Choice{{id}}Weight'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -60,29 +65,34 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                         <?php
-                        echo $this->Form->input('Choice.{{id}}.text', array(
+                        echo $this->Form->input('data.Choice.{{id}}.text', array(
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice')
+                            'placeholder' => __('Choice'),
+                            'id' => 'Choice{{id}}Text'
                         ));
                         ?>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
                         <?php
-                        echo $this->Form->input('Choice.{{id}}.points', array(
+                        echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
                             'placeholder' => __('Points'),
                             'default' => 0,
-                            'label' => false
+                            'label' => false,
+                            'id' => 'Choice{{id}}Points',
+                            'type' => 'number',
+                            'step' => '0.01' 
                         ));
                         ?>
                     </div>
                     <?php
-                    echo $this->Form->input('Choice.{{id}}.weight', array(
+                    echo $this->Form->input('data.Choice.{{id}}.weight', array(
                         'class' => 'c-weight',
                         'type' => 'hidden',
-                        'default' => '{{weight}}'
+                        'default' => '{{weight}}',
+                        'id' => 'Choice{{id}}Weight'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
