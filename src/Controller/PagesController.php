@@ -29,6 +29,11 @@ use Cake\Utility\Inflector;
  */
 class PagesController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['display', 'index']);
+    }
 
     /**
      * Displays a view

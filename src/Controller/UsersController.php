@@ -19,7 +19,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout']);
     }
 
     /**
@@ -121,26 +121,6 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function admin_access() {
-        if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                if ($this->Auth->user('account_level') != 51) {
-                   $this->Auth->logout();
-                   $this->Session->setFlash(__('Unauthorized access to this login area!'), 'error_form', array(), 'error');
-                    return $this->redirect(array('controller' => 'maintenance', 'action' => 'notice', 'admin' => false));
-                }
-                // save statistics data
-                $this->loadModel('Statistic');
-                $arrayToSave['Statistic']['user_id'] = $this->Auth->user('id');
-                $arrayToSave['Statistic']['type'] = 'user_login';
-                $this->Statistic->save($arrayToSave);
-                return $this->redirect(array('controller' => 'maintenance', 'action' => 'settings'));
-            }
-
-            $this->Session->setFlash($this->Auth->authError, 'error_form', array(), 'error');
-        }
     }
 
     public function create() {

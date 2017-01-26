@@ -23,7 +23,7 @@ class MaintenanceController extends AppController
         if (empty($setting['offline_status']))
         $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         $this->set('title_for_layout', __('Pardon for the dust!'));
-        $this->render('/Elements/Maintenance/notice');
+        $this->render('/Element/Maintenance/notice');
     }
 
     public function loadDummyData() {

@@ -95,10 +95,6 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
         ]);
 
-        // Allow the display action so our pages controller
-        // continues to work.
-        $this->Auth->allow(['display', 'index', 'logout']);
-
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -114,11 +110,11 @@ class AppController extends Controller
         $setting = $this->_getSettings();
         $this->set(compact('setting'));
        
-        // if (!empty($setting['offline_status'])) {
-        //     if (($this->request->action != 'logout') && ($this->request->action != 'admin_access') && ($this->request->action != 'notice') && ($this->Auth->user('account_level') != 51)) {
-        //         $this->redirect(array('controller' => 'maintenance', 'action' => 'notice'));
-        //     }
-        // } 
+        if (!empty($setting['offline_status'])) {
+            if (($this->request->action != 'logout') && ($this->request->action != 'access') && ($this->request->action != 'notice') && ($this->Auth->user('account_level') != 51)) {
+                return $this->redirect(['controller' => 'maintenance', 'action' => 'notice', 'prefix' => false]);
+            }
+        } 
 
         // // check user language, default language finish
         // $language = $this->Auth->user('language');
@@ -130,7 +126,6 @@ class AppController extends Controller
         // }
 
         Configure::write('Config.language', 'fi');
-
         $this->set('authUser', $this->Auth->user());
     }
 

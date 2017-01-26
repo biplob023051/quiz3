@@ -1,20 +1,7 @@
-<?php
-$this->assign('title', __('Admin Access'));
-?>
-
-<?php echo $this->Session->flash('notification'); ?>
-<?php echo $this->Session->flash('error'); ?>
-
-
+<?php $this->assign('title', __('Admin Access')); ?>
 <div id="login-container">
-    <?php
-    echo $this->Form->create('User', array(
-        'inputDefaults' => array(
-            'div' => array('class' => 'form-group'),
-            'class' => 'form-control',
-        )
-    ));
-    ?>
+    <?= $this->Flash->render(); ?>
+    <?= $this->Form->create(); ?>
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <?php

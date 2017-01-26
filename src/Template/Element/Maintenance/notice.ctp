@@ -1,6 +1,6 @@
-<?php echo $this->Session->flash('error'); ?>
+<?= $this->Flash->render(); ?>
 <div class="row">
 	<div class="col-md-12">
-		<?php echo h($setting['offline_message']); ?>
+		<?= h($setting['offline_message']); ?>
 	</div>
 </div>

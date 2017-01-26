@@ -1,11 +1,6 @@
-<?php
-$this->assign('title', __('Login'));
-?>
-
-<?= $this->Flash->render() ?>
-
-
+<?php $this->assign('title', __('Login')); ?>
 <div id="login-container">
+    <?= $this->Flash->render(); ?>
     <?= $this->Form->create(); ?>
     <div class="row">
         <div class="col-md-12 col-xs-12">
