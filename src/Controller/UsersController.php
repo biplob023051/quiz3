@@ -29,6 +29,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->redirect('/');
         //pr();
         //$this->request->query['page'] = 5;
         $users = $this->paginate($this->Users);
@@ -155,7 +156,7 @@ class UsersController extends AppController
                     //pr($user_email);
                     // Send email to admin
                     //Configure::read('AdminEmail')
-                    $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] New User!'), $user, 'user_create');
+                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
                     // pr($admin_email);
                     // exit;
                     $this->request->session()->write('registration', true);
@@ -336,7 +337,7 @@ class UsersController extends AppController
             // exit;
             if ($resp->isSuccess()) {
                 if (!empty($this->request->data['email']) && !empty($this->request->data['message'])) {
-                    $email_success = $this->Email->sendMail('test@test.com', __('General Inquary'), $this->request->data, 'inquary');
+                    $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('General Inquary'), $this->request->data, 'inquary');
                     $this->Flash->success(__('Your email sent successfully')); 
                 } else {
                     $this->Flash->error(__('Something went wrong, please try again later'));
@@ -464,11 +465,11 @@ class UsersController extends AppController
                 // Send email to user for email confirmation
                 $user_email = $this->Email->sendMail($user->email, __('[Verkkotesti Signup] Please confirm your email address!'), $user, 'user_email');
                 // Send email to admin
-                $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] New User!'), $user, 'user_create');
+                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
                 
                 $user->package = $package;
                 // Send email for upgrade notice to the admin 
-                $upgrade_email = $this->Email->sendMail('test@test.com', __('Upgrade Account'), $user, 'invoice');
+                $upgrade_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('Upgrade Account'), $user, 'invoice');
                 // pr($user_email);
                 // pr($admin_email);
                 // pr($upgrade_email);

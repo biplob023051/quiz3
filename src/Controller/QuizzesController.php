@@ -6,6 +6,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Hash;
+use Cake\Core\Configure;
 
 /**
  * Quizzes Controller
@@ -322,7 +323,7 @@ class QuizzesController extends AppController
             // exit;
 
             if ($quiz_count == 1) {
-                $admin_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
+                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
                 // pr($admin_email);
                 // exit;
             } 
@@ -995,7 +996,7 @@ class QuizzesController extends AppController
                 $template = 'quiz_shared';
                 $message = __('You have successfully shared the quiz. Please hold for admin approval.');
 
-                $admin_email = $this->Email->sendMail('test@test.com', $subject, $quiz, $template);
+                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), $subject, $quiz, $template);
                 //$admin_email = $this->Email->sendMail('biplob.weblancer@gmail.com', $subject, $quiz, $template);
 
                 // pr($admin_email);
@@ -1075,8 +1076,8 @@ class QuizzesController extends AppController
 
         $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
             ->join([
-                'downloads' => [
-                    'table' => 'Downloads',
+                'Downloads' => [
+                    'table' => 'downloads',
                     'type' => 'LEFT',
                     'conditions' => [
                         'Downloads.quiz_id = Quizzes.id',
@@ -1190,8 +1191,8 @@ class QuizzesController extends AppController
             // exit;
             $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
                 ->join([
-                    'downloads' => [
-                        'table' => 'Downloads',
+                    'Downloads' => [
+                        'table' => 'downloads',
                         'type' => 'LEFT',
                         'conditions' => [
                             'Downloads.quiz_id = Quizzes.id',
@@ -1206,8 +1207,8 @@ class QuizzesController extends AppController
             $this->request->query['page'] = 1;
             $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
                 ->join([
-                    'downloads' => [
-                        'table' => 'Downloads',
+                    'Downloads' => [
+                        'table' => 'downloads',
                         'type' => 'LEFT',
                         'conditions' => [
                             'Downloads.quiz_id = Quizzes.id',
@@ -1595,108 +1596,4 @@ class QuizzesController extends AppController
         );
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index_1()
-    {
-        $this->paginate = [
-            'contain' => ['Users', 'Randoms']
-        ];
-        $quizzes = $this->paginate($this->Quizzes);
-
-        $this->set(compact('quizzes'));
-        $this->set('_serialize', ['quizzes']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Quiz id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view_1($id = null)
-    {
-        $quiz = $this->Quizzes->get($id, [
-            'contain' => ['Users', 'Randoms', 'Downloads', 'Questions', 'Rankings', 'Students']
-        ]);
-
-        $this->set('quiz', $quiz);
-        $this->set('_serialize', ['quiz']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add_1()
-    {
-        $quiz = $this->Quizzes->newEntity();
-        if ($this->request->is('post')) {
-            $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
-            if ($this->Quizzes->save($quiz)) {
-                $this->Flash->success(__('The quiz has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The quiz could not be saved. Please, try again.'));
-            }
-        }
-        $users = $this->Quizzes->Userss->find('list', ['limit' => 200]);
-        $randoms = $this->Quizzes->Randoms->find('list', ['limit' => 200]);
-        $this->set(compact('quiz', 'users', 'randoms'));
-        $this->set('_serialize', ['quiz']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Quiz id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit_1($id = null)
-    {
-        $quiz = $this->Quizzes->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
-            if ($this->Quizzes->save($quiz)) {
-                $this->Flash->success(__('The quiz has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The quiz could not be saved. Please, try again.'));
-            }
-        }
-        $users = $this->Quizzes->Userss->find('list', ['limit' => 200]);
-        $randoms = $this->Quizzes->Randoms->find('list', ['limit' => 200]);
-        $this->set(compact('quiz', 'users', 'randoms'));
-        $this->set('_serialize', ['quiz']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Quiz id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete_1($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $quiz = $this->Quizzes->get($id);
-        if ($this->Quizzes->delete($quiz)) {
-            $this->Flash->success(__('The quiz has been deleted.'));
-        } else {
-            $this->Flash->error(__('The quiz could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 }

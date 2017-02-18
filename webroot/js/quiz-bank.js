@@ -62,7 +62,7 @@
         if ($(this).parent().hasClass('disabled') || $(this).parent().hasClass('active')) {
             return false;
         }
-        var res = $(this).attr('href').split("?page=");
+        var res = $(this).attr('href').split("page=");
         $.ajax({
             data: {page_no : res[1], subject_list : subject_list, class_list : class_list},
             type: 'post',

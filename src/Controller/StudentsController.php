@@ -3,6 +3,7 @@ namespace App\Controller;
 use Cake\Utility\Hash;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Students Controller
@@ -212,7 +213,7 @@ class StudentsController extends AppController
             } else {
                 $answer_id = $data['id'];
                 unset($data['id']);
-                $this->Students->Answers->updateAll($data, ['Answers.id' => $answer_id]);
+                $this->Students->Answers->updateAll($data, ['id' => $answer_id]);
             }
             // pr($answer);
             // exit;
@@ -324,7 +325,7 @@ class StudentsController extends AppController
             // access level should be free user
             if (!empty($quiz) && (empty($quiz->user->account_level) || ($quiz->user->account_level == 22)) && ($quiz->student_count == 2)) {
                 $user = $quiz->user;
-                $user_email = $this->Email->sendMail('test@test.com', __('[Verkkotesti] Quiz given to students'), $user, 'quiz_taken_started');
+                $user_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Quiz given to students'), $user, 'quiz_taken_started');
             }
             if (!$this->Session->check('student_id')) {
                 $this->Session->write('student_id', $student->id);
@@ -353,7 +354,7 @@ class StudentsController extends AppController
 
         $student_id = $this->request->data['id'];
         unset($this->request->data['id']);
-        $this->Students->updateAll($this->request->data, ['Students.id' => $student_id]);
+        $this->Students->updateAll($this->request->data, ['id' => $student_id]);
     
         // Delete session data for student quiz auto update
         $runningFor = $this->Session->read('started');
@@ -373,7 +374,7 @@ class StudentsController extends AppController
     public function success($std_id = null) {
         if ($this->Session->check('show_result')) { // show result true
             $student_result = $this->Students->find('all')
-            ->where(['Students.id' => $std_id])
+            ->where(['id' => $std_id])
             ->contain(['Answers', 'Rankings'])
             ->first();
 
@@ -461,13 +462,14 @@ class StudentsController extends AppController
             }
         ])
         ->first();
-        // pr($student_record);
+        // pr($details);
         // exit;
         if (!empty($student_record) && ($student_record->quiz->user_id == $this->Auth->user('id'))) { // permission granted
             if ($details[0] == 'class') { // remove unwanted space and make lowercase
                 $this->request->data['value_info'] = !empty($this->request->data['value_info']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['value_info'])) : '';
             }
-            $student_record->$details[0] = $this->request->data['value_info'];
+            $field_name = $details[0];
+            $student_record->$field_name = $this->request->data['value_info'];
             if ($this->Students->save($student_record)) {
                 $response['success'] = true;
                 $response['changetext'] = $this->request->data['value_info'];

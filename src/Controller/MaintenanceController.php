@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Helps Controller
@@ -35,7 +36,7 @@ class MaintenanceController extends AppController
             return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         }
         $this->importQuizzes($this->Auth->user('id'));
-        $first_quiz_create = $this->Email->sendMail('test@test.com', __('[Verkkotesti] Demo quizzes loaded'), $this->Auth->user(), 'first_quiz_create');
+        $first_quiz_create = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Demo quizzes loaded'), $this->Auth->user(), 'first_quiz_create');
         $this->Flash->success(__('Imported successfully'));
         return $this->redirect($this->referer());
     }

@@ -107,6 +107,13 @@ class PagesController extends AppController
     // Method for home page display
     public function index()
     {
+        
+//         if( ini_get('allow_url_fopen') ) {
+//    print('allow_url_fopen Open');
+// } else {
+//     print('allow_url_fopen Closed');
+// }
+// die();
         $this->loadModel('Helps');  
         $query = $this->Helps->find('all')
             ->where(['Helps.type' => 'home', 'Helps.status' => 1])

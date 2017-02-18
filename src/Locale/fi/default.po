@@ -142,8 +142,8 @@ msgid "Give test!"
 msgstr "Pidä testi!"
 
 #: View/Quiz/index.ctp:40
-msgid "Answers (%s)"
-msgstr "Katso tulokset (%s)"
+msgid "Answers "
+msgstr "Katso tulokset "
 
 #: View/Quiz/index.ctp:50
 msgid "Remove quiz"

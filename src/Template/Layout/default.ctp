@@ -27,7 +27,7 @@ use Cake\Routing\Router;
     <title><?= (isset($title_for_layout)) ? $title_for_layout : $this->fetch('title'); ?></title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
     <?= $this->Html->css(array(
             /* production */
             //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css',
@@ -99,5 +99,11 @@ use Cake\Routing\Router;
     ?>
     <?= $this->fetch('script'); ?>
     <?= $this->element('google-analytics'); ?>
+
+    <script type="text/javascript">
+        $(document).ajaxSend(function(e, xhr, settings) {
+            xhr.setRequestHeader('X-CSRF-Token', '<?= $this->request->params['_csrfToken'] ?>');
+        });
+    </script>
 </body>
 </html>

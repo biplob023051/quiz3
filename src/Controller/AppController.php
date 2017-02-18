@@ -19,6 +19,8 @@ use Cake\Event\Event;
 use Cake\Core\Configure;
 use Cake\Auth\SimplePasswordHasher; //include this line
 
+use Cake\I18n\I18n;
+
 /**
  * Application Controller
  *
@@ -60,6 +62,8 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+
+        $this->loadComponent('Csrf');
 
         $this->loadComponent('Auth', [
             'authenticate' => [
@@ -116,16 +120,16 @@ class AppController extends Controller
             }
         } 
 
-        // // check user language, default language finish
-        // $language = $this->Auth->user('language');
-        // if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'LC_MESSAGES' . DS . 'default.po'))
-        //     $language = 'fin';
-        // Configure::write('Config.language', $language);
-        // if ($this->Session->check('Choice') && ($this->request->action != 'removeChoice' || $this->request->action != 'isAuthorized')) {
-        //     $this->Session->delete('Choice');
-        // }
+        // check user language, default language finish
+        $language = $this->Auth->user('language');
+        if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
+            $language = 'fi';
+        Configure::write('Config.language', $language);
+        I18n::locale($language);
+        if ($this->Session->check('Choice') && ($this->request->action != 'removeChoice' || $this->request->action != 'isAuthorized')) {
+            $this->Session->delete('Choice');
+        }
 
-        Configure::write('Config.language', 'fi');
         $this->set('authUser', $this->Auth->user());
     }
 

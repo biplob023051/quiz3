@@ -153,7 +153,7 @@ $this->assign('title', __('My Quizzes'));
                                     <?php if ($quiz->status) : ?>
                                         <?php echo $this->Html->link(__("Give test!"), '/quizzes/present/' . $quiz->id); ?>
                                     <?php endif; ?>
-                                    <mark><?php echo $this->Html->link(__("Answers (" . $quiz->student_count . ')'), '/quizzes/table/' . $quiz->id); ?></mark>
+                                    <mark><?php echo $this->Html->link(__("Answers ") . '(' . $quiz->student_count . ')', '/quizzes/table/' . $quiz->id); ?></mark>
                                 </div>
                                
                             </td>
