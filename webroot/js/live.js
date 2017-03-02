@@ -1,11 +1,17 @@
 (function($) {
-	// // right click disabled
-	// $(document).on("contextmenu",function(e){
- //        e.preventDefault();
- //        alert(lang_strings['right_click_disabled']);
- //    });
+	// right click disabled
+	$(document).on("contextmenu",function(e){
+        e.preventDefault();
+        alert(lang_strings['right_click_disabled']);
+    });
 	if (!student_id || student_id == '') {
-		setTimeout(saveStudentRecord,500);
+		$(".ajax-loader").show();
+		//$( "#StudentLiveForm" ).prop( "disabled", true );
+		$("#StudentLiveForm :input").attr("disabled", true);
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		var std_class = $('#class').val();
+		setTimeout(saveStudentRecord,1000);
 	}
 	var interval;
 	var answered = {};
@@ -66,7 +72,7 @@
 
 	$.fn.extend({
         donetyping: function(callback,timeout){
-            timeout = timeout || 10e3; // 10 second default timeout
+            timeout = timeout || 4e3; // 10 second default timeout
             var timeoutReference,
                 doneTyping = function(el){
                     if (!timeoutReference) return;
@@ -99,7 +105,27 @@
         }
     });
 
-	$('#fname, #lname, #class').donetyping(function(){
+	$('#fname').donetyping(function(){
+		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
+		if (navigator.onLine) {
+			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
+			updateStudentBasicInfo();
+		} else {
+			std_updated = true;
+		}
+	});
+
+	$('#lname').donetyping(function(){
+		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
+		if (navigator.onLine) {
+			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
+			updateStudentBasicInfo();
+		} else {
+			std_updated = true;
+		}
+	});
+
+	$('#class').donetyping(function(){
 		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
 		if (navigator.onLine) {
 			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -355,12 +381,6 @@
 	}
 
 	function saveStudentRecord() {
-		$(".ajax-loader").show();
-		//$( "#StudentLiveForm" ).prop( "disabled", true );
-		$("#StudentLiveForm :input").attr("disabled", true);
-		var fname = $('#fname').val();
-		var lname = $('#lname').val();
-		var std_class = $('#class').val();
     	$.ajax({
     		async: false,
 	        dataType: 'json',

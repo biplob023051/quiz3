@@ -1691,3 +1691,7 @@ msgstr "Verkkoyhteytesi on valitettavasti katkennut."
 #: Controller/PagesController.php:104
 msgid "Please prove you are not robot."
 msgstr "Vahvista, että et ole robotti."
+
+#: 
+msgid "Successfully saved."
+msgstr "Testi tallennettiin."

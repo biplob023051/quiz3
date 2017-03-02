@@ -170,7 +170,7 @@ class QuizzesController extends AppController
             }
             $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
             if ($this->Quizzes->save($quiz)) {
-                $this->Flash->success(__('Successfuly saved.'));
+                $this->Flash->success(__('Successfully saved.'));
                 return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Flash->error(__('Save Failed!'));

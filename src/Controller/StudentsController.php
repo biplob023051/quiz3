@@ -367,6 +367,7 @@ class StudentsController extends AppController
             $this->Session->write('show_result', true);
             return $this->redirect(array('action' => 'success', $student_id));
         } else {
+            $this->Session->destroy();
             return $this->redirect(array('action' => 'success'));
         }
     }
@@ -389,6 +390,7 @@ class StudentsController extends AppController
 
             $this->set(compact('student_result', 'quiz'));
             $this->Session->delete('show_result');
+            $this->Session->destroy();
         }
     }
 

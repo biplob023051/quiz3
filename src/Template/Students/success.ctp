@@ -42,10 +42,10 @@
 				            } else { 
 				                if ($answer->score > 0) {
 				                    $result_html = $result_html . '<p class="text-success">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
-				                } elseif ($answer->score == '') {
+				                } elseif (is_null($answer->score)) {
 				                	$pending++;
 				                    $result_html = $result_html . '<p>' . $answer->text . ' <span class="score">' . __('On hold') . '</span><br/>';
-				                } elseif ($answer->score == 0) {
+				                } elseif ($answer->score === 0) {
 				                    $result_html = $result_html . '<p class="text-warning">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                } else {
 				                    $result_html = $result_html . '<p class="text-danger">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
