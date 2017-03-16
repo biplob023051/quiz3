@@ -16,7 +16,8 @@
 	var interval;
 	var answered = {};
  	var std_updated = false;
- 	interval = setInterval(checkInternetConnection, 500);
+ 	var glob_index = 0;
+ 	interval = setInterval(checkInternetConnection, 1000);
  	function checkInternetConnection() {
  		if (!navigator.onLine) {
  			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -37,7 +38,7 @@
 
  	function runAjaxCall(index) {
  		var question = answered[index];
- 		//console.log('question', student_id);
+ 		console.log('index', index)
  		$.ajax({
             dataType: 'json',
             url: projectBaseUrl + 'students/update_answer',
@@ -48,12 +49,13 @@
 				if (response.success) {
 					$('#quest-' + question.question_id).removeClass('glyphicon-refresh spinning').addClass('glyphicon-ok-sign text-success');
 					index++;
-					if (index < Object.keys(answered).length) {
+					if (index < glob_index) {
 						runAjaxCall(index);
 						//console.log('current_index', index);
 					} else {
+						glob_index = 0;
 						answered = {};
-						interval = setInterval(checkInternetConnection, 500);
+						interval = setInterval(checkInternetConnection, 1000);
 						updateConnection();
 					}
 				} else {
@@ -71,7 +73,7 @@
  	}
 
 	$.fn.extend({
-        donetyping: function(callback,timeout){
+        doneTyping: function(callback,timeout){
             timeout = timeout || 4e3; // 10 second default timeout
             var timeoutReference,
                 doneTyping = function(el){
@@ -98,6 +100,7 @@
                         doneTyping(el);
                     }, timeout);
                 }).on('blur',function(){
+                	if (timeoutReference) clearTimeout(timeoutReference);
                     // If we can, fire the event since we're leaving the field
                     doneTyping(el);
                 });
@@ -105,7 +108,7 @@
         }
     });
 
-	$('#fname').donetyping(function(){
+	$('#fname').doneTyping(function(){
 		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
 		if (navigator.onLine) {
 			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -115,7 +118,7 @@
 		}
 	});
 
-	$('#lname').donetyping(function(){
+	$('#lname').doneTyping(function(){
 		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
 		if (navigator.onLine) {
 			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -125,7 +128,7 @@
 		}
 	});
 
-	$('#class').donetyping(function(){
+	$('#class').doneTyping(function(){
 		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
 		if (navigator.onLine) {
 			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
@@ -172,6 +175,30 @@
 		}	
 	}
 
+
+	//setup before functions
+	var processed = new Array();
+	var typingTimer;                //timer identifier
+	var doneTypingInterval = 5000;  //time in ms (5 seconds)
+
+	//on keyup, start the countdown
+	//$('.typing').keyup(function(){
+	// $(".typing").bind("keyup change", function(e) {
+	// 	clearTimeout(typingTimer);
+	// 	if (e.type == 'change') {
+	// 		doneTypingText();
+	// 	} else {
+	// 		typingTimer = setTimeout(doneTypingText, doneTypingInterval);
+	// 	}
+	// });
+
+	// //user is "finished typing," do something
+	// function doneTypingText() {
+	//     //do something
+	//     processed[] = $.now();
+	//     console.log($.now());
+	// }
+
 	// For checkbox and radio buttons
 	//$(".tick-mark").change(function() {
 	$(document).on('change', ".tick-mark", function(){
@@ -179,7 +206,9 @@
 	});
 
 	// For text area and text fields
-	$(".typing").donetyping(function(){
+	$(".typing").doneTyping(function(){
+		// var question_id = $(this).closest('tr').prev().val();
+		// console.log(question_id);
 		answering($(this));
 	});
 
@@ -211,9 +240,7 @@
 		}
     	$('#quest-' + question_id).removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning');
 		//$('#studentId').attr('value', response.student_id);
-		var obj_index = Object.keys(answered).length;
-		console.log('obj_index', obj_index);
-		answered[obj_index] = {
+		answered[glob_index] = {
 			'question_id' : question_id,
 			'case_sensitive' : element.closest('tr').prev().attr('data-case'),
 			'answer_text' : element.val(),
@@ -223,6 +250,7 @@
 			'checkBox' : checkBox,
 			'random_id' : random_id
 		}
+		glob_index++;
 		maxAllowedCheckBoxControl(element);
 	}
 	

@@ -64,7 +64,7 @@ class MaintenanceController extends AppController
             // pr($new_quiz);
             // exit;
             if ($this->Quizzes->save($new_quiz)) { // Save Quiz
-                $new_quiz->random_id = $new_quiz->id . $this->randText(2);
+                $new_quiz->random_id = $new_quiz->id . $this->randText(2, true);
                 $this->Quizzes->save($new_quiz);
                 $questions = array(); // Prevent duplicate questions
                 $question_ids = array(); // Question id array

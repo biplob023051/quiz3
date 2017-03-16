@@ -111,6 +111,10 @@ class AppController extends Controller
     public function beforeFilter(\Cake\Event\Event $event)
     {
         $result = parent::beforeFilter ($event) ;
+
+        if (in_array($this->request->action, ['updateStudent'])) {
+            $this->eventManager()->off($this->Csrf);
+        }
         $setting = $this->_getSettings();
         $this->set(compact('setting'));
        
@@ -273,12 +277,15 @@ class AppController extends Controller
     }
 
     // Method for random string generate
-    public function randText($length=40)
+    public function randText($length=40, $int_only=null)
     {
         $random= "";
         srand((double)microtime()*1000000);
-        $strset  = "ABCDEFGHIJKLMNPQRSTUVWXYZ";
-        $strset.= "abcdefghijklmnpqrstuvwxyz";
+        $strset  = '';
+        if (empty($int_only)) {
+            $strset.= "ABCDEFGHIJKLMNPQRSTUVWXYZ";
+            $strset.= "abcdefghijklmnpqrstuvwxyz";
+        }
         $strset.= "123456789";
         // Add the special characters to $strset if needed
         

@@ -296,7 +296,7 @@ class QuizzesController extends AppController
         // exit;
         $this->Quizzes->save($quiz);
         // save random number as random_id
-        $quiz->random_id = $quiz->id . $this->randText(2);
+        $quiz->random_id = $quiz->id . $this->randText(2, true);
         $this->Quizzes->save($quiz);
         
         //save statistics data
@@ -940,7 +940,7 @@ class QuizzesController extends AppController
             // exit;
 
             if ($this->Quizzes->save($new_quiz)) {
-                $random_id = $new_quiz->id . $this->randText(2);
+                $random_id = $new_quiz->id . $this->randText(2, true);
                 $this->Quizzes->save($new_quiz);
                 $response['message'] = __('Duplicated Successfully');
                 $response['result'] = 1;
@@ -1355,7 +1355,7 @@ class QuizzesController extends AppController
                     // exit;
 
                     if ($this->Quizzes->save($new_quiz)) {
-                        $random_id = $new_quiz->id . $this->randText(2);
+                        $random_id = $new_quiz->id . $this->randText(2, true);
                         $this->Quizzes->save($new_quiz);
                         $response['Quiz'][$key]['id'] = $new_quiz->id;
                         $response['Quiz'][$key]['name'] = $new_quiz->name;
