@@ -242,8 +242,8 @@ class StudentsController extends AppController
             // pr($student);
             // exit;
 
-            $student->fname = $this->request->data['fname'];
-            $student->lname = $this->request->data['lname'];
+            $student->fname = !empty($this->request->data['fname']) ? $this->request->data['fname'] : '';
+            $student->lname = !empty($this->request->data['lname']) ? $this->request->data['lname'] : '';
             //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
             $student->class = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
             $student->submitted = date('Y-m-d H:i:s');
@@ -303,8 +303,8 @@ class StudentsController extends AppController
             $data['rankings'][0]['total'] = $total;
             $data['rankings'][0]['score'] = 0;
 
-            $data['fname'] = $this->request->data['fname'];
-            $data['lname'] = $this->request->data['lname'];
+            $data['fname'] = !empty($this->request->data['fname']) ? $this->request->data['fname'] : '';
+            $data['lname'] = !empty($this->request->data['lname']) ? $this->request->data['lname'] : '';
             //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
             $data['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
             $data['submitted'] = date('Y-m-d H:i:s');
