@@ -201,7 +201,7 @@ class UsersController extends AppController
     public function success() {
         $this->set('title_for_layout', __('Registration Success'));
         if ($this->request->session()->check('registration')) {
-            $this->Flash->success(__('Thanks for your registration!'));
+            $this->Session->delete('registration');
         } else {
             $this->Flash->error(__('No direct access to this page!'));
             $this->redirect(array('action' => 'login'));
@@ -266,14 +266,14 @@ class UsersController extends AppController
                 $statisticsTable->save($statistic);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error('Your username or password is incorrect.');
+            $this->Flash->error(__('Your username or password is incorrect.'));
         }
     }
 
     public function logout()
     {
         $this->Session->destroy();
-        $this->Flash->success('You have logged out');
+        $this->Flash->success(__('You have logged out'));
         return $this->redirect($this->Auth->logout());
     }
 
@@ -474,7 +474,7 @@ class UsersController extends AppController
                 // pr($admin_email);
                 // pr($upgrade_email);
                 // exit;
-                $this->Flash->write('registration', true);
+                $this->Session->write('registration', true);
                 return $this->redirect(array('action' => 'success'));
             } else {
                 $this->Flash->error(__('Something went wrong, please try again later!'));

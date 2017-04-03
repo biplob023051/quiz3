@@ -38,7 +38,7 @@
 
  	function runAjaxCall(index) {
  		var question = answered[index];
- 		console.log('index', index)
+ 		console.log('On processing', index);
  		$.ajax({
             dataType: 'json',
             url: projectBaseUrl + 'students/update_answer',
@@ -74,7 +74,7 @@
 
 	$.fn.extend({
         doneTyping: function(callback,timeout){
-            timeout = timeout || 4e3; // 10 second default timeout
+            timeout = timeout || 2e3; // 10 second default timeout
             var timeoutReference,
                 doneTyping = function(el){
                     if (!timeoutReference) return;
@@ -89,7 +89,7 @@
                     // This catches the backspace button in chrome, but also prevents
                     // the event from triggering too premptively. Without this line,
                     // using tab/shift+tab will make the focused element fire the callback.
-                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    //if (e.type=='keyup' && e.keyCode!=8) return;
                     
                     // Check if timeout has been set. If it has, "reset" the clock and
                     // start over again.
@@ -176,29 +176,6 @@
 	}
 
 
-	//setup before functions
-	var processed = new Array();
-	var typingTimer;                //timer identifier
-	var doneTypingInterval = 5000;  //time in ms (5 seconds)
-
-	//on keyup, start the countdown
-	//$('.typing').keyup(function(){
-	// $(".typing").bind("keyup change", function(e) {
-	// 	clearTimeout(typingTimer);
-	// 	if (e.type == 'change') {
-	// 		doneTypingText();
-	// 	} else {
-	// 		typingTimer = setTimeout(doneTypingText, doneTypingInterval);
-	// 	}
-	// });
-
-	// //user is "finished typing," do something
-	// function doneTypingText() {
-	//     //do something
-	//     processed[] = $.now();
-	//     console.log($.now());
-	// }
-
 	// For checkbox and radio buttons
 	//$(".tick-mark").change(function() {
 	$(document).on('change', ".tick-mark", function(){
@@ -250,6 +227,7 @@
 			'checkBox' : checkBox,
 			'random_id' : random_id
 		}
+		console.log('On array', glob_index);
 		glob_index++;
 		maxAllowedCheckBoxControl(element);
 	}
