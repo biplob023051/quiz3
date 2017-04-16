@@ -7,7 +7,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xa-12 col-md-4 pull-right">
-                <form class="form" id="quiz-filter" method="post">
+                <?= $this->Form->create('', ['id' => 'quiz-filter']); ?>
                     <?php
                     echo $this->Form->input('Quiz.is_approve', array(
                         'options' => array('all' => __('All'), '3' => __('Pending Quizzes'), '1' => __('Approved Quizzes'), '2' => __('Decline Quizzes')),
@@ -17,7 +17,7 @@
                         'label' => false
                     ));
                     ?>
-                </form>    
+                <?= $this->Form->end(); ?>    
             </div>
         </div>
         <div class="row">

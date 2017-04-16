@@ -724,6 +724,10 @@ msgstr "Olet kirjautunut ulos"
 msgid "Your username or password is incorrect."
 msgstr "Käyttäjätunnuksesi tai salasanasi on virheellinen"
 
+#: Controller/UsersController.php:104
+msgid "No direct access to this page!"
+msgstr "Sivulle ei voitu palata"
+
 #: added - 
 msgid "All Time"
 msgstr "Kaikki ajat"
@@ -1711,3 +1715,15 @@ msgstr "Vahvista, että et ole robotti."
 #: 
 msgid "Successfully saved."
 msgstr "Testi tallennettiin."
+
+#: Controller/UsersController.php:117
+msgid "Your account is already enabled"
+msgstr "Käyttäjätilisi on jo vahvistettu."
+
+#: View/Quiz/present.ctp:28
+msgid "An empty quiz can't be shown. Please add at least one question to the quiz."
+msgstr "Tyhjää testiä ei voida näyttää. Lisää testiin ainakin yksi kysymys."
+
+#: View/Quiz/no_question.ctp:2
+msgid "An empty quiz can't be shown."
+msgstr "Tyhjää testiä ei voida näyttää."

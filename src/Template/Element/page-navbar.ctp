@@ -27,7 +27,7 @@
             </div>
         <?php else : ?>
             <div class="navbar-header">
-                <span class="navbar-brand"></span>
+                <?php echo $this->Html->link('', '/', array('class' => 'navbar-brand')); ?>
             </div>
         <?php endif; ?>
     </div>

@@ -61,5 +61,5 @@
 <?php endif; ?>
 </script>
 
-<?= $this->Html->script('index', array('inline' => true)); ?>
+<?= $this->Html->script(['video', 'index'], array('inline' => true)); ?>
 <!-- $this->request->query['play'] -->

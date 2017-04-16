@@ -9,8 +9,8 @@
     </div>
     <div class="panel-body">
     	<?= $this->Flash->render(); ?>
-        <form action="<?= $this->request->base; ?>/admin/maintenance/settings" enctype="multipart/form-data" method="post" id="settings">
-	        <h4><?php echo __('Alert Section'); ?></h4>
+        <?= $this->Form->create('', ['url' => '/admin/maintenance/settings', 'id' => 'settings']); ?>
+	        <h4><?= __('Alert Section'); ?></h4>
 	    	<hr>
 			<div class="form-group">
 				<label>Offline Alert Message - {datetime} wildcard will be replaced by actual Maintenance date time and {time} will be replace by time left of maintenace</label>
@@ -51,6 +51,6 @@
 			<div class="regSubmit">
 				<input type="submit" value="Save Settings" class="btn btn-primary btn-xlarge">
 			</div>
-		</form>
+		<?= $this->Form->end(); ?>
     </div>
 </div>

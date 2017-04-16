@@ -151,4 +151,13 @@ class HelpsTable extends Table
             ->toArray();
         return $options;
     } 
+
+    public function getVideoByType($type = null) {
+        $video = $this->find('all')
+            ->where(['type' => $type, 'status' => 1])
+            ->order(['id' => 'desc'])
+            ->first();
+        $video = !empty($video) ? $video->toArray() : array();
+        return $video;
+    }
 }

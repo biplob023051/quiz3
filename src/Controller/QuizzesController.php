@@ -24,7 +24,7 @@ class QuizzesController extends AppController
         parent::initialize();
         $this->loadComponent('Paginator');
         $this->loadComponent('Email');
-        $this->Auth->allow(['present', 'live', 'no_permission']);
+        $this->Auth->allow(['live', 'no_permission']);
     }
 
     public function ajaxStudentUpdate() {
@@ -338,9 +338,22 @@ class QuizzesController extends AppController
     }
 
     public function present($id) {
-        $quiz = $this->Quizzes->find('all', array(
-            'conditions' => array('Quizzes.id' => $id)
-        ))->first();
+        $quiz = $this->Quizzes->find()
+        ->where(['Quizzes.id' => $id])
+        ->contain([
+            'Questions' => function($q) {
+                $q->select([
+                     'Questions.quiz_id',
+                     'total' => $q->func()->count('Questions.quiz_id')
+                ])
+                ->group(['Questions.quiz_id']);
+                return $q;
+            }
+        ])
+        ->first();
+
+        // pr($quiz);
+        // exit;
 
         if (empty($quiz))
             throw new NotFoundException(__('Invalid quiz!'));
@@ -452,6 +465,9 @@ class QuizzesController extends AppController
         if (empty($data)) {
             $this->set('title_for_layout', __('Closed'));
             $this->render('not_found');
+        } elseif (empty($data->questions)) {
+            $this->set('name', $data->name);
+            $this->render('no_question');
         } else {
             // check user access level
             if ((($data->user->account_level == 0) || 

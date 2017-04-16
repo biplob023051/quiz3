@@ -275,7 +275,7 @@ class HelpsController extends AppController
     }
 
     private function siteOptions() {
-        return ['home' => __('Home Page'), 'create' => __('User Create Page')];
+        return ['home' => __('Home Page'), 'create' => __('User Create Page'), 'password' => __('Password Recover Page')];
     }
 
 

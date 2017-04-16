@@ -1,38 +1,42 @@
 <?php
 use Cake\Core\Configure;
 use Cake\Error\Debugger;
-
-$this->layout = 'error';
-
-if (Configure::read('debug')):
-    $this->layout = 'dev_error';
-
-    $this->assign('title', $message);
-    $this->assign('templateName', 'error400.ctp');
-
-    $this->start('file');
 ?>
-<?php if (!empty($error->queryString)) : ?>
-    <p class="notice">
-        <strong>SQL Query: </strong>
-        <?= h($error->queryString) ?>
-    </p>
-<?php endif; ?>
-<?php if (!empty($error->params)) : ?>
-        <strong>SQL Query Params: </strong>
-        <?php Debugger::dump($error->params) ?>
-<?php endif; ?>
-<?= $this->element('auto_table_warning') ?>
-<?php
-    if (extension_loaded('xdebug')):
-        xdebug_print_function_stack();
-    endif;
 
-    $this->end();
+<?php
+/**
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.View.Errors
+ * @since         CakePHP(tm) v 0.10.0.1076
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+?>
+<h2><?php echo $message; ?></h2>
+<?php 
+    if ($this->request->action == 'live') {
+        $errorClass = ' hide-error';
+    } else {
+        $errorClass = '';
+    }
+?>
+<p class="error<?php echo $errorClass; ?>">
+    <strong><?php echo __d('cake', 'Error'); ?>: </strong>
+    <?php printf(
+        __d('cake', 'The requested address %s was not found on this server.'),
+        "<strong>'{$url}'</strong>"
+    ); ?>
+</p>
+<?php
+if (Configure::read('debug') > 0):
+    echo $this->element('exception_stack_trace');
 endif;
 ?>
-<h2><?= h($message) ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
-</p>
+

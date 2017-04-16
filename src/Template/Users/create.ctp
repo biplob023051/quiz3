@@ -98,7 +98,7 @@ $this->assign('title', __('Create Account'));
     <?php endif; ?>
 </script>
 
-<?= $this->Html->script(['user-create'], ['inline' => false]); ?>
+<?= $this->Html->script(['video', 'user-create'], ['inline' => false]); ?>
 
 <style type="text/css">
     .form-group.required .control-label:after {

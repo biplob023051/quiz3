@@ -107,21 +107,8 @@ class PagesController extends AppController
     // Method for home page display
     public function index()
     {
-        
-//         if( ini_get('allow_url_fopen') ) {
-//    print('allow_url_fopen Open');
-// } else {
-//     print('allow_url_fopen Closed');
-// }
-// die();
-        $this->loadModel('Helps');  
-        $query = $this->Helps->find('all')
-            ->where(['Helps.type' => 'home', 'Helps.status' => 1])
-            ->contain([])
-            ->order(['Helps.id' => 'desc']);
-        $home_video = $query->first()->toArray();
-        // pr($home_video);
-        // exit;
+        $this->loadModel('Helps');
+        $home_video = $this->Helps->getVideoByType('home');
         $this->set(compact('home_video'));
         $this->set('title_for_layout', __('Welcome to Verkkotesti'));   
     }

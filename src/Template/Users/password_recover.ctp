@@ -1,7 +1,7 @@
-<?= $this->Html->script('password-recover', array('inline' => false)); ?>
-<?= $this->Flash->render() ?>
+<?php $this->assign('title', __('Password Recover')); ?>
 <div class="row">
     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
+        <?= $this->Flash->render() ?>
         <div class="alert alert-danger" id="error-message" style="display: none;"></div>
         <?php
             echo $this->Form->create('', [
@@ -33,11 +33,22 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="text-center">
-            <?php echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
+            <?php if (!empty($password_video)) : ?>
+                <a href="javascript:void(0)" id="play_video"><img src="<?php echo $this->Quiz->getHelpPicture($password_video, 'videos'); ?>" class="img-responsive"></a>
+                <?php echo $this->element('User/video_modal', array('create_video' => $password_video)); ?>
+            <?php else: ?>
+                <?php echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
+    <?php if (!empty($password_video)) : ?>
+        var url_src = '<?php echo $password_video['url_src']; ?>';
+    <?php else: ?>
+        var url_src = '';
+    <?php endif; ?>
 </script>
+<?= $this->Html->script(['video', 'password-recover'], array('inline' => false)); ?>

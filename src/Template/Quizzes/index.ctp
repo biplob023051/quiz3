@@ -88,7 +88,7 @@ $this->assign('title', __('My Quizzes'));
 
     <?php if (!empty($userPermissions['access']) && !empty($quiz_created)) : ?>
         <div class="col-xa-12 col-md-4 pull-right">
-            <form class="form" id="quiz-filter" method="post">
+            <?= $this->Form->create('', ['id' => 'quiz-filter']); ?>
                 <div class="form-group">
                     <div class="input select">
                         <select name="status" class="form-control" id="QuizStatus">
@@ -117,7 +117,7 @@ $this->assign('title', __('My Quizzes'));
                         </select>
                     </div>                
                 </div>
-            </form>    
+            <?= $this->Form->end(); ?>   
         </div>
 
     <?php endif; ?>

@@ -250,7 +250,7 @@ class StudentsController extends AppController
             $student = $this->Students->save($student);
         } else {
             // Find quiz id
-            $quiz = $this->Students->Quizzes->findByRandomId((int)$this->request->data['random_id'])->contain(['Questions'])->first();
+            $quiz = $this->Students->Quizzes->findByRandomId((int)$this->request->data['random_id'])->contain(['Questions', 'Users'])->first();
             $questions = Hash::combine($quiz->questions, '{n}.id', '{n}.id');
             $data['quiz_id'] = $quiz->id;
             
@@ -317,15 +317,14 @@ class StudentsController extends AppController
             $student = $this->Students->save($data);
         }
 
-        // pr($student);
-        // exit;
+        //pr($quiz->user);
+        //exit;
         if (!empty($student)) {
             // send email to the admin
             // first 3 students answer taken for any first quiz
             // access level should be free user
             if (!empty($quiz) && (empty($quiz->user->account_level) || ($quiz->user->account_level == 22)) && ($quiz->student_count == 2)) {
-                $user = $quiz->user;
-                $user_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Quiz given to students'), $user, 'quiz_taken_started');
+                $user_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Quiz given to students'), $quiz->user, 'quiz_taken_started');
             }
             if (!$this->Session->check('student_id')) {
                 $this->Session->write('student_id', $student->id);
@@ -485,106 +484,4 @@ class StudentsController extends AppController
         exit;
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index1()
-    {
-        $this->paginate = [
-            'contain' => ['Quizzes']
-        ];
-        $students = $this->paginate($this->Students);
-
-        $this->set(compact('students'));
-        $this->set('_serialize', ['students']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Student id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view1($id = null)
-    {
-        $student = $this->Students->get($id, [
-            'contain' => ['Quizzes', 'Answers', 'Rankings']
-        ]);
-
-        $this->set('student', $student);
-        $this->set('_serialize', ['student']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add1()
-    {
-        $student = $this->Students->newEntity();
-        if ($this->request->is('post')) {
-            $student = $this->Students->patchEntity($student, $this->request->data);
-            if ($this->Students->save($student)) {
-                $this->Flash->success(__('The student has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The student could not be saved. Please, try again.'));
-            }
-        }
-        $quizzes = $this->Students->Quizzes->find('list', ['limit' => 200]);
-        $this->set(compact('student', 'quizzes'));
-        $this->set('_serialize', ['student']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Student id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit1($id = null)
-    {
-        $student = $this->Students->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $student = $this->Students->patchEntity($student, $this->request->data);
-            if ($this->Students->save($student)) {
-                $this->Flash->success(__('The student has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The student could not be saved. Please, try again.'));
-            }
-        }
-        $quizzes = $this->Students->Quizzes->find('list', ['limit' => 200]);
-        $this->set(compact('student', 'quizzes'));
-        $this->set('_serialize', ['student']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Student id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete1($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $student = $this->Students->get($id);
-        if ($this->Students->delete($student)) {
-            $this->Flash->success(__('The student has been deleted.'));
-        } else {
-            $this->Flash->error(__('The student could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 }

@@ -62,7 +62,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel'); ?></button>
-                <input class="btn btn-danger btn-ok" type="submit" id="create-user" value="<?php echo __('Submit'); ?>">
+                <input class="btn btn-success btn-ok" type="submit" id="create-user" value="<?php echo __('Submit'); ?>">
                 <?= $this->Form->end(); ?>
             </div>
         </div>

@@ -22,108 +22,6 @@ class UsersController extends AppController
         $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout']);
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
-    {
-        $this->redirect('/');
-        //pr();
-        //$this->request->query['page'] = 5;
-        $users = $this->paginate($this->Users);
-        // pr($users);
-        // exit;
-        $this->set(compact('users'));
-        $this->set('_serialize', ['users']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => ['Helps', 'Downloads', 'Quizzes', 'Statistics']
-        ]);
-
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
     public function create() {
         if ($this->Auth->user()) {
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
@@ -184,16 +82,7 @@ class UsersController extends AppController
         $this->set(compact('lang_strings'));
 
         $this->loadModel('Helps');
-        $query_video = $this->Helps->find('all')
-            ->where(['Helps.type' => 'create', 'Helps.status' => 1])
-            ->contain([])
-            ->order(['Helps.id' => 'desc']);
-        $create_video = $query_video->first();
-        if (!empty($create_video)) {
-            $create_video = $create_video->toArray();
-        } else {
-            $create_video = array();
-        }
+        $create_video = $this->Helps->getVideoByType('create');
         $this->set(compact('create_video', 'user'));
 
     }
@@ -209,9 +98,10 @@ class UsersController extends AppController
     }
 
     public function confirmation($code = null) {
+        $this->autoRender = false;
         if (empty($code)) {
             $this->Flash->error(__('No direct access to this page!'));
-            $this->redirect(array('action' => 'create'));
+            $this->redirect(array('controller' => 'users', 'action' => 'create'));
         }
         $response = explode('y-s', $code);
         if (count($response) == 2) {
@@ -224,14 +114,15 @@ class UsersController extends AppController
         }
 
         if (empty($user)) {
-            $this->Flash->error(__('This is embrassing, we didn\'t find you!'));
-            $this->redirect(array('action' => 'create'));
+            $this->Flash->warning(__('Your account is already enabled'));
+            return $this->redirect(array('controller' => 'users', 'action' => 'create'));
         }
+
 
         $user->activation = NULL;
         // pr($user);
         // exit;
-        if ($this->Users->save($user)) {
+        if ($this->Users->updateAll(array('activation' => NULL), array('id' => $user->id))) {
             $this->Auth->setUser($user);
             //save statistics data
             $statisticsTable = TableRegistry::get('Statistics');
@@ -385,6 +276,10 @@ class UsersController extends AppController
         $lang_strings['invalid_email'] = __('Invalid email');
         $lang_strings['not_found_email'] = __('This email has not registered yet!');
         $this->set(compact('lang_strings'));
+
+        $this->loadModel('Helps');
+        $password_video = $this->Helps->getVideoByType('password');
+        $this->set(compact('password_video'));
     }
 
     /* 
@@ -410,7 +305,8 @@ class UsersController extends AppController
         // pr($user);
         // exit;
         if (empty($user)) {
-            throw new NotFoundException(__('Password Reset Link Expired.'));
+            $this->Flash->error(__('Password Reset Link Expired.'));
+            return $this->redirect(array('controller' => 'users', 'action' => 'passwordRecover'));
         }
 
         if ($this->request->is(array('post', 'put'))){

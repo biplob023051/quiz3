@@ -5,7 +5,7 @@ echo $this->Html->css('answer-table', array(
 
 $this->assign('title', __('Answer Table'));
 ?>
-<form class="form" id="answer-table-filter" method="post">
+<?= $this->Form->create('', ['id' => 'answer-table-filter']);  ?>
     <div class="row">
         <div class="alert" id="ajax-message" style="display: none"></div>
         <div class="col-md-3 col-xs-12">
@@ -47,7 +47,7 @@ $this->assign('title', __('Answer Table'));
             </div>
         </div>
     </div>
-</form>
+<?= $this->Form->end(); ?>
 
 <div class="panel panel-default">
     <?php echo $this->element('Quiz/table_extension', array('quizDetails' => $quizDetails)); ?>    
