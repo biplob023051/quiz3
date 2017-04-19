@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var myChoices = {};
+</script>
 <?php
 $data['Quiz']['id'] = $data['id'];
 $data['Quiz']['user_id'] = $data['user_id'];

@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-xs-9 col-md-9">
                     <?php
-                    echo $this->Form->input('Question.case_sensitive', array(
+                    echo $this->Form->input('data.Question.case_sensitive', array(
                         'value' => 1,
                         'label' => array('text' => __('Demand exact upper- and lowercase letters'), 'class' => 'control-label'),
                         'type' => 'checkbox',

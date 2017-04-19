@@ -18,7 +18,6 @@ var debugVar;
     }
     
     $(document).on('click', '#questions button.add-choice', function () {
-        //console.profile("Adding choice");
         var questionId = $(this).parent().parent().parent().attr('id'),
                 choiceContainer = $('#' + questionId).find("div.choices");
 
@@ -26,60 +25,61 @@ var debugVar;
                 parseInt(questionId.substr(1, questionId.length - 1)),
                 choiceContainer
                 );
-        //console.profileEnd();
     });
 
     // biplob added for adding one more row on page load by default    
     $('#questions button.add-choice').trigger('click');
 
     $(document).on('change', '#questions select.choice-type-selector', function () {
-        //console.profile("Change selector");  
+
         var element = $(this),
                 questionId = element.attr('id');
 
         questionId = questionId.substr(3, questionId.length - 1);
 
-        webQuiz.changeChoiceType(
+        if ((questionId != -1) && (($(this).val() == 1) || ($(this).val() == 3))) {
+            webQuiz.getExistingQuestionData(questionId, element.val());
+        } else {
+            webQuiz.changeChoiceType(
                 parseInt(questionId),
                 element.val(),
                 $("#q" + questionId).find("button.add-choice")
                 );
-        // biplob added for adding one more row on select change
-        if (($(this).val() == 1) || ($(this).val() == 3)) {
-           $('#questions button.add-choice').trigger('click'); 
+            // biplob added for adding one more row on select change
+            if (($(this).val() == 1) || ($(this).val() == 3)) {
+               $('#questions button.add-choice').trigger('click'); 
+            }
+
+            webQuiz.questionOptions($(this).val());
+
+            if ($(this).val() == 6) { // hide explanation input for header type question
+                $('#QuestionText').attr('placeholder', lang_strings['header_q_title']); // change placeholder
+                $('#QuestionExplanation').closest('.row').hide(); 
+            } else {
+                $('#QuestionText').attr('placeholder', lang_strings['other_q_title']); // change placeholder
+                $('#QuestionExplanation').closest('.row').show();
+            }
+
+            if ($(this).val() == 7) { 
+                // Change placeholder for explanation text if youtube
+                $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
+            } else if ($(this).val() == 8) { 
+                // Change placeholder for explanation text if image
+                $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
+            } else {
+                $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
+            }
+
+            if (($(this).val() == 7) || ($(this).val() == 8)) { // hide question for youtube or image type question
+               $('#QuestionText').parent().hide(); 
+            } else {
+                $('#QuestionText').parent().show(); 
+            }
         }
-
-        webQuiz.questionOptions($(this).val());
-
-        if ($(this).val() == 6) { // hide explanation input for header type question
-            $('#QuestionText').attr('placeholder', lang_strings['header_q_title']); // change placeholder
-            $('#QuestionExplanation').closest('.row').hide(); 
-        } else {
-            $('#QuestionText').attr('placeholder', lang_strings['other_q_title']); // change placeholder
-            $('#QuestionExplanation').closest('.row').show();
-        }
-
-        if ($(this).val() == 7) { 
-            // Change placeholder for explanation text if youtube
-            $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
-        } else if ($(this).val() == 8) { 
-            // Change placeholder for explanation text if image
-            $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
-        } else {
-            $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
-        }
-
-        if (($(this).val() == 7) || ($(this).val() == 8)) { // hide question for youtube or image type question
-           $('#QuestionText').parent().hide(); 
-        } else {
-            $('#QuestionText').parent().show(); 
-        }
-
-        //console.profileEnd();        
+        
     });
 
     $(document).on('click', '#questions tr td div.preview-btn button.edit-question', function () {
-        //console.profile("Editing question");
         var blank_question = false;
         if ($('#QuestionText').val() == '') {
             blank_question = true;
@@ -172,26 +172,18 @@ var debugVar;
                     webQuiz.choiceSortable();
                 }
             );
-        }     
-
-        //console.profileEnd();
+        }
     });
     
-    //$("#add-question").on('click', function () {
-
     $(document).on('click', "#add-question", function (e) {
-        console.log('cliked save');
         if(!$('#q-1').is(':visible')) {
             $('#q-1').show();
             return;
         }
-
         var question_number = $('#questions tbody').children('tr:not(.others_type)').length;
-    
         var questionTypeId = $('#questions select.choice-type-selector').val();
         // current tr
         var currentTr = $('#q-1');
-
         if ((questionTypeId != 7) && (questionTypeId != 8)) { // don't validate empty question for youtube or image
             if ($('#QuestionText').val() == '') {       
                 var currentEditQid = $("#q" + webQuiz.currentEditQid),
@@ -231,28 +223,20 @@ var debugVar;
     });
 
     $(document).on('click', '#questions tr td div.preview-btn button.delete-question', function () {
-        //console.profile("Delete question");
         var qidStr = $(this).attr('id'),
                 questionId = parseInt($(this).attr('id').substr(8, qidStr.length - 1));
-        console.log('delete', questionId);
         webQuiz.deleteQuestion(questionId, $("#q" + questionId));
-        //console.profileEnd();
     });
 
-    //$('#submit-quiz').on('click', function () {
     $(document).on('click', '#submit-quiz', function (e) {
-        console.log('submit cliked');
         if ($('#QuestionText').val() == '') {
             $("#QuizEditForm").submit();
             return;
         }
-
         var questionTypeId = $('#questions select.choice-type-selector').val();
-        
         var validationError = webQuiz.dataValidation(
             questionTypeId
         );
-
         if (validationError == false) {
             webQuiz.setToPreview(
                 webQuiz.currentEditQid,
@@ -397,12 +381,9 @@ var debugVar;
     });
 
     $(document).on('click', '#questions tr td div.preview-btn button.duplicate-question', function () {
-        //console.profile("Delete question");
         var qidStr = $(this).attr('id'),
                 questionId = parseInt($(this).attr('id').substr(11, qidStr.length - 1));
-        console.log('questionId', questionId);
         webQuiz.duplicateQuestion(questionId, $("#q" + questionId));
-        //console.profileEnd();
     });
 
     // Show sort button on question hover

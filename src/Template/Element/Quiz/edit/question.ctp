@@ -78,3 +78,9 @@ echo json_encode(array(
     </div>  
 </td>                      
 </tr>
+
+<?php if (($question_type_id == 1) || ($question_type_id == 3)) : ?>
+    <script type="text/javascript">
+        myChoices[<?php echo $id ?>] = <?php echo json_encode($Choice); ?>;
+    </script>
+<?php endif; ?>

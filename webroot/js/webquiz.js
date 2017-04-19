@@ -121,7 +121,6 @@ var webQuiz = {
         var html = this.questionTpl(question);
         this.questionData.push(question);
         this.containerDOM.append(html);
-        console.log(html);
         return true;
     },
     deleteQuestion: function (questionId, questionContainer, onSuccessCallback)
@@ -147,6 +146,7 @@ var webQuiz = {
                         $(this).find('.question_number').html(re_index);
                         re_index++;
                     });
+                    if (myChoices[questionId]) delete myChoices[questionId]; 
                 }
                 else
                 {
@@ -210,28 +210,17 @@ var webQuiz = {
     },
     setToPreview: function (questionId, questionContainer, onSuccessCallback, ajax_url, question_number)
     {
-        // console.log('questionId', questionId);
-        // console.log('questionContainer', questionContainer);
-        // console.log('onSuccessCallback', onSuccessCallback);
-        // console.log('ajax_url', ajax_url);
-        // console.log('question_number', question_number);
 
         questionId = parseInt(questionId);
 
-        //console.log("setToPreviewQid:", questionId);
-
         var question = webQuiz.getQuestion(questionId),
                 _questionData = questionContainer.find('form').serializeJSON();
-
-        console.log(_questionData);
         
         if (question.value.preview === true)
             return;
 
         _questionData.data.isNew = question.value.isNew;
         _questionData.data.Question.quiz_id = webQuiz.quizId;
-
-        console.log('test', _questionData);
 
         if (_questionData.data.isNew === true)
             delete _questionData['question_id'];
@@ -260,9 +249,10 @@ var webQuiz = {
                     tmp.preview = true;
 
                     webQuiz.questionData[question.index] = tmp;
-                    console.log("setToPreviewSuccess:", tmp);
-
-                    if($("#q-1").hasClass('warn')) {
+                    
+                    if((questionId == -1) && $("#q-1").hasClass('warn')) {
+                        tmp.warn_message = true;
+                    } else if ($("#q" + questionId).hasClass('warn')) {
                         tmp.warn_message = true;
                     }
 
@@ -284,6 +274,8 @@ var webQuiz = {
                         // do nothing right now
                     }
 
+                    if ((tmp.question_type_id != 3)) delete tmp.max_allowed;
+
                     // remove last question if not save
                     // for question edit view
                     if(typeof(response.dummy) != "undefined" && response.dummy !== null) {
@@ -302,6 +294,10 @@ var webQuiz = {
                             onSuccessCallback(tmp);
                         }
                     }
+                    // Update existing questions
+                    if ((tmp.id != -1) && ((tmp.question_type_id == 1) || (tmp.question_type_id == 3))) {
+                        myChoices[tmp.id] = tmp.Choice;
+                    }
                 }
                 else
                 {
@@ -309,6 +305,7 @@ var webQuiz = {
                         alert(response.message);
                     } else {
                         alert('Error! More detailed error is soon to be implemented\n\n');
+                        window.location.reload();
                     }
                 }
             }
@@ -338,7 +335,6 @@ var webQuiz = {
                 value: _question
             };
 
-            console.log("setToEdit:", question);
         }
         else
         {
@@ -392,7 +388,6 @@ var webQuiz = {
             {
                 if (response.success === true)
                 {
-                    console.log(response);
                     containerDOM.closest('.choice-' + choice).remove();
                 }
             }
@@ -557,6 +552,11 @@ var webQuiz = {
     },
     choiceValidation: function (choiceContainer)
     {
+        if (choiceContainer.find(':input[type="text"]').length == 0) {
+            $('.alert-danger').remove();
+            choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+            return;   
+        }
         var choiceArray = new Array();
         var validationError = false;   
         choiceContainer.find(':input[type="text"]').each(function(){
@@ -637,12 +637,42 @@ var webQuiz = {
         this.containerDOM.find("#q" + questionId + " div.choices").html(this.choiceTplCache[tplName + questionId]);
 
         $.each(this.questionData, function (index, value) {
+
             if (value.id === questionId) {
                 webQuiz.questionData[index].QuestionType = questionType;
                 webQuiz.questionData[index].Choice = [];    
                 return;
             }
         });
+
+    },
+    getExistingQuestionData: function (questionId, questionTypeId)
+    {
+        var questionType = webQuiz.getQuestionType(questionTypeId).value.QuestionType,
+                tplName = questionType.template_name, existingChoice = '',
+                template, data, existing_options = {};
+        if (!myChoices[questionId]) {
+            existing_options[0] = {};
+            existing_options[1] = {};
+        } else {
+            existing_options = myChoices[questionId];
+        }
+        $.each(existing_options, function (key, val) {
+            data = {
+                id: key,
+                text: val.text,
+                points: val.points,
+                weight: val.weight
+            };
+            template = Handlebars.compile(
+                  $("#choice-" + tplName + "-edit-template").html()
+                    );
+            existingChoice += template(data);
+        });
+        this.containerDOM.find("#q" + questionId + " div.choices").html(existingChoice);
+        this.questionOptions(questionTypeId);
+        $('#QuestionText').parent().show();
+        $("#q" + questionId).find("button.add-choice").show();
 
     },
     choiceSortable: function ()
@@ -692,7 +722,6 @@ var webQuiz = {
             }
         });
 
-        console.log(question_ids);
         $.ajax({
             data: {question_ids: question_ids},
             url: this.baseUrl + 'questions/ajax_sort',

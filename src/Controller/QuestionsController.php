@@ -139,6 +139,7 @@ class QuestionsController extends AppController
                 $data['Choice'][0]['points'] = $data['Choice'][0]['text'];
                 $data['Choice'][0]['text'] = 'Essay';
             } else {
+                if (!empty($data['Choice'])) unset($data['Choice']);
                 $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
                 $data['Choice'][0]['text'] = 'Essay';
             }
@@ -147,10 +148,16 @@ class QuestionsController extends AppController
                 echo json_encode(array('success' => false, 'message' => __('Enter youtube url')));
                 exit;
             }
-            $youtube = explode('=', $data['Choice'][0]['text']);
-            if (count($youtube) > 1) { // if watch mode
-                $data['Choice'][0]['text'] = 'https://www.youtube.com/embed/' . $youtube[1];
-            } 
+            $rx = '~^(?:https?://)?(?:www[.])?(?:youtube[.]com/watch[?]v=|youtu[.]be/) ([^&]{11})~x';
+            $has_match = preg_match($rx, $data['Choice'][0]['text'], $matches);
+            if (!empty($has_match)) { // if watch mode
+                $data['Choice'][0]['text'] = 'https://www.youtube.com/embed/' . $matches[1];
+            } else if(strpos($data['Choice'][0]['text'], 'https://www.youtube.com/embed/') !== false) {
+                
+            } else {
+                echo json_encode(array('success' => false, 'message' => __('Invalid youtube video')));
+                exit;
+            }
         } elseif($data['Question']['question_type_id'] == 8) { // image url type
             // short_auto
             if (empty($data['Choice'][0]['text'])) {   
@@ -158,6 +165,10 @@ class QuestionsController extends AppController
                 exit;
             }
         }
+
+        if ($data['Question']['question_type_id'] == 6) $data['Question']['explanation'] = NULL;
+        if ($data['Question']['question_type_id'] != 3) $data['Question']['max_allowed'] = NULL;
+        if ($data['Question']['question_type_id'] != 2) $data['Question']['case_sensitive'] = 0;
 
         // pr($data);
         // exit;

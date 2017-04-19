@@ -18,7 +18,8 @@
                             'class' => 'form-control c-text',
                             'label' => false,
                             'placeholder' => __('Choice'),
-                            'id' => 'Choice{{id}}Text'
+                            'id' => 'Choice{{id}}Text',
+                            'value' => '{{text}}'
                         ));
                         ?>
                     </div>
@@ -31,7 +32,8 @@
                             'label' => false,
                             'id' => 'Choice{{id}}Points',
                             'type' => 'number',
-                            'step' => '0.01' 
+                            'step' => '0.01',
+                            'value' => '{{points}}'
                         ));
                         ?>
                     </div>
@@ -40,7 +42,8 @@
                         'class' => 'c-weight',
                         'type' => 'hidden',
                         'default' => '{{weight}}',
-                        'id' => 'Choice{{id}}Weight'
+                        'id' => 'Choice{{id}}Weight',
+                        'value' => '{{weight}}'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -70,7 +73,8 @@
                             'class' => 'form-control c-text',
                             'label' => false,
                             'placeholder' => __('Choice'),
-                            'id' => 'Choice{{id}}Text'
+                            'id' => 'Choice{{id}}Text',
+                            'value' => '{{text}}'
                         ));
                         ?>
                     </div>
@@ -83,7 +87,8 @@
                             'label' => false,
                             'id' => 'Choice{{id}}Points',
                             'type' => 'number',
-                            'step' => '0.01' 
+                            'step' => '0.01',
+                            'value' => '{{points}}' 
                         ));
                         ?>
                     </div>
@@ -92,7 +97,8 @@
                         'class' => 'c-weight',
                         'type' => 'hidden',
                         'default' => '{{weight}}',
-                        'id' => 'Choice{{id}}Weight'
+                        'id' => 'Choice{{id}}Weight',
+                        'value' => '{{weight}}'
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
