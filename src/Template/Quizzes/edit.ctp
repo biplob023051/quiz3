@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var myChoices = {};
+    var myChoices = {}, editing_q_type;
 </script>
 <?php
 $data['Quiz']['id'] = $data['id'];

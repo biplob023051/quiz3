@@ -248,6 +248,10 @@ var webQuiz = {
                     tmp.isNew = false;
                     tmp.preview = true;
 
+                    if ((tmp.question_type_id == 2) && (response.Question.case_sensitive == 1)) {
+                        tmp.Choice[0].case_sensitive = true;
+                    }
+
                     webQuiz.questionData[question.index] = tmp;
                     
                     if((questionId == -1) && $("#q-1").hasClass('warn')) {
@@ -295,7 +299,7 @@ var webQuiz = {
                         }
                     }
                     // Update existing questions
-                    if ((tmp.id != -1) && ((tmp.question_type_id == 1) || (tmp.question_type_id == 3))) {
+                    if ((tmp.id != -1) && ((tmp.question_type_id != 6))) {
                         myChoices[tmp.id] = tmp.Choice;
                     }
                 }
@@ -303,6 +307,7 @@ var webQuiz = {
                 {
                     if (response.message != 'undefined' || response.message != null ) {
                         alert(response.message);
+                        $('.edit-done').attr('disabled', false);
                     } else {
                         alert('Error! More detailed error is soon to be implemented\n\n');
                         window.location.reload();
@@ -451,9 +456,7 @@ var webQuiz = {
         // Youtube url validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                if ($('.alert-danger').length){
-                        $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 validationError = true;
                 choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['youtube_url'] + '</div>');
             }
@@ -467,9 +470,7 @@ var webQuiz = {
         // Youtube url validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                if ($('.alert-danger').length){
-                        $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 validationError = true;
                 choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['image_url'] + '</div>');
             }
@@ -484,9 +485,7 @@ var webQuiz = {
         // correct answer validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                if ($('.alert-danger').length){
-                        $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 validationError = true;
                 choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['correct_answer'] + '</div>');
             }
@@ -505,9 +504,7 @@ var webQuiz = {
             });
             if (validationError == true) {
                 validationError = false;
-                if ($('.alert-danger').length){
-                    $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 var currentEditQid = $("#q" + webQuiz.currentEditQid);
                 $(currentEditQid.selector).addClass('warn');
             }
@@ -519,9 +516,7 @@ var webQuiz = {
         var validationError = false;
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                if ($('.alert-danger').length){
-                    $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 var currentEditQid = $("#q" + webQuiz.currentEditQid);
                 $(currentEditQid.selector).addClass('warn');
             }
@@ -542,9 +537,7 @@ var webQuiz = {
         });
         if (validationError == true) {
             validationError = false;
-            if ($('.alert-danger').length){
-                $('.alert-danger').remove();
-            }
+            $('.alert-danger').remove();
             var currentEditQid = $("#q" + webQuiz.currentEditQid);
             $(currentEditQid.selector).addClass('warn');
         }
@@ -564,9 +557,7 @@ var webQuiz = {
             if (jQuery.inArray($(this).val(),choiceArray) == -1){
                 choiceArray.push($(this).val());
             } else {
-                if ($('.alert-danger').length){
-                        $('.alert-danger').remove();
-                }
+                $('.alert-danger').remove();
                 validationError = true;
                 choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
             }
@@ -587,9 +578,7 @@ var webQuiz = {
         });
         if (validationError == true) {
             validationError = false;
-            if ($('.alert-danger').length){
-                $('.alert-danger').remove();
-            }
+            $('.alert-danger').remove();
             var currentEditQid = $("#q" + webQuiz.currentEditQid);
             $(currentEditQid.selector).addClass('warn');
         }
@@ -655,7 +644,13 @@ var webQuiz = {
             existing_options[0] = {};
             existing_options[1] = {};
         } else {
-            existing_options = myChoices[questionId];
+            if ((editing_q_type != 1) && (editing_q_type != 3)) {
+                console.log(editing_q_type)
+                existing_options[0] = {};
+                existing_options[1] = {};
+            } else {
+                existing_options = myChoices[questionId];
+            }
         }
         $.each(existing_options, function (key, val) {
             data = {
@@ -672,8 +667,65 @@ var webQuiz = {
         this.containerDOM.find("#q" + questionId + " div.choices").html(existingChoice);
         this.questionOptions(questionTypeId);
         $('#QuestionText').parent().show();
+        
         $("#q" + questionId).find("button.add-choice").show();
 
+    },
+    getExistingQuestionDataRest: function (questionId, questionTypeId)
+    {
+        var questionType = webQuiz.getQuestionType(questionTypeId).value.QuestionType,
+                tplName = questionType.template_name, existingChoice = '',
+                template, data, existing_options = {};
+        if (editing_q_type == questionTypeId) {
+            existing_options = myChoices[questionId];
+            $.each(existing_options, function (key, val) {
+                data = {
+                    id: key,
+                    text: val.text,
+                    points: val.points,
+                    weight: val.weight,
+                    case_sensitive: val.case_sensitive
+                };
+                template = Handlebars.compile(
+                      $("#choice-" + tplName + "-edit-template").html()
+                        );
+                existingChoice += template(data);
+            });
+        } else {
+            template = Handlebars.compile(
+                  $("#choice-" + tplName + "-edit-template").html()
+                    );
+            existingChoice += template();
+        }
+        this.containerDOM.find("#q" + questionId + " div.choices").html(existingChoice);
+        this.questionOptions(questionTypeId);
+        this.additionalSettings(questionTypeId);
+    },
+    additionalSettings: function (questionTypeId)
+    {
+        if (questionTypeId == 6) { // hide explanation input for header type question
+            $('#QuestionText').attr('placeholder', lang_strings['header_q_title']); // change placeholder
+            $('#QuestionExplanation').closest('.row').hide(); 
+        } else {
+            $('#QuestionText').attr('placeholder', lang_strings['other_q_title']); // change placeholder
+            $('#QuestionExplanation').closest('.row').show();
+        }
+
+        if (questionTypeId == 7) { 
+            // Change placeholder for explanation text if youtube
+            $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
+        } else if (questionTypeId == 8) { 
+            // Change placeholder for explanation text if image
+            $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
+        } else {
+            $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
+        }
+
+        if ((questionTypeId == 7) || (questionTypeId == 8)) { // hide question for youtube or image type question
+           $('#QuestionText').parent().hide(); 
+        } else {
+            $('#QuestionText').parent().show(); 
+        }
     },
     choiceSortable: function ()
     {

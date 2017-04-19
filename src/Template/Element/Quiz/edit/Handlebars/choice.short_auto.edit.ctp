@@ -18,6 +18,17 @@
             <br />
             <div class="row">
                 <div class="col-xs-9 col-md-9">
+                {{#if case_sensitive}}
+                    <?php
+                    echo $this->Form->input('data.Question.case_sensitive', array(
+                        'value' => 1,
+                        'label' => array('text' => __('Demand exact upper- and lowercase letters'), 'class' => 'control-label'),
+                        'type' => 'checkbox',
+                        'id' => 'case-sensivity',
+                        'checked' => "{{case_sensitive}}"
+                    ));
+                    ?>
+                {{else}}
                     <?php
                     echo $this->Form->input('data.Question.case_sensitive', array(
                         'value' => 1,
@@ -26,6 +37,7 @@
                         'id' => 'case-sensivity'
                     ));
                     ?>
+                {{/if}}
                 </div>
                 <div class="col-xs-3 col-md-3">
                     <?php

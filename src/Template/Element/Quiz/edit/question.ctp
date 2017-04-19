@@ -4,12 +4,14 @@
 <tr id="q<?php echo $id ?>"<?php if (in_array($QuestionType['template_name'], $templateOptions)) : ?> class="others_type<?php if ($QuestionType['template_name'] == 'header') : ?> header_type<?php endif; ?>"<?php endif; ?>>
 <script type="application/json">
 <?php
+if (($question_type_id == 2) && !empty($case_sensitive)) {
+    $Choice[0]['case_sensitive'] =  true;
+}
 echo json_encode(array(
     'id' => $id,
     'text' => $text,
     'explanation' => $explanation,
     'max_allowed' => $max_allowed,
-    'case_sensitive' => $case_sensitive,
     'QuestionType' => $QuestionType,
     'Choice' => $Choice
 ));
@@ -79,7 +81,10 @@ echo json_encode(array(
 </td>                      
 </tr>
 
-<?php if (($question_type_id == 1) || ($question_type_id == 3)) : ?>
+<?php if ($question_type_id == 2) : ?>
+    <?php $Choice[0]['case_sensitive'] = $case_sensitive; ?>
+<?php endif; ?>
+<?php if ($question_type_id != 6) : ?>
     <script type="text/javascript">
         myChoices[<?php echo $id ?>] = <?php echo json_encode($Choice); ?>;
     </script>
