@@ -81,13 +81,7 @@ class QuizzesTable extends Table
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name')
-            ->add('name', [
-                'alphaNumericWithSpace' => [
-                    'rule' => ['custom', "/[a-zA-Z0-9]+/"],
-                    'message' => 'Quiz name must be alphanumeric',
-                ]
-            ]);
+            ->notEmpty('name');
 
         return $validator;
     }

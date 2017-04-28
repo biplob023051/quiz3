@@ -14,7 +14,7 @@ class EmailComponent extends Component {
 	 */
 	public function sendMail($to, $subject, $data, $template, $from = null) {
 		if (empty($from)) {
-			$from = array('pietu.halonen@beta.verkkotesti.fi' => 'WebQuiz.fi');
+			$from = array('pietu.halonen@verkkotesti.fi' => 'WebQuiz.fi');
 		}
 		$Email = new Email();
 		$checkEmail = $Email->template($template)

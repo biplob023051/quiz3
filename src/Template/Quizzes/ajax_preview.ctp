@@ -1,6 +1,4 @@
-<?php
-    echo $this->Form->create('Student');
-?>
+<?= $this->Form->create('Student'); ?>
 
 <div class="panel panel-primary" id="small-margin">
     <div class="panel-heading">
@@ -12,31 +10,20 @@
         <?php if (empty($data->anonymous)) : ?>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <?php
-                    echo $this->Form->input('fname', array(
-                        'placeholder' => __('First Name')
-                    ));
+                    <?= $this->Form->input('fname', ['placeholder' => __('First Name'), 'label' => false]); ?>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <?= $this->Form->input('lname', ['placeholder' => __('Last Name'), 'label' => false]);
                     ?>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <?php
-                    echo $this->Form->input('lname', array(
-                        'placeholder' => __('Last Name')
-                    ));
-                    ?>
-                </div>
-                <div class="col-xs-12 col-md-4">
-                    <?php
-                    echo $this->Form->input('class', array(
-                        'placeholder' => __('Class')
-                    ));
-                    ?>
+                    <?= $this->Form->input('class', ['placeholder' => __('Class'), 'label' => false]);?>
                 </div>
             </div>
         <?php endif; ?>
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <p><?php echo $data->description; ?></p>
+                <p><?= $data->description; ?></p>
             </div>
         </div>
     </div>

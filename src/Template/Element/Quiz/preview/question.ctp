@@ -8,7 +8,7 @@
         <div class="col-xs-12 col-md-6">            
             <p>
                 <?php if ($question->question_type->template_name == 'header') : ?>
-                    <span class="h4 header"><?php echo $text; ?></span>
+                    <span class="h4 header"><?php echo $question->text; ?></span>
                     <br />
                 <?php elseif ($question->question_type->template_name == 'youtube_video') : ?>
                     
@@ -40,18 +40,20 @@
                 <?php endif; ?>
             </p>
         </div>
-        <div class="col-xs-12 col-md-3">
-            <?php 
-                if (in_array($question->question_type->template_name, $inlinePointTemplates)) :
-                    echo !empty($question->choices[0]->points) ? $question->choices[0]->points : '0.00';
-                endif; 
-            ?>
-        </div>
+        <?php if (empty($class_preview)) : ?>
+            <div class="col-xs-12 col-md-3">
+                <?php 
+                    if (in_array($question->question_type->template_name, $inlinePointTemplates)) :
+                        echo !empty($question->choices[0]->points) ? $question->choices[0]->points : '0.00';
+                    endif; 
+                ?>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="preview"> <!-- before it was choices -->
         <?php
         foreach ($question->choices as $c) {
-            echo $this->element("Quiz/preview/choice.{$question->question_type->template_name}", array('choice' => $c));
+            echo $this->element("Quiz/preview/choice.{$question->question_type->template_name}", array('choice' => $c, 'class_preview' => !empty($class_preview) ? $class_preview : false));
         }
         ?>
     </div>  

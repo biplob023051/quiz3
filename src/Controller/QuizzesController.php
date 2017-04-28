@@ -292,12 +292,21 @@ class QuizzesController extends AppController
 
         $quiz = $this->Quizzes->newEntity();
         $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('Name the quiz'), 'user_id' => $userId]);
+       
+        if (!$this->Quizzes->save($quiz)) {
+            $this->Flash->error(__('Sorry, quiz save failed, please try again.'));    
+            return $this->redirect($this->referer());
+        }
         // pr($quiz);
         // exit;
-        $this->Quizzes->save($quiz);
-        // save random number as random_id
-        $quiz->random_id = $quiz->id . $this->randText(2, true);
-        $this->Quizzes->save($quiz);
+        if (!$this->Quizzes->updateAll(
+            ['random_id' => $quiz->id . $this->randText(2, true)], 
+            ['id' => $quiz->id])
+        ) {
+            $this->Quizzes->delete($quiz->id);
+            $this->Flash->error(__('Sorry, quiz save failed, please try again.'));
+            return $this->redirect($this->referer());
+        }
         
         //save statistics data
         $statisticsTable = TableRegistry::get('Statistics');
@@ -363,13 +372,23 @@ class QuizzesController extends AppController
     // ajax_preview
     public function ajaxPreview() {
         $this->viewBuilder()->layout('ajax');
-        $data = $this->Quizzes->find('all', array(
-            'conditions' => array(
+        
+        if (empty($this->request->data['present'])) {
+            $conditions = [
                 'Quizzes.random_id' => $this->request->data['random_id'],
                 'Quizzes.shared' => 1,
                 'Quizzes.is_approve' => 1
-            ),
-            'contain' => array(
+            ];
+        } else {
+            $conditions = [
+                'Quizzes.random_id' => $this->request->data['random_id'],
+                'Quizzes.user_id' => $this->Auth->user('id')
+            ];
+            $this->set('class_preview', 1);
+        }
+        $data = $this->Quizzes->find('all', [
+            'conditions' => $conditions,
+            'contain' => [
                 'Questions' => function($q) {
                     $q->contain([
                         'Choices' => function($q) {                        
@@ -383,8 +402,8 @@ class QuizzesController extends AppController
                     return $q;
                 },
                 'Users'
-            )
-        ))->first();
+            ]
+        ])->first();
 
         // pr($data);
         // exit;
@@ -956,11 +975,18 @@ class QuizzesController extends AppController
             // exit;
 
             if ($this->Quizzes->save($new_quiz)) {
-                $random_id = $new_quiz->id . $this->randText(2, true);
-                $this->Quizzes->save($new_quiz);
-                $response['message'] = __('Duplicated Successfully');
-                $response['result'] = 1;
-                $response['id'] = $new_quiz->id;
+                if ($this->Quizzes->updateAll(
+                        ['random_id' => $new_quiz->id . $this->randText(2, true)], 
+                        ['id' => $new_quiz->id]
+                    )
+                ) {
+                    $response['message'] = __('Duplicated Successfully');
+                    $response['result'] = 1;
+                    $response['id'] = $new_quiz->id;
+                } else {
+                    $this->Quizzes->delete($new_quiz->id);
+                    $response['message'] = __('Something went wrong, please try again later!');
+                }
             } else {
                 $response['message'] = __('Something went wrong, please try again later!');
             }
@@ -1351,38 +1377,33 @@ class QuizzesController extends AppController
                         }
                     }
 
-                    // pr($new_quiz);
-                    // exit;
-
                     $new_quiz = $this->Quizzes->newEntity($new_quiz, [
                         'associated' => [
                             'Questions' => ['associated' => ['Choices']]
                         ]
                     ]);
 
-                    //pr($quizInfo);
-            
-                    // pr($new_quiz);
-                    // exit;
-                    
-                    // $quiz = $this->Quizzes->save($quiz);
-
-                    // pr($quiz);
-                    // exit;
-
                     if ($this->Quizzes->save($new_quiz)) {
-                        $random_id = $new_quiz->id . $this->randText(2, true);
-                        $this->Quizzes->save($new_quiz);
-                        $response['Quiz'][$key]['id'] = $new_quiz->id;
-                        $response['Quiz'][$key]['name'] = $new_quiz->name;
-                        $this->Quizzes->Users->Downloads->save($download); 
-                    } else {
-                        $response['message'] = __('Something went wrong, please try again later!');
+                        if ($this->Quizzes->updateAll(
+                            ['random_id' => $new_quiz->id . $this->randText(2, true)], 
+                            ['id' => $new_quiz->id]
+                        )) {
+                            $response['Quiz'][$key]['id'] = $new_quiz->id;
+                            $response['Quiz'][$key]['name'] = $new_quiz->name;
+                            $this->Quizzes->Users->Downloads->save($download); 
+                            $success_least_one = true;
+                        } else {
+                            $this->Quizzes->delete($new_quiz->id);
+                        }
                     }
                 }
             }
-            $response['message'] = __('Imported Successfully');
-            $response['result'] = 1;
+            if (!empty($success_least_one)) {
+                $response['message'] = __('Imported Successfully');
+                $response['result'] = 1;
+            } else {
+                $response['message'] = __('Something went wrong, please try again later!');
+            }
         } else {
             $response['message'] = __('Invalid Quiz!');
         }

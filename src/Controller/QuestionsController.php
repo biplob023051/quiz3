@@ -136,7 +136,7 @@ class QuestionsController extends AppController
         } elseif($data['Question']['question_type_id'] == 5) { // essay type
             // essay
             if (!(isset($data['isNew']) && $data['isNew']) || $questionId != -1) {
-                $data['Choice'][0]['points'] = $data['Choice'][0]['text'];
+                $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
                 $data['Choice'][0]['text'] = 'Essay';
             } else {
                 if (!empty($data['Choice'])) unset($data['Choice']);
