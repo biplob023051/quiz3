@@ -221,7 +221,7 @@ class QuizzesController extends AppController
         $lang_strings['empty_question'] = __('Empty Question Is Not Permit');
         $lang_strings['same_choice'] = __('Empty or Same Choices Are Not Permit');
         $lang_strings['single_greater'] = __('At least a point should be greater than 0');
-        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers comma separated');
+        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers semicolon separated');
         $lang_strings['point_greater'] = __('At least point should be greater than 0');
         $lang_strings['two_greater'] = __('At least 2 points should be greater than 0');
         $lang_strings['insert_another'] = __('You put only one correct answers, please choose another point greater than 0!!!');
@@ -234,6 +234,8 @@ class QuizzesController extends AppController
         $lang_strings['image_exp_text'] = __('Image explanation text');
         $lang_strings['other_exp_text'] = __('Explanation text');
         $lang_strings['empty_header'] = __('Please enter Header text');
+        $lang_strings['no_choice_1'] = __('Minimum');
+        $lang_strings['no_choice_2'] = __('choices are required!');
 
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
@@ -1557,7 +1559,7 @@ class QuizzesController extends AppController
         $lang_strings['empty_question'] = __('Empty Question Is Not Permit');
         $lang_strings['same_choice'] = __('Empty or Same Choices Are Not Permit');
         $lang_strings['single_greater'] = __('At least a point should be greater than 0');
-        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers comma separated');
+        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers semicolon separated');
         $lang_strings['point_greater'] = __('At least point should be greater than 0');
         $lang_strings['two_greater'] = __('At least 2 points should be greater than 0');
         $lang_strings['insert_another'] = __('You put only one correct answers, please choose another point greater than 0!!!');

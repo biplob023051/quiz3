@@ -80,11 +80,17 @@ class QuestionsController extends AppController
 
         if (isset($this->request->data['Choice'])) {
             // reorder if order break
-            $this->request->data['Choice'] = array_values($this->request->data['Choice']);
+            $c_array = [];
+            foreach ($this->request->data['Choice'] as $key => $choice) {
+                if (!empty($choice['text'])) {
+                    $c_array[] = $choice; 
+                }
+            }
+            if (!empty($c_array))
+            $this->request->data['Choice'] = $c_array;
         }
         $data = $this->request->data;
-// pr($data);
-// exit;
+
         // if (empty($data['Question']['text'])) {   
         //     echo json_encode(array('success' => false, 'message' => 'Enter Question'));
         //     exit;

@@ -405,10 +405,9 @@ var webQuiz = {
         choiceContainer = currentEditQid.find("div.choices");
         
         if ((questionTypeId == 1) || (questionTypeId == 3)) {
-
             // choice validation
             validationError = webQuiz.choiceValidation(
-                choiceContainer
+                choiceContainer, questionTypeId
             );
 
             // point validation for one correct
@@ -543,23 +542,33 @@ var webQuiz = {
         }
         return validationError;
     },
-    choiceValidation: function (choiceContainer)
+    choiceValidation: function (choiceContainer, questionTypeId)
     {
-        if (choiceContainer.find(':input[type="text"]').length == 0) {
+        var minLength = 2;
+        if ((questionTypeId == 3) && ($('#QuestionMaxAllowed').val() > 2)) {
+            minLength = $('#QuestionMaxAllowed').val();
+        }
+        if (choiceContainer.find(':input[type="text"]').length < minLength) {
             $('.alert-danger').remove();
-            choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+            choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['no_choice_1'] + ' ' + minLength + ' ' + lang_strings['no_choice_2'] + '</div>');
             return;   
         }
         var choiceArray = new Array();
         var validationError = false;   
         choiceContainer.find(':input[type="text"]').each(function(){
             // same choice not permit
-            if (jQuery.inArray($(this).val(),choiceArray) == -1){
-                choiceArray.push($(this).val());
-            } else {
+            if ($(this).val() == '') {
                 $('.alert-danger').remove();
                 validationError = true;
                 choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+            } else {
+                if (jQuery.inArray($(this).val(),choiceArray) == -1){
+                    choiceArray.push($(this).val());
+                } else {
+                    $('.alert-danger').remove();
+                    validationError = true;
+                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+                }
             }
             
         });
@@ -669,6 +678,7 @@ var webQuiz = {
         $('#QuestionText').parent().show();
         
         $("#q" + questionId).find("button.add-choice").show();
+        this.additionalSettings(questionTypeId);
 
     },
     getExistingQuestionDataRest: function (questionId, questionTypeId)

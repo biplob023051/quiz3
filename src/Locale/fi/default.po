@@ -70,7 +70,7 @@ msgid "You will receive an invoice into your email shortly. By paying it you can
 msgstr "Kiitos tilauksesta! Lasku lähetetään sähköpostiisi mahdollisimman pian. Laskun maksettuasi käyttäjätilisi päivittyy."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
-msgid "Corect answers separated by comma"
+msgid "Corect answers separated by semicolon"
 msgstr "Oikeat vastausvaihtoehdot pilkulla erotettuna"
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:26
@@ -441,7 +441,7 @@ msgid "At least a point should be greater than 0"
 msgstr "Ainakin yhden vaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
 
 #: Controller/QuizController.php:130
-msgid "Enter correct answers, if multiple answers comma separated"
+msgid "Enter correct answers, if multiple answers semicolon separated"
 msgstr "Kirjoita oikeat vastausvaihtoehdot pilkulla erotettuna."
 
 #: Controller/QuizController.php:131
