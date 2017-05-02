@@ -7,7 +7,7 @@ $this->assign('title', __('My Quizzes'));
 
 <?= $this->Flash->render(); ?>
 
-<div class="row notice">
+<div class="row notice" id="notice-section">
 <?php 
     if (empty($userPermissions['upgraded'])) { 
         if (empty($userPermissions['request_sent'])) {

@@ -1727,3 +1727,11 @@ msgstr "Tyhjää testiä ei voida näyttää. Lisää testiin ainakin yksi kysym
 #: View/Quiz/no_question.ctp:2
 msgid "An empty quiz can't be shown."
 msgstr "Tyhjää testiä ei voida näyttää."
+
+#: Controller/QuizController.php:237
+msgid "Minimum"
+msgstr "Luo ainakin"
+
+#: Controller/QuizController.php:238
+msgid "choices are required!"
+msgstr "vastausvaihtoehtoa"

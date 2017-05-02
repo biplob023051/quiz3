@@ -10,7 +10,7 @@
                 <li class="qr-image"><img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=<?php echo $url ?>" /></li>
                 <li><?php echo __('OR') ?></li>
                 <li><?php echo '2. ' . __('Surf to this web address:') ?></li>
-                <li><p class="bg-info"><a href="javascript:void(0)" random-id="<?= $quiz->random_id; ?>" id="preview"><?php echo $url ?></a></p></li>
+                <li><p class="bg-info"><a href="<?php echo $url ?>" random-id="<?= $quiz->random_id; ?>" id="preview"><?php echo $url ?></a></p></li>
             </ul>
         </div>
     </div>

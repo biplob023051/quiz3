@@ -22,7 +22,7 @@ class MaintenanceController extends AppController
         // Remove maintenance mode
         $setting = $this->_getSettings();
         if (empty($setting['offline_status']))
-        $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+        $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         $this->set('title_for_layout', __('Pardon for the dust!'));
         $this->render('/Element/Maintenance/notice');
     }

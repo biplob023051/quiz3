@@ -1,6 +1,6 @@
 <?php 
     if (empty($userPermissions['upgraded'])) { 
-        echo '<div class="row">';
+        echo '<div class="row" id="notice-section">';
         echo '<div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">';
         echo '<div class="form-group">';
         if (empty($userPermissions['request_sent'])) {

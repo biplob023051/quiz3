@@ -1,4 +1,5 @@
-$(document).on('click', '#preview', function() {
+$(document).on('click', '#preview', function(e) {
+    e.preventDefault();
     $.ajax({
         data: {random_id : $(this).attr('random-id'), present : 1},
         type: 'post',

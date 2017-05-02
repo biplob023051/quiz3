@@ -27,7 +27,7 @@
     });
 
     $(document).on('click', '#29_package, #49_package', function () {
-        //console.profile("Sending invoice");
+        console.profile("Sending invoice");
         $.ajax({
             type: 'post',
             url: projectBaseUrl + 'invoice/create',
@@ -41,6 +41,7 @@
                     $('#invoice-success-dialog').modal('show');
                     $('#upgrade_account').attr('disabled', true);
                     $('span#btn_text').html(lang_strings['request_sent']);
+                    $('#notice-section').remove();
                 }
             },
             error: function()
@@ -52,9 +53,9 @@
         //console.profileEnd();
     });
 
-    $('#invoice-success-dialog').on('hidden.bs.modal', function () {
-        window.location.reload();
-    });
+    // $('#invoice-success-dialog').on('hidden.bs.modal', function () {
+    //     window.location.reload();
+    // });
 
     $(document).on('change', '#quiz-filter select', function () {
         $('form#quiz-filter').submit();

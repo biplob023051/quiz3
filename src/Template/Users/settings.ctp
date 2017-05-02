@@ -97,4 +97,8 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 <?= $this->element('Invoice/invoice_success_dialog'); ?>
 <?= $this->element('Invoice/invoice_error_dialog'); ?>
 
+<script type="text/javascript">
+    var lang_strings = <?php echo json_encode($lang_strings) ?>;
+</script>
+
 <?= $this->Html->script(array('invoice'), array('inline' => false)); ?>

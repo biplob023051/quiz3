@@ -213,7 +213,8 @@ class UsersController extends AppController
             'Subjects.type IS NULL'
         ])
         ->toArray();
-        $this->set(compact('user', 'subjects'));
+        $lang_strings['request_sent'] = __('Upgrade Pending');
+        $this->set(compact('user', 'subjects', 'lang_strings'));
     }
 
     public function contact() {

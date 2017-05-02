@@ -268,7 +268,7 @@ h1 {
 
 /* large border adding on edit question */
 tr.EditQuestionBorder {
-    border: 3px solid #337ab7;
+    border: 2px solid #337ab7;
     /*border-bottom: 3px solid #ddd;*/ 
 }
 
@@ -542,4 +542,8 @@ i.share {
 
 .btn-yellow {
     background-color: #E6E10F;
+}
+
+#QuizEditForm .panel {
+    border-radius: 4px 4px 1px 1px !important;
 }
