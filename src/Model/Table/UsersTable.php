@@ -88,10 +88,10 @@ class UsersTable extends Table
                     'rule' => ['minLength', 8],
                     'message' => 'Password must be 8 characters long',
                 ],
-                'compare' => [
-                    'rule' => ['compareWith', 'passwordVerify'],
-                    'message' => __('Password did not match, please try again') 
-                ]
+                // 'compare' => [
+                //     'rule' => ['compareWith', 'passwordVerify'],
+                //     'message' => __('Password did not match, please try again') 
+                // ]
             ]);
 
 

@@ -19,7 +19,14 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage']);
+    }
+
+    // Method of switching language 
+    public function switchLanguage() {
+        $this->autoRender = false;
+        $this->Cookie->write('site_language', $this->request->data['lang']);
+        echo json_encode(['success' => __('Language successfully switched')]);
     }
 
     public function create() {
@@ -44,6 +51,7 @@ class UsersController extends AppController
                 $this->request->data['account_level'] = 22;
                 $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
                 $this->request->data['activation'] = $this->randText(16);
+                $this->request->data['language'] = $site_language;
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $user = $this->Users->save($user);
                 // pr($user);
@@ -298,7 +306,7 @@ class UsersController extends AppController
     }
 
     public function resetPassword($reset_code) {
-        $this->set('title_for_layout', __('Reset Password'));
+        $this->set('title_for_layout', __('Password Reset'));
         if (empty($reset_code)) {
             return $this->redirect('/');
         }
@@ -341,7 +349,6 @@ class UsersController extends AppController
             $this->request->data['activation'] = $this->randText(16);
             //ate("Y-m-d H:i:s")
             $date = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
-
             if ($this->request->data['package'] == 29) {
                 $package =  __('29 E/Y');
                 $this->request->data['account_level'] = 1;
@@ -351,6 +358,7 @@ class UsersController extends AppController
             }
             unset($this->request->data['package']);
             $this->request->data['expired'] = $date;
+            $this->request->data['language'] = Configure::read('Config.language');
             $user = $this->Users->newEntity();
             $user = $this->Users->patchEntity($user, $this->request->data);
             // pr($user);

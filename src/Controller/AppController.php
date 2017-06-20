@@ -99,6 +99,11 @@ class AppController extends Controller
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
         ]);
 
+        $this->loadComponent('Cookie');
+
+        $this->Cookie->configKey('site_language', 'encryption', false);
+
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -126,6 +131,9 @@ class AppController extends Controller
 
         // check user language, default language finish
         $language = $this->Auth->user('language');
+        if (empty($language)) {
+            $language = $this->Cookie->read('site_language');
+        }
         if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
             $language = 'fi';
         Configure::write('Config.language', $language);
@@ -135,6 +143,7 @@ class AppController extends Controller
         }
 
         $this->set('authUser', $this->Auth->user());
+        $this->set(compact('language'));
     }
 
 

@@ -55,4 +55,24 @@ class QuizHelper extends Helper {
         }
 	}
 
+	// Method for returning language icon class and text
+	public function getLang($lang = null) {
+		$lang_str = '';
+		switch ($lang) {
+			case 'fi':
+				$lang_str = '<i class="glyphicon finish"></i> ' . 'Suomi';
+				break;
+			case 'eng':
+				$lang_str = '<i class="glyphicon english"></i> ' . 'English';
+				break;
+			case 'es':
+				$lang_str = '<i class="glyphicon spanish"></i> ' . 'Spanish';
+				break;
+			default:
+				$lang_str = '<i class="glyphicon finish"></i> ' . 'Suomi';
+				break;
+		}
+		return $lang_str;
+	}
+
 }

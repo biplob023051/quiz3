@@ -16,8 +16,8 @@
         echo '</div>';
         echo '</div>';
     } else {
-        if (($userPermissions['days_left'] < '31') && (AuthComponent::user('account_level') == 1)) { // if expire date soon for previous paid users
-             echo '<div class="row">';
+        if (($userPermissions['days_left'] < '31') && ($authUser['account_level'] == 1)) { // if expire date soon for previous paid users
+            echo '<div class="row">';
             echo '<div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">';
             echo '<div class="form-group">';
             echo $this->element('Invoice/invoice_button', array('btn_text' => __('Upgrade Account')));

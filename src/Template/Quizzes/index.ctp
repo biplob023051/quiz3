@@ -57,7 +57,7 @@ $this->assign('title', __('My Quizzes'));
             echo '</div>';
         }
     } else {
-        if (($userPermissions['days_left'] < '31') && (AuthComponent::user('account_level') == 1)) { // if expire date soon for previous paid users
+        if (($userPermissions['days_left'] < '31') && ($authUser['account_level'] == 1)) { // if expire date soon for previous paid users
             echo '<div class="col-xa-12 col-md-8">';
             echo '<div class="form-group text-center">';
             echo '<span class="expire-notice">' . __('Your account will be expired in') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('days.') . '</span>';

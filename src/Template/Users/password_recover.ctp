@@ -37,7 +37,7 @@
                 <a href="javascript:void(0)" id="play_video"><img src="<?php echo $this->Quiz->getHelpPicture($password_video, 'videos'); ?>" class="img-responsive"></a>
                 <?php echo $this->element('User/video_modal', array('create_video' => $password_video)); ?>
             <?php else: ?>
-                <?php echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
+                <?php //echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
             <?php endif; ?>
         </div>
     </div>

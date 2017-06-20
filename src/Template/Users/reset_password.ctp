@@ -1,4 +1,5 @@
 <?php
+$this->assign('title', $title_for_layout);
 echo $this->Html->script('password-recover', array('inline' => false));
 echo $this->Flash->render();
 ?>
@@ -49,7 +50,7 @@ echo $this->Flash->render();
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="text-center">
-            <?php echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
+            <?php //echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
         </div>
     </div>
 </div>

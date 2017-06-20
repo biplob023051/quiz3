@@ -16,9 +16,9 @@
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <?php if ($session->check('Auth.User.name')): ?>
+                <?php if ($authUser): ?>
                     <!--nocache-->
-                    <?php if ($session->read('Auth.User.account_level') == 51): ?>
+                    <?php if ($authUser['account_level'] == 51): ?>
                         <?php $admin_actions = array('admin_titles', 'admin_add', 'admin_insert', 'admin_index'); ?>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -43,7 +43,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo h($session->read('Auth.User.name')); ?> 
+                            <?php echo h($authUser['name']); ?> 
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">

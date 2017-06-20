@@ -14,7 +14,7 @@
                         <strong><?php echo __('Basic:'); ?></strong> <?php echo __('Create and use quizzes freely without limits.'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-yellow btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span id="29_package"><?php echo __('29 E/Y'); ?></span></button>
+                        <button type="button" class="btn btn-yellow btn-sm" id="29_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?php echo __('29 E/Y'); ?></span></button>
                     </div>
                 </div>
                 <br>
@@ -23,7 +23,7 @@
                         <strong><?php echo __('Quiz Bank:'); ?></strong> <?php echo __('In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank.'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-yellow btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span id="49_package"><?php echo __('49 E/Y'); ?></span></button>
+                        <button type="button" class="btn btn-yellow btn-sm" id="49_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?php echo __('49 E/Y'); ?></span></button>
                     </div>
                 </div>
             </div>

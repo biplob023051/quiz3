@@ -21,6 +21,19 @@
                     <li <?php if (isset($current_page) && ($current_page == 'contact')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Contact'), array('controller' => 'pages', 'action' => 'contact')); ?></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <?php echo ($language != 'eng') ? $this->Quiz->getLang($language) : 'International'; ?>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)" class="my-language" data-value="fi"><i class="glyphicon finish"></i>&nbsp;&nbsp;&nbsp;&nbsp; <?= 'Suomi'; ?></a></li>
+                            <li><a href="javascript:void(0)" class="my-language" data-value="eng"><?= 'International'; ?></a></li>
+                            <!-- <li><a href="javascript:void(0)" class="my-language" data-value="es"><i class="glyphicon spanish"></i> <?php //echo __('Spanish'); ?></a></li> -->
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo $this->request->base; ?>/users/create"><?php echo __('If you don’t have account?') . ' '; ?><span class="text-primary"><?php echo __('Register Now!'); ?></span></a></li>
                     <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('Login'); ?></button></a></li>
                 </ul>

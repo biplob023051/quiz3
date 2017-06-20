@@ -67,7 +67,7 @@ msgstr "29€ lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat V
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "You will receive an invoice into your email shortly. By paying it you can upgrade your account."
-msgstr "Kiitos tilauksesta, käyttäjätilisi on nyt päivitetty! Tilaamasi vuosilisenssin lasku lähetetään sähköpostiisi lähiaikoina."
+msgstr "Kiitos tilauksesta! Lasku lähetetään sähköpostiisi mahdollisimman pian. Laskun maksettuasi käyttäjätilisi päivittyy."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
 msgid "Corect answers separated by semicolon"
@@ -119,7 +119,7 @@ msgstr "Lisää kysymys"
 
 #: View/Quiz/edit.ctp:92
 msgid "Finish"
-msgstr "Suomi"
+msgstr "Tallenna"
 
 #: View/Quiz/finish.ctp:1
 msgid "Thank you"
@@ -211,7 +211,7 @@ msgstr "Luo tili ja kirjaudu sisään"
 
 #: View/User/login.ctp:2;40
 msgid "Login"
-msgstr "Kirjaudu sisään"
+msgstr "S.Login"
 
 #: View/User/login.ctp:22
 #: View/User/settings.ctp:36
@@ -1737,8 +1737,8 @@ msgid "choices are required!"
 msgstr "vastausvaihtoehtoa"
 
 #: Controller/UsersController.php:326
-msgid "Your password has been successfully changed."
-msgstr "Salasanasi on nyt päivitetty."
+msgid "Your password has been successfully changed"
+msgstr "Salasanasi on vaihdettu"
 
 #: View/Users/reset_password.ctp:29
 msgid "Enter New Password"

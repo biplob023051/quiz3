@@ -547,3 +547,28 @@ i.share {
 #QuizEditForm .panel {
     border-radius: 4px 4px 1px 1px !important;
 }
+
+/*Language icons*/
+i.finish {
+    background-image:url(../img/icons/19x13/finish.png); 
+    background-position: center center;
+    height: 13px;
+    line-height: 13px;
+    width: 19px;
+}
+
+i.english {
+    background-image:url(../img/icons/19x13/english.png); 
+    background-position: center center;
+    height: 13px;
+    line-height: 13px;
+    width: 19px;
+}
+
+i.spanish {
+    background-image:url(../img/icons/19x13/spanish.png); 
+    background-position: center center;
+    height: 13px;
+    line-height: 13px;
+    width: 19px;
+}

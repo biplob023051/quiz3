@@ -83,7 +83,7 @@ $this->assign('title', __('Create Account'));
                 <a href="javascript:void(0)" id="play_video"><img src="<?php echo $this->Quiz->getHelpPicture($create_video, 'videos'); ?>" class="img-responsive"></a>
                 <?php echo $this->element('User/video_modal', array('create_video' => $create_video)); ?>
             <?php else: ?>
-                <?php echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
+                <?php //echo $this->Html->image('bg-moniter.png', array('class' => 'img-responsive')); ?>
             <?php endif; ?>
         </div>
     </div>
