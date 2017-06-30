@@ -31,7 +31,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
         <?php
             echo $this->Form->input('password', array(
-                'label' => __("Password"),
+                'label' => __("PASSWORD"),
                 'placeholders' => __("Fill if you want to change password"),
                 'required' => false
             ));
@@ -43,8 +43,9 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
         <?php
         $languages = array(
-            'eng' => 'English',
-            'fin' => 'Suomi'
+            'en_GB' => 'English',
+            'fin' => 'Suomi',
+            'sv_FI' => 'Svenska (FI)'
         );
         echo $this->Form->input('language', array(
             'options' => $languages,

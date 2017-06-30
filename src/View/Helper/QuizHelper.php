@@ -65,8 +65,8 @@ class QuizHelper extends Helper {
 			case 'eng':
 				$lang_str = '<i class="glyphicon english"></i> ' . 'English';
 				break;
-			case 'es':
-				$lang_str = '<i class="glyphicon spanish"></i> ' . 'Spanish';
+			case 'sv_FI':
+				$lang_str = '<i class="glyphicon swedish"></i> ' . 'Svenska (FI)';
 				break;
 			default:
 				$lang_str = '<i class="glyphicon finish"></i> ' . 'Suomi';

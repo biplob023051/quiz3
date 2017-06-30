@@ -15,7 +15,7 @@
         <div class="col-md-12 col-xs-12">
             <?php
             echo $this->Form->input('password', array(
-                'label' => __("Password")
+                'label' => __("PASSWORD")
             ));
             ?>
         </div>

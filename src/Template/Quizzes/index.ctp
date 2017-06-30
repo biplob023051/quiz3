@@ -211,7 +211,7 @@ $this->assign('title', __('My Quizzes'));
                         <div class="col-md-10 col-md-offset-1">
                             <p class="text-center"><?php echo __('Welcome to Verkkotesti!') ?></p>
                             <p class="text-center"><?php echo __('If you want to start by looking at demo quizzes, click the gray button ') . '<b>"' . __('Load demo quizzes') . '"</b>.'; ?></p>
-                            <p class="text-center"><?php echo __('(You can delete demo quizzes when you don\'t need them anymore.)'); ?></p>
+                            <p class="text-center"><?php echo __('DELETE_DEMO_QUIZZES'); ?></p>
                             <p class="text-center"><?php echo __('If you want to dive straight in, click the blue button') . '<b> "' . __('Create a New test') . '"</b>.'; ?></p>
                         </div>
                         <div class="col-md-4 col-md-offset-4"><button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#demo-dialog" id="upgrade_account"><span class="glyphicon glyphicon-import" aria-hidden="true"></span><span> <?php echo __('Load demo quizzes'); ?></span></button>

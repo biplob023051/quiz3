@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Event\Statistics;
+use Cake\Event\Event;
+
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
@@ -125,20 +128,15 @@ class UsersController extends AppController
             $this->Flash->warning(__('Your account is already enabled'));
             return $this->redirect(array('controller' => 'users', 'action' => 'create'));
         }
-
-
         $user->activation = NULL;
-        // pr($user);
-        // exit;
         if ($this->Users->updateAll(array('activation' => NULL), array('id' => $user->id))) {
             $this->Auth->setUser($user);
-            //save statistics data
-            $statisticsTable = TableRegistry::get('Statistics');
-            $statistic = $statisticsTable->newEntity();
-            $statistic->user_id = $this->Auth->user('id');
-            $statistic->type = 'user_login';
-            $statistic->created = date("Y-m-d H:i:s");
-            $statisticsTable->save($statistic);
+            //Login Event.
+            $this->eventManager()->attach(new Statistics($this));
+            $event = new Event('Model.Users.login', $this, [
+                'user_id' => $user->id
+            ]);
+            $this->eventManager()->dispatch($event);
             return $this->redirect($this->Auth->redirectUrl());
         } else {
             $this->Flash->error(__('This is embrassing, we couldn\'t save you! Please try again.'));
@@ -156,13 +154,12 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-                //save statistics data
-                $statisticsTable = TableRegistry::get('Statistics');
-                $statistic = $statisticsTable->newEntity();
-                $statistic->user_id = $this->Auth->user('id');
-                $statistic->type = 'user_login';
-                $statistic->created = date("Y-m-d H:i:s");
-                $statisticsTable->save($statistic);
+                //Login Event.
+                $this->eventManager()->attach(new Statistics($this));
+                $event = new Event('Model.Users.login', $this, [
+                    'user_id' => $user['id']
+                ]);
+                $this->eventManager()->dispatch($event);
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error(__('Your username or password is incorrect.'));

@@ -23,13 +23,13 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo ($language != 'eng') ? $this->Quiz->getLang($language) : 'International'; ?>
+                            <?php echo ($language != 'en_GB') ? $this->Quiz->getLang($language) : 'International'; ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)" class="my-language" data-value="fi"><i class="glyphicon finish"></i>&nbsp;&nbsp;&nbsp;&nbsp; <?= 'Suomi'; ?></a></li>
-                            <li><a href="javascript:void(0)" class="my-language" data-value="eng"><?= 'International'; ?></a></li>
-                            <!-- <li><a href="javascript:void(0)" class="my-language" data-value="es"><i class="glyphicon spanish"></i> <?php //echo __('Spanish'); ?></a></li> -->
+                            <li><a href="javascript:void(0)" class="my-language" data-value="fi"><i class="glyphicon finish"></i>&nbsp;&nbsp;&nbsp;&nbsp; Suomi</a></li>
+                            <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">International</a></li>
+                            <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI"><i class="glyphicon spanish"></i> Svenska (FI)</a></li>
                         </ul>
                     </li>
                 </ul>

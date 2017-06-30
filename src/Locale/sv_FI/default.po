@@ -20,54 +20,54 @@ msgstr ""
 #: View/Elements/Invoice/invoice_success_dialog.ctp:7
 #: View/User/settings.ctp:55
 msgid "UPGRADE_ACCOUNT"
-msgstr "Tilaa vuosilisenssi"
+msgstr "Beställ årslicens (29 €)"
 
 #: Controller/QuestionController.php:60
 msgid "NEW_QUESTION"
-msgstr "Uusi kysymys"
+msgstr "Ny fråga"
 
 #: Controller/UserController.php:37
 msgid "REGISTRATION_SUCCESS"
-msgstr "Uusi käyttäjätili on luotu."
+msgstr "Du har skapat ett nytt användarkonto."
 
 #: Controller/QuizController.php:104
 #: View/Quiz/edit.ctp:41
 msgid "NAME_QUIZ"
-msgstr "Nimeä testi"
+msgstr "Namnge testet"
 
 #: View/Answer/table.ctp:10
 msgid "ANSWER_TABLE"
-msgstr "Vastaustaulukko"
+msgstr "Svarstabell"
 
 #: View/Answer/table.ctp:129
 msgid "NO_SUBMISSION"
-msgstr "No Submission KÄÄNNÄ"
+msgstr "Inga svar"
 
 #: View/Answer/table.ctp:139
 #: View/Elements/Invoice/invoice_error_dialog.ctp:13
 msgid "CLOSE"
-msgstr "Sulje"
+msgstr "Stäng"
 
 #: View/Elements/navbar.ctp:20
 #: View/User/settings.ctp:7
 msgid "SETTINGS"
-msgstr "Asetukset"
+msgstr "Inställningar"
 
 #: View/Elements/navbar.ctp:23
 msgid "LOGOUT"
-msgstr "Kirjaudu ulos"
+msgstr "Logga ut"
 
 #: View/Elements/Invoice/invoice_error_dialog.ctp:10
 msgid "INVOICE_FAILED"
-msgstr "Laskun lähetys epäonnistui! Yritä uudelleen."
+msgstr "Fakturan kunde inte skickas, försök igen!"
 
 #: View/Elements/Invoice/invoice_send_dialog.ctp:10
 msgid "INVOICE_CONFIRM"
-msgstr "29€ lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat Verkkotestiin 12 kk lisää käyttöaikaa. <br/><br/>Jatketaanko?"
+msgstr "Fakturan på 29€ skickas till din e-post <br/>Genom att betala fakturan får du 12mån till användartid <br/><br/>Fortsätt?"
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "YOU_RECEIVE_INVOICE"
-msgstr "Kiitos tilauksesta, käyttäjätilisi on nyt päivitetty! Tilaamasi vuosilisenssin lasku lähetetään sähköpostiisi lähiaikoina."
+msgstr "Tack för din beställning! Fakturan sänds till din e-post så fort som möjligt. När fakturan är betald uppdateras ditt användarkonto."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
 msgid "SEPARATE_SEMICOLON"
@@ -75,41 +75,41 @@ msgstr "Oikeat vastaukset erotettuna puolipisteellä (;)"
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:26
 msgid "POINTS"
-msgstr "Pisteet"
+msgstr "Poäng"
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_manual.edit.ctp:12
 msgid "MAX_POINTS"
-msgstr "Maksimipisteet"
+msgstr "Max poäng"
 
 #: View/Elements/Quiz/edit/Handlebars/question.preview.ctp:13
 #: View/Elements/Quiz/edit/question.ctp:23
 msgid "EDIT_QUESTION"
-msgstr "Muokkaa kysymystä"
+msgstr "Redigera frågan"
 
 #: View/Elements/Quiz/edit/Handlebars/question.preview.ctp:15
 #: View/Elements/Quiz/edit/question.ctp:26
 msgid "REMOVE_QUESTION"
-msgstr "Poista kysymys"
+msgstr "Ta bort frågan"
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:10
 msgid "ENTER_QUESTION"
-msgstr "Kirjoita kysymys"
+msgstr "Skriv in frågan"
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:42
 msgid "EXPLANATION_TEXT"
-msgstr "Kysymyksen selite (vapaaehtoinen)"
+msgstr "Förklaring (frivillig)"
 
 #: View/Quiz/edit.ctp:17
 msgid "EDIT_QUIZ"
-msgstr "Testin muokkaus"
+msgstr "Redigera testet"
 
 #: View/Quiz/edit.ctp:50
 msgid "DESCRIBE_QUIZ"
-msgstr "Testin esittely (vapaaehtoinen)"
+msgstr "Presentera testet för svararna (frivillig)"
 
 #: View/Quiz/edit.ctp:86
 msgid "ADD_NEW_QUESTION"
-msgstr "Lisää kysymys"
+msgstr "Lägg till fråga"
 
 #: View/Quiz/edit.ctp:92
 #: Settings - Finnish
@@ -119,23 +119,23 @@ msgstr "Suomi"
 #: View/Quiz/finish.ctp:1
 #: View/Student/success.ctp:3
 msgid "THANK_YOU"
-msgstr "Kiitos!"
+msgstr "Tack!"
 
 #: View/Quiz/index.ctp:5
 msgid "MY_QUIZZES"
-msgstr "Omat testit"
+msgstr "Mina test"
 
 #: View/Quiz/index.ctp:16
 msgid "CREATE_NEW_QUIZ"
-msgstr "Luo uusi testi"
+msgstr "Skapa nytt test"
 
 #: View/Quiz/index.ctp:20
 msgid "UPGRADE_CREATE_QUIZZ"
-msgstr "Tilaa vuosilisenssi (29 €)"
+msgstr "Beställ årslicens (29 €)"
 
 #: View/Quiz/index.ctp:39
 msgid "GIVE_TEST"
-msgstr "Pidä testi!"
+msgstr "Behåll testet!"
 
 #: View/Quiz/index.ctp:40
 msgid "Answers "
@@ -143,15 +143,15 @@ msgstr "Katso tulokset "
 
 #: View/Quiz/index.ctp:50
 msgid "REMOVE_QUIZ"
-msgstr "Poista testi"
+msgstr "Ta bort test"
 
 #: View/Quiz/index.ctp:54
 msgid "ARCHIVE_QUIZ"
-msgstr "Arkistoi testi"
+msgstr "Arkivera testet"
 
 #: View/Quiz/index.ctp:58
 msgid "ACTIVATE_QUIZ"
-msgstr "Aktivoi testi"
+msgstr "Aktivera testet"
 
 #: View/Quiz/live.ctp:8
 msgid "Quiz: "
@@ -159,121 +159,121 @@ msgstr " "
 
 #: View/Quiz/live.ctp:30
 msgid "FIRST_NAME"
-msgstr "Etunimi"
+msgstr "Förnamn"
 
 #: View/Quiz/live.ctp:37
 msgid "LAST_NAME"
-msgstr "Sukunimi"
+msgstr "Efternamn"
 
 #: View/Quiz/live.ctp:44
 msgid "CLASS"
-msgstr "Luokka"
+msgstr "Grupp"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Lähetä vastauksesi?"
+msgstr "Skicka in svaren?"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
-msgstr "Lue QR-koodi mobiililaitteella"
+msgstr "Läs QR-kod med din mobilapparat"
 
 #: View/Quiz/present.ctp:6
 msgid "OR"
-msgstr "TAI"
+msgstr "ELLER"
 
 #: View/Quiz/present.ctp:7
 msgid "SURF_WEB_ADDRESS"
-msgstr "surffaa osoitteeseen:"
+msgstr "surfa till adressen:"
 
 #: View/Student/success.ctp:1
 msgid "SUCCESS"
-msgstr "Onnistui!"
+msgstr "Det lyckades!"
 
 #: View/Student/success.ctp:4
 msgid "YOUR_ANSWERS_SUBMITTED"
-msgstr "Vastauksesi on lähetetty."
+msgstr "Svaret/svaren har sänts in."
 
 #: View/User/create.ctp:5
 msgid "CREATE_ACCOUNT"
-msgstr "Luo ilmainen käyttäjätili"
+msgstr "Skapa gratis användarkonto"
 
 #: View/User/create.ctp:45
 msgid "CREATE_ACCOUNT_LOG_IN"
-msgstr "Luo tili ja kirjaudu sisään"
+msgstr "Skapa användarkonto och logga in"
 
 #: View/User/login.ctp:2;40
 msgid "LOGGIN"
-msgstr "Kirjaudu sisään"
+msgstr "Logga in"
 
 #: View/User/login.ctp:22
 #: View/User/settings.ctp:36
 msgid "EMAIL"
-msgstr "Sähköpostiosoite"
+msgstr "E-post"
 
 #: View/User/login.ctp:18
 #: View/User/settings.ctp:45
 msgid "PASSWORD"
-msgstr "Salasana"
+msgstr "Lösenord"
 
 #: View/User/login.ctp:46
 msgid "Register"
-msgstr "Luo ilmainen käyttäjätili"
+msgstr "Skapa gratis användarkonto"
 
 #: View/User/login.ctp:59
 msgid "REGISTER_NOW"
-msgstr "Luo ilmainen käyttäjätili!"
+msgstr "Skapa gratis användarkonto!"
 
 #: View/User/settings.ctp:26
 msgid "NAME"
-msgstr "Nimi"
+msgstr "Namn"
 
 #: View/User/settings.ctp:46
 msgid "FILL_CHANGE_PASSWORD"
-msgstr "Kirjoita uusi salasana"
+msgstr "Skriv in nytt lösenord"
 
 #: View/User/settings.ctp:80
 msgid "SAVE"
-msgstr "Tallenna"
+msgstr "Spara"
 
 #: View/User/settings.ctp:86
 msgid "CANCEL"
-msgstr "Peruuta"
+msgstr "Avbryt"
 
 #: Model/Quiz.php:validation for field name
 msgid "QUIZ_NAME_ALPHANUMERIC"
-msgstr "Testin nimessä saa olla vain kirjaimia tai numeroita."
+msgstr "Testets namn får endast innehålla bokstäver och siffror"
 
 #: Model/Quiz.php:construct
 msgid "ACTIVE_QUIZZES"
-msgstr "Aktiiviset testit"
+msgstr "Aktivera testet"
 
 #: Model/Quiz.php:construct
 msgid "ARCHIVED_QUIZZES"
-msgstr "Arkistoidut testit"
+msgstr "Arkiverade test"
 
 #: Model/Quiz.php:construct
 msgid "ALL_QUIZ"
-msgstr "Kaikki testit"
+msgstr "Alla test"
 
 #: Model/Student.php:validation for field fname;validation for field lname
 msgid "INVALID_NAME"
-msgstr "Virheellinen nimi"
+msgstr "Felaktigt namn"
 
 #: Model/User.php:validation for field name
 msgid "NAME_CONTAINS_INVALID_CHAR"
-msgstr "Nimi sisältää virheellisiä merkkejä"
+msgstr "Namnet innehåller felaktiga tecken"
 
 #: Model/User.php:validation for field email
 msgid "INVALID_EMAIL"
-msgstr "Virheellinen email"
+msgstr "Felaktig e-post"
 
 #: Model/User.php:validation for field email
 msgid "EMAIL_REGISTERED"
-msgstr "Email-osoite on jo rekisteröity"
+msgstr "E-post redan registrerad"
 
 #: Model/User.php:validation for field password
 msgid "PASSWORD_MUST_BE_LONGER"
-msgstr "Salasanassa on oltava vähintään 8 merkkiä"
+msgstr "Lösenordet måste innehålla minst 8 tecken"
 
 #: Plugin/Recaptcha/Controller/Component/RecaptchaComponent.php:111
 msgid "You must set your private Recaptcha key using Configure::write('Recaptcha.privateKey', 'your-key');!"
@@ -285,7 +285,7 @@ msgstr ""
 
 #: Plugin/Recaptcha/Controller/Component/RecaptchaComponent.php:162
 msgid "INCORRECT_CAPTCHA"
-msgstr "Virheellinen captcha-teksti"
+msgstr "Felaktig captcha-text"
 
 #: Plugin/Recaptcha/View/Helper/RecaptchaHelper.php:185
 msgid "To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed."
@@ -298,15 +298,15 @@ msgstr "You need to set a private and public mail hide key. Please visit http://
 #: View/Errors/error400.ctp:19
 #: View/Errors/error500.ctp:19
 msgid "ERROR"
-msgstr "Virhe"
+msgstr "Fel"
 
 #: View/Errors/error400.ctp:21
 msgid "The requested address %s was not found on this server."
-msgstr "Osoitetta %s ei löytynyt palvelimelta."
+msgstr "Adressen %s kunde inte hittas på servern."
 
 #: View/Errors/error500.ctp:20
 msgid "INTERNAL_ERROR"
-msgstr "Ohjelmistovirhe"
+msgstr "Programfel"
 
 #: View/Layouts/error.ctp:17
 msgid "CakePHP: the rapid development php framework"
@@ -318,63 +318,63 @@ msgstr "Debug setting does not allow access to this url."
 
 #: Question type description
 msgid "Multiple choice - One correct"
-msgstr "Monivalinta - Yksi oikea"
+msgstr "Flerval - Ett rätt svar"
 
 #: Question type description
 msgid "Short Text - Automatic rating"
-msgstr "Lyhyt Teksti - Automaattinen pisteytys"
+msgstr "Kort text - Automatisk poängsättning"
 
 #: Question type description
 msgid "Multiple choice - Many correct"
-msgstr "Monivalinta - Monta oikeaa"
+msgstr "Flerval - Många rätta svar"
 
 #: Question type description
 msgid "Short Text - Manual rating"
-msgstr "Lyhyt Teksti - Pisteytys käsin"
+msgstr "Kort text - Manuell poängsättning"
 
 #: Question type description
 msgid "Essay"
-msgstr "Essee"
+msgstr "Essä"
 
 #: Adding a new multiple choice
 msgid "ADD_CHOICE"
-msgstr "Lisää vaihtoehto"
+msgstr "Lägg till alternativ"
 
 #: A placeholder for an empty choice textbox
 msgid "CHOICE"
-msgstr "Vastaus"
+msgstr "CHOICE"
 
 #: Error when creating quiz without a name
 msgid "QUIZ_NAME_REQUIRED"
-msgstr "Lisää testin nimi"
+msgstr "Lägg till testets namn"
 
 #: Delete quiz dialog - delete
 msgid "DELETE"
-msgstr "Poista"
+msgstr "Ta bort"
 
 #: Answer table - no answer
 msgid "NOT_ANSWERED"
-msgstr "Ei vastattu"
+msgstr "Inte svarat"
 
 #: Answer table - TOTAL_POINTS
 msgid "TOTAL_POINTS"
-msgstr "Yhteispisteet"
+msgstr "Poäng totalt"
 
 #: Answer table - TIMESTAMP
 msgid "TIMESTAMP"
-msgstr "Ajankohta"
+msgstr "Tidpunkt"
 
 #: Answer table - Overview
 msgid "OVERVIEW"
-msgstr "Yhteenveto"
+msgstr "Sammandrag"
 
 #: Answer table - Answers
 msgid "ANSWERS"
-msgstr "Vastaukset"
+msgstr "Svar"
 
 #: Answer table - Back
 msgid "BACK"
-msgstr "Takaisin"
+msgstr "Tillbaka"
 
 #: Answer table - Back
 msgid "ALL"
@@ -382,127 +382,127 @@ msgstr "Alla"
 
 #: Answer table - Back
 msgid "TODAY"
-msgstr "Tänään"
+msgstr "Idag"
 
 #: Answer table - Back
 msgid "THIS_YEAR"
-msgstr "Tänä vuonna"
+msgstr "Det här året"
 
 #: Answer table - Back
 msgid "THIS_MONTH"
-msgstr "Tässä kuussa"
+msgstr "Den här månaden"
 
 #: Answer table - Back
 msgid "THIS_WEEK"
-msgstr "Tällä viikolla"
+msgstr "Den här veckan"
 
 #: Answer table - Back
 msgid "RATE"
-msgstr "Arvioi!"
+msgstr "Bedöm!"
 
 #: Settings - Language
 msgid "LANGUAGE"
-msgstr "Kieli"
+msgstr "Språk"
 
 #: My Quizzes - Settings notification
 msgid "SETTINGS_SAVED"
-msgstr "Asetukset on tallennettu"
+msgstr "Inställningarna har sparats"
 
 #: Remove choice
 msgid "REMOVE_CHOICE"
-msgstr "Poista vaihtoehto"
+msgstr "Ta bort alternativ"
 
 #: Remove answer
 msgid "REMOVE_ANSWER"
-msgstr "Poista vastaus"
+msgstr "Ta bort svar"
 
 #: Controller/QuizController.php:127
 msgid "NO_EMPTY_QUESTION"
-msgstr "Kirjoita kysymys."
+msgstr "Skriv fråga."
 
 #: Controller/QuizController.php:128
 msgid "EMPTY_OR_SAME_NOT_ALLOWED"
-msgstr "Älä käytä täsmälleen samoja tai kokonaan tyhjiä vastausvaihtoehtoja."
+msgstr "Använd inte identiska eller tomma svarsalternativ"
 
 #: Controller/QuizController.php:129
 msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "Ainakin yhden vaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Åtminstone ett alternativs poängsättning måste vara större än 0."
 
 #: Controller/QuizController.php:130
 msgid "ENTER_CORRECT_ANSWERS"
-msgstr "Kirjoita oikeat vastausvaihtoehdot pilkulla erotettuna."
+msgstr "Skriv in rätta svar, skilj åt flera svarsalternativ med kommatecken"
 
 #: Controller/QuizController.php:131
 msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "Ainakin yhden vaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Åtminstone ett alternativs poängsättning måste vara större än 0."
 
 #: Controller/QuizController.php:132
 msgid "TWO_CHOICES_GREATER_THAN_ZERO"
-msgstr "Ainakin kahden vastausvaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Åtminstone två alternativs poängsättning måste vara större än 0."
 
 #: Controller/QuizController.php:133
 msgid "CHOOSE_ANOTHER_CHOOSE"
-msgstr "Valitse vielä toinen vastausvaihtoehto, jonka pisteytys on suurempi kuin 0."
+msgstr "Välj ett till svarsalternativ vars poäng är större än 0."
 
 #: Controller/QuizController.php:251
 msgid "SURELY_REMOVE"
-msgstr "Haluatko varmasti poistaa "
+msgstr "Är du säker att du vill ta bort? "
 
 #: Controller/QuizController.php:252
 msgid "ANSWER_WITH_POINTS"
-msgstr ") vastaus pisteillä "
+msgstr ") svara med poäng "
 
 #: Controller/QuizController.php:253
 msgid "GIVE_POSITIVE_NUMBER"
-msgstr "Anna luku joka on suurempi kuin nolla."
+msgstr "Ange ett tal som är större än 0"
 
 #: Controller/QuizController.php:254
 msgid "SCORE_NOT_UPDATED"
-msgstr "Et päivittänyt pisteitä."
+msgstr "Du har inte ännu uppdaterat poängen."
 
 #: Controller/QuizController.php:255
 msgid "POINTS_NOT_ALLOWED"
-msgstr "Pistemäärä ei voi olla suurempi kuin "
+msgstr "Poängsumman kan inte vara större än "
 
 #: Controller/QuizController.php:256
 msgid "VALUE"
-msgstr " pistemäärä"
+msgstr " poäng"
 
 #: View/Elements/Answer/confirm_delete.ctp:5
 msgid "REMOVE_ANSWER_QUESTION_MARK"
-msgstr "Poista vastaus?"
+msgstr "Ta bort svar?"
 
 #: View/Elements/Answer/confirm_delete.ctp:12
 msgid "CONFIRM"
-msgstr "Vahvista"
+msgstr "Bekräfta"
 
 #: Menu item Help
 msgid "HELP"
-msgstr "Apua"
+msgstr "Hjälp"
 
 #: Menu item Help
 msgid "CREATE_HELP"
-msgstr "Luo apua"
+msgstr "Skapa hjälp"
 
 #: Menu item Help
 msgid "NOT_ACCOUNT"
-msgstr "Ei vielä tunnuksia?"
+msgstr "Har du inget användarkonto?"
 
 #: View/Helps/index.ctp:13
 msgid "GETTING_STARTED"
-msgstr "Aloittaminen"
+msgstr "Börja här"
 
 #: View/Helps/index.ctp:16
-msgid "USE_SCENARIOS"
-msgstr "Käyttötapoja"
+msgid "Use scenarios"
+msgstr "Olika användarsätt"
 
 #: View/Helps/admin_titles.ctp:5
 msgid "MAIN_TITLE_LIST"
-msgstr "Pääotsikkolista"
+msgstr "Lista på huvudrubriker"
 
 #: View/Helps/admin_titles.ctp:6
 msgid "NEW_MAIN_TITLE"
-msgstr "Uusi pääotsikko"
+msgstr "Ny huvudrubrik"
 
 #: View/Helps/admin_titles.ctp:7
 msgid "HELPS_LIST"
@@ -510,7 +510,7 @@ msgstr "Videolista"
 
 #: View/Helps/admin_titles.ctp:8
 msgid "NEW_HELP"
-msgstr "Luo uusi video"
+msgstr "Skapa ny video"
 
 #: View/Helps/admin_titles.ctp:21
 msgid "id"
@@ -518,23 +518,23 @@ msgstr "id"
 
 #: View/Helps/admin_titles.ctp:22
 msgid "MAIN_TITLE"
-msgstr "Pääotsikko"
+msgstr "Huvudrubrik"
 
 #: View/Helps/admin_titles.ctp:23
 msgid "CREATED"
-msgstr "Luotu"
+msgstr "Skapad"
 
 #: View/Helps/admin_titles.ctp:24
 msgid "SORT"
-msgstr "Järjestä"
+msgstr "Sortera"
 
 #: View/Helps/admin_titles.ctp:25
 msgid "STATUS"
-msgstr "Tila"
+msgstr "Status"
 
 #: View/Helps/admin_titles.ctp:26
 msgid "ACTION"
-msgstr "Suorita"
+msgstr "Kör"
 
 #: View/Helps/admin_titles.ctp:41
 msgid "On"
@@ -542,7 +542,7 @@ msgstr "On"
 
 #: View/Helps/admin_titles.ctp:41
 msgid "Confirm inactive title %s?"
-msgstr "Vahvista otsikon arkistointi: %s?"
+msgstr "Bekräfta rubrik för: %s?"
 
 #: View/Helps/admin_titles.ctp:43
 msgid "Off"
@@ -550,19 +550,19 @@ msgstr "Off"
 
 #: View/Helps/admin_titles.ctp:43
 msgid "Confirm active title %s?"
-msgstr "Vahvista otsikon aktivointi: %s?"
+msgstr "Bekräfta aktivering av rubriken: %s?"
 
 #: View/Helps/admin_titles.ctp:47
 msgid "EDIT"
-msgstr "Muokkaa"
+msgstr "Redigera"
 
 #: View/Helps/admin_index.ctp:27
 msgid "TITLE"
-msgstr "Otsikko"
+msgstr "Rubrik"
 
 #: View/Helps/admin_index.ctp:28
 msgid "SUB_TITLE"
-msgstr "Alaotsikko"
+msgstr "Underrubrik"
 
 #: View/Helps/admin_index.ctp:30
 msgid "Url"
@@ -574,19 +574,19 @@ msgstr "Kirjoita pääotsikko"
 
 #: View/Helps/admin_add.ctp:37
 msgid "BACK"
-msgstr "Takaisin"
+msgstr "Tillbaka"
 
 #: View/Helps/admin_insert.ctp:31
 msgid "SELECT_ONE"
-msgstr "Valitse yksi"
+msgstr "Välj en/ett"
 
 #: View/Helps/admin_insert.ctp:32
 msgid "INSERT_HELP_TITLE"
-msgstr "Kirjoita videon otsikko"
+msgstr "Skriv videons rubrik"
 
 #: View/Helps/admin_insert.ctp:33
 msgid "INSERT_HELP_SUB_TITLE"
-msgstr "Kirjoita videon alaotsikko"
+msgstr "Skriv videons underrubrik"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "YOUTUBE_URL"
@@ -594,426 +594,426 @@ msgstr "Youtube url"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "INSERT_YOUTUBE_URL_HERE"
-msgstr "Kirjoita videon Youtube url"
+msgstr "Please insert youtube video url here"
 
 #: Controller/HelpsController.php:117
 msgid "EDIT_MAIN_TITLE"
-msgstr "Muokkaa pääotsikkoa"
+msgstr "Redigera huvudrubrik"
 
 #: Controller/HelpsController.php:125
 msgid "TITLE_SAVED"
-msgstr "Otsikko tallennettu"
+msgstr "Rubriken är sparad"
 
 #: Controller/HelpsController.php:132
 msgid "TITLE_FAILED"
-msgstr "Otsikon tallentaminen epäonnistui!"
+msgstr "Rubriken sparades inte!"
 
 #: Controller/HelpsController.php:146
 msgid "TITLE_NOT_FOUND"
-msgstr "Otsikkoa ei löytynyt"
+msgstr "Rubriken kunde inte hittas"
 
 #: Controller/HelpsController.php:170
 msgid "CAN_NOT_DELETE"
-msgstr "Ei voida poistaa"
+msgstr "Kan inte ta bort"
 
 #: Controller/HelpsController.php:38
 msgid "EDIT_HELP"
-msgstr "Muokkaa videota"
+msgstr "Redigera video"
 
 #: Controller/HelpsController.php:59
 msgid "HELP_SAVED"
-msgstr "Video tallennettu"
+msgstr "Videon är sparad"
 
 #: Controller/HelpsController.php:66
 msgid "HELP_SAVE_FAIL"
-msgstr "Videon tallentaminen epäonnistui!"
+msgstr "Videon är inte sparad!"
 
 #: Controller/HelpsController.php:80
 msgid "HELP_NOT_FOUND"
-msgstr "Videota ei löytynyt!"
+msgstr "Videon kan inte hittas!"
 
 #: Controller/HelpsController.php:80
 msgid "SORT_FAILED"
-msgstr "Lajittelu epäonnistui!"
+msgstr "Sortering misslyckades!"
 
 #: Model/Help.php:validation for field title
 msgid "TITLE_REQUIRED"
-msgstr "Otsikko on pakollinen"
+msgstr "Rubrik behövs"
 
 #: Model/Help.php:validation for field parent_id
 msgid "MAIN_TITLE_REQUIRED"
-msgstr "Pääotsikko on pakollinen"
+msgstr "Huvudrubrik behövs"
 
 #: Model/Help.php:validation for field url notempty
 msgid "YOUTUBE_URL_REQUIRED"
-msgstr "Youtube url on pakollinen"
+msgstr "Youtube url behövs"
 
 #: Model/Help.php:validation for field url website
 msgid "REQUIRED_YOUTUBE_URL"
-msgstr "Validi Youtube url on pakollinen"
+msgstr "Valid Youtube url behövs"
 
 #: Controller/QuizController.php:196
 msgid "CONNECTION_LOST"
-msgstr "Verkkoyhteytesi on katkennut. Yritä uudelleen."
+msgstr "Nätkontakten har brutits. Försök igen."
 
 #: Controller/QuizController.php:197
 msgid "ALL_QUESTIONS_ANSWERED"
-msgstr "Vastasit kaikkiin kysymyksiin. Lähetä vastauksesi?"
+msgstr "Du har svarat på alla frågor. Vill du skicka in svaren?"
 
 #: Controller/QuizController.php:198
 msgid "QUESTIONS"
-msgstr "Kysymykset "
+msgstr "Frågor "
 
 #: Controller/QuizController.php:199
 msgid "UNANSWERED"
-msgstr "  vastaamatta."
+msgstr "  obesvarad(e)."
 
 #: Controller/QuizController.php:200
 msgid "WANT_TURN_IN_QUIZ"
-msgstr " Lähetä vastauksesi?"
+msgstr " Skicka in svaren?"
 
 #: Controller/QuizController.php:201
 msgid "FIRST_NAME_REQUIRED"
-msgstr "Etunimi on pakollinen"
+msgstr "Förnamn krävs"
 
 #: Controller/QuizController.php:202
 msgid "LAST_NAME_REQUIRED"
-msgstr "Sukunimi on pakollinen"
+msgstr "Efternamn krävs"
 
 #: Controller/QuizController.php:203
 msgid "CLASS_REQUIRED"
-msgstr "Luokka on pakollinen"
+msgstr "Grupp krävs"
 
 #: Controller/QuizController.php:204
 msgid "INVALID_LAST_NAME"
-msgstr "Virheellinen sukunimi"
+msgstr "Felaktigt efternamn"
 
 #: Controller/QuizController.php:205
 msgid "INVALID_FIRST_NAME"
-msgstr "Virheellinen etunimi"
+msgstr "Felaktigt förnamn"
 
 #: Controller/QuizController.php:206
 msgid "INVALID_CLASS"
-msgstr "Virheellinen luokka"
+msgstr "Felaktig klass"
 
 #: added - 
 msgid "LOGGED_OUT"
-msgstr "Olet kirjautunut ulos"
+msgstr "Du har loggat ut."
 
 #: Controller/UsersController.php:269
 msgid "USERNAME_OR_PASSWORD_INCORRECT"
-msgstr "Käyttäjätunnuksesi tai salasanasi on virheellinen"
+msgstr "Your username or password is incorrect."
 
 #: Controller/UsersController.php:104
 msgid "NO_DIRECT_ACCESS_PAGE"
-msgstr "Sivulle ei voitu palata"
+msgstr "No direct access to this page!"
 
 #: added - 
 msgid "ALL_TIME"
-msgstr "Kaikki ajat"
+msgstr "Alla tider"
 
 #: View/Elements/page-navbar.ctp:9
 msgid "NAVIGATION"
-msgstr "Valikko"
+msgstr "Meny"
 
 #: View/Elements/page-navbar.ctp:19
 #: View/Pages/prices.ctp:6
 msgid "PRICES"
-msgstr "Hinnat"
+msgstr "Priser"
 
 #: View/Elements/page-navbar.ctp:20
 #: View/Pages/contact.ctp:6
 msgid "CONTACT"
-msgstr "Ota yhteyttä"
+msgstr "Ta kontakt"
 
 #: View/Pages/contact.ctp:12
 msgid "GET_TOUCH"
-msgstr "Ota yhteyttä"
+msgstr "Ta kontakt"
 
 #: View/Pages/contact.ctp:16
 msgid "YOUR_EMAIL"
-msgstr "Email-osoitteesi"
+msgstr "Din e-postadress"
 
 #: View/Pages/contact.ctp:22
 #: View/Emails/html/inquary.ctp:3
 msgid "MESSAGE"
-msgstr "Viesti"
+msgstr "Meddelande"
 
 #: View/Pages/contact.ctp:29
 msgid "SEND_MESSAGE"
-msgstr "Lähetä viesti"
+msgstr "Skicka meddelande"
 
 #: Controller/PagesController.php:104
 msgid "WELCOME_VERKKOTESTI"
-msgstr "Sähköinen koe oppilaiden omilla kännyköillä, läppäreillä ja tableteilla | Verkkotesti.fi"
+msgstr "Elektroniskt prov med elevernas egna mobiler, bärbara datorer eller pekplattor | Verkkotesti.fi"
 
 #: Controller/PagesController.php:72
 #: Controller/PagesController.php:81
 #: Controller/UserController.php:160
 msgid "REQUIRE_EMAIL"
-msgstr "Email-osoite vaaditaan"
+msgstr "E-postadress krävs"
 
 #: Controller/PagesController.php:74
 msgid "REQUIRE_MESSAGE"
-msgstr "Viesti vaaditaan"
+msgstr "Meddelande krävs"
 
 #: View/Pages/prices.ctp:7
 msgid "SELECT_PACKAGE"
-msgstr "Valitse sopiva paketti."
+msgstr "Välj lämpligt paket."
 
 #: View/Pages/prices.ctp:14
 msgid "FREE"
-msgstr "Ilmainen <br />kokeilutili"
+msgstr "Gratis <br />testkonto"
 
 #: View/Pages/prices.ctp:15
 msgid "19_EUR"
-msgstr "29 €/v"
+msgstr "19 €/år"
 
 #: View/Pages/prices.ctp:20
 msgid "USERS"
-msgstr "Käyttäjät"
+msgstr "Användare"
 
 #: View/Pages/prices.ctp:25
 msgid "TESTS"
-msgstr "Testit"
+msgstr "Test"
 
 #: View/Pages/prices.ctp:27
 msgid "UNLIMITED"
-msgstr "Rajoittamaton"
+msgstr "Obegränsad"
 
 #: View/Pages/prices.ctp:30
 msgid "STUDENTS_TEST"
-msgstr "Käyttöpäivät"
+msgstr "Studerande/Test /Käyttöpäivät"
 
 #: View/Pages/prices.ctp:37
 msgid "BUY"
-msgstr "Osta nyt"
+msgstr "Köp nu"
 
 #: View/Elements/Page/buy_modal.ctp:5
 msgid "CREATE_ACCOUNT_BUY"
-msgstr "Luo tili ja osta (saat laskun sähköpostiisi)"
+msgstr "Skapa konto och köp (faktura per e-post)"
 
 #: View/Elements/Page/buy_modal.ctp:10
 msgid "ALREADY_REGISTERED"
-msgstr "Oletko jo luonut tilin?"
+msgstr "Har du redan skapat konto?"
 
 #: View/Elements/Page/buy_modal.ctp:12
 msgid "LOG_IN_BUY"
-msgstr "Kirjaudu sisään ja osta"
+msgstr "Logga in och köp"
 
 #: View/Elements/Page/buy_modal.ctp:15
 #: View/User/login.ctp:63
 msgid "RECOVER_PASSWORD"
-msgstr "Nollaa salasana"
+msgstr "Återställ lösenord"
 
 #: View/Elements/Page/buy_modal.ctp:34
 msgid "ENTER_YOUR_NAME"
-msgstr "Kirjoita nimesi (Etunimi Sukunimi)"
+msgstr "Skriv ditt namn (Förnamn Efternamn)"
 
 #: View/Elements/Page/buy_modal.ctp:38
 msgid "ENTER_VALID_EMAIL"
-msgstr "Kirjoita email-osoitteesi"
+msgstr "Skriv din e-postadress"
 
 #: View/Elements/Page/buy_modal.ctp:43
 msgid "ENTER_PASSWORD"
-msgstr "Kirjoita salasana"
+msgstr "Skriv lösenord"
 
 #: View/Elements/Page/buy_modal.ctp:51
 #: View/User/create.ctp:43
-msgid "PASSWORD_VERIFY"
-msgstr "Salasana uudestaan"
+msgid "PASSWORD_VERIFY
+msgstr "Lösenord på nytt"
 
 #: View/Elements/Page/buy_modal.ctp:59
 msgid "SUBMIT"
-msgstr "Lähetä"
+msgstr "Skicka"
 
 #: Controller/PagesController.php:79
 msgid "REQUIRE_NAME"
-msgstr "Nimi vaaditaan"
+msgstr "Namn krävs"
 
 #: Controller/PagesController.php:84
 msgid "REQUIRE_PASSWORD"
-msgstr "Salasana vaaditaan"
+msgstr "Lösenord krävs"
 
 #: Controller/PagesController.php:83
 msgid "EMAIL_REGISTERED"
-msgstr "Email-osoite on jo rekisteröity"
+msgstr "E-post redan registrerad"
 
 #: Controller/PagesController.php:85
 msgid "PASSWORD_NOT_MATCH"
-msgstr "Salasanat ovat erilaiset. Kirjoita uudestaan, kiitos!"
+msgstr "Lösenorden är olika. Försök igen, tack!"
 
 #: Controller/UserController.php:250
 msgid "REGISTRATION_SUCCESS_WILL_CONTACT"
-msgstr "Rekisteröinti onnistui. Saat lähiaikoina laskun sähköpostiisi, jonka maksamalla tili päivittyy."
+msgstr "Registreringen lyckades. Fakturan sänds till din e-post inom kort. När fakturan är betald uppdateras kontot."
 
 #: View/User/login.ctp:62
 msgid "FORGOT_PASSWORD"
-msgstr "Unohditko salasanasi?"
+msgstr "Har du glömt lösenordet?"
 
 #: View/User/password_recover.ctp:23
 msgid "ENTER_YOUR_EMAIL"
-msgstr "Kirjoita email-osoitteesi"
+msgstr "Skriv din e-postadress"
 
 #: View/User/password_recover.ctp:27
 msgid "SEND_REQUEST"
-msgstr "Lähetä"
+msgstr "Skicka"
 
 #: Controller/UserController.php:162
 msgid "EMAIL_NOT_REGISTERED"
-msgstr "Email-osoitetta ei ole rekisteröity"
+msgstr "E-postadressen är inte ännu registrerad"
 
 #: Controller/UserController.php:148
 msgid "RESET_PASSWORD"
-msgstr "Nollaa Verkkotesti-tilin salasanasi"
+msgstr "Återställ ditt lösenord för Verkkotesti-kontot"
 
 #: Controller/UserController.php:150
 msgid "REQUEST_RECEIVED_CHECK_EMAIL"
-msgstr "Pyyntösi on vastaanotettu. Tarkista sähköpostisi."
+msgstr "Din begäran har mottagits. Kontrollera din e-post."
 
 #: Controller/UserController.php:152
 msgid "SOMETHING_WENT_WRONG"
-msgstr "Auts, jokin meni vikaan.. Yritä myöhemmin uudelleen."
+msgstr "Oj, något gick fel. Försök igen senare."
 
 #: View/Emails/html/inquary.ctp:1
 msgid "GENERAL_INQUERY"
-msgstr "Tiedustelu"
+msgstr "Förfrågan"
 
 #: View/Emails/html/inquary.ctp:2
 msgid "SENDER_EMAIL"
-msgstr "Lähettäjän email-osoite"
+msgstr "Avsändarens e-postadress"
 
 #: Controller/UserController.php:120
 msgid "EMAIL_SENT"
-msgstr "Viestisi on lähetetty."
+msgstr "Ditt meddelande har skickats"
 
 #: View/Emails/html/invoice.ctp:1
 msgid "INVOICE"
-msgstr "Lasku"
+msgstr "Faktura"
 
 #: View/Emails/html/reset_password.ctp:1
 msgid "PASSWORD_RESET"
-msgstr "Salasanan nollaaminen"
+msgstr "Återställ lösenord"
 
 #: View/Emails/html/reset_password.ctp:2
 msgid "RESET_PASSWORD_CLICK"
-msgstr "Salasanan nollaamiseksi klikkaa alla olevaa linkkiä tai liitä linkki selaimesi osoiteriville."
+msgstr "För att återställa lösenord, klicka på länken här under eller klistra in länken på webbläsarens adressrad."
 
 #: View/Emails/html/reset_password.ctp:4
 msgid "IF_NOT_SENT_IGNORE"
-msgstr "Jos et halua vaihtaa salasanaasi, voit poistaa tämän viestin."
+msgstr "Om du inte vill återställa lösenordet, kan du radera detta meddelande."
 
 #: View/Pages/index.ctp:3
 msgid "WEB_TEST_ENABLES_TEACHER"
-msgstr "Pidä testit oppilaillesi"
+msgstr "Testa dina elever på nätet"
 
 #: View/Pages/index.ctp:4
 msgid "GIVE_QUIZ_QUICKLY_EASILY"
-msgstr "nopeasti ja helposti heidän"
+msgstr "snabbt och enkelt"
 
 #: View/Pages/index.ctp:4
 msgid "WITH_THEIR"
-msgstr " "
+msgstr "med deras "
 
 #: View/Pages/index.ctp:4
 msgid "MOBILE_PHONES"
-msgstr "omilla kännyköillään."
+msgstr "egna mobiler"
 
 #: View/Pages/index.ctp:12
 msgid "THIS_IS_HOW_IT_WORKS"
-msgstr "Näin se toimii:"
+msgstr "Så funkar det:"
 
 #: View/Pages/index.ctp:16
 msgid "1_CREATE_TEST"
-msgstr "1) Luo testi"
+msgstr "1) Skapa testet"
 
 #: View/Pages/index.ctp:17
 msgid "CREATE_TEST_WITH_QUESTIONS"
-msgstr "Testissä voi käyttää eri kysymystyyppejä<br/>kuten monivalinta, avoin kysymys tai essee."
+msgstr "Testet kan ha flera typers frågor,<br/>såsom flerval, öppna frågor eller essäer."
 
 #: View/Pages/index.ctp:20
 msgid "2_GIVE_TEST"
-msgstr "2) Pidä testi"
+msgstr "2) Håll test"
 
 #: View/Pages/index.ctp:21
 msgid "LET_STUDENT_ATTEND"
-msgstr "Oppilaat voivat osallistua kännykällä, <br /> tabletilla, läppärillä tai pöytäkoneella."
+msgstr "Eleverna kan delta med mobiltelefon,<br />pekskärm, bärbar dator eller bordsdator."
 
 #: View/Pages/index.ctp:24
 msgid "3_CHECK_RESULT"
-msgstr "3) Katso tulokset"
+msgstr "3) Kontrollera resultat"
 
 #: View/Pages/index.ctp:24
 msgid "CHECK_RESULTS_SOON_ATTENDED"
-msgstr "Ohjelma korjaa soveltuvat <br /> tehtävät automaattisesti."
+msgstr "Programmet rättar automatiskt de uppgifter<br/>som lämpar sig för det."
 
 #: Controller/QuizController.php:392
 msgid "QUIZ_DELETED"
-msgstr "Testi on poistettu."
+msgstr "Testet är raderat."
 
 #: Controller/UserController.php:67
 msgid "REQUIRE_CAPTCHA"
-msgstr "Captcha vaaditaan"
+msgstr "Captcha krävs"
 
 #: Controller/QuizController.php:59
 msgid "THERE_ARE"
-msgstr "Testiin on saapunut"
+msgstr "Det finns"
 
 #: Controller/QuizController.php:60
 msgid "ANSWERS_COMMA"
-msgstr " vastausta, "
+msgstr " svar, "
 
 #: Controller/QuizController.php:61
 msgid "STUDENTS_AND"
-msgstr " oppilasta ja "
+msgstr " elever och "
 
 #: Controller/QuizController.php:62
 msgid "SURELY_DELETE"
-msgstr " kysymystä. Tätä ei voi peruuttaa. Haluatko varmasti poistaa kyselyn?"
+msgstr " frågor. Detta går inte att ångra. Är du säker att du vill radera testet?"
 
 #: Controller/QuizController.php:63
 msgid "DELETE_QUIZ"
-msgstr "Poista kysely "
+msgstr "Radera test "
 
 #: Menu item Site Videos
 msgid "SITE_VIDEOS"
-msgstr "Esittelysivuston videot"
+msgstr "Presentationssidornas videor"
 
 #: View/User/create.ctp:69
 msgid "ENTER_RESULT"
-msgstr "Kirjoita summa"
+msgstr "Skriv in summan"
 
 #: Controller/UserController.php:51
 msgid "INCORRECT_CALCULATION"
-msgstr "Hups! Yhteenlaskun tulos oli väärin - yritä uudelleen. (Tällä varmistetaan, että et ole robotti.)"
+msgstr "Hoppsan! Summan blev fel - räkna igen. (Detta intygar att du inte är en robot.)"
 
 #: Controller/HelpsController.php:160
 msgid "CREATE_SITE_VIDEO"
-msgstr "Luo uusi video"
+msgstr "Skapa ny video"
 
 #: Controller/HelpsController.php:162
 msgid "EDIT_SITE_VIDEO"
-msgstr "Muokkaa videota"
+msgstr "Redigera video"
 
 #: Controller/HelpsController.php:183
 msgid "VIDEOS_SAVED"
-msgstr "Videon tiedot tallennettu."
+msgstr "Videons uppgifter sparade."
 
 #: Controller/HelpsController.php:183
 msgid "VIDEO_SAVE_FAIL"
-msgstr "Videon tallennus epäonnistui!"
+msgstr "Videon sparades inte!"
 
 #: Model/Help.php:validation for field type
 msgid "DISPLAY_PAGE_REQUIRED"
-msgstr "Sivun valinta vaaditaan"
+msgstr "Sidval krävs"
 
 #: Model/Help.php:9
 msgid "HOME_PAGE"
-msgstr "Etusivu"
+msgstr "Hemsida"
 
 #: Model/Help.php:9
 msgid "USER_CREATE_PAGE"
-msgstr "Tunnuksen luontisivu"
+msgstr "Registreringssida"
 
 #: Controller/HelpsController.php:231
 msgid "VIDEO_LIST"
@@ -1022,91 +1022,91 @@ msgstr "Videolista"
 #: View/Helps/admin_create.ctp:13
 #: View/Helps/admin_videos.ctp:11
 msgid "CREATE_VIDEOS"
-msgstr "Luo videoita"
+msgstr "Skapa videor"
 
 #: View/Helps/admin_videos.ctp:27
 msgid "DISPLAY_PAGE"
-msgstr "Sivu"
+msgstr "Sida"
 
 #: View/Helps/admin_create.ctp:39
 msgid "INSERT_VIDEO_TITLE"
-msgstr "Kirjoita videon nimi"
+msgstr "Skriv in videons namn"
 
 #: View/Helps/admin_create.ctp:40
 msgid "INSERT_VIDEO_SUB_TITLE"
-msgstr "Kirjoita videon alaotsikko"
+msgstr "Skriv in videon underrubrik"
 
 #: View/Helps/admin_create.ctp:42
 msgid "DESCRIPTION"
-msgstr "Kuvaus"
+msgstr "Beskrivning"
 
 #: View/Helps/admin_create.ctp:42
 msgid "PHOTO"
-msgstr "Kuva"
+msgstr "Bild"
 
 #: Controller/HelpsController.php:224
 msgid "UPLOAD_PICTURE"
-msgstr "Lataa kuva"
+msgstr "Ladda bild"
 
 #: Controller/QuizController.php:210
 msgid "ONLY_FOURTY_STUDENTS"
-msgstr "Kyselyyn voidaan vastata 40 kertaa tällä käyttäjätasolla."
+msgstr "Tyvärr kan endast 40 elever svara på testet på denna användarnivå."
 
 #: Controller/PagesController.php:70
 msgid "NO_PERMISSION"
-msgstr "Kiintiö täynnä"
+msgstr "Kvoten är full"
 
 #: View/Pages/no-permission.ctp:2
 msgid "LIMIT_EXCEEDED"
-msgstr "Kiintiö täyttynyt"
+msgstr "Kvoten är full"
 
 #: View/Pages/no-permission.ctp:7
 msgid "MAX_STUDENTS_REACHED"
-msgstr "Tällä käyttäjätasolla kyselyyn voidaan vastata 40 kertaa."
+msgstr "På denna användarnivå kan man svara på testet bara 40 gånger."
 
 #: View/Elements/Quiz/edit/Handlebars/question.preview.ctp:12
 msgid "NOTICE"
-msgstr "Huomio: "
+msgstr "Notera: "
 
 #: View/Elements/Quiz/edit/Handlebars/question.preview.ctp:12
 msgid "YOU_INSERTED_ZERO"
-msgstr "Valitsit jokaiselle vaihtoehdolle 0 pistettä."
+msgstr "Du har valt 0 poäng för varje alternativ."
 
 #: View/Quiz/ajax_print_answer.ctp:5
 msgid "QUIZ_NAME"
-msgstr "Testin nimi: "
+msgstr "Testets namn: "
 
 #: View/Quiz/ajax_print_answer.ctp:10
 msgid "STUDENT_NAME"
-msgstr "Oppilaan nimi: "
+msgstr "Elevens namn: "
 
 #: View/Quiz/ajax_print_answer.ctp:13
 msgid "QUIZ_TAKEN"
-msgstr "Päivämäärä: "
+msgstr "Datum: "
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:59
 msgid "SAVE_QUESTION"
-msgstr "Tallenna kysymys"
+msgstr "Spara fråga"
 
 #: View/Quiz/table.ctp:22
 msgid "PRINT"
-msgstr "Tulosta"
+msgstr "Skriv ut"
 
 #: View/Quiz/index.ctp:23
 msgid "UPGRADE_PENDING"
-msgstr "Tilin päivitys tulossa"
+msgstr "Kontot håller på att uppdateras"
 
 #: 
 msgid "READ"
-msgstr "LUE"
+msgstr "LÄS"
 
 #: Controller/QuizController.php:238
 msgid "RIGHT_CLICK_DISABLED"
-msgstr "Oikeaa hiirennappia ei voi käyttää kyselyn aikana"
+msgstr "Beklagar, den högra musknappen kan inte användas under testet"
 
 #: Controller/QuizController.php:239
 msgid "CANT_SWITCH_TAB"
-msgstr "Selaimen välilehteä ei voi vaihtaa."
+msgstr "Du kan inte byta flik i webbläsaren."
 
 #: Controller/QuizController.php:240
 msgid "SURELY_LEAVE_QUIZ"
@@ -1114,67 +1114,67 @@ msgstr "Haluatko varmasti poistua kyselystä?"
 
 #: View/Quiz/edit.ctp:37
 msgid "QUIZ_SETTINGS"
-msgstr "Testin asetukset"
+msgstr "Testets inställningar"
 
 #: View/Quiz/edit.ctp:37
 msgid "SHOW_RESULTS_AFTER_QUIZ"
-msgstr "Näytä tulokset vastaajalle testin jälkeen."
+msgstr "Visa resultaten för eleven först efter testet."
 
 #: View/Student/success.ctp:25
 msgid "ON_HOLD"
-msgstr "Väntar på bedömning"
+msgstr "Odottaa arviointia"
 
 #: View/Student/success.ctp:39
 msgid "YOUR_RESULTS"
-msgstr "TULOKSESI"
+msgstr "DINA RESULTAT"
 
 #: View/Student/success.ctp:40
 msgid "TOTAL"
-msgstr "Yhteispisteet"
+msgstr "Poäng totalt"
 
 #: View/Student/success.ctp:40
 msgid "YOUR_ANSWER_WAITING_RATING"
-msgstr "Vastauksesi odottaa arviointia"
+msgstr "Ditt svar väntar på bedömning"
 
 #: View/Student/success.ctp:40
 msgid "REMOVED"
-msgstr "Vastaus on poistettu"
+msgstr "Svaret är raderat"
 
 #: View/Quiz/not_found.ctp:1
 msgid "QUIZ_IS_CLOSED"
-msgstr "Testi on suljettu tällä hetkellä."
+msgstr "Testet är stängt för tillfället."
 
 #: Controller/QuizController.php:230
 msgid "CLOSED"
-msgstr "Suljettu"
+msgstr "Stängt"
 
 #: View/Quiz/index.ctp:17
 msgid "ACCOUNT_WILL_EXPIRE"
-msgstr "Tilisi käyttöaika päättyy"
+msgstr "Kontots användningstid går ut om"
 
 #: View/Quiz/index.ctp:43
 msgid "IN_DAYS"
-msgstr "päivän kuluttua."
+msgstr "days."
 
 #: View/Quiz/index.ctp:49
 msgid "ACCOUNT_EXPIRED"
-msgstr "Tilisi käyttöaika on päättynyt."
+msgstr "Kontots användningstid har gått ut."
 
 #
 msgid "QUESTION_TYPES"
-msgstr "Kysymystyypit"
+msgstr "Frågetyper"
 
 #
 msgid "OTHERS"
-msgstr "Muut"
+msgstr "Andra"
 
 #
 msgid "HEADER"
-msgstr "Otsikko"
+msgstr "Rubrik"
 
 #
 msgid "WEB_IMAGE"
-msgstr "Kuva verkosta"
+msgstr "Bild från webben"
 
 #
 msgid "ENTER_YOUTUBE_URL"
@@ -1182,509 +1182,509 @@ msgstr "Kirjoita videon www-osoite"
 
 #
 msgid "ENTER_IMAGE_URL"
-msgstr "Kirjoita kuvan www-osoite"
+msgstr "Lägg till bildens webbadress (url)"
 
 #: Controller/QuizController.php:145
 msgid "ENTER_HEADER"
-msgstr "Kirjoita otsikko"
+msgstr "Skriv rubrik"
 
 #: Controller/QuizController.php:148
 msgid "VIDEO_EXPLANATION"
-msgstr "Videon selite (vapaaehtoinen)"
+msgstr "Beskrivning av videon (frivillig)"
 
 #: Controller/QuizController.php:143
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Lisää videon www-osoite"
+msgstr "Lägg till videons webbadress (Url)"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_IMAGE_URL"
-msgstr "Lisää kuvan www-osoite"
+msgstr "Lägg till bildens webbadress (url)"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_HEADER_TEXT"
-msgstr "Lisää otsikon teksti"
+msgstr "Lägg till rubrikens text"
 
 #: Controller/QuizController.php:149
 msgid "IMAGE_EXPLANATION_TEXT"
-msgstr "Kuvan selite (vapaaehtoinen)"
+msgstr "Beskrivning av bilden (frivillig)"
 
 #: View/Elements/Quiz/table_extension.ctp:11
 msgid "PROGRESS"
-msgstr "Edistyminen"
+msgstr "Framskridning"
 
 #
 msgid "MAX_ALLOWED"
-msgstr "Suurin sallittu vastausten määrä"
+msgstr "Största tillåtna svarsmängd"
 
 #
 msgid "CHOOSE_MOST"
-msgstr "Valitse enintään"
+msgstr "Välj högst"
 
 #: Controller/MaintenanceController.php:11
 msgid "PARDON_DUST"
-msgstr "Pahoittelut raksapölystä!"
+msgstr "Beklagar byggdammet!"
 
 #: View/Elements/Maintenance/notice.ctp:11
 msgid "WELL_BE_BACK"
-msgstr "Teemme parhaillaan Verkkotestistä entistäkin parempaa. Verkkotesti on käytössäsi taas tänään klo 22:00."
+msgstr "Vi håller på att göra Verkkotesti ännu bättre. Testet kan användas igen ikväll efter kl 22:00."
 
 #: View/Quiz/index.ctp:150
 msgid "LOAD_DEMO_QUIZZES"
-msgstr "Lataa mallitestit"
+msgstr "Ladda modelltest"
 
 #: View/Quiz/index.ctp:147
 msgid "WELCOME"
-msgstr "Tervetuloa Verkkotestiin!"
+msgstr "Välkommen till Verkkotesti-tjänsten!"
 
 #: View/Quiz/index.ctp:147
 msgid "IF_WANT_DEMOS_CLICK"
-msgstr "Jos haluat ensin tutustua mallitesteihin, klikkaa harmaata nappia "
+msgstr "Om du vill börja med att bekanta dig med modelltesten, klicka på den gråa knappen "
 
 #: View/Quiz/index.ctp:147
 msgid "DELETE_DEMO_QUIZZES"
-msgstr "(Voit poistaa mallitestit sitten, kun et enää tarvitse niitä.)"
+msgstr "(Du kan radera modelltesten när de inte längre behövs.)"
 
 #: View/Quiz/index.ctp:147
 msgid "IF_WANT_START_CLICK"
-msgstr "Jos haluat mennä suoraan asiaan, klikkaa sinistä nappia"
+msgstr "Om du vill gå rakt på sak, klicka på den blåa knappen"
 
 #: View/Elements/Invoice/demo_dialog.ctp:7
 msgid "DO_YOU_LOAD_DEMO_QUIZ"
-msgstr "Haluatko ladata mallitestit?"
+msgstr "Vill du ladda ner modelltesten?"
 
 #: View/Elements/Invoice/demo_dialog.ctp:7
 msgid "CHOOSE_OK_LOAD_QUIZZES"
-msgstr "Valitse Ok, jos haluat ladata muutaman mallitestin, joilla voit tutustua Verkkotestin ominaisuuksiin."
+msgstr "Välj Ok om du vill vill ladda några modelltest som hjälper dig att bli bekant med Verkkotestis egenskaper."
 
 #: Controller/MaintenanceController.php:29
 msgid "IMPORTED_SUCCESS"
-msgstr "Mallitestit ladattiin"
+msgstr "Modelltest laddade"
 
 #: Controller/MaintenanceController.php:24
 msgid "ENTER_USER_ID"
-msgstr "Kirjoita käyttäjän id numero"
+msgstr "Skriv in användarnummer"
 
 #: Controller/MaintenanceController.php:24
 msgid "ENTER_NUMERIC_ID"
-msgstr "Kirjoita pelkkiä numeroita"
+msgstr "Använd endast siffror"
 
 #: Controller/MaintenanceController.php:20
 msgid "IMPORT_DEMO_QUIZZES"
-msgstr "Lataa mallitestit"
+msgstr "Ladda modelltest"
 
 #: Controller/MaintenanceController.php:40
 msgid "NO_DIRECT_ACCESS_LOCATION"
-msgstr "Ei pääsyä sivulle"
+msgstr "Direkt tillträde till denna sida är inte tillåtet"
 
 #:
 msgid "USER_ID"
-msgstr "Käyttäjänumero"
+msgstr "Användarnummer"
 
 #:
 msgid "INSERT_USER_ID"
-msgstr "Kirjoita käyttäjänumero"
+msgstr "Skriv in användarnummer"
 
 #:
 msgid "IMPORT"
-msgstr "Lataa"
+msgstr "Ladda"
 
 #: Controller/QuizController.php:104
 msgid "COPY_OF"
-msgstr "Kopio:"
+msgstr "Kopia:"
 
 #: Controller/QuizController.php:641
 msgid "INVALID_QUIZ"
-msgstr "Testiä ei löydy"
+msgstr "Testet hittas inte"
 
 #: Controller/QuizController.php:634
 msgid "QUIZ_DUPLICATED"
-msgstr "Testi on monistettu"
+msgstr "Testet är kopierat"
 
 #: View/Quiz/index.ctp:141
 msgid "DUPLICATE_QUIZ"
-msgstr "Monista testi"
+msgstr "Kopiera testet"
 
 #: Controller/QuizController.php:641
 msgid "STUDENT_ONLINE_AND_GIVING_TEST"
-msgstr "Oppilas vastaa parhaillaan testiin! "
+msgstr "Eleven håller på att göra testet! "
 
 #: 
 msgid "DEMAND_UPPER_LOWERCASE"
-msgstr "Vaadi suuret kirjaimet oikein"
+msgstr "Kräv versaler (stora bokstäver) på rätt ställe"
 
 #: View/User/success.ctp:5
 msgid "THANK_YOU_REGISTERING_CONFIRMATION_SENT"
-msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin! Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön. Jos tarvitset apua, ota yhteyttä"
+msgstr "Tack för att du registrerat dig på Verkkotesti! Kolla din e-post och klicka på länken i e-postmeddelandet för att aktivera ditt konto. Ta kontakt om du behöver hjälp."
 
 #: View/User/success.ctp:5
 msgid "THANK_YOU_REGISTERING"
-msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin!"
+msgstr "Tack för att du registrerat dig på Verkkotesti!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin! Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön."
+msgstr "We've sent a confirmation email to your given email address. Check your email and click the link in it to activate your account."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
-msgstr "Jos tarvitset apua, ota yhteyttä"
+msgstr "If you need help, take contact"
 
 #: View/Emails/html/user_email.ctp:3
 msgid "CLICK_LINK_ACTIVATE"
-msgstr "kiitos rekisteröitymisestäsi Verkkotestiin. Ota tilisi käyttöön klikkaamalla alla olevaa linkkiä tai kopioi-liitä linkki selaimeesi."
+msgstr "Tack för din Verkkotesti-registrering. Ta i bruk ditt konto genom att klicka på länken här under eller kopiera och klistra in länken i din webbläsare."
 
 #: View/Emails/html/user_email.ctp:5
 msgid "IF_NOT_REGISTER_IGNORE"
-msgstr "Jos et halua luoda tunnuksia Verkkotestiin, voit unohtaa tämän viestin."
+msgstr "Om du inte vill skapa ett Verkkotesti-konto kan du ignorera detta meddelande."
 
 #: Controller/UserController.php:105
 msgid "REGISTRATION_SUCCESS"
-msgstr "Tunnusten luonti onnistui"
+msgstr "Du har skapat ett nytt användarkonto."
 
 #: Controller/UserController.php:60
 msgid "CONFIRM_EMAIL"
-msgstr "[Verkkotesti tunnukset] Sähköpostiosoitteen vahvistaminen"
+msgstr "[Verkkotesti registrering] Bekräfta e-postadressen!"
 
 #: View/User/success.ctp:6
 msgid "HERE"
-msgstr "täällä"
+msgstr "här"
 
 #: View/Emails/html/user_email.ctp:2
 msgid "HI"
-msgstr "Hei"
+msgstr "Hej"
 
 #: View/Quiz/edit.ctp:64
 msgid "ANONYMOUS_PARTICIPATION"
-msgstr "Osallistu nimettömästi."
+msgstr "Delta anonymt"
 
 #: Controller/QuizController.php:258
 msgid "ALL_SUBJECT"
-msgstr "Kaikki oppiaineet"
+msgstr "Alla läroämnen"
 
 #: Controller/QuizController.php:262
 msgid "ALL_CLASS"
-msgstr "Kaikki luokka-asteet"
+msgstr "Alla klasser"
 
 #: Controller/QuizController.php:127
 msgid "CANCEL_SHARE"
-msgstr "Peruuta jako"
+msgstr "Avbryt delning"
 
 #: View/Quiz/edit.ctp:127
 msgid "QUIZ_SHARED"
-msgstr "Testi jaettu julkisesti"
+msgstr "Testet är nu offentligt delat"
 
 #: Controller/QuizController.php:885
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "Testi on jaettu. Testi odottaa ylläpitäjän tarkastusta."
+msgstr "You have successfully shared the quiz. Please hold for admin approval."
 
 #: View/Quiz/edit.ctp:129
 msgid "SHARE_PENDING"
-msgstr "Testin jako odottaa ylläpitäjän tarkastusta"
+msgstr "Testets delning väntar på administratörens godkännande"
 
 #: Controller/QuizController.php:883
 msgid "QUIZ_SHARED_EMAIL"
-msgstr "[Verkkotesti] A quiz has been shared!"
+msgstr "[Verkkotesti] Ett test har delats!"
 
 #: Controller/QuizController.php:124
 msgid "DO_YOU_SHARE_QUIZ"
-msgstr "Haluatko jakaa testin?"
+msgstr "Vill du dela testet?"
 
 #: View/Elements/logut-warning.ctp:12
 msgid "KEEP_WORKING"
-msgstr "Jatka työskentelyä"
+msgstr "Fortsätt jobba"
 
 #: View/Elements/logut-warning.ctp:8
 msgid "INACTIVE_FOR_15"
-msgstr "Et ole työskennellyt 15 minuuttiin. Kirjaudut automaattisesti ulos"
+msgstr "Du har inte varit aktiv på 15 minuter. För din egen säkerhet loggas du automatiskt ut inom"
 
 #: View/Quiz/logut-warning.ctp:8
 msgid "SECONDS"
-msgstr "sekunnin kuluttua."
+msgstr "några sekunder."
 
 #: View/Quiz/index.ctp:210
 msgid "QUIZ_BANK"
-msgstr "Testipankki"
+msgstr "Testbank"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "IMPORT_SELECTED"
-msgstr "Ota valitut käyttöön"
+msgstr "Ta i bruk valda test"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:59
 msgid "UNDEFINED"
-msgstr "Ei määritelty"
+msgstr "Odefinierade"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:73
 msgid "PREVIEW_QUIZ"
-msgstr "Esikatsele testi"
+msgstr "Förhandsgranska testet"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:73
 msgid "ACTIONS"
-msgstr "Toiminnot"
+msgstr "Funktioner"
 
 #: View/Quiz/index.ctp:97
 msgid "QUIZ_ARCHIVING"
-msgstr "TESTIEN ARKISTOINTI"
+msgstr "ARKIVERA TEST"
 
 #: View/Quiz/index.ctp:97
 msgid "QUIZ_SHARING"
-msgstr "TESTIEN JAKAMINEN"
+msgstr "DELA TEST"
 
 #: Model/Quiz.php:construct
 msgid "SHARED_QUIZZES"
-msgstr "Jaetut testit"
+msgstr "Delade test"
 
 #: Model/Quiz.php:construct
 msgid "PENDING_QUIZZES"
-msgstr "Tarkastettavat testit"
+msgstr "Test att granska"
 
 #: Model/Quiz.php:construct
 msgid "DECLINED_QUIZZES"
-msgstr "Hylätyt testit"
+msgstr "Underkända test"
 
 #: Model/Quiz.php:construct
 msgid "PRIVATE_QUIZZES"
-msgstr "Yksityiset testit"
+msgstr "Privata test"
 
 #: 
 msgid "SUBJECTS"
-msgstr "Oppiaineet"
+msgstr "Läroämnen"
 
 #: 
 msgid "CLASSES"
-msgstr "Luokka-asteet"
+msgstr "Grupper"
 
 #: 
 msgid "QUIZ_IMPORTED"
-msgstr "Testi otettu käyttöön"
+msgstr "Testet har tagits i bruk"
 
 #: 
 msgid "PREVIOUS"
-msgstr "Edellinen"
+msgstr "Föregående"
 
 #: 
 msgid "NEXT"
-msgstr "Seuraava"
+msgstr "Följande"
 
 #: View/Elements/logut-warning.ctp:5
 msgid "YOU_ARE_GOING_LOGOUT"
-msgstr "Kirjaudut pian automaattisesti ulos..."
+msgstr "You are going to be logout...?"
 
 #: View/Quiz/index.ctp:230
 msgid "EXPLORE_QUIZ_BANK"
-msgstr "Tarkastele Testipankkia"
+msgstr "Explore Quiz Bank"
 
 #: View/Quiz/admin_shared.ctp:21
 msgid "APPROVED_QUIZZES"
-msgstr "Hyväksytyt testit"
+msgstr "Approved Quizzes"
 
 #: Controller/QuizController.php:1192
 msgid "SHARED_QUIZ_LIST"
-msgstr "Jaettujen testien lista"
+msgstr "Shared Quiz List"
 
 #: Controller/QuizController.php:1246
 msgid "DECLINE_QUIZ"
-msgstr "Hylkää testi"
+msgstr "Decline the quiz"
 
 #: Controller/QuizController.php:1249
 msgid "ENTER_DECLINE_REASON"
-msgstr "Kirjoita hylkäyksen syy"
+msgstr "Enter decline reason if any!"
 
 #: Controller/QuizController.php:1249
 msgid "APPROVE_QUIZ"
-msgstr "Hyväksy testi"
+msgstr "Approve the quiz"
 
 #: Controller/QuizController.php:1251
 msgid "IF_APPROVE_CAN_DECLINE"
-msgstr "Jos hyväksyt testin, voit hylätä sen myös myöhemmin."
+msgstr "If you approve the quiz, you have always option to decline sharing!"
 
 #: View/Quiz/ajax_bank.ctp:4
 msgid "PUBLIC_QUIZZES"
-msgstr "Jaetut testit"
+msgstr "Public Quizzes"
 
 #: Controller/StandardsController.php:96
 msgid "NEW_CLASS"
-msgstr "Uusi luokka-aste"
+msgstr "New Class"
 
 #: View/Standards/admin_insert.ctp:31
 msgid "ENTER_CLASS_NAME"
-msgstr "Kirjoita luokka-asteen nimi"
+msgstr "Please enter class name"
 
 #: Controller/SubjectsController.php:96
 msgid "NEW_SUBJECT"
-msgstr "Uusi oppiaine"
+msgstr "New Subject"
 
 #: View/Subjeects/admin_insert.ctp:31
 msgid "ENTER_SUBJECT_NAME"
-msgstr "Kirjoita oppiaineen nimi"
+msgstr "Please enter subject name"
 
 #: Controller/QuizController.php:126
 msgid "CANCEL_SHARE_QUIZ"
-msgstr "Peruuta testin jako"
+msgstr "Cancel share quiz"
 
 #: Controller/QuizController.php:127
 msgid "DO_YOU_REMOVE_SHARING"
-msgstr "Haluatko perua testin jakamisen?"
+msgstr "Do you want to remove sharing the quiz?"
 
 #: Controller/QuizController.php:124
 msgid "SHARE_QUIZ"
-msgstr "Jaa testi"
+msgstr "Share quiz"
 
 #: View/Quiz/ajax_preview.ctp:17
 msgid "QUIZ_STUDENT_VIEW"
-msgstr "Testin oppilasnäkymä"
+msgstr "Quiz student view"
 
 #: View/Quiz/index.ctp:194
 msgid "VIEW_DECLINE_REASON"
-msgstr "Näytä hylkäyksen syy"
+msgstr "View decline reason"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "SHARED_QUIZ_NOT_FOUND"
-msgstr "Jaettuja testejä ei löytynyt. Suodata listaa valitsemalla oppiaineita ja luokka-asteita."
+msgstr "Shared quizzes not found. Filter the list by choosing subjects and classes."
 
 #: View/Elements/navbar.ctp:24
 msgid "ADMIN_SETTINGS"
-msgstr "Pääkäyttäjän asetukset"
+msgstr "Admin Settings"
 
 #: View/Elements/navbar.ctp:32
 msgid "MAINTENANCE"
-msgstr "Huolto"
+msgstr "Maintenance"
 
 #: Controller/StandardsController.php:113
 msgid "CLASS_SAVE_FAILED"
-msgstr "Luokkatason tallentaminen epäonnistui"
+msgstr "Class saved failed"
 
 #: Model/Standard.php:validation for field name
 msgid "CLASS_ALREADY_CREATED"
-msgstr "Luokkataso on jo olemassa"
+msgstr "Class already created"
 
 #: Controller/SubjectsController.php:113
 msgid "SUBJECT_SAVE_FAILED"
-msgstr "Oppiaineen tallentaminen epäonnistui"
+msgstr "Subject saved failed"
 
 #: Model/Subject.php:validation for field name
 msgid "SUBJECT_ALREADY_CREATED"
-msgstr "Oppiaine on jo olemassa"
+msgstr "Subject already created"
 
 #: Controller/QuizController.php:1097
 msgid "YOU_HAVE_EXCEEDED_MAX_IMPORT"
-msgstr "Olet ottanut käyttöön maksimimäärän Testipankin testejä. Päivitä käyttäjätilisi (49 €/v) niin saat rajattoman pääsyn Testipankkiin."
+msgstr "Sorry, you have exceeded maximum limit of import quiz. Please upgrade your account to get unlimited access on quiz bank!"
 
 #: Controller/QuizController.php:1100
 msgid "CANT_PROCESS_REQUEST"
-msgstr "Pyyntöäsi ei voida toteuttaa. Ladattavien testien jäljellä oleva määräsi on"
+msgstr "Sorry, we can't process your request! You have left only import"
 
 #: View/Pages/prices.ctp:38
 msgid "DAYS_TO_USE"
-msgstr "Käyttöaika"
+msgstr "Days to use"
 
 #: View/Pages/prices.ctp:34
 msgid "DAYS"
-msgstr "pv"
+msgstr "dagar"
 
 #: View/Pages/prices.ctp:40
 msgid "LIMITED_ACCESS"
-msgstr "Rajoitettu"
+msgstr "Limited Access"
 
 #: View/Pages/prices.ctp:15
 msgid "29_EUR"
-msgstr "29 €/v"
+msgstr "29 €/år"
 
 #: View/Pages/prices.ctp:16
 msgid "49_EUR"
-msgstr "49 €/v"
+msgstr "49 €/år"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
-msgstr "Luo tili ja osta 29 €/v"
+msgstr "Create Account And Buy 29 E/Y"
 
 #: Controller/PagesController.php:90
 msgid "CREATE_ACCOUNT_BUY_49"
-msgstr "Luo tili ja osta 49 €/v"
+msgstr "Create Account And Buy 49 E/Y"
 
 #: 
 msgid "THANKS_REGISTRATION"
-msgstr "Kiitos rekisteröitymisestäsi!"
+msgstr "Thanks for your registration!"
 
 #: 
 msgid "IMPORT_QUIZ"
-msgstr "Ota testi käyttöön"
+msgstr "Import Quiz"
 
 #: View/User/success.ctp:14
 msgid "LOG_IN"
-msgstr "Kirjaudu sisään"
+msgstr "Log in"
 
 #: Elements/Invoice/invoice.ctp:10
 msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
-msgstr "Päivitä käyttäjätilisi. Saat uuden tilisi ominaisuudet käyttöön välittömästi ja laskun sähköpostiisi lähiaikoina."
+msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address."
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "BASIC"
-msgstr "Perustili:"
+msgstr "Basic:"
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "CREATE_AND_USE_QUIZZES_FREELY"
-msgstr "Luo ja käytä testejä rajattomasti."
+msgstr "Create and use quizzes freely without limits."
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
-msgstr "Testipankki:"
+msgstr "Quiz Bank:"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "Testipankki: Edellisen lisäksi, jaa omia testejäsi toisten käyttäjien kanssa ja säästä aikaa käyttämällä Testipankin valmiita testejä."
+msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "Testisi on jaettu ja odottaa ylläpidon tarkastusta."
+msgstr "You have successfully shared the quiz. Please hold for admin approval."
 
 #: Controller/QuizController.php:104
 msgid "ANSWERS_SAVING"
-msgstr "Hetkinen, vastauksiasi tallennetaan..."
+msgstr "Please hold, your answers are saving..."
 
 #: View/Quiz/live.ctp:30
 msgid "SORRY_LOST_CONNECTION"
-msgstr "Verkkoyhteytesi on valitettavasti katkennut."
+msgstr "Sorry, you lost your internet connection."
 
 #: Controller/PagesController.php:104
 msgid "PROVE_NOT_ROBOT"
-msgstr "Vahvista, että et ole robotti."
+msgstr "Please prove you are not robot."
 
 #: 
 msgid "QUIZ_SAVED"
-msgstr "Testi tallennettiin."
+msgstr "Successfully saved."
 
 #: Controller/UsersController.php:117
 msgid "ACCOUNT_ENABLED"
-msgstr "Käyttäjätilisi on jo vahvistettu."
+msgstr "Your account is already enabled"
 
 #: View/Quiz/present.ctp:28
 msgid "EMPTY_QUIZ_CANT_SHOW_ADD_QUESTION"
-msgstr "Tyhjää testiä ei voida näyttää. Lisää testiin ainakin yksi kysymys."
+msgstr "An empty quiz can't be shown. Please add at least one question to the quiz."
 
 #: View/Quiz/no_question.ctp:2
 msgid "EMPTY_QUIZ_CANT_SHOW"
-msgstr "Tyhjää testiä ei voida näyttää."
+msgstr "An empty quiz can't be shown."
 
 #: Controller/QuizController.php:237
 msgid "MINIMUM"
-msgstr "Luo ainakin"
+msgstr "Minimum"
 
 #: Controller/QuizController.php:238
 msgid "CHOICES_REQUIRED"
-msgstr "vastausvaihtoehtoa"
+msgstr "choices are required!"
 
 #: Controller/UsersController.php:326
 msgid "PASSWORD_CHANGED"
-msgstr "Salasanasi on nyt päivitetty."
+msgstr "Your password has been successfully changed."
 
 #: View/Users/reset_password.ctp:29
 msgid "ENTER_NEW_PASSWORD"
-msgstr "Kirjoita uusi salasana"
+msgstr "Enter New Password"
 
 #: View/Users/reset_password.ctp:35
 msgid "VERIFY_PASSWORD"
-msgstr "Kirjoita uusi salasana uudestaan"
+msgstr "New Password Verify"
 
 #: View/Users/reset_password.ctp:45
 msgid "RESET"
-msgstr "Vaihda salasana"
+msgstr "Reset"
 
