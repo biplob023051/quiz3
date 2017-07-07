@@ -59,7 +59,7 @@ foreach ($data['Question'] as $key => $question) {
 // pr($data);
 // exit;
 use Cake\Routing\Router;
-$this->assign('title', __('Edit Quiz'));
+$this->assign('title', __('EDIT_QUIZ'));
 
 if (!empty($data['Quiz']['subjects'])) {
     $selectedSubjects = json_decode($data['Quiz']['subjects'], true);
@@ -89,20 +89,20 @@ if (!empty($data['Quiz']['classes'])) {
                 <span class="caret"></span>
             </span>
             <span class="caret caret-right caret-icon"></span>
-            <?php echo __('Quiz Settings'); ?>
+            <?php echo __('QUIZ_SETTINGS'); ?>
         </a>
     </div>
     <div class="col-xs-12 col-md-12 settings-options" style="display: none;">
         <div class="form-group">
             <?php 
                 echo $this->Form->checkbox('show_result', array('default' => $data['Quiz']['show_result'])); 
-                echo $this->Form->label('show_result', __('Show results to the student after finishing the quiz.'));
+                echo $this->Form->label('show_result', __('SHOW_RESULTS_AFTER_QUIZ'));
             ?>
         </div>
         <div class="form-group">
             <?php 
                 echo $this->Form->checkbox('anonymous', array('default' => $data['Quiz']['anonymous'])); 
-                echo $this->Form->label('anonymous', __('Anonymous participation?'));
+                echo $this->Form->label('anonymous', __('ANONYMOUS_PARTICIPATION'));
             ?>
         </div>
     </div>
@@ -148,13 +148,13 @@ if (!empty($data['Quiz']['classes'])) {
                 <?php
                 if (isset($initial)) {
                     echo $this->Form->input('name', array(
-                        'placeholder' => __('Name the quiz'),
+                        'placeholder' => __('NAME_QUIZ'),
                         'class' => 'form-control input-lg'
                     ));
                 } else {
                     echo $this->Form->input('name', array(
                         'default' => $data['Quiz']['name'],
-                        'placeholder' => __('Name the quiz'),
+                        'placeholder' => __('NAME_QUIZ'),
                         'class' => 'form-control input-lg'
                     ));
                 }
@@ -164,7 +164,7 @@ if (!empty($data['Quiz']['classes'])) {
                 <?php
                 echo $this->Form->input('description', array(
                     'default' => $data['Quiz']['description'],
-                    'placeholder' => __('Describe the quiz to respondents'),
+                    'placeholder' => __('DESCRIBE_QUIZ'),
                     'class' => 'form-control input-lg'
                 ));
                 ?>
@@ -205,13 +205,13 @@ if (!empty($data['Quiz']['classes'])) {
 <div class="row">
     <div class="col-xs-12 col-md-3 col-md-offset-6">
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?php echo __('Add New Question') ?></button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="add-question"><?php echo __('ADD_NEW_QUESTION') ?></button>
 
         </div>
     </div>
     <div class="col-xs-12 col-md-3">
         <div class="form-group">
-            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('Finish'); ?>" />
+            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('FINNISH'); ?>" />
         </div>
     </div>
 </div>

@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
-            <li><?php echo $this->Html->link(__('Site Videos'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
-            <li><?php echo $this->Html->link(__('Create Videos'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
+            <li><?php echo $this->Html->link(__('SITE_VIDEOS'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li><?php echo $this->Html->link(__('CREATE_VIDEOS'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
         </ul>
     </div>
 </div>
@@ -19,11 +19,11 @@
     
             <?php
                 echo $this->Form->hidden('photo');
-                echo $this->Form->input('type', array('label'=>array('text'=>__('Display Page')),'options' => $siteOptions, 'empty' => __('Select One') ));
-                echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('Please insert video title')));
-                echo $this->Form->input('sub_title', array('label'=>array('text'=>__('Sub Title')), 'placeholder' => __('Please insert video sub title')));
-                echo $this->Form->input('url', array('label'=>array('text'=>__('Youtube Video Url')), 'placeholder' => __('Please insert youtube video url here')));
-                echo $this->Form->input('body', array('label'=>array('text'=>__('Description')), 'placeholder' => __('Description here'), 'type' => 'textarea'));
+                echo $this->Form->input('type', array('label'=>array('text'=>__('DISPLAY_PAGE')),'options' => $siteOptions, 'empty' => __('SELECT_ONE') ));
+                echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('INSERT_VIDEO_TITLE')));
+                echo $this->Form->input('sub_title', array('label'=>array('text'=>__('SUB_TITLE')), 'placeholder' => __('INSERT_VIDEO_SUB_TITLE')));
+                echo $this->Form->input('url', array('label'=>array('text'=>__('YOUTUBE_URL')), 'placeholder' => __('INSERT_YOUTUBE_URL_HERE')));
+                echo $this->Form->input('body', array('label'=>array('text'=>__('DESCRIPTION')), 'placeholder' => __('Description here'), 'type' => 'textarea'));
                 
             ?>
             <div class="form-group">

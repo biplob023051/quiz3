@@ -9,7 +9,7 @@
                         'div' => array('class' => 'form-group'),
                         'class' => 'form-control c-text',
                         'label' => false,
-                        'placeholder' => __('Corect answers separated by semicolon'),
+                        'placeholder' => __('SEPARATE_SEMICOLON'),
                         'id' => 'Choice{{id}}Text'
                     ));
                     ?>
@@ -22,7 +22,7 @@
                     <?php
                     echo $this->Form->input('data.Question.case_sensitive', array(
                         'value' => 1,
-                        'label' => array('text' => __('Demand exact upper- and lowercase letters'), 'class' => 'control-label'),
+                        'label' => array('text' => __('DEMAND_UPPER_LOWERCASE'), 'class' => 'control-label'),
                         'type' => 'checkbox',
                         'id' => 'case-sensivity',
                         'checked' => "{{case_sensitive}}"
@@ -32,7 +32,7 @@
                     <?php
                     echo $this->Form->input('data.Question.case_sensitive', array(
                         'value' => 1,
-                        'label' => array('text' => __('Demand exact upper- and lowercase letters'), 'class' => 'control-label'),
+                        'label' => array('text' => __('DEMAND_UPPER_LOWERCASE'), 'class' => 'control-label'),
                         'type' => 'checkbox',
                         'id' => 'case-sensivity'
                     ));
@@ -46,7 +46,7 @@
                         'div' => array('class' => 'form-group'),
                         'class' => 'form-control c-points',
                         'label' => false,
-                        'placeholder' => __('Points'),
+                        'placeholder' => __('POINTS'),
                         'id' => 'Choice{{id}}Points',
                         'type' => 'number',
                         'step' => '0.01'

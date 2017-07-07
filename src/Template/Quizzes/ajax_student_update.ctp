@@ -3,7 +3,7 @@
 <td class="serial">
     <i class="glyphicon online"></i>
     <span class="question-serial"><?php echo $sl; ?></span>
-    <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1->id; ?>" title="<?php echo __('Remove answer'); ?>">
+    <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1->id; ?>" title="<?php echo __('REMOVE_ANSWER'); ?>">
         <i class="glyphicon trash"></i>
     </button>
     <span class="ajax-loader"><img src="<?php echo $this->request->webroot; ?>img/ajax-loader.gif" /></span>

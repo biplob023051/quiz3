@@ -1,28 +1,28 @@
 <div id="hero-unit">
     <div class="container">
-        <h2 class="text-center"><?php echo __('Web test enables a teacher'); ?></h2>
-        <h3 class="text-center"><?php echo __('to give a quiz to students quickly and easily'); ?><br /><?php echo __('with their '); ?><span class="text-black"><?php echo __('mobile phones'); ?></span></h3>
+        <h2 class="text-center"><?php echo __('WEB_TEST_ENABLES_TEACHER'); ?></h2>
+        <h3 class="text-center"><?php echo __('GIVE_QUIZ_QUICKLY_EASILY'); ?><br /><?php echo __('WITH_THEIR'); ?><span class="text-black"><?php echo __('mobile phones'); ?></span></h3>
         <hr class="invisible" />
-        <p class="text-center"><a href="<?php echo $this->request->base; ?>/users/create" class="btn btn-success btn-lg"><?php echo __('Create Account'); ?></a></p>
+        <p class="text-center"><a href="<?php echo $this->request->base; ?>/users/create" class="btn btn-success btn-lg"><?php echo __('CREATE_ACCOUNT'); ?></a></p>
     </div>
 </div>
 
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
-    <h1 class="text-center"><?php echo __('This is how it works!'); ?></h1>
+    <h1 class="text-center"><?php echo __('THIS_IS_HOW_IT_WORKS'); ?></h1>
     <div class="tabpanel">
         <ul class="nav nav-tabs nav-justified">
             <li>
-                <h4 class="text-center"><?php echo __('Create a Test'); ?></h4>
-                <p class="text-center"><?php echo __('Create a test with one or more questions.'); ?></p>
+                <h4 class="text-center"><?php echo __('1_CREATE_TEST'); ?></h4>
+                <p class="text-center"><?php echo __('CREATE_TEST_WITH_QUESTIONS'); ?></p>
             </li>
             <li>
-                <h4 class="text-center"><?php echo __('Give a Test'); ?></h4>
-                <p class="text-center"><?php echo __('Let the students attend the test in the classroom or at home.'); ?></p>
+                <h4 class="text-center"><?php echo __('2_GIVE_TEST'); ?></h4>
+                <p class="text-center"><?php echo __('LET_STUDENT_ATTEND'); ?></p>
             </li>
             <li>
-                <h4 class="text-center"><?php echo __('Check the Result'); ?></h4>
-                <p class="text-center"><?php echo __('Check the results as soon as the stundents have attended.'); ?></p>
+                <h4 class="text-center"><?php echo __('3_CHECK_RESULT'); ?></h4>
+                <p class="text-center"><?php echo __('CHECK_RESULTS_SOON_ATTENDED'); ?></p>
             </li>
         </ul>
 

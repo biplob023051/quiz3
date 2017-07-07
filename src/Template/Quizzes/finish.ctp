@@ -1,1 +1,1 @@
-<?php echo __('Thank you'); ?>
+<?php echo __('THANK_YOU'); ?>

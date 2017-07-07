@@ -19,7 +19,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <?php
-                                echo $this->Html->link(__('Settings'), array(
+                                echo $this->Html->link(__('SETTINGS'), array(
                                     'controller' => 'user',
                                     'action' => 'settings'
                                 ));
@@ -29,7 +29,7 @@
                     </li>
                     <li>                            
                         <?php
-                        echo $this->Html->link(__('Logout'), array(
+                        echo $this->Html->link(__('LOGOUT'), array(
                             'controller' => 'user',
                             'action' => 'logout'
                         ));

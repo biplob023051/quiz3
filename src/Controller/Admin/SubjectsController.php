@@ -19,7 +19,7 @@ class SubjectsController extends AppController
 	// Method for displaying all subjects
 	public function index() {
 		$this->isAdminUser();
-        $this->set('title_for_layout', __('All Subjects'));
+        $this->set('title_for_layout', __('ALL_SUBJECT'));
 		$conditions = array(
 			'Subjects.is_del IS NULL',
 			'Subjects.type IS NULL' 
@@ -70,7 +70,7 @@ class SubjectsController extends AppController
 			$this->Subjects->save($subject);
 			$this->Flash->success(__('You have successfully deleted.'));
 		} else {
-			$this->Flash->error(__('Can not delete'));
+			$this->Flash->error(__('CAN_NOT_DELETE'));
 		}
 
 		if(isset($this->request->query['redirect_url'])){	
@@ -87,7 +87,7 @@ class SubjectsController extends AppController
 	public function insert($id = null) {
 		$this->isAdminUser();
 		if(empty($id)){
-			$this->set('title_for_layout',__('New Subject'));
+			$this->set('title_for_layout',__('NEW_SUBJECT'));
 			$subject = $this->Subjects->newEntity();
 		} else {
 			$this->set('title_for_layout',__('Edit Subject'));
@@ -106,7 +106,7 @@ class SubjectsController extends AppController
 					return $this->redirect(['controller' => 'subjects', 'action' => 'index']);
 				}
 			} else {
-				$this->Flash->error(__('Subject saved failed'));
+				$this->Flash->error(__('SUBJECT_SAVE_FAILED'));
 			}
 		} 
 		$this->set(compact('subject'));

@@ -2,7 +2,7 @@
     <?php if ($value1->id == $value4->student_id) : ?>
         <?php if (($value3->question_type->id == 1) || ($value3->question_type->id == 2) || ($value3->question_type->id == 3)) : ?>
             <?php if (empty($value4->text)) : ?>
-                <div class="text-danger"><?php echo __('Not Answered'); ?></div>
+                <div class="text-danger"><?php echo __('NOT_ANSWERED'); ?></div>
             <?php else : ?>
                 <!-- check correct and incorrect -->
                 <?php if (isset($inline)) : ?>
@@ -26,7 +26,7 @@
         <!-- short manual scoring -->
         <?php elseif ($value3->question_type->id == 4) : ?>
             <?php if (empty($value4->text)) : ?>
-                <div class="text-danger"><?php echo __('Not Answered'); ?></div>
+                <div class="text-danger"><?php echo __('NOT_ANSWERED'); ?></div>
             <?php else : ?>
                 <?php echo $value4->text; ?>
                 <?php echo empty($value4->score) ? 0 : ($value4->score+0); ?>
@@ -37,7 +37,7 @@
         <?php else: ?>
             <!-- essay type -->
             <?php if (empty($value4->text)) : ?>
-                <div class="text-danger"><?php echo __('Not Answered'); ?></div>
+                <div class="text-danger"><?php echo __('NOT_ANSWERED'); ?></div>
             <?php else : ?>
                 <?php echo $value4->text; ?>
                 <span class="essay-points"><?php echo empty($value4->score) ? ' <span class="score">' . 0 . '</span>' : ' <span class="score">' . ($value4->score+0) . '</span>'; ?></span>

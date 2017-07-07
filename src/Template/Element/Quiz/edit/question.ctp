@@ -40,7 +40,7 @@ echo json_encode(array(
                     <p>
                         <span class="text-muted">
                             <strong>
-                                <?php echo __('Choose at most'); ?>
+                                <?php echo __('CHOOSE_MOST'); ?>
                             </strong>
                             <?php echo $max_allowed; ?>
                         </span>
@@ -50,7 +50,7 @@ echo json_encode(array(
                     <p>
                         <span class="text-muted">
                             <strong>
-                                <?php echo __('Demand exact upper- and lowercase letters'); ?>
+                                <?php echo __('DEMAND_UPPER_LOWERCASE'); ?>
                             </strong>
                         </span>
                     </p>
@@ -59,10 +59,10 @@ echo json_encode(array(
         </div>
         <div class="col-xs-12 col-md-3">
             <div class="btn-group preview-btn">
-                <button type="button" class="btn btn-default btn-sm edit-question" id="edit-q<?php echo $id ?>" title="<?php echo __('Edit question'); ?>">
+                <button type="button" class="btn btn-default btn-sm edit-question" id="edit-q<?php echo $id ?>" title="<?php echo __('EDIT_QUESTION'); ?>">
                     <i class="glyphicon pencil"></i>
                 </button>
-                <button type="button" class="btn btn-danger btn-sm delete-question" id="delete-q<?php echo $id ?>" title="<?php echo __('Remove question'); ?>">
+                <button type="button" class="btn btn-danger btn-sm delete-question" id="delete-q<?php echo $id ?>" title="<?php echo __('REMOVE_QUESTION'); ?>">
                     <i class="glyphicon trash"></i>
                 </button>
                 <button type="button" class="btn btn-success btn-sm duplicate-question" id="duplicate-q<?php echo $id ?>" title="<?php echo __('Duplicate question'); ?>">

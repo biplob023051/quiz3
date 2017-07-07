@@ -23,7 +23,7 @@
                     <p>
                         <span class="text-muted">
                             <strong>
-                                <?php echo __('Choose at most'); ?>
+                                <?php echo __('CHOOSE_MOST'); ?>
                             </strong>
                             <?php echo $question->max_allowed; ?>
                         </span>
@@ -33,7 +33,7 @@
                     <p>
                         <span class="text-muted">
                             <strong>
-                                <?php echo __('Demand exact upper- and lowercase letters'); ?>
+                                <?php echo __('DEMAND_UPPER_LOWERCASE'); ?>
                             </strong>
                         </span>
                     </p>

@@ -13,15 +13,15 @@
 	        <h4><?= __('Alert Section'); ?></h4>
 	    	<hr>
 			<div class="form-group">
-				<label>Offline Alert Message - {datetime} wildcard will be replaced by actual Maintenance date time and {time} will be replace by time left of maintenace</label>
+				<label><?= __('Offline Alert Message - {datetime} wildcard will be replaced by actual Maintenance date time and {time} will be replace by time left of maintenace'); ?></label>
 				<?php echo $this->Form->text('alert_message', array('class' => 'form-control', 'value' => $setting['alert_message'])); ?>
 			</div>
 			<div class="form-group">
-				<label>Maintenance Date Time</label>
+				<label><?= __('Maintenance Date Time'); ?></label>
 				<?php echo $this->Form->text('maintenance_time', array('class' => 'form-control datepicker', 'value' => $setting['maintenance_time'], 'id' => 'maintenance_time')); ?>
 			</div>
 			<div class="form-group">
-				<label>Make It Visible</label>
+				<label><?= __('Make It Visible'); ?></label>
 				<?php
 					if ($setting['visible']) {
 						echo $this->Form->text('visible', array('type' => 'checkbox', 'checked' => true, 'class' => '')); 
@@ -34,11 +34,11 @@
 			<h4><?php echo __('Offline Section'); ?></h4>
 	    	<hr>
 			<div class="form-group">
-				<label>Offline Message</label>
+				<label><?= __('Offline Message'); ?></label>
 				<?php echo $this->Form->text('offline_message', array('class' => 'form-control', 'value' => $setting['offline_message'])); ?>
 			</div>
 			<div class="form-group">
-				<label>Make Offline</label>
+				<label><?= __('Make Offline'); ?></label>
 				<?php
 					if ($setting['offline_status']) {
 						echo $this->Form->text('offline_status', array('type' => 'checkbox', 'checked' => true, 'class' => '')); 
@@ -49,7 +49,7 @@
 				?>
 			</div>
 			<div class="regSubmit">
-				<input type="submit" value="Save Settings" class="btn btn-primary btn-xlarge">
+				<input type="submit" value="<?= __('Save settings'); ?>" class="btn btn-primary btn-xlarge">
 			</div>
 		<?= $this->Form->end(); ?>
     </div>

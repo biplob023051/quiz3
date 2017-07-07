@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-v-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <?php echo __('Public Quizzes'); ?>
+            <?php echo __('PUBLIC_QUIZZES'); ?>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body" id="quiz-bank">
@@ -40,7 +40,7 @@
             <div class="row" id="alert-box" style="display: none;">
                 <div class="alert alert-success">
                     <span class="close">&times;</span> 
-                    <?php echo __('Quiz imported successfully'); ?>
+                    <?php echo __('QUIZ_IMPORTED'); ?>
                 </div>
             </div>
         
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Close'); ?></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CLOSE'); ?></button>
         </div>
     </div>
 </div>

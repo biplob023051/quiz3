@@ -1,6 +1,6 @@
 <?php
 //pr($userPermissions);
-$this->assign('title', __('Settings'));
+$this->assign('title', __('SETTINGS'));
 $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : array();
 ?>
 
@@ -13,7 +13,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
         <?php
             echo $this->Form->input('name', array(
-                'label' => __("Name")
+                'label' => __("NAME")
             ));
         ?>
     </div>
@@ -22,7 +22,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
         <?php
             echo $this->Form->input('email', array(
-                'label' => __("Email")
+                'label' => __("EMAIL")
             ));
         ?>
     </div>
@@ -32,7 +32,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         <?php
             echo $this->Form->input('password', array(
                 'label' => __("PASSWORD"),
-                'placeholders' => __("Fill if you want to change password"),
+                'placeholders' => __("FILL_CHANGE_PASSWORD"),
                 'required' => false
             ));
         ?>
@@ -75,16 +75,16 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-3">
         <?php
-        echo $this->Form->submit(__("Save"), ['class' => 'btn btn-info btn-block']);
+        echo $this->Form->submit(__("SAVE"), ['class' => 'btn btn-info btn-block']);
         ?>
         <!-- <div class="form-group">
-            <button type="submit" class="btn btn-info btn-block"><?php echo __("Save") ?></button>
+            <button type="submit" class="btn btn-info btn-block"><?php echo __("SAVE") ?></button>
         </div> -->
     </div>
     <div class="col-xs-12 col-md-2">
         <div class="form-group">
             <?php
-            echo $this->Html->link(__("Cancel"), '/', array(
+            echo $this->Html->link(__("CANCEL"), '/', array(
                 'class' => 'btn btn-default btn-block'
             ));
             ?>

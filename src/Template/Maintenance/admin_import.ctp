@@ -19,12 +19,12 @@
         )); ?>
     
             <?php
-                echo $this->Form->input('user_id', array('type' => 'text', 'label'=>array('text'=>__('User Id')), 'placeholder' => __('Please insert user id')));
+                echo $this->Form->input('user_id', array('type' => 'text', 'label'=>array('text'=>__('USER_ID')), 'placeholder' => __('INSERT_USER_ID')));
                 
             ?>
             <div class="form-group">
                 <div class="col col-sm-7">
-                    <?php echo $this->Form->submit(__('Import'), array(
+                    <?php echo $this->Form->submit(__('IMPORT'), array(
                         'div' => false,
                         'class' => 'btn btn-primary btn-xlarge'
                     )); ?>                

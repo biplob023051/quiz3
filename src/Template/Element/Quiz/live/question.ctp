@@ -32,7 +32,7 @@
                         <p>
                             <span class="text-muted">
                                 <strong>
-                                    <?php echo __('Choose at most'); ?>
+                                    <?php echo __('CHOOSE_MOST'); ?>
                                 </strong>
                                 <span class="max_allowed"><?php echo $question->max_allowed; ?></span>
                             </span>

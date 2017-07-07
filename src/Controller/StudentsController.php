@@ -413,11 +413,11 @@ class StudentsController extends AppController
 
             if ($this->Students->delete($studentInfo)) {
                 $response['success'] = true;
-                $response['message'] = __('Successfully removed');
+                $response['message'] = __('REMOVED');
             }
 
         } else {
-            $response['message'] = __('You are not authorized to continue this operation!');
+            $response['message'] = __('You are not authorized to do this action');
         } 
 
         echo json_encode($response);
@@ -475,10 +475,10 @@ class StudentsController extends AppController
                 $response['success'] = true;
                 $response['changetext'] = $this->request->data['value_info'];
             } else {
-                $response['message'] = __('Something wrong, please try again!');
+                $response['message'] = __('SOMETHING_WENT_WRONG');
             }
         } else {
-            $response['message'] = __('Something wrong, please try again!');
+            $response['message'] = __('SOMETHING_WENT_WRONG');
         }
         echo json_encode($response);
         exit;

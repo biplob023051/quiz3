@@ -3,8 +3,8 @@
 ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
-    <h2><?php echo __('Prices'); ?></h2>
-    <p class="text-muted"><?php echo __('Select your favorite package to continue.'); ?></p>
+    <h2><?php echo __('PRICES'); ?></h2>
+    <p class="text-muted"><?php echo __('SELECT_PACKAGE'); ?></p>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <table class="table table-striped">
@@ -12,29 +12,29 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th><?php echo __('FREE'); ?></th>
-                        <th><?php echo __('49 E/Y'); ?></th>
+                        <th><?php echo __('49_EUR'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo __('Users'); ?></td>
+                        <td><?php echo __('USERS'); ?></td>
                         <td><?php echo __('1'); ?></td>
                         <td><?php echo __('1'); ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo __('Tests'); ?></td>
+                        <td><?php echo __('TESTS'); ?></td>
                         <td><?php echo __('1'); ?></td>
-                        <td><?php echo __('Unlimited'); ?></td>
+                        <td><?php echo __('UNLIMITED'); ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo __('Students/Test'); ?></td>
+                        <td><?php echo __('STUDENTS_TEST'); ?></td>
                         <td><?php echo __('40'); ?></td>
-                        <td><?php echo __('Unlimited'); ?></td>
+                        <td><?php echo __('UNLIMITED'); ?></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><?php echo $this->Html->link(__('Register Now!'), '/user/create', array('class' => 'btn btn-success')); ?></td>
-                        <td><button type="button" id="buy-button" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
+                        <td><?php echo $this->Html->link(__('REGISTER_NOW'), '/user/create', array('class' => 'btn btn-success')); ?></td>
+                        <td><button type="button" id="buy-button" class="btn btn-success"><?php echo __('BUY'); ?></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-<?php echo $this->element('Page/buy_modal', array('package' => __('49 E/Y'))); ?>
+<?php echo $this->element('Page/buy_modal', array('package' => __('49_EUR'))); ?>
 <script id="app-data" type="application/json">
     <?php
     echo json_encode(array(

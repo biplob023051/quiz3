@@ -2,7 +2,7 @@
     <?php if ($value1->id == $value4->student_id) : ?>
         <?php if (($value3->question_type->id == 1) || ($value3->question_type->id == 3)) : ?>
             <?php if (empty($value4->text)) : ?>
-                <p class="text-danger"><span class="label"><?php echo __('Not Answered'); ?></span></p>
+                <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
                 <!-- check correct and incorrect -->
                 <?php if ($value4->score > 0) : ?>
@@ -19,7 +19,7 @@
         <!-- automatic rating -->
         <?php elseif ($value3->question_type->id == 2) : ?>
             <?php if (empty($value4->text)) : ?>
-                <p class="text-danger"><span class="label"><?php echo __('Not Answered'); ?></span></p>
+                <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
                 <!-- check correct and incorrect -->
                 <?php if ($value4->score > 0) : ?>
@@ -36,12 +36,12 @@
         <!-- short manual scoring -->
         <?php elseif ($value3->question_type->id == 4) : ?>
             <?php if (empty($value4->text)) : ?>
-                <p class="text-danger"><span class="label"><?php echo __('Not Answered'); ?></span></p>
+                <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
                 <?php echo $value4->text . '<br />'; ?>
                 <?php if ($value3->choices[0]->points != '0.00') : ?>
                     <input 
-                placeholder="<?php echo __('Rate!'); ?>" 
+                placeholder="<?php echo __('RATE'); ?>" 
                 type="number" 
                 class="form-control update-score" 
                 name="<?php echo $value1->id; ?>"
@@ -55,7 +55,7 @@
         <?php else: ?>
             <!-- essay type -->
             <?php if (empty($value4->text)) : ?>
-                <p class="text-danger"><span class="label"><?php echo __('Not Answered'); ?></span></p>
+                <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
                 <button type="button" class="btn btn-danger btn-sm read-essay" quiz-id="">
                     <?php echo __('READ'); ?>

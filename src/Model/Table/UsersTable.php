@@ -86,7 +86,7 @@ class UsersTable extends Table
             ->add('password', [
                 'length' => [
                     'rule' => ['minLength', 8],
-                    'message' => 'Password must be 8 characters long',
+                    'message' => 'PASSWORD_MUST_BE_LONGER',
                 ],
                 // 'compare' => [
                 //     'rule' => ['compareWith', 'passwordVerify'],

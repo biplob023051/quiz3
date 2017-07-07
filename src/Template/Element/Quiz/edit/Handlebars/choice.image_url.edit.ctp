@@ -9,7 +9,7 @@
                         'div' => array('class' => 'form-group'),
                         'class' => 'form-control youtube-url',
                         'label' => false,
-                        'placeholder' => __('Enter Image Url'),
+                        'placeholder' => __('ENTER_IMAGE_URL'),
                         'id' => 'Choice{{id}}Text'
                     ));
                     ?>

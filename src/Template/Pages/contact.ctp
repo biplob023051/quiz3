@@ -1,7 +1,7 @@
 <script src='https://www.google.com/recaptcha/api.js?hl=fi'></script>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
-<h2><?php echo __('Contact'); ?></h2>
+<h2><?php echo __('CONTACT'); ?></h2>
 <p class="text-muted"><?php echo __('MeSTRADA Oy / Pietu Halonen'); ?><br /><?php echo __('040-5866 105'); ?><br /></p>
 <?= $this->Flash->render() ?>
 <div class="row">
@@ -18,13 +18,13 @@
         ?>
             <div class="alert alert-danger" id="error-message" style="display: none;"></div>
             <div class="form-group">
-                <label for="" class="col-sm-4 control-label"><?php echo __('Your Email'); ?></label>
+                <label for="" class="col-sm-4 control-label"><?php echo __('YOUR_EMAIL'); ?></label>
                 <div class="col-sm-7">
                     <input type="email" name="email" class="form-control" id="email" placeholder="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="" class="col-sm-4 control-label"><?php echo __('Message'); ?></label>
+                <label for="" class="col-sm-4 control-label"><?php echo __('MESSAGE'); ?></label>
                 <div class="col-sm-7">
                     <textarea name="message" id="message" rows="5" class="form-control"></textarea>
                 </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-7">
-                    <button type="submit" id="submitForm" class="btn btn-success btn-lg"><?php echo __('Send Message'); ?></button>
+                    <button type="submit" id="submitForm" class="btn btn-success btn-lg"><?php echo __('SEND_MESSAGE'); ?></button>
                 </div>
             </div>
         <?php echo $this->Form->end(); ?>

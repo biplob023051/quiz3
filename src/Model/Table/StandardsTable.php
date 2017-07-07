@@ -53,12 +53,12 @@ class StandardsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'Title is required')
+            ->notEmpty('title', 'TITLE_REQUIRED')
             ->add('title', [
                 'isUnique' => [
                     'rule' => 'validateUnique',
                     'provider' => 'table',
-                    'message' => 'Class already created',
+                    'message' => 'CLASS_ALREADY_CREATED',
                 ]
             ]);
 

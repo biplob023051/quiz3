@@ -74,19 +74,19 @@ class HelpsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'Title is required');
+            ->notEmpty('title', 'TITLE_REQUIRED');
 
         $validator
             ->requirePresence('parent_id', 'create')
-            ->notEmpty('parent_id', 'Main title is required');
+            ->notEmpty('parent_id', 'MAIN_TITLE_REQUIRED');
 
         $validator
             ->requirePresence('url', 'create')
-            ->notEmpty('url', 'Youtube video url is required')
+            ->notEmpty('url', 'REQUIRED_YOUTUBE_URL')
             ->add('url', [
                 'valid-url' => [
                     'rule' => 'url',
-                    'message' => 'Valid youtube video url is required'
+                    'message' => 'REQUIRED_YOUTUBE_URL'
                 ]
             ]);
 
@@ -112,7 +112,7 @@ class HelpsTable extends Table
     {
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'Title is required');
+            ->notEmpty('title', 'TITLE_REQUIRED');
         return $validator;
     }
 
@@ -124,19 +124,19 @@ class HelpsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'Title is required');
+            ->notEmpty('title', 'TITLE_REQUIRED');
 
         $validator
             ->requirePresence('type', 'create')
-            ->notEmpty('type', 'Display page is required');
+            ->notEmpty('type', 'DISPLAY_PAGE_REQUIRED');
 
         $validator
             ->requirePresence('url', 'create')
-            ->notEmpty('url', 'Youtube video url is required')
+            ->notEmpty('url', 'REQUIRED_YOUTUBE_URL')
             ->add('url', [
                 'valid-url' => [
                     'rule' => 'url',
-                    'message' => 'Valid youtube video url is required'
+                    'message' => 'REQUIRED_YOUTUBE_URL'
                 ]
             ]);
 

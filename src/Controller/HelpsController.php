@@ -11,7 +11,7 @@ use App\Controller\AppController;
 class HelpsController extends AppController
 {
     public function index() {
-        $this->set('title_for_layout',__('Help'));
+        $this->set('title_for_layout',__('HELP'));
         $helps = $this->Helps->parentsOptions();
         foreach ($helps as $parent_id => $value) {
             $helps[$value] = $this->Helps->find('all', array(

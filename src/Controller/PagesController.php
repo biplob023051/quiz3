@@ -63,24 +63,24 @@ class PagesController extends AppController
         }
 
         if ($this->request->params['pass'][0] == 'contact') {
-            $lang_strings['empty_email'] = __('Require Email Address');
-            $lang_strings['invalid_email'] = __('Invalid email');
-            $lang_strings['empty_message'] = __('Require Message');
-            $lang_strings['empty_captcha'] = __('Please prove you are not robot.');
+            $lang_strings['empty_email'] = __('REQUIRE_EMAIL');
+            $lang_strings['invalid_email'] = __('INVALID_EMAIL');
+            $lang_strings['empty_message'] = __('REQUIRE_MESSAGE');
+            $lang_strings['empty_captcha'] = __('PROVE_NOT_ROBOT');
             $this->set(compact('lang_strings'));
         }
 
         if (($this->request->params['pass'][0] == '1bgfg9sq') || ($this->request->params['pass'][0] == '4bgfg9sq') || ($this->request->params['pass'][0] == '5bgfg9sq') || ($this->request->params['pass'][0] == '9bgfg9sq') || ($this->request->params['pass'][0] == 'prices')) {
-            $lang_strings['empty_name'] = __('Require Name');
-            $lang_strings['invalid_characters'] = __('Name contains invalid character');
-            $lang_strings['empty_email'] = __('Require Email Address');
-            $lang_strings['invalid_email'] = __('Invalid email');
-            $lang_strings['unique_email'] = __('Email already registered');
-            $lang_strings['empty_password'] = __('Require Password');
-            $lang_strings['varify_password'] = __('Password did not match, please try again');
-            $lang_strings['character_count'] = __('Password must be 8 characters long');
-            $lang_strings['package_29'] = __('Create Account And Buy 29 E/Y');
-            $lang_strings['package_49'] = __('Create Account And Buy 49 E/Y');
+            $lang_strings['empty_name'] = __('REQUIRE_NAME');
+            $lang_strings['invalid_characters'] = __('NAME_CONTAINS_INVALID_CHAR');
+            $lang_strings['empty_email'] = __('REQUIRE_EMAIL');
+            $lang_strings['invalid_email'] = __('INVALID_EMAIL');
+            $lang_strings['unique_email'] = __('EMAIL_REGISTERED');
+            $lang_strings['empty_password'] = __('REQUIRE_PASSWORD');
+            $lang_strings['varify_password'] = __('PASSWORD_NOT_MATCH');
+            $lang_strings['character_count'] = __('PASSWORD_MUST_BE_LONGER');
+            $lang_strings['package_29'] = __('CREATE_ACCOUNT_BUY_29');
+            $lang_strings['package_49'] = __('CREATE_ACCOUNT_BUY_49');
             $this->set(compact('lang_strings'));
         }
 
@@ -110,6 +110,6 @@ class PagesController extends AppController
         $this->loadModel('Helps');
         $home_video = $this->Helps->getVideoByType('home');
         $this->set(compact('home_video'));
-        $this->set('title_for_layout', __('Welcome to Verkkotesti'));   
+        $this->set('title_for_layout', __('WELCOME'));   
     }
 }

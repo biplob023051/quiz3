@@ -9,7 +9,7 @@
                         'div' => array('class' => 'form-group'),
                         'class' => 'form-control c-points',
                         'label' => false,
-                        'placeholder' => __('Max. points'),
+                        'placeholder' => __('MAX_POINTS'),
                         'id' => 'Choice{{id}}Points',
                         'type' => 'number',
                         'step' => '0.01'

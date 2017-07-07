@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
                 <?php if ($session->check('Auth.User.name')): ?>
-                    <li <?php if ($c_controller == 'quiz' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('My Quizzes'), '/'); ?></li>
+                    <li <?php if ($c_controller == 'quiz' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('MY_QUIZZES'), '/'); ?></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -22,18 +22,18 @@
                         <?php $admin_actions = array('admin_titles', 'admin_add', 'admin_insert', 'admin_index'); ?>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                <?php echo __('Admin Settings'); ?> 
+                                <?php echo __('ADMIN_SETTINGS'); ?> 
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li <?php if ($c_controller == 'standards' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Classes'), array('controller' => 'standards', 'action' => 'index', 'prefix' => 'admin')); ?></li>
-                                <li <?php if ($c_controller == 'subjects' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Subjects'), array('controller' => 'subjects', 'action' => 'index', 'prefix' => 'admin')); ?></li>
-                                <li <?php if ($c_controller == 'helps' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Create Help'), array('controller' => 'helps', 'action' => 'titles', 'prefix' => 'admin')); ?></li>
-                                <li <?php if ($c_action == 'admin_import') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Demo Quiz'), array('controller' => 'maintenance', 'action' => 'import', 'prefix' => 'admin')); ?></li>
-                                <li <?php if (($c_controller == 'maintenance') && ($c_action == 'admin_settings')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Maintenance'), array('controller' => 'maintenance', 'action' => 'settings', 'prefix' => 'admin')); ?></li>
+                                <li <?php if ($c_controller == 'standards' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('CLASSES'), array('controller' => 'standards', 'action' => 'index', 'prefix' => 'admin')); ?></li>
+                                <li <?php if ($c_controller == 'subjects' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('SUBJECTS'), array('controller' => 'subjects', 'action' => 'index', 'prefix' => 'admin')); ?></li>
+                                <li <?php if ($c_controller == 'helps' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('CREATE_HELP'), array('controller' => 'helps', 'action' => 'titles', 'prefix' => 'admin')); ?></li>
+                                <li <?php if ($c_action == 'admin_import') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('IMPORT_DEMO_QUIZZES'), array('controller' => 'maintenance', 'action' => 'import', 'prefix' => 'admin')); ?></li>
+                                <li <?php if (($c_controller == 'maintenance') && ($c_action == 'admin_settings')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('MAINTENANCE'), array('controller' => 'maintenance', 'action' => 'settings', 'prefix' => 'admin')); ?></li>
                                 <?php $video_actions = array('admin_videos', 'admin_create'); ?>
-                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Site Videos'), array('controller' => 'helps', 'action' => 'videos', 'prefix' => 'admin')); ?></li>
-                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Shared Quizzes'), array('controller' => 'Quizzes', 'action' => 'shared', 'prefix' => 'admin')); ?></li>
+                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('SITE_VIDEOS'), array('controller' => 'helps', 'action' => 'videos', 'prefix' => 'admin')); ?></li>
+                                <li <?php if (in_array($c_action, $video_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('SHARED_QUIZZES'), array('controller' => 'Quizzes', 'action' => 'shared', 'prefix' => 'admin')); ?></li>
                             </ul>
                         </li>
                     <?php endif ?>
@@ -47,10 +47,10 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><?php echo $this->Html->link(__('Settings'), '/users/settings'); ?></li>
+                            <li><?php echo $this->Html->link(__('SETTINGS'), '/users/settings'); ?></li>
                         </ul>
                     </li>
-                    <li><?php echo $this->Html->link(__('Logout'), '/users/logout'); ?></li>
+                    <li><?php echo $this->Html->link(__('LOGOUT'), '/users/logout'); ?></li>
                     <!--/nocache-->
                 <?php else: ?>
 

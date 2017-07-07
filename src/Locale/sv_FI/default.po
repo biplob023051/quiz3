@@ -668,10 +668,6 @@ msgstr "Frågor "
 msgid "UNANSWERED"
 msgstr "  obesvarad(e)."
 
-#: Controller/QuizController.php:200
-msgid "WANT_TURN_IN_QUIZ"
-msgstr " Skicka in svaren?"
-
 #: Controller/QuizController.php:201
 msgid "FIRST_NAME_REQUIRED"
 msgstr "Förnamn krävs"
@@ -1688,3 +1684,6 @@ msgstr "New Password Verify"
 msgid "RESET"
 msgstr "Reset"
 
+#: Controller/QuestionController.php:121
+msgid "CHOICE %d"
+msgstr "Alternativ %d"

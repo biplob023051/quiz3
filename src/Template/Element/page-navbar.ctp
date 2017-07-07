@@ -7,7 +7,7 @@
         <?php if (($c_controller != 'quiz' && $c_action != 'live') && ($c_controller != 'student' && $c_action != 'success')) : ?>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
-                    <span class="sr-only"><?php echo __('Navigation'); ?></span>
+                    <span class="sr-only"><?php echo __('NAVIGATION'); ?></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -16,9 +16,9 @@
             </div>
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="nav navbar-nav navbar-left">
-                    <li <?php if ($c_controller == 'pages' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Overview'), '/'); ?></li>
-                    <li <?php if (isset($current_page) && ($current_page == 'prices')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Prices'), array('controller' => 'pages', 'action' => 'prices')); ?></li>
-                    <li <?php if (isset($current_page) && ($current_page == 'contact')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Contact'), array('controller' => 'pages', 'action' => 'contact')); ?></li>
+                    <li <?php if ($c_controller == 'pages' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('OVERVIEW'), '/'); ?></li>
+                    <li <?php if (isset($current_page) && ($current_page == 'prices')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('PRICES'), array('controller' => 'pages', 'action' => 'prices')); ?></li>
+                    <li <?php if (isset($current_page) && ($current_page == 'contact')) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('CONTACT'), array('controller' => 'pages', 'action' => 'contact')); ?></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -34,8 +34,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo $this->request->base; ?>/users/create"><?php echo __('If you don’t have account?') . ' '; ?><span class="text-primary"><?php echo __('Register Now!'); ?></span></a></li>
-                    <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('Login'); ?></button></a></li>
+                    <li><a href="<?php echo $this->request->base; ?>/users/create"><?php echo __('NOT_ACCOUNT') . ' '; ?><span class="text-primary"><?php echo __('REGISTER_NOW'); ?></span></a></li>
+                    <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('LOGGIN'); ?></button></a></li>
                 </ul>
             </div>
         <?php else : ?>

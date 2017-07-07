@@ -27,7 +27,7 @@
                         'label' => false,
                         'type' => 'number',
                         'step' => '0.01',
-                        'placeholder' => __("Max. points")
+                        'placeholder' => __("MAX_POINTS")
                     ));
                     ?>
                 </div>

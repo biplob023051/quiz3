@@ -133,19 +133,19 @@ class QuizzesController extends AppController
             'quizzes' => $quizzes,
         );
 
-        $lang_strings['delete_quiz_1'] = __('There are ');
-        $lang_strings['delete_quiz_2'] = __(' answers, ');
-        $lang_strings['delete_quiz_3'] = __(' students, and ');
-        $lang_strings['delete_quiz_4'] = __(' number of questions. This can not be undone. Are you sure want to delete?');
-        $lang_strings['delete_quiz_5'] = __('Delete quiz ');
-        $lang_strings['request_sent'] = __('Upgrade Pending');
-        $lang_strings['share_quiz'] = __('Share quiz');
-        $lang_strings['share_quiz_question'] = __('Do you want to share the quiz?');
-        $lang_strings['remove_share'] = __('Cancel share quiz');
-        $lang_strings['remove_share_question'] = __('Do you want to remove sharing the quiz?');
-        $lang_strings['remove_shared_quiz'] = __('Cancel share');
-        $lang_strings['check_select'] = __('Please choose at least one quiz to import!');
-        $lang_strings['import_success'] = __('Quiz imported successfully');
+        $lang_strings['delete_quiz_1'] = __('THERE_ARE');
+        $lang_strings['delete_quiz_2'] = __('ANSWERS_COMMA');
+        $lang_strings['delete_quiz_3'] = __('STUDENTS_AND');
+        $lang_strings['delete_quiz_4'] = __('SURELY_DELETE');
+        $lang_strings['delete_quiz_5'] = __('DELETE_QUIZ');
+        $lang_strings['request_sent'] = __('UPGRADE_PENDING');
+        $lang_strings['share_quiz'] = __('SHARE_QUIZ');
+        $lang_strings['share_quiz_question'] = __('DO_YOU_SHARE_QUIZ');
+        $lang_strings['remove_share'] = __('CANCEL_SHARE_QUIZ');
+        $lang_strings['remove_share_question'] = __('DO_YOU_REMOVE_SHARING');
+        $lang_strings['remove_shared_quiz'] = __('CANCEL_SHARE');
+        $lang_strings['check_select'] = __('Please choose at least one quiz to import');
+        $lang_strings['import_success'] = __('QUIZ_IMPORTED');
 
         $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
     }
@@ -170,10 +170,10 @@ class QuizzesController extends AppController
             }
             $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
             if ($this->Quizzes->save($quiz)) {
-                $this->Flash->success(__('Successfully saved.'));
+                $this->Flash->success(__('QUIZ_SAVED'));
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Flash->error(__('Save Failed!'));
+                $this->Flash->error(__('Quiz Save Failed'));
             }
         }
 
@@ -218,24 +218,24 @@ class QuizzesController extends AppController
             $this->set('no_question', true);
         }
 
-        $lang_strings['empty_question'] = __('Empty Question Is Not Permit');
-        $lang_strings['same_choice'] = __('Empty or Same Choices Are Not Permit');
-        $lang_strings['single_greater'] = __('At least a point should be greater than 0');
-        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers semicolon separated');
-        $lang_strings['point_greater'] = __('At least point should be greater than 0');
-        $lang_strings['two_greater'] = __('At least 2 points should be greater than 0');
-        $lang_strings['insert_another'] = __('You put only one correct answers, please choose another point greater than 0!!!');
-        $lang_strings['youtube_url'] = __('Please enter Youtube url');
-        $lang_strings['image_url'] = __('Please enter image url');
-        $lang_strings['header_q_title'] = __('Enter the header');
-        $lang_strings['other_q_title'] = __('Enter the question');
+        $lang_strings['empty_question'] = __('NO_EMPTY_QUESTION');
+        $lang_strings['same_choice'] = __('EMPTY_OR_SAME_NOT_ALLOWED');
+        $lang_strings['single_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['correct_answer'] = __('ENTER_CORRECT_ANSWERS');
+        $lang_strings['point_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['two_greater'] = __('TWO_CHOICES_GREATER_THAN_ZERO');
+        $lang_strings['insert_another'] = __('CHOOSE_ANOTHER_CHOOSE');
+        $lang_strings['youtube_url'] = __('ENTER_YOUTUBE_URL');
+        $lang_strings['image_url'] = __('ENTER_IMAGE_URL');
+        $lang_strings['header_q_title'] = __('ENTER_HEADER');
+        $lang_strings['other_q_title'] = __('ENTER_QUESTION');
 
-        $lang_strings['youtube_exp_text'] = __('Video explanation text');
-        $lang_strings['image_exp_text'] = __('Image explanation text');
-        $lang_strings['other_exp_text'] = __('Explanation text');
-        $lang_strings['empty_header'] = __('Please enter Header text');
-        $lang_strings['no_choice_1'] = __('Minimum');
-        $lang_strings['no_choice_2'] = __('choices are required!');
+        $lang_strings['youtube_exp_text'] = __('VIDEO_EXPLANATION');
+        $lang_strings['image_exp_text'] = __('IMAGE_EXPLANATION_TEXT');
+        $lang_strings['other_exp_text'] = __('EXPLANATION_TEXT');
+        $lang_strings['empty_header'] = __('ENTER_HEADER_TEXT');
+        $lang_strings['no_choice_1'] = __('MINIMUM');
+        $lang_strings['no_choice_2'] = __('CHOICES_REQUIRED');
 
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
@@ -267,11 +267,11 @@ class QuizzesController extends AppController
         // exit;
 
         if (!empty($subjectOptions)) {
-            $subjectOptions = array(0 => __('All Subjects')) + $subjectOptions;
+            $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
         
         if (!empty($classOptions)) {
-            $classOptions = array(0 => __('All Classes')) + $classOptions;
+            $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
         // pr($this->Session->read('Auth.User'));
@@ -293,10 +293,10 @@ class QuizzesController extends AppController
         //     return $this->redirect(array('action' => 'index'));  
 
         $quiz = $this->Quizzes->newEntity();
-        $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('Name the quiz'), 'user_id' => $userId]);
+        $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('NAME_QUIZ'), 'user_id' => $userId]);
        
         if (!$this->Quizzes->save($quiz)) {
-            $this->Flash->error(__('Sorry, quiz save failed, please try again.'));    
+            $this->Flash->error(__('Quiz Save Failed'));    
             return $this->redirect($this->referer());
         }
         // pr($quiz);
@@ -306,7 +306,7 @@ class QuizzesController extends AppController
             ['id' => $quiz->id])
         ) {
             $this->Quizzes->delete($quiz->id);
-            $this->Flash->error(__('Sorry, quiz save failed, please try again.'));
+            $this->Flash->error(__('Quiz Save Failed'));
             return $this->redirect($this->referer());
         }
         
@@ -367,7 +367,7 @@ class QuizzesController extends AppController
         // exit;
 
         if (empty($quiz))
-            throw new NotFoundException(__('Invalid quiz!'));
+            throw new NotFoundException(__('INVALID_QUIZ!'));
         $this->set(compact('quiz', 'id'));
     }
 
@@ -413,20 +413,20 @@ class QuizzesController extends AppController
         if (empty($data)) {
             $this->set('isError', true);
         } else {
-            $lang_strings[0] = __('Internet connection has been lost, please try again later.');
-            $lang_strings[1] = __('All questions answered. Turn in your quiz?');
-            $lang_strings[2] = __('Questions ');
-            $lang_strings[3] = __(' unanswered.');
-            $lang_strings[4] = __(' Turn in your quiz?');
-            $lang_strings[5] = __('First Name is Required');
-            $lang_strings[6] = __('Last Name is Required');
-            $lang_strings[7] = __('Class is Required');
-            $lang_strings['last_name_invalid'] = __('Invalid Last Name');
-            $lang_strings['first_name_invalid'] = __('Invalid First Name');
-            $lang_strings['class_invalid'] = __('Invalid Class');
-            $lang_strings['right_click_disabled'] = __('Sorry, right click disabled');
-            $lang_strings['browser_switch'] = __('Sorry, you are not allowed to switch browser tab');
-            $lang_strings['leave_quiz'] = __('Are you sure that you want to leave this quiz?');
+            $lang_strings[0] = __('CONNECTION_LOST');
+            $lang_strings[1] = __('ALL_QUESTIONS_ANSWERED');
+            $lang_strings[2] = __('QUESTIONS');
+            $lang_strings[3] = __('UNANSWERED');
+            $lang_strings[4] = __('WANT_TURN_IN_QUIZ');
+            $lang_strings[5] = __('FIRST_NAME_REQUIRED');
+            $lang_strings[6] = __('LAST_NAME_REQUIRED');
+            $lang_strings[7] = __('CLASS_REQUIRED');
+            $lang_strings['last_name_invalid'] = __('INVALID_LAST_NAME');
+            $lang_strings['first_name_invalid'] = __('INVALID_FIRST_NAME');
+            $lang_strings['class_invalid'] = __('INVALID_CLASS');
+            $lang_strings['right_click_disabled'] = __('RIGHT_CLICK_DISABLED');
+            $lang_strings['browser_switch'] = __('CANT_SWITCH_TAB');
+            $lang_strings['leave_quiz'] = __('SURELY_LEAVE_QUIZ');
 
             $this->set(compact('lang_strings', 'data'));
             $this->set('quizRandomId', $this->request->data['random_id']);
@@ -494,7 +494,7 @@ class QuizzesController extends AppController
             if ((($data->user->account_level == 0) || 
                 (($data->user->account_level == 1) && (strtotime($data->user->expired) < time()))) 
                 && ($data->student_count >= 40)) {
-                $this->Flash->error(__('Sorry, only allow 40 students to take this quiz.'));
+                $this->Flash->error(__('ONLY_FOURTY_STUDENTS'));
                 return $this->redirect(array('controller' => 'quizzes', 'action' => 'no_permission'));
             }
 
@@ -510,23 +510,23 @@ class QuizzesController extends AppController
                 $this->set(compact('student'));
             }
 
-            $lang_strings[0] = __('Internet connection has been lost, please try again later.');
-            $lang_strings[1] = __('All questions answered. Turn in your quiz?');
-            $lang_strings[2] = __('Questions ');
-            $lang_strings[3] = __(' unanswered.');
-            $lang_strings[4] = __(' Turn in your quiz?');
-            $lang_strings[5] = __('First Name is Required');
-            $lang_strings[6] = __('Last Name is Required');
-            $lang_strings[7] = __('Class is Required');
-            $lang_strings['last_name_invalid'] = __('Invalid Last Name');
-            $lang_strings['first_name_invalid'] = __('Invalid First Name');
-            $lang_strings['class_invalid'] = __('Invalid Class');
-            $lang_strings['right_click_disabled'] = __('Sorry, right click disabled');
-            $lang_strings['browser_switch'] = __('Sorry, you are not allowed to switch browser tab');
-            $lang_strings['leave_quiz'] = __('Are you sure that you want to leave this quiz?');
+            $lang_strings[0] = __('CONNECTION_LOST');
+            $lang_strings[1] = __('ALL_QUESTIONS_ANSWERED');
+            $lang_strings[2] = __('QUESTIONS');
+            $lang_strings[3] = __('UNANSWERED');
+            $lang_strings[4] = __('WANT_TURN_IN_QUIZ');
+            $lang_strings[5] = __('FIRST_NAME_REQUIRED');
+            $lang_strings[6] = __('LAST_NAME_REQUIRED');
+            $lang_strings[7] = __('CLASS_REQUIRED');
+            $lang_strings['last_name_invalid'] = __('INVALID_LAST_NAME');
+            $lang_strings['first_name_invalid'] = __('INVALID_FIRST_NAME');
+            $lang_strings['class_invalid'] = __('INVALID_CLASS');
+            $lang_strings['right_click_disabled'] = __('RIGHT_CLICK_DISABLED');
+            $lang_strings['browser_switch'] = __('CANT_SWITCH_TAB');
+            $lang_strings['leave_quiz'] = __('SURELY_LEAVE_QUIZ');
 
-            $lang_strings['disabled_submit'] = __('Please hold, your answers are saving...');
-            $lang_strings['enabled_submit'] = __('Turn in your quiz');
+            $lang_strings['disabled_submit'] = __('ANSWERS_SAVING');
+            $lang_strings['enabled_submit'] = __('WANT_TURN_IN_QUIZ');
 
             $this->set('data', $data);
             $this->set(compact('lang_strings'));
@@ -636,15 +636,15 @@ class QuizzesController extends AppController
             $new_class[$cls] = $cls;
         }
         
-        $classes = Hash::merge(array('all' => __('All Classes')), $new_class);
+        $classes = Hash::merge(array('all' => __('ALL_CLASS')), $new_class);
 
-        $lang_strings['remove_question'] = __('Are you sure you want to remove ');
-        $lang_strings['with_points'] = __(') answer with points ');
-        $lang_strings['positive_number'] = __('Please Give a postive number!');
-        $lang_strings['update_require'] = __('You have not updated score yet!');
-        $lang_strings['more_point_1'] = __('Points not allowed more than ');
-        $lang_strings['more_point_2'] = __(' value');
-        $lang_strings['online_warning'] = __('Student is online and giving test! ');
+        $lang_strings['remove_question'] = __('SURELY_REMOVE');
+        $lang_strings['with_points'] = __('ANSWER_WITH_POINTS');
+        $lang_strings['positive_number'] = __('GIVE_POSITIVE_NUMBER');
+        $lang_strings['update_require'] = __('SCORE_NOT_UPDATED');
+        $lang_strings['more_point_1'] = __('POINTS_NOT_ALLOWED');
+        $lang_strings['more_point_2'] = __('VALUE');
+        $lang_strings['online_warning'] = __('STUDENT_ONLINE_AND_GIVING_TEST');
 
         $this->set(compact('quizDetails', 'classes', 'filter', 'studentIds', 'quizId', 'lang_strings'));
     }
@@ -901,13 +901,13 @@ class QuizzesController extends AppController
         $this->Quizzes->Rankings->deleteAll(array('quiz_id' => $quizId));
         $this->Quizzes->Questions->deleteAll(array('quiz_id' => $quizId));
         if ($this->Quizzes->deleteAll(['id' => $quizId])) {
-            $this->Flash->success(__('You have Successfuly deleted quiz'));
+            $this->Flash->success(__('QUIZ_DELETED'));
         }
         return $this->redirect($this->referer());
     }
 
     public function no_permission() {
-        $this->set('title_for_layout', __('No permission'));
+        $this->set('title_for_layout', __('NO_PERMISSION'));
     }
 
     // print quiz answer
@@ -944,7 +944,7 @@ class QuizzesController extends AppController
 
         if (!empty($quiz)) {
             $new_quiz = array();
-            $new_quiz['name'] = __('Copy of:') . ' ' . $quiz->name;
+            $new_quiz['name'] = __('COPY_OF') . ' ' . $quiz->name;
             $new_quiz['user_id'] = $user_id;
             $new_quiz['description'] = $quiz->description;
             $new_quiz['status'] = 1;
@@ -982,18 +982,18 @@ class QuizzesController extends AppController
                         ['id' => $new_quiz->id]
                     )
                 ) {
-                    $response['message'] = __('Duplicated Successfully');
+                    $response['message'] = __('QUIZ_DUPLICATED');
                     $response['result'] = 1;
                     $response['id'] = $new_quiz->id;
                 } else {
                     $this->Quizzes->delete($new_quiz->id);
-                    $response['message'] = __('Something went wrong, please try again later!');
+                    $response['message'] = __('SOMETHING_WENT_WRONG');
                 }
             } else {
-                $response['message'] = __('Something went wrong, please try again later!');
+                $response['message'] = __('SOMETHING_WENT_WRONG');
             }
         } else {
-            $response['message'] = __('Invalid Quiz!');
+            $response['message'] = __('INVALID_QUIZ');
         }
         echo json_encode($response);
         exit;
@@ -1008,7 +1008,7 @@ class QuizzesController extends AppController
         $quiz = $this->Quizzes->getAQuizRel($quiz_id, $this->Auth->user('id'));
 
         if (empty($quiz) || empty($quiz->questions[0]->total)) {
-            $this->Flash->error(__('Invalid quiz'));
+            $this->Flash->error(__('INVALID_QUIZ'));
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }   
         // pr($quiz);
@@ -1036,9 +1036,9 @@ class QuizzesController extends AppController
         if ($this->Quizzes->save($quiz)) {
             // Send email to the admin
             if (empty($shared)) {
-                $subject = __('[Verkkotesti] A quiz has been shared!');
+                $subject = __('QUIZ_SHARED_EMAIL');
                 $template = 'quiz_shared';
-                $message = __('You have successfully shared the quiz. Please hold for admin approval.');
+                $message = __('QUIZ_SHARED_HOLD_APPROVAL');
 
                 $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), $subject, $quiz, $template);
                 //$admin_email = $this->Email->sendMail('biplob.weblancer@gmail.com', $subject, $quiz, $template);
@@ -1052,7 +1052,7 @@ class QuizzesController extends AppController
             }
             $this->Flash->success($message);
         } else {
-            $this->Flash->error(__('Something went wrong, please try again later!'));
+            $this->Flash->error(__('SOMETHING_WENT_WRONG'));
         }
         return $this->redirect($this->referer());
     }
@@ -1136,11 +1136,11 @@ class QuizzesController extends AppController
         // exit;
 
         if (!empty($subjectOptions)) {
-            $subjectOptions = array(0 => __('All Subjects')) + $subjectOptions;
+            $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
         
         if (!empty($classOptions)) {
-            $classOptions = array(0 => __('All Classes')) + $classOptions;
+            $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
         $this->set(compact('subjectOptions', 'classOptions', 'selectedSubjects', 'quizzes'));
@@ -1286,10 +1286,10 @@ class QuizzesController extends AppController
             // pr($imported_quiz_count);
             // exit;
             if ($imported_quiz_count >= DOWNLOAD_LIMIT) {
-                $response['message'] = __('Sorry, you have exceeded maximum limit of import quiz. Please upgrade your account to get unlimited access on quiz bank!');
+                $response['message'] = __('YOU_HAVE_EXCEEDED_MAX_IMPORT');
             } else {
                 if ((count($this->request->data['random_id'])+$imported_quiz_count) > DOWNLOAD_LIMIT) {
-                    $response['message'] = __('Sorry, we can\'t process your request! You have left only import') . ' ' . (DOWNLOAD_LIMIT - $imported_quiz_count);
+                    $response['message'] = __('CANT_PROCESS_REQUEST') . ' ' . (DOWNLOAD_LIMIT - $imported_quiz_count);
                 }
             }
         }
@@ -1350,7 +1350,7 @@ class QuizzesController extends AppController
                     // exit;
 
                     $new_quiz = array();
-                    $new_quiz['name'] = __('Copy of:') . ' ' . $quiz->name;
+                    $new_quiz['name'] = __('COPY_OF') . ' ' . $quiz->name;
                     $new_quiz['user_id'] = $user_id;
                     $new_quiz['description'] = $quiz->description;
                     $new_quiz['status'] = 1;
@@ -1401,13 +1401,13 @@ class QuizzesController extends AppController
                 }
             }
             if (!empty($success_least_one)) {
-                $response['message'] = __('Imported Successfully');
+                $response['message'] = __('IMPORTED_SUCCESS');
                 $response['result'] = 1;
             } else {
-                $response['message'] = __('Something went wrong, please try again later!');
+                $response['message'] = __('SOMETHING_WENT_WRONG');
             }
         } else {
-            $response['message'] = __('Invalid Quiz!');
+            $response['message'] = __('INVALID_QUIZ');
         }
         echo json_encode($response);
         exit;
@@ -1418,7 +1418,7 @@ class QuizzesController extends AppController
     public function admin_shared() {
         if ($this->Auth->user('account_level') != 51)
             throw new ForbiddenException;
-        $this->set('title_for_layout',__('Shared Quiz List'));
+        $this->set('title_for_layout',__('SHARED_QUIZ_LIST'));
 
         if ($this->request->is('post')) {
             $data = $this->request->data;
@@ -1472,12 +1472,12 @@ class QuizzesController extends AppController
         }
 
         // Language strings
-        $lang_strings['decline_question'] = __('Decline the quiz');
-        $lang_strings['cancel'] = __('Cancel');
-        $lang_strings['submit'] = __('Submit');
-        $lang_strings['decline_reason'] = __('Enter decline reason if any!');
-        $lang_strings['approve_question'] = __('Approve the quiz');
-        $lang_strings['approve_body'] = __('If you approve the quiz, you have always option to decline sharing!');
+        $lang_strings['decline_question'] = __('DECLINE_QUIZ');
+        $lang_strings['cancel'] = __('CANCEL');
+        $lang_strings['submit'] = __('SUBMIT');
+        $lang_strings['decline_reason'] = __('ENTER_DECLINE_REASON');
+        $lang_strings['approve_question'] = __('APPROVE_QUIZ');
+        $lang_strings['approve_body'] = __('IF_APPROVE_CAN_DECLINE');
 
         $this->set(compact('lang_strings'));
 
@@ -1499,7 +1499,7 @@ class QuizzesController extends AppController
             ));
 
             if (empty($quiz)) {
-                $this->Flash->error(__('Something went wrong, please try again later!'));
+                $this->Flash->error(__('SOMETHING_WENT_WRONG'));
             } else {
                 unset($this->request->data['Quiz']['random_id']);
                 $this->request->data['Quiz']['id'] = $quiz['Quiz']['id'];
@@ -1510,7 +1510,7 @@ class QuizzesController extends AppController
                 if ($this->Quizzes->save($this->request->data)) {
                      $this->Flash->success($message);
                 } else {
-                     $this->Flash->error(__('Something went wrong, please try again later!'));
+                     $this->Flash->error(__('SOMETHING_WENT_WRONG'));
                 }
             }
         }
@@ -1522,7 +1522,7 @@ class QuizzesController extends AppController
         if ($this->Auth->user('account_level') != 51)
             throw new ForbiddenException;
         if (empty($quiz_id)) {
-            $this->Flash->error(__('No direct access to this location!'));
+            $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
             $this->redirect(array('controller' => 'quiz', 'action' => 'shared', 'admin' => true));
         }
 
@@ -1556,22 +1556,22 @@ class QuizzesController extends AppController
             $this->set('no_question', true);
         }
 
-        $lang_strings['empty_question'] = __('Empty Question Is Not Permit');
-        $lang_strings['same_choice'] = __('Empty or Same Choices Are Not Permit');
-        $lang_strings['single_greater'] = __('At least a point should be greater than 0');
-        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers semicolon separated');
-        $lang_strings['point_greater'] = __('At least point should be greater than 0');
-        $lang_strings['two_greater'] = __('At least 2 points should be greater than 0');
-        $lang_strings['insert_another'] = __('You put only one correct answers, please choose another point greater than 0!!!');
-        $lang_strings['youtube_url'] = __('Please enter Youtube url');
-        $lang_strings['image_url'] = __('Please enter image url');
-        $lang_strings['header_q_title'] = __('Enter the header');
-        $lang_strings['other_q_title'] = __('Enter the question');
+        $lang_strings['empty_question'] = __('NO_EMPTY_QUESTION');
+        $lang_strings['same_choice'] = __('EMPTY_OR_SAME_NOT_ALLOWED');
+        $lang_strings['single_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['correct_answer'] = __('ENTER_CORRECT_ANSWERS');
+        $lang_strings['point_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['two_greater'] = __('TWO_CHOICES_GREATER_THAN_ZERO');
+        $lang_strings['insert_another'] = __('CHOOSE_ANOTHER_CHOOSE');
+        $lang_strings['youtube_url'] = __('ENTER_YOUTUBE_URL');
+        $lang_strings['image_url'] = __('ENTER_IMAGE_URL');
+        $lang_strings['header_q_title'] = __('ENTER_HEADER');
+        $lang_strings['other_q_title'] = __('ENTER_QUESTION');
 
-        $lang_strings['youtube_exp_text'] = __('Video explanation text');
-        $lang_strings['image_exp_text'] = __('Image explanation text');
-        $lang_strings['other_exp_text'] = __('Explanation text');
-        $lang_strings['empty_header'] = __('Please enter Header text');
+        $lang_strings['youtube_exp_text'] = __('VIDEO_EXPLANATION');
+        $lang_strings['image_exp_text'] = __('IMAGE_EXPLANATION_TEXT');
+        $lang_strings['other_exp_text'] = __('EXPLANATION_TEXT');
+        $lang_strings['empty_header'] = __('ENTER_HEADER_TEXT');
 
         // Load available classes (created by admin)
         $this->loadModel('Subject');
@@ -1601,11 +1601,11 @@ class QuizzesController extends AppController
         ));
 
         if (!empty($subjectOptions)) {
-            $subjectOptions = array(0 => __('All Subject')) + $subjectOptions;
+            $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
         
         if (!empty($classOptions)) {
-            $classOptions = array(0 => __('All Class')) + $classOptions;
+            $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
         // pr($this->Session->read('Auth.User'));
@@ -1620,18 +1620,18 @@ class QuizzesController extends AppController
 
     private function quizTypes() {
         return array(
-            '1' => __('Active Quizzes'), 
-            '0' => __('Archived Quizzes'), 
-            'all' => __('All Quizzes'),
+            '1' => __('ACTIVE_QUIZZES'), 
+            '0' => __('ARCHIVED_QUIZZES'), 
+            'all' => __('ALL_QUIZ'),
         );
     }
 
     private function quizSharedType() {
         return array(
-            'shared' => __('Shared Quizzes'),
-            'pending' => __('Pending Quizzes'),
-            'decline' => __('Decline Quizzes'),
-            'private' => __('Private Quizzes') 
+            'shared' => __('SHARED_QUIZZES'),
+            'pending' => __('PENDING_QUIZZES'),
+            'decline' => __('DECLINED_QUIZZES'),
+            'private' => __('PRIVATE_QUIZZES') 
         );
     }
 

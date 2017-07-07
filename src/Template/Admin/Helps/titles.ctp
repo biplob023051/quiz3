@@ -6,10 +6,10 @@
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
-            <li><?php echo $this->Html->link(__('Main Title List'),array('controller'=>'helps','action'=>'titles'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
-            <li><?php echo $this->Html->link(__('New Main Title'),array('controller'=>'helps','action'=>'add'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
-            <li><?php echo $this->Html->link(__('Helps List'),array('controller'=>'helps','action'=>'index'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
-            <li><?php echo $this->Html->link(__('New Help'),array('controller'=>'helps','action'=>'insert'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
+            <li><?php echo $this->Html->link(__('MAIN_TITLE_LIST'),array('controller'=>'helps','action'=>'titles'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li><?php echo $this->Html->link(__('NEW_MAIN_TITLE'),array('controller'=>'helps','action'=>'add'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li><?php echo $this->Html->link(__('HELPS_LIST'),array('controller'=>'helps','action'=>'index'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
+            <li><?php echo $this->Html->link(__('NEW_HELP'),array('controller'=>'helps','action'=>'insert'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
         </ul>
     </div>
 </div>
@@ -22,12 +22,12 @@
             <table cellpadding="0" cellspacing="0"  class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center col-md-1"><?= __('id'); ?></th>
-                        <th class="text-center"><?= __('Main Title'); ?></th>
-                        <th class="text-center"><?= __('Created'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Sort'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Status'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Action'); ?></th>
+                        <th class="text-center col-md-1"><?= __('ID'); ?></th>
+                        <th class="text-center"><?= __('MAIN_TITLE'); ?></th>
+                        <th class="text-center"><?= __('CREATED'); ?></th>
+                        <th class="text-center col-md-1"><?= __('SORT'); ?></th>
+                        <th class="text-center col-md-1"><?= __('STATUS'); ?></th>
+                        <th class="text-center col-md-1"><?= __('ACTION'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,15 +42,15 @@
                             </td>
                             <td class="text-center" nowrap="nowrap">
                                 <?php if($help->status):?>
-                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('On').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('Off').'</button></div>', ['action' => 'active', $help->id,'?'=> ['redirect_url'=>urlencode(Router::reverse($this->request, true))]], ['escape'=>false, 'confirm' => __("Confirm inactive title ''{0}''", $help->title)]); ?>
+                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('ON').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('OFF').'</button></div>', ['action' => 'active', $help->id,'?'=> ['redirect_url'=>urlencode(Router::reverse($this->request, true))]], ['escape'=>false, 'confirm' => __("CONFIRM_INACTIVE_TITLE ''{0}''", $help->title)]); ?>
                                 <?php else :?>
-                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('On').'</button><button type="button" class="btn btn-default btn-xs active">'.__('Off').'</button></div>', ['action' => 'active', $help->id,1,'?'=>['redirect_url'=>urlencode(Router::reverse($this->request, true))]], ['escape'=>false, 'confirm' => __("Confirm active title ''{0}''", $help->title)]); ?>
+                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('ON').'</button><button type="button" class="btn btn-default btn-xs active">'.__('OFF').'</button></div>', ['action' => 'active', $help->id,1,'?'=>['redirect_url'=>urlencode(Router::reverse($this->request, true))]], ['escape'=>false, 'confirm' => __("CONFIRM_ACTIVE_TITLE ''{0}''", $help->title)]); ?>
                                 <?php endif;?>
                             </td>
                             <td class="text-center" nowrap="nowrap">
-                                <?php echo $this->Html->link(__('Edit'), array('action' => 'add', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>
+                                <?php echo $this->Html->link(__('EDIT'), array('action' => 'add', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>
                                 <?php if(!$help->status):?>
-                                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false, 'confirm' => __("Confirm delete of title ''{0}''?", trim($help->title)))); ?>
+                                    <?php echo $this->Form->postLink(__('DELETE'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false, 'confirm' => __("CONFIRM_DELETE_TITLE ''{0}''?", trim($help->title)))); ?>
                                 <?php endif;?>
                             </td>
                         </tr>

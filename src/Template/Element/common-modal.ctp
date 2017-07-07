@@ -14,7 +14,7 @@
                     <?php echo __('Please submit to continue?'); ?>
                 </div>
                 <div class="modal-footer" id="confirmation-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel'); ?></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CANCEL'); ?></button>
                 </div>
             </div>
         <?php echo $this->Form->end(); ?>

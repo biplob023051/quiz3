@@ -2,7 +2,7 @@
 $this->Html->script(array('invoice', 'quiz-bank'), array(
     'inline' => false
 ));
-$this->assign('title', __('My Quizzes'));
+$this->assign('title', __('MY_QUIZZES'));
 ?>
 
 <?= $this->Flash->render(); ?>
@@ -14,25 +14,25 @@ $this->assign('title', __('My Quizzes'));
             if (!empty($userPermissions['canCreateQuiz'])) {
                 echo '<div class="col-xa-12 col-md-8">';
                 echo '<div class="form-group text-center">';
-                echo '<span class="expire-notice">' . __('Your account will be expired in') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('days.') . '</span>';
+                echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
                 echo '</div>';
                 echo '</div>';
 
                 echo '<div class="col-xa-12 col-md-4">';
                 echo '<div class="form-group">';
-                echo $this->element('Invoice/invoice_button', array('btn_text' => __('Upgrade Account')));
+                echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT')));
                 echo '</div>';
                 echo '</div>';
             } else {
                 echo '<div class="col-xa-12 col-md-8">';
                 echo '<div class="form-group text-center">';
-                echo '<span class="expire-notice">' . __('Your account has expired.') . '</span>';
+                echo '<span class="expire-notice">' . __('ACCOUNT_EXPIRED') . '</span>';
                 echo '</div>';
                 echo '</div>';
 
                 echo '<div class="col-xa-12 col-md-4">';
                 echo '<div class="form-group">';
-                echo $this->element('Invoice/invoice_button', array('btn_text' => __('Upgrade to Create More Quiz')));
+                echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_CREATE_QUIZZ')));
                 echo '</div>';
                 echo '</div>';
             }
@@ -40,19 +40,19 @@ $this->assign('title', __('My Quizzes'));
             if (!empty($userPermissions['canCreateQuiz'])) {
                 echo '<div class="col-xa-12 col-md-8">';
                 echo '<div class="form-group text-center">';
-                echo '<span class="expire-notice">' . __('Your account will be expired in') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('days.') . '</span>';
+                echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
                 echo '</div>';
                 echo '</div>';
             } else {
                 echo '<div class="col-xa-12 col-md-8">';
                 echo '<div class="form-group text-center">';
-                echo '<span class="expire-notice">' . __('Your account has expired.') . '</span>';
+                echo '<span class="expire-notice">' . __('ACCOUNT_EXPIRED') . '</span>';
                 echo '</div>';
                 echo '</div>';
             }
             echo '<div class="col-xa-12 col-md-4">';
             echo '<div class="form-group">';
-            echo '<button class="btn btn-primary btn-block" disabled="true"  id="upgrade_account"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>' . __('Upgrade Pending') . '</button>';
+            echo '<button class="btn btn-primary btn-block" disabled="true"  id="upgrade_account"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>' . __('UPGRADE_PENDING') . '</button>';
             echo '</div>';
             echo '</div>';
         }
@@ -60,13 +60,13 @@ $this->assign('title', __('My Quizzes'));
         if (($userPermissions['days_left'] < '31') && ($authUser['account_level'] == 1)) { // if expire date soon for previous paid users
             echo '<div class="col-xa-12 col-md-8">';
             echo '<div class="form-group text-center">';
-            echo '<span class="expire-notice">' . __('Your account will be expired in') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('days.') . '</span>';
+            echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
             echo '</div>';
             echo '</div>';
 
             echo '<div class="col-xa-12 col-md-4">';
             echo '<div class="form-group">';
-            echo $this->element('Invoice/invoice_button', array('btn_text' => __('Upgrade Account')));
+            echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT')));
             echo '</div>';
             echo '</div>';
         }
@@ -80,7 +80,7 @@ $this->assign('title', __('My Quizzes'));
             <div class="form-group">
                 <a href="<?php echo $this->Url->build('/quizzes/add'); ?>" class="btn btn-primary btn-block">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <?php echo __('Create New Quiz'); ?>
+                    <?php echo __('CREATE_NEW_QUIZ'); ?>
                 </a>
             </div>
         </div>
@@ -142,18 +142,18 @@ $this->assign('title', __('My Quizzes'));
                                             if ($quiz->is_approve == 2) {
                                                 echo $this->Html->link('<i class="glyphicon glyphicon-ban-circle text-danger"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('Share declined') ,'class'=>'quiz-name'));
                                             } elseif ($quiz->is_approve == 1) {
-                                                echo $this->Html->link('<i class="glyphicon glyphicon-share-alt text-success"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('Publicly shared') ,'class'=>'quiz-name'));
+                                                echo $this->Html->link('<i class="glyphicon glyphicon-share-alt text-success"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('QUIZ_SHARED') ,'class'=>'quiz-name'));
                                             } else {
-                                                echo $this->Html->link('<i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('Share pending, waiting for admin approval') ,'class'=>'quiz-name'));
+                                                echo $this->Html->link('<i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('SHARE_PENDING') ,'class'=>'quiz-name'));
                                             } 
                                         }
                                     ?>
                                 </div>
                                 <div style="width: 60%; float: left">
                                     <?php if ($quiz->status) : ?>
-                                        <?php echo $this->Html->link(__("Give test!"), '/quizzes/present/' . $quiz->id); ?>
+                                        <?php echo $this->Html->link(__("GIVE_TEST"), '/quizzes/present/' . $quiz->id); ?>
                                     <?php endif; ?>
-                                    <mark><?php echo $this->Html->link(__("Answers ") . '(' . $quiz->student_count . ')', '/quizzes/table/' . $quiz->id); ?></mark>
+                                    <mark><?php echo $this->Html->link(__("ANSWERS") . '(' . $quiz->student_count . ')', '/quizzes/table/' . $quiz->id); ?></mark>
                                 </div>
                                
                             </td>
@@ -161,35 +161,35 @@ $this->assign('title', __('My Quizzes'));
                                 <ul class="nav navbar-nav navbar-right no-margin">
                                     <li class="dropdown">
                                         <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
-                                            <?php echo __('Actions'); ?> 
+                                            <?php echo __('ACTIONS'); ?> 
                                             <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu" role="menu">
                                             <?php if (!empty($quiz->questions)) : ?>
                                                 <li>
                                                     <?php if (empty($quiz->shared)) : ?>
-                                                        <button type="button" class="btn btn-success btn-sm share-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" quiz-name="<?php echo $quiz->name; ?>" title="<?php echo __('Share quiz'); ?>"><i class="glyphicon share"></i> <?php echo __('Share quiz'); ?></button>
+                                                        <button type="button" class="btn btn-success btn-sm share-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" quiz-name="<?php echo $quiz->name; ?>" title="<?php echo __('SHARE_QUIZ'); ?>"><i class="glyphicon share"></i> <?php echo __('SHARE_QUIZ'); ?></button>
                                                     <?php else : ?>
-                                                        <button type="button" class="btn btn-success btn-sm remove-share same-width-btn" quiz-id="<?php echo $quiz->id; ?>" quiz-name="<?php echo $quiz->name; ?>" title="<?php echo __('Cancel share'); ?>"><i class="glyphicon share"></i> <?php echo __('Cancel share'); ?></button>
+                                                        <button type="button" class="btn btn-success btn-sm remove-share same-width-btn" quiz-id="<?php echo $quiz->id; ?>" quiz-name="<?php echo $quiz->name; ?>" title="<?php echo __('CANCEL_SHARE'); ?>"><i class="glyphicon share"></i> <?php echo __('CANCEL_SHARE'); ?></button>
                                                     <?php endif; ?>
                                                 </li>
                                             <?php endif; ?>
                                             <li>
-                                                <button type="button" class="btn btn-danger btn-sm delete-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('Remove quiz'); ?>"><i class="glyphicon trash"></i> <?php echo __('Remove quiz'); ?></button>
+                                                <button type="button" class="btn btn-danger btn-sm delete-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('REMOVE_QUIZ'); ?>"><i class="glyphicon trash"></i> <?php echo __('REMOVE_QUIZ'); ?></button>
                                             </li>
                                             <li>
                                                 <?php if ($quiz->status) : ?>
-                                                    <button type="button" class="btn btn-default btn-sm active-quiz same-width-btn" status="<?php echo $quiz->status; ?>" id="<?php echo $quiz->id; ?>" title="<?php echo __('Archive quiz'); ?>"><i class="glyphicon archive"></i> <?php echo __('Archive quiz'); ?></button>
+                                                    <button type="button" class="btn btn-default btn-sm active-quiz same-width-btn" status="<?php echo $quiz->status; ?>" id="<?php echo $quiz->id; ?>" title="<?php echo __('ARCHIVE_QUIZ'); ?>"><i class="glyphicon archive"></i> <?php echo __('ARCHIVE_QUIZ'); ?></button>
                                                 <?php else: ?>
-                                                    <button type="button" class="btn btn-default btn-sm active-quiz same-width-btn" status="<?php echo $quiz->status; ?>" id="<?php echo $quiz->id; ?>" title="<?php echo __('Activate quiz'); ?>"><i class="glyphicon recycle"></i> <?php echo __('Activate quiz'); ?></button>
+                                                    <button type="button" class="btn btn-default btn-sm active-quiz same-width-btn" status="<?php echo $quiz->status; ?>" id="<?php echo $quiz->id; ?>" title="<?php echo __('ACTIVATE_QUIZ'); ?>"><i class="glyphicon recycle"></i> <?php echo __('ACTIVATE_QUIZ'); ?></button>
                                                 <?php endif; ?>
                                             </li>
                                              <li>
-                                                <button type="button" class="btn btn-success btn-sm duplicate-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('Duplicate quiz'); ?>"><i class="glyphicon duplicate"></i> <?php echo __('Duplicate quiz'); ?></button>
+                                                <button type="button" class="btn btn-success btn-sm duplicate-quiz same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('DUPLICATE_QUIZ'); ?>"><i class="glyphicon duplicate"></i> <?php echo __('DUPLICATE_QUIZ'); ?></button>
                                             </li>
                                             <?php if (($quiz->shared == 1) && ($quiz->is_approve == 2)) : ?>
                                                 <li>
-                                                    <button type="button" class="btn btn-danger btn-sm view-reason same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('View decline reason'); ?>"><i class="glyphicon glyphicon-ban-circle"></i> <?php echo __('View Decline Reason'); ?></button>
+                                                    <button type="button" class="btn btn-danger btn-sm view-reason same-width-btn" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('VIEW_DECLINE_REASON'); ?>"><i class="glyphicon glyphicon-ban-circle"></i> <?php echo __('VIEW_DECLINE_REASON'); ?></button>
                                                 </li>
                                             <?php endif; ?>
                                         </ul>
@@ -209,12 +209,12 @@ $this->assign('title', __('My Quizzes'));
                 <div class="row">
                     <div id="demo-data">
                         <div class="col-md-10 col-md-offset-1">
-                            <p class="text-center"><?php echo __('Welcome to Verkkotesti!') ?></p>
-                            <p class="text-center"><?php echo __('If you want to start by looking at demo quizzes, click the gray button ') . '<b>"' . __('Load demo quizzes') . '"</b>.'; ?></p>
+                            <p class="text-center"><?php echo __('WELCOME') ?></p>
+                            <p class="text-center"><?php echo __('IF_WANT_DEMOS_CLICK') . '<b>"' . __('LOAD_DEMO_QUIZZES') . '"</b>.'; ?></p>
                             <p class="text-center"><?php echo __('DELETE_DEMO_QUIZZES'); ?></p>
-                            <p class="text-center"><?php echo __('If you want to dive straight in, click the blue button') . '<b> "' . __('Create a New test') . '"</b>.'; ?></p>
+                            <p class="text-center"><?php echo __('IF_WANT_START_CLICK') . '<b> "' . __('CREATE_NEW_QUIZ') . '"</b>.'; ?></p>
                         </div>
-                        <div class="col-md-4 col-md-offset-4"><button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#demo-dialog" id="upgrade_account"><span class="glyphicon glyphicon-import" aria-hidden="true"></span><span> <?php echo __('Load demo quizzes'); ?></span></button>
+                        <div class="col-md-4 col-md-offset-4"><button type="button" class="btn btn-gray btn-block" data-toggle="modal" data-target="#demo-dialog" id="upgrade_account"><span class="glyphicon glyphicon-import" aria-hidden="true"></span><span> <?php echo __('LOAD_DEMO_QUIZZES'); ?></span></button>
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@ $this->assign('title', __('My Quizzes'));
     <?php if (!empty($userPermissions['quiz_bank_access'])) : ?>
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-success btn-sm pull-right quiz-bank"  title="<?php echo __('Explore quiz bank'); ?>"><i class="glyphicon glyphicon-briefcase"></i> <?php echo __('Quiz Bank'); ?></button>
+                <button type="button" class="btn btn-success btn-sm pull-right quiz-bank"  title="<?php echo __('EXPLORE_QUIZ_BANK'); ?>"><i class="glyphicon glyphicon-briefcase"></i> <?php echo __('QUIZ_BANK'); ?></button>
             </div>
         </div>
     <?php endif; ?>

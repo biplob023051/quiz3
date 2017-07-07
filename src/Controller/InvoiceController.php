@@ -19,17 +19,17 @@ class InvoiceController extends AppController
         // increate user account expired time
         $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
         if ($this->request->data['package'] == 29) {
-            $user->package =  __('29 E/Y');
+            $user->package =  __('29_EUR');
             $this->request->data['account_level'] = 1;
         } else {
-            $user->package = __('49 E/Y');
+            $user->package = __('49_EUR');
             $this->request->data['account_level'] = 2;
         }
         unset($this->request->data['package']);
        	$user = $this->Users->patchEntity($user, $this->request->data);
        	unset($user->password);
         if ($this->Users->save($user)) {
-        	$email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('Upgrade Account'), $user, 'invoice');
+        	$email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice');
         	echo json_encode(array('success' => true));
         } else {
         	echo json_encode(array('success' => false));

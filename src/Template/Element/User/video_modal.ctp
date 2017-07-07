@@ -8,7 +8,7 @@
                  <iframe width="100%" height="315" src="" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="close"><?php echo __('Close'); ?></button>
+                <button type="button" class="btn btn-default" id="close"><?php echo __('CLOSE'); ?></button>
             </div>
         </div>
     </div>

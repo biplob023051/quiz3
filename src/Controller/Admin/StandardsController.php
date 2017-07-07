@@ -19,7 +19,7 @@ class StandardsController extends AppController
 	// Method for displaying all standards
 	public function index() {
 		$this->isAdminUser();
-        $this->set('title_for_layout', __('All Classes'));
+        $this->set('title_for_layout', __('ALL_CLASS'));
 		$conditions = array(
 			'Standards.is_del IS NULL',
 			'Standards.type' => 1 
@@ -70,7 +70,7 @@ class StandardsController extends AppController
 			$this->Standards->save($standard);
 			$this->Flash->success(__('You have successfully deleted.'));
 		} else {
-			$this->Flash->error(__('Can not delete'));
+			$this->Flash->error(__('CAN_NOT_DELETE'));
 		}
 
 		if(isset($this->request->query['redirect_url'])){	
@@ -87,7 +87,7 @@ class StandardsController extends AppController
 	public function insert($id = null) {
 		$this->isAdminUser();
 		if(empty($id)){
-			$this->set('title_for_layout',__('New Class'));
+			$this->set('title_for_layout',__('NEW_CLASS'));
 			$standard = $this->Standards->newEntity();
 		} else {
 			$this->set('title_for_layout',__('Edit Class'));
@@ -107,7 +107,7 @@ class StandardsController extends AppController
 					return $this->redirect(['controller' => 'standards', 'action' => 'index']);
 				}
 			} else {
-				$this->Flash->error(__('Class saved failed'));
+				$this->Flash->error(__('CLASS_SAVE_FAILED'));
 			}
 		} 
 		$this->set(compact('standard'));

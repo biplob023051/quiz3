@@ -1,4 +1,4 @@
-<?php $this->assign('title', __('Password Recover')); ?>
+<?php $this->assign('title', __('RECOVER_PASSWORD')); ?>
 <div class="row">
     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
         <?= $this->Flash->render() ?>
@@ -23,10 +23,10 @@
             ]);
 
             echo $this->Form->input('email', array(
-                'placeholder' => __('Enter your email')
+                'placeholder' => __('ENTER_YOUR_EMAIL')
             ));
 
-            echo $this->Form->submit(__("Send Request"), ['id' => 'send_request', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
+            echo $this->Form->submit(__("SEND_REQUEST"), ['id' => 'send_request', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
 
             echo $this->Form->end();
         ?>

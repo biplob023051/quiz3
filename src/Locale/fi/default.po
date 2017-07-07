@@ -668,10 +668,6 @@ msgstr "Kysymykset "
 msgid "UNANSWERED"
 msgstr "  vastaamatta."
 
-#: Controller/QuizController.php:200
-msgid "WANT_TURN_IN_QUIZ"
-msgstr " Lähetä vastauksesi?"
-
 #: Controller/QuizController.php:201
 msgid "FIRST_NAME_REQUIRED"
 msgstr "Etunimi on pakollinen"
@@ -1687,4 +1683,8 @@ msgstr "Kirjoita uusi salasana uudestaan"
 #: View/Users/reset_password.ctp:45
 msgid "RESET"
 msgstr "Vaihda salasana"
+
+#: Controller/QuestionController.php:121
+msgid "CHOICE %d"
+msgstr "Vastaus %d"
 

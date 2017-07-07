@@ -32,7 +32,7 @@ class QuizzesController extends AppController
     // List of shared quiz
     public function shared() {
         $this->isAdminUser();
-        $this->set('title_for_layout',__('Shared Quiz List'));
+        $this->set('title_for_layout',__('SHARED_QUIZ_LIST'));
 
         if ($this->request->is('post')) {
             $data = $this->request->data;
@@ -85,12 +85,12 @@ class QuizzesController extends AppController
         }
 
         // Language strings
-        $lang_strings['decline_question'] = __('Decline the quiz');
-        $lang_strings['cancel'] = __('Cancel');
-        $lang_strings['submit'] = __('Submit');
-        $lang_strings['decline_reason'] = __('Enter decline reason if any!');
-        $lang_strings['approve_question'] = __('Approve the quiz');
-        $lang_strings['approve_body'] = __('If you approve the quiz, you have always option to decline sharing!');
+        $lang_strings['decline_question'] = __('DECLINE_QUIZ');
+        $lang_strings['cancel'] = __('CANCEL');
+        $lang_strings['submit'] = __('SUBMIT');
+        $lang_strings['decline_reason'] = __('ENTER_DECLINE_REASON');
+        $lang_strings['approve_question'] = __('APPROVE_QUIZ');
+        $lang_strings['approve_body'] = __('IF_APPROVE_CAN_DECLINE');
 
         $this->set(compact('lang_strings'));
 
@@ -111,7 +111,7 @@ class QuizzesController extends AppController
             // exit;
 
             if (empty($quiz)) {
-                $this->Flash->error(__('Something went wrong, please try again later!'));
+                $this->Flash->error(__('SOMETHING_WENT_WRONG'));
             } else {
                 $message = ($this->request->data['is_approve'] == 1) ? __('You have successfully approved!') : __('You have successfully declined!');
                 unset($this->request->data['random_id']);
@@ -121,7 +121,7 @@ class QuizzesController extends AppController
                 if ($this->Quizzes->save($quiz)) {
                      $this->Flash->success($message);
                 } else {
-                     $this->Flash->error(__('Something went wrong, please try again later!'));
+                     $this->Flash->error(__('SOMETHING_WENT_WRONG'));
                 }
             }
         }
@@ -132,7 +132,7 @@ class QuizzesController extends AppController
     public function preview($quiz_id = null) {
         $this->isAdminUser();
         if (empty($quiz_id)) {
-            $this->Flash->error(__('No direct access to this location!'));
+            $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'shared'));
         }
 
@@ -172,22 +172,22 @@ class QuizzesController extends AppController
             $this->set('no_question', true);
         }
 
-        $lang_strings['empty_question'] = __('Empty Question Is Not Permit');
-        $lang_strings['same_choice'] = __('Empty or Same Choices Are Not Permit');
-        $lang_strings['single_greater'] = __('At least a point should be greater than 0');
-        $lang_strings['correct_answer'] = __('Enter correct answers, if multiple answers comma separated');
-        $lang_strings['point_greater'] = __('At least point should be greater than 0');
-        $lang_strings['two_greater'] = __('At least 2 points should be greater than 0');
-        $lang_strings['insert_another'] = __('You put only one correct answers, please choose another point greater than 0!!!');
-        $lang_strings['youtube_url'] = __('Please enter Youtube url');
-        $lang_strings['image_url'] = __('Please enter image url');
-        $lang_strings['header_q_title'] = __('Enter the header');
-        $lang_strings['other_q_title'] = __('Enter the question');
+        $lang_strings['empty_question'] = __('NO_EMPTY_QUESTION');
+        $lang_strings['same_choice'] = __('EMPTY_OR_SAME_NOT_ALLOWED');
+        $lang_strings['single_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['correct_answer'] = __('SEPARATE_SEMICOLON');
+        $lang_strings['point_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
+        $lang_strings['two_greater'] = __('TWO_CHOICES_GREATER_THAN_ZERO');
+        $lang_strings['insert_another'] = __('CHOOSE_ANOTHER_CHOOSE');
+        $lang_strings['youtube_url'] = __('ENTER_YOUTUBE_URL');
+        $lang_strings['image_url'] = __('ENTER_IMAGE_URL');
+        $lang_strings['header_q_title'] = __('ENTER_HEADER');
+        $lang_strings['other_q_title'] = __('ENTER_QUESTION');
 
-        $lang_strings['youtube_exp_text'] = __('Video explanation text');
-        $lang_strings['image_exp_text'] = __('Image explanation text');
-        $lang_strings['other_exp_text'] = __('Explanation text');
-        $lang_strings['empty_header'] = __('Please enter Header text');
+        $lang_strings['youtube_exp_text'] = __('VIDEO_EXPLANATION');
+        $lang_strings['image_exp_text'] = __('IMAGE_EXPLANATION_TEXT');
+        $lang_strings['other_exp_text'] = __('EXPLANATION_TEXT');
+        $lang_strings['empty_header'] = __('ENTER_HEADER_TEXT');
 
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
@@ -218,11 +218,11 @@ class QuizzesController extends AppController
         // exit;
 
         if (!empty($subjectOptions)) {
-            $subjectOptions = array(0 => __('All Subject')) + $subjectOptions;
+            $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
         
         if (!empty($classOptions)) {
-            $classOptions = array(0 => __('All Class')) + $classOptions;
+            $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
         // pr($this->Session->read('Auth.User'));
@@ -239,18 +239,18 @@ class QuizzesController extends AppController
 
     private function quizTypes() {
         return array(
-            '1' => __('Active Quizzes'), 
-            '0' => __('Archived Quizzes'), 
-            'all' => __('All Quizzes'),
+            '1' => __('ACTIVE_QUIZZES'), 
+            '0' => __('ARCHIVED_QUIZZES'), 
+            'all' => __('ALL_QUIZ'),
         );
     }
 
     private function quizSharedType() {
         return array(
-            'shared' => __('Shared Quizzes'),
-            'pending' => __('Pending Quizzes'),
-            'decline' => __('Decline Quizzes'),
-            'private' => __('Private Quizzes') 
+            'shared' => __('SHARED_QUIZZES'),
+            'pending' => __('PENDING_QUIZZES'),
+            'decline' => __('DECLINED_QUIZZES'),
+            'private' => __('PRIVATE_QUIZZES') 
         );
     }
 }

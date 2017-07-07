@@ -39,7 +39,7 @@ class UsersController extends AppController
                 $statisticsTable->save($statistic);
                 return $this->redirect(['controller' => 'maintenance', 'action' => 'settings', 'prefix' => 'admin']);
             }
-            $this->Flash->error('Your username or password is incorrect.');
+            $this->Flash->error(__('USERNAME_OR_PASSWORD_INCORRECT'));
         }
 
     }

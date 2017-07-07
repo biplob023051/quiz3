@@ -14,7 +14,7 @@
                     <?php if (isset($value3->choices[0]->points) && ($value3->choices[0]->points > 0)) : ?>
                         <?php if ($value4->score == NULL) : ?>
                             <input 
-                placeholder="<?php echo __('Rate!'); ?>" 
+                placeholder="<?php echo __('RATE'); ?>" 
                 type="number" 
                 class="form-control update-score" 
                 name="<?php echo $value1->id; ?>"
@@ -25,7 +25,7 @@
                 /> / 
                         <?php else : ?>
                             <input 
-                placeholder="<?php echo __('Rate!'); ?>" 
+                placeholder="<?php echo __('RATE'); ?>" 
                 type="number" 
                 class="form-control update-score" 
                 name="<?php echo $value1->id; ?>"
@@ -36,9 +36,9 @@
                 /> / 
                         <?php endif; ?>
                         <?php echo empty($value3->choices[0]->points) ? ($value3->question_type->manual_scoring+0) : ($value3->choices[0]->points+0); ?>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Close'); ?></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CLOSE'); ?></button>
                     <?php else : ?>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Close'); ?></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CLOSE'); ?></button>
                     <?php endif; ?>
                 </span>
             </div>

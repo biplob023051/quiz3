@@ -3,32 +3,32 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="invoice-dialog-title"><?php echo __('Upgrade Account') ?></h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= __('CLOSE'); ?></span></button>
+                <h4 class="modal-title" id="invoice-dialog-title"><?= __('UPGRADE_ACCOUNT'); ?></h4>
             </div>
             <div class="modal-body">
-                <p><?php echo __('Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address.') ?></p>
+                <p><?= __('UPGRADE_ACCOUNT_WILL_GET_INVOICE'); ?></p>
                 <br>
                 <div class="row">
                     <div class="col-md-9">
-                        <strong><?php echo __('Basic:'); ?></strong> <?php echo __('Create and use quizzes freely without limits.'); ?>
+                        <strong><?= __('BASIC'); ?></strong> <?= __('CREATE_AND_USE_QUIZZES_FREELY'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-yellow btn-sm" id="29_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?php echo __('29 E/Y'); ?></span></button>
+                        <button type="button" class="btn btn-yellow btn-sm" id="29_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?= __('29_EUR'); ?></span></button>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-9">
-                        <strong><?php echo __('Quiz Bank:'); ?></strong> <?php echo __('In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank.'); ?>
+                        <strong><?= __('QUIZ_BANK'); ?></strong> <?= __('SHARE_OWN_QUIZZES'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-yellow btn-sm" id="49_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?php echo __('49 E/Y'); ?></span></button>
+                        <button type="button" class="btn btn-yellow btn-sm" id="49_package"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?= __('49_EUR'); ?></span></button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel'); ?></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?= __('CANCEL'); ?></button>
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@
 			<div class="alert alert-danger">
 				<a class="close" data-dismiss="alert" href="#">&times;</a>
 				<i class="fa fa-warning"></i>
-				<?php echo h($message); ?>
+				<?= h($message); ?>
 			</div>
 		</div>
 	</div>

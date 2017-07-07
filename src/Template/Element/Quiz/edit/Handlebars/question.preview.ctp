@@ -28,7 +28,7 @@
                         <p>
                             <span class="text-muted">
                                 <strong>
-                                    <?php echo __('Choose at most'); ?>
+                                    <?php echo __('CHOOSE_MOST'); ?>
                                 </strong>
                                 {{max_allowed}}
                             </span>
@@ -38,7 +38,7 @@
                         <p>
                             <span class="text-muted">
                                 <strong>
-                                    <?php echo __('Demand exact upper- and lowercase letters'); ?>
+                                    <?php echo __('DEMAND_UPPER_LOWERCASE'); ?>
                                 </strong>
                             </span>
                         </p>
@@ -47,16 +47,16 @@
                 {{#if warn_message}}
                     <p class="alert alert-warning" style="margin-bottom: 0px;">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong><?php echo __('Notice: '); ?></strong> <?php echo __("you inserted 0 points in all of the choices."); ?>
+                        <strong><?php echo __('NOTICE'); ?></strong> <?php echo __("YOU_INSERTED_ZERO"); ?>
                     </p>
                 {{/if}}
             </div>
             <div class="col-xs-12 col-md-3">
                 <div class="btn-group preview-btn">
-                    <button type="button" class="btn btn-default btn-sm edit-question" id="edit-q{{id}}" title="<?php echo __('Edit question'); ?>">
+                    <button type="button" class="btn btn-default btn-sm edit-question" id="edit-q{{id}}" title="<?php echo __('EDIT_QUESTION'); ?>">
                         <i class="glyphicon pencil"></i>
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm delete-question" id="delete-q{{id}}" title="<?php echo __('Remove question'); ?>">
+                    <button type="button" class="btn btn-danger btn-sm delete-question" id="delete-q{{id}}" title="<?php echo __('REMOVE_QUESTION'); ?>">
                         <i class="glyphicon trash"></i>
                     </button>
                     <button type="button" class="btn btn-success btn-sm duplicate-question" id="duplicate-q{{id}}" title="<?php echo __('Duplicate question'); ?>"><i class="glyphicon duplicate"></i></button>

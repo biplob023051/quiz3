@@ -14,7 +14,7 @@ class HelpsController extends AppController
 
     public function index($parent_id = null) {
         $this->isAdminUser();
-        $this->set('title_for_layout',__('Helps List'));
+        $this->set('title_for_layout',__('HELPS_LIST'));
         // find the main tile
         $this->set('parentsOptions', $this->Helps->parentsOptions());
         if ($parent_id) {
@@ -41,10 +41,10 @@ class HelpsController extends AppController
         $this->isAdminUser();
         if(empty($id)){
             $help = $this->Helps->newEntity();
-            $this->set('title_for_layout',__('New Help'));
+            $this->set('title_for_layout',__('NEW_HELP'));
         } else {
             $help = $this->Helps->get($id, ['contain' => []]);
-            $this->set('title_for_layout',__('Edit Help'));
+            $this->set('title_for_layout',__('EDIT_HELP'));
         }
         
         if ($this->request->is(array('post','put'))) {
@@ -65,14 +65,14 @@ class HelpsController extends AppController
             // pr($help);
             // exit;
             if ($this->Helps->save($help)) {
-                $this->Flash->success(__('Help saved successfully'));
+                $this->Flash->success(__('HELP_SAVED'));
                 if(isset($this->request->query['redirect_url'])){            
                     return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
                     return $this->redirect(array('controller' => 'helps', 'action' => 'index'));
                 }
             } else {
-                $this->Flash->error(__('Help saved failed'));
+                $this->Flash->error(__('HELP_SAVE_FAIL'));
             }
         } 
         $this->set('parentsOptions', $this->Helps->parentsOptions());
@@ -82,7 +82,7 @@ class HelpsController extends AppController
 
     public function titles() {
         $this->isAdminUser();
-        $this->set('title_for_layout',__('Main Title List'));
+        $this->set('title_for_layout',__('MAIN_TITLE_LIST'));
         $options = array(
             'conditions' => array(
                 'Helps.parent_id IS NULL',
@@ -106,12 +106,12 @@ class HelpsController extends AppController
         $this->isAdminUser();
         if(empty($id)){
             $help = $this->Helps->newEntity();
-            $this->set('title_for_layout',__('New Main Title'));
+            $this->set('title_for_layout',__('NEW_MAIN_TITLE'));
         } else {
             $help= $this->Helps->get($id, [
                 'contain' => []
             ]);
-            $this->set('title_for_layout',__('Edit Main Title'));
+            $this->set('title_for_layout',__('EDIT_MAIN_TITLE'));
         }
         
         if ($this->request->is(array('post','put'))) {
@@ -120,14 +120,14 @@ class HelpsController extends AppController
             }
             $help = $this->Helps->patchEntity($help, $this->request->data, ['validate' => 'MainTitle']);
             if ($this->Helps->save($help)) {
-                $this->Flash->success(__('Title saved successfully'));
+                $this->Flash->success(__('TITLE_SAVED'));
                 if(isset($this->request->query['redirect_url'])){            
                     return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
                     return $this->redirect(array('controller' => 'helps', 'action' => 'titles'));
                 }
             } else {
-                $this->Flash->error(__('Title saved failed'));
+                $this->Flash->error(__('TITLE_FAILED'));
             }
         }
         $this->set(compact('help'));
@@ -141,7 +141,7 @@ class HelpsController extends AppController
             $this->set('title_for_layout', __('New Site Video'));
         } else {
             $video = $this->Helps->get($id, ['contain' => []]);
-            $this->set('title_for_layout', __('Edit Site Video'));
+            $this->set('title_for_layout', __('EDIT_SITE_VIDEO'));
         }
 
         $this->set('siteOptions', $this->siteOptions());
@@ -173,23 +173,23 @@ class HelpsController extends AppController
             $video = $this->Helps->patchEntity($video, $this->request->data, ['validate' => 'VideoSection']);
             
             if ($this->Helps->save($video)) {
-                $this->Flash->success(__('Site videos saved successfully'));
+                $this->Flash->success(__('VIDEOS_SAVED'));
                 if(isset($this->request->query['redirect_url'])){            
                     return $this->redirect(urldecode($this->request->query['redirect_url']));
                 } else {
                     return $this->redirect(array('controller' => 'helps', 'action' => 'videos'));
                 }
             } else {
-                $this->Flash->error(__('Site videos saved failed'));
+                $this->Flash->error(__('VIDEO_SAVE_FAIL'));
             }
         } 
-        $lang_strings['upload_button'] = __('Upload a Picture');
+        $lang_strings['upload_button'] = __('UPLOAD_PICTURE');
         $this->set(compact('video', 'lang_strings'));
     }
 
     public function videos() {
         $this->isAdminUser();
-        $this->set('title_for_layout',__('Site Videos List'));
+        $this->set('title_for_layout',__('VIDEO_LIST'));
         // find the siteOptions
         $this->set('siteOptions', $this->siteOptions());
         
@@ -222,7 +222,7 @@ class HelpsController extends AppController
             $this->Helps->delete($help);
             $this->Flash->success(__('You have successfully deleted!'));
         } else {
-            $this->Flash->error(__('Not delete'));
+            $this->Flash->error(__('CAN_NOT_DELETE'));
         }       
         return $this->redirect($this->referer());
     }
@@ -252,10 +252,10 @@ class HelpsController extends AppController
         $help = $this->Helps->get($id, ['contain' => []]);
         if (!empty($help)){
             if($this->Helps->moveDown($help)==false) {
-                $this->Flash->error(__('Sort failed'));
+                $this->Flash->error(__('SORT_FAILED'));
             }
         } else {
-            $this->Flash->error(__('Sort failed'));
+            $this->Flash->error(__('SORT_FAILED'));
         }
         return $this->redirect($this->referer());
     }
@@ -266,16 +266,16 @@ class HelpsController extends AppController
         $help = $this->Helps->get($id, ['contain' => []]);
         if (!empty($help)){
             if($this->Helps->moveUp($help)==false) {
-                $this->Flash->error(__('Sort failed'));
+                $this->Flash->error(__('SORT_FAILED'));
             }
         } else {
-            $this->Flash->error(__('Sort failed'));
+            $this->Flash->error(__('SORT_FAILED'));
         }
         return $this->redirect($this->referer());
     }
 
     private function siteOptions() {
-        return ['home' => __('Home Page'), 'create' => __('User Create Page'), 'password' => __('Password Recover Page')];
+        return ['home' => __('HOME_PAGE'), 'create' => __('USER_CREATE_PAGE'), 'password' => __('Password Recover Page')];
     }
 
 

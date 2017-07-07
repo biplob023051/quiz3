@@ -17,7 +17,7 @@
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice'),
+                            'placeholder' => __('CHOICE'),
                             'id' => 'Choice{{id}}Text',
                             'value' => '{{text}}'
                         ));
@@ -27,7 +27,7 @@
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
-                            'placeholder' => __('Points'),
+                            'placeholder' => __('POINTS'),
                             'default' => '{{points}}',
                             'label' => false,
                             'type' => 'number',
@@ -47,7 +47,7 @@
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-                        <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('Remove choice'))); ?>
+                        <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('REMOVE_CHOICE'))); ?>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                             'default' => '{{text}}',
                             'class' => 'form-control c-text',
                             'label' => false,
-                            'placeholder' => __('Choice'),
+                            'placeholder' => __('CHOICE'),
                             'id' => 'Choice{{id}}Text',
                             'value' => '{{text}}'
                         ));
@@ -82,7 +82,7 @@
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
-                            'placeholder' => __('Points'),
+                            'placeholder' => __('POINTS'),
                             'default' => 0,
                             'label' => false,
                             'type' => 'number',
@@ -102,7 +102,7 @@
                     ));
                     ?>
                     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-                        <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('Remove choice'))); ?>
+                        <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('REMOVE_CHOICE'))); ?>
                     </div>
                 </div>
             </div>

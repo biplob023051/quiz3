@@ -3,11 +3,11 @@
 		echo $this->Html->script(array('success'), array('inline' => false));
 	}
 	$otherQuestionType = array(6,7,8);
-	$this->assign('title', __('Success')); 
+	$this->assign('title', __('SUCCESS')); 
 ?>
 <div class="jumbotron">
-  <h1><?= __('Thank You!'); ?></h1>
-  <p><?= __('Your answer(s) has been submitted successfully.'); ?></p>
+  <h1><?= __('THANK_YOU'); ?></h1>
+  <p><?= __('YOUR_ANSWERS_SUBMITTED'); ?></p>
 </div>
 
 <?php if (!empty($student_result)) : ?>
@@ -38,13 +38,13 @@
 					foreach ($student_result->answers as $key => $answer) {
 						if ($question->id == $answer->question_id) {
 							if (empty($answer->text)) {
-				                $result_html = $result_html . '<p class="text-danger">' . __('Not Answered') .'</p>';
+				                $result_html = $result_html . '<p class="text-danger">' . __('NOT_ANSWERED') .'</p>';
 				            } else { 
 				                if ($answer->score > 0) {
 				                    $result_html = $result_html . '<p class="text-success">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                } elseif (is_null($answer->score)) {
 				                	$pending++;
-				                    $result_html = $result_html . '<p>' . $answer->text . ' <span class="score">' . __('On hold') . '</span><br/>';
+				                    $result_html = $result_html . '<p>' . $answer->text . ' <span class="score">' . __('ON_HOLD') . '</span><br/>';
 				                } elseif ($answer->score === 0) {
 				                    $result_html = $result_html . '<p class="text-warning">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                } else {
@@ -61,7 +61,7 @@
 		?>
 		<div class="col-md-12">
 			<h3><?php echo __('YOUR RESULTS'); ?></h3>
-			<h2><?php echo __('Total') . ': ' . ($student_result->rankings[0]->score+0) . '/' . ($student_result->rankings[0]->total+0); ?><?php echo !empty($pending) ? ' (' . $pending . ' ' . __('YOUR ANSWER waiting for rating') . ')' : ''; ?></h2>
+			<h2><?php echo __('TOTAL') . ': ' . ($student_result->rankings[0]->score+0) . '/' . ($student_result->rankings[0]->total+0); ?><?php echo !empty($pending) ? ' (' . $pending . ' ' . __('YOUR_ANSWER_WAITING_RATING') . ')' : ''; ?></h2>
 		</div>
 		<?php echo $result_html; ?>
 	</div>

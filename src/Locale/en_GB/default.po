@@ -668,10 +668,6 @@ msgstr "Questions "
 msgid "UNANSWERED"
 msgstr " unanswered."
 
-#: Controller/QuizController.php:200
-msgid "WANT_TURN_IN_QUIZ"
-msgstr " Turn in your quiz?"
-
 #: Controller/QuizController.php:201
 msgid "FIRST_NAME_REQUIRED"
 msgstr "First Name is Required"
@@ -1094,7 +1090,7 @@ msgstr "Print"
 
 #: View/Quiz/index.ctp:23
 msgid "UPGRADE_PENDING"
-msgstr "Tilin päivitys tulossa"
+msgstr "Upgrade Pending"
 
 #: 
 msgid "READ"
@@ -1688,3 +1684,6 @@ msgstr "New Password Verify"
 msgid "RESET"
 msgstr "Reset"
 
+#: Controller/QuestionController.php:121
+msgid "CHOICE %d"
+msgstr "Choice %d"

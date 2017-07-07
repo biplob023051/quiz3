@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
-            <li><?= $this->Html->link(__('Site Videos'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
-            <li><?= $this->Html->link(__('Create Videos'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li><?= $this->Html->link(__('SITE_VIDEOS'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li><?= $this->Html->link(__('CREATE_VIDEOS'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
         </ul>
     </div>
 </div>
@@ -18,15 +18,15 @@
             <table cellpadding="0" cellspacing="0"  class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center col-md-1"><?= __('id'); ?></th>
-                        <th class="text-center"><?= __('Title'); ?></th>
-                        <th class="text-center"><?= __('Sub Title'); ?></th>
-                        <th class="text-center"><?= __('Display Page'); ?></th>
-                        <th class="text-center"><?= __('Url'); ?></th>
-                        <th class="text-center"><?= __('Created'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Sort'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Status'); ?></th>
-                        <th class="text-center col-md-1"><?= __('Action'); ?></th>
+                        <th class="text-center col-md-1"><?= __('ID'); ?></th>
+                        <th class="text-center"><?= __('TITLE'); ?></th>
+                        <th class="text-center"><?= __('SUB_TITLE'); ?></th>
+                        <th class="text-center"><?= __('DISPLAY_PAGE'); ?></th>
+                        <th class="text-center"><?= __('URL'); ?></th>
+                        <th class="text-center"><?= __('CREATED'); ?></th>
+                        <th class="text-center col-md-1"><?= __('SORT'); ?></th>
+                        <th class="text-center col-md-1"><?= __('STATUS'); ?></th>
+                        <th class="text-center col-md-1"><?= __('ACTION'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,15 +44,15 @@
                             </td>
                              <td class="text-center" nowrap="nowrap">
                                 <?php if($help->status):?>
-                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('On').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('Off').'</button></div>', array('action' => 'active', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("Confirm inactive title ''{0}''?", trim($help->title)))); ?>
+                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs active">'.__('ON').'</button><button type="button" class="btn btn-default btn-xs inactive">'.__('OFF').'</button></div>', array('action' => 'active', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("CONFIRM_INACTIVE_TITLE ''{0}''?", trim($help->title)))); ?>
                                 <?php else :?>
-                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('On').'</button><button type="button" class="btn btn-default btn-xs active">'.__('Off').'</button></div>', array('action' => 'active', $help->id,1,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("Confirm active title ''{0}''?", trim($help->title)))); ?>
+                                    <?= $this->Form->postLink('<div class="btn-group"><button type="button" class="btn btn-default btn-xs inactive">'.__('ON').'</button><button type="button" class="btn btn-default btn-xs active">'.__('OFF').'</button></div>', array('action' => 'active', $help->id,1,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('escape'=>false, 'confirm' => __("CONFIRM_ACTIVE_TITLE ''{0}''?", trim($help->title)))); ?>
                                 <?php endif;?>
                             </td>
                             <td class="text-center" nowrap="nowrap">
-                                <?= $this->Html->link(__('Edit'), array('action' => 'create', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>
+                                <?= $this->Html->link(__('EDIT'), array('action' => 'create', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>
                                 <?php if(!$help->status):?>
-                                    <?= $this->Form->postLink(__('Delete'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false, 'confirm' => __("Confirm delete of title ''{0}''?", trim($help->title)))); ?>
+                                    <?= $this->Form->postLink(__('DELETE'), array('action' => 'delete', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))),array('class'=>'btn btn-danger btn-xs','escape'=>false, 'confirm' => __("CONFIRM_DELETE_TITLE ''{0}''?", trim($help->title)))); ?>
                                 <?php endif;?>
                             </td>
                         </tr>

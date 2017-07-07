@@ -4,20 +4,20 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h4><?php echo __('Quiz student view'); ?></h4>
+                <h4><?php echo __('QUIZ_STUDENT_VIEW'); ?></h4>
             </div>
         </div>
         <?php if (empty($data->anonymous)) : ?>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <?= $this->Form->input('fname', ['placeholder' => __('First Name'), 'label' => false]); ?>
+                    <?= $this->Form->input('fname', ['placeholder' => __('FIRST_NAME'), 'label' => false]); ?>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <?= $this->Form->input('lname', ['placeholder' => __('Last Name'), 'label' => false]);
+                    <?= $this->Form->input('lname', ['placeholder' => __('LAST_NAME'), 'label' => false]);
                     ?>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <?= $this->Form->input('class', ['placeholder' => __('Class'), 'label' => false]);?>
+                    <?= $this->Form->input('class', ['placeholder' => __('CLASS'), 'label' => false]);?>
                 </div>
             </div>
         <?php endif; ?>
@@ -55,8 +55,8 @@
         </table>
         <div class="row">
             <div class="col-xs-12 col-md-3 pull-right">
-                <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal"><?php echo __('Close') ?></button>
-                <!-- <button type="button" class="btn btn-default" data-dismiss="modal"><?php //echo __('Close'); ?></button> -->
+                <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal"><?php echo __('CLOSE') ?></button>
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal"><?php //echo __('CLOSE'); ?></button> -->
             </div>
         </div>
     </div>

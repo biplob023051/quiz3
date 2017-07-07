@@ -1,7 +1,7 @@
 <?php $othersQuestionType = array(6, 7, 8); // this categories for others type questions ?>
 <div class="container">
     <div class="page-header">
-        <h3><?php echo __('Quiz name: ') . $quizDetails->name; ?></h3>
+        <h3><?php echo __('QUIZ_NAME') . $quizDetails->name; ?></h3>
     </div>
     <?php $page_no = 0; $student_count = count($quizDetails->students); ?>
     <?php foreach ($quizDetails->students as $key1 => $value1) : ?>
@@ -9,19 +9,19 @@
         <div <?php if ($page_no < $student_count) : ?>class="page"<?php endif; ?>>
             <div class="row" id="name_portion">
                 <div class="col-md-3 col-xs-4">
-                    <?php echo '<span class="gray-color">' . __('Student name: ') . '</span>' . $value1->lname . ' ' . $value1->fname; ?>
+                    <?php echo '<span class="gray-color">' . __('STUDENT_NAME') . '</span>' . $value1->lname . ' ' . $value1->fname; ?>
                 </div>
                 <div class="col-md-3 col-xs-4">
-                    <?php echo '<span class="gray-color">' . __('Quiz taken: ') . '</span>' . $value1->submitted; ?>
+                    <?php echo '<span class="gray-color">' . __('QUIZ_TAKEN') . '</span>' . $value1->submitted; ?>
                 </div>
                 <div class="col-md-3 col-xs-2">
-                    <?php echo '<span class="gray-color">' . __('Class: ') . '</span>' . $value1->class; ?>
+                    <?php echo '<span class="gray-color">' . __('CLASS') . '</span>' . $value1->class; ?>
                 </div>
                 <div class="col-md-3 col-xs-2">
                     <?php 
                         foreach ($quizDetails->rankings as $key2 => $value2) { 
                             if ($value1->id == $value2->student_id) {  
-                            echo '<span class="gray-color">' . __('Total: ') . '</span>' . ($value2->score+0) . '/' . ($value2->total+0);  break; 
+                            echo '<span class="gray-color">' . __('TOTAL') . '</span>' . ($value2->score+0) . '/' . ($value2->total+0);  break; 
                             }  
                         } 
                     ?>
@@ -35,7 +35,7 @@
                             foreach ($value3->answers as $key4 => $value4) { 
                                 if ($value1->id == $value4->student_id) {
                                     if (empty($value4->text)) { 
-                                        $answer = 'Not Answered'; 
+                                        $answer = __('NOT_ANSWERED'); 
                                     } else { 
                                         $answer = $answer . ' ' . $value4->text; 
                                     }  

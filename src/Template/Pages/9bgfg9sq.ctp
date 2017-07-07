@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><?php echo $this->Html->link(__('Register Now!'), '/user/create', array('class' => 'btn btn-success')); ?></td>
+                        <td><?php echo $this->Html->link(__('REGISTER_NOW'), '/user/create', array('class' => 'btn btn-success')); ?></td>
                         <td><button type="button" id="buy-button" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
                     </tr>
                 </tbody>

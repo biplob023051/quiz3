@@ -1,4 +1,4 @@
-<?php $this->assign('title', __('Shared Quizzes')); ?>
+<?php $this->assign('title', __('SHARED_QUIZZES')); ?>
 <?= $this->Flash->render(); ?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -10,7 +10,7 @@
                 <?= $this->Form->create('', ['id' => 'quiz-filter']); ?>
                     <?php
                     echo $this->Form->input('Quiz.is_approve', array(
-                        'options' => array('all' => __('All'), '3' => __('Pending Quizzes'), '1' => __('Approved Quizzes'), '2' => __('Decline Quizzes')),
+                        'options' => array('all' => __('ALL'), '3' => __('PENDING_QUIZZES'), '1' => __('APPROVED_QUIZZES'), '2' => __('DECLINED_QUIZZES')),
                         'div' => array('class' => 'form-group'),
                         'default' => $filter,
                         'class' => 'form-control',
@@ -37,11 +37,11 @@
                 <thead>
                     <tr>
                         <th class="sl-no"><?php echo __('Sl No');?></th>
-                        <th class="text-center"><?php echo $this->Paginator->sort('name', __('Name')); ?></th>
+                        <th class="text-center"><?php echo $this->Paginator->sort('name', __('NAME')); ?></th>
                         <th class="text-center"><?php echo $this->Paginator->sort('Users.name', __('Created By')); ?></th>
-                        <th class="text-center"><?php echo $this->Paginator->sort('created', __('Created')); ?></th>
-                        <th class="text-center"><?php echo $this->Paginator->sort('is_approve', __('Status')); ?></th>                
-                        <th class="text-center action-box"><?php echo __('Actions'); ?></th>
+                        <th class="text-center"><?php echo $this->Paginator->sort('created', __('CREATED')); ?></th>
+                        <th class="text-center"><?php echo $this->Paginator->sort('is_approve', __('STATUS')); ?></th>                
+                        <th class="text-center action-box"><?php echo __('ACTIONS'); ?></th>
                     </tr>
                 </thead>
                 <tbody id="quiz-list">
@@ -99,9 +99,9 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="pagination pagination-sm">
-                    <?php echo $this->Paginator->prev('&larr; ' . __('Previous'),array('tag'=>'li','escape'=>false),'<a>&larr; '. __('Previous') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));
+                    <?php echo $this->Paginator->prev('&larr; ' . __('PREVIOUS'),array('tag'=>'li','escape'=>false),'<a>&larr; '. __('PREVIOUS') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));
                     echo $this->Paginator->numbers(array('tag'=>'li','separator'=>null,'currentClass'=>'active','currentTag'=>'a','modulus'=>'4','first' => 2, 'last' => 2,'ellipsis'=>'<li><a>...</a></li>'));
-                    echo $this->Paginator->next(__('Next') . ' &rarr;',array('tag'=>'li','escape'=>false),'<a>&rarr; '. __('Next') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));?>
+                    echo $this->Paginator->next(__('NEXT') . ' &rarr;',array('tag'=>'li','escape'=>false),'<a>&rarr; '. __('NEXT') .'</a>',array('class'=>'disabled','tag'=>'li','escape'=>false));?>
                 </ul>
             </div>
         </div>

@@ -23,7 +23,7 @@ class MaintenanceController extends AppController
         $setting = $this->_getSettings();
         if (empty($setting['offline_status']))
         $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
-        $this->set('title_for_layout', __('Pardon for the dust!'));
+        $this->set('title_for_layout', __('PARDON_DUST'));
         $this->render('/Element/Maintenance/notice');
     }
 
@@ -32,7 +32,7 @@ class MaintenanceController extends AppController
         $this->loadModel('Quizzes');
         $created_quiz = $this->Quizzes->find('all')->where(['Quizzes.user_id' => $this->Auth->user('id')])->first();
         if (!empty($created_quiz)) {
-            $this->Flash->error(__('No direct access on this location'));
+            $this->Flash->error(__('NO_DIRECT_ACCESS_LOCATION'));
             return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         }
         $this->importQuizzes($this->Auth->user('id'));
@@ -893,7 +893,7 @@ class MaintenanceController extends AppController
 
                     $questions[1]['quiz_id'] = $new_quiz->id;
                     $questions[1]['question_type_id'] = 7;
-                    $questions[1]['text'] = 'New Question';
+                    $questions[1]['text'] = __('NEW_QUESTION');
                     $questions[1]['explanation'] = 'Katso video ja vastaa sen jälkeen alla oleviin kysymyksiin. Kaikkien kysymysten vastaukset löytyvät videosta.';
                     $questions[1]['weight'] = NULL;
                     $questions[1]['max_allowed'] = NULL;
@@ -949,7 +949,7 @@ class MaintenanceController extends AppController
 
                     $questions[9]['quiz_id'] = $new_quiz->id;
                     $questions[9]['question_type_id'] = 7;
-                    $questions[9]['text'] = 'New Question';
+                    $questions[9]['text'] = __('NEW_QUESTION');
                     $questions[9]['explanation'] = 'Seuraavalla tunnilla opettelemme beat-kompin. Voit tutustua siihen jo ennalta katsomalla oheisen videon.';
                     $questions[9]['weight'] = NULL;
                     $questions[9]['max_allowed'] = NULL;

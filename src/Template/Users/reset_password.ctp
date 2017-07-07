@@ -27,13 +27,13 @@ echo $this->Flash->render();
 
             echo $this->Form->input('id');
             echo $this->Form->input('password', array(
-                'placeholder' => __('Enter New Password'),
+                'placeholder' => __('ENTER_NEW_PASSWORD'),
                 'type' => 'password',
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'bottom',
-                'data-original-title' => __('Password must be 8 characters long')
+                'data-original-title' => __('PASSWORD_MUST_BE_LONGER')
             ));
-            echo $this->Form->input('passwordVerify', array('placeholder' => __('New Password Verify'),'type'=>'password'));
+            echo $this->Form->input('passwordVerify', array('placeholder' => __('VERIFY_PASSWORD'),'type'=>'password'));
 
             // echo $this->Form->end(array(
             //     'label' => __("Reset"),
@@ -43,7 +43,7 @@ echo $this->Flash->render();
             //     'class' => 'btn btn-success btn-block btn-lg'
             // ));
 
-            echo $this->Form->submit(__("Reset"), ['id' => 'do-reset', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
+            echo $this->Form->submit(__("RESET"), ['id' => 'do-reset', 'before' => '<div class="form-group">', 'div' => array('class' => 'col-md-7 col-md-offset-4 col-xs-12'), 'after' => '</div>', 'class' => 'btn btn-success btn-block btn-lg']);
 
             echo $this->Form->end();
         ?>

@@ -11,7 +11,7 @@
                     <?php
                     echo $this->Form->text('data.Question.text', array(
                         'class' => 'form-control q-text',
-                        'placeholder' => __('Enter the question'),
+                        'placeholder' => __('ENTER_QUESTION'),
                         'value' => '{{text}}',
                         'label' => false,
                         'type' => 'text',
@@ -46,12 +46,12 @@
                     <div class="form-group">
                         <div class="input select">
                             <select name="data[Question][question_type_id]" class="form-control choice-type-selector" id="qs-{{id}}">
-                                <optgroup label="<?php echo __('Question types'); ?>">
+                                <optgroup label="<?php echo __('QUESTION_TYPES'); ?>">
                                     <?php foreach ($_data as $key => $value) : ?>
                                         <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                     <?php endforeach; ?>
                                 </optgroup>
-                                <optgroup label="<?php echo __('Others'); ?>">
+                                <optgroup label="<?php echo __('OTHERS'); ?>">
                                     <?php foreach ($_others as $key => $value) : ?>
                                         <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                     <?php endforeach; ?>
@@ -69,7 +69,7 @@
                     <?php
                     echo $this->Form->input('data.Question.explanation', array(
                         'class' => 'form-control q-explanation',
-                        'placeholder' => __('Explanation text'),
+                        'placeholder' => __('EXPLANATION_TEXT'),
                         'value' => '{{explanation}}',
                         'label' => false,
                         'type' => 'text',
@@ -85,7 +85,7 @@
                     <?php
                     echo $this->Form->input('data.Question.max_allowed', array(
                         'class' => 'form-control q-max_allowed',
-                        'placeholder' => __('Max allowed to check'),
+                        'placeholder' => __('MAX_ALLOWED'),
                         'value' => '{{max_allowed}}',
                         'label' => false,
                         'type' => 'number',
@@ -102,9 +102,9 @@
             {{/choice}}
         </div>
 
-        <button type="button" class="btn btn-success add-choice" style="margin:16px 0 5px;"><?php echo __('Add Choice') ?></button>
+        <button type="button" class="btn btn-success add-choice" style="margin:16px 0 5px;"><?php echo __('ADD_CHOICE') ?></button>
         
-            <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('Save Question') ?></button>
+            <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('SAVE_QUESTION') ?></button>
         
         <?php echo $this->Form->end(); ?>
     </td>

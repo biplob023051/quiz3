@@ -8,7 +8,7 @@
             <span class="text-danger"><?php echo __('Permission denied to access this location!') ?></span>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Close'); ?></button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CLOSE'); ?></button>
         </div>
     </div>
 </div>

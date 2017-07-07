@@ -1,7 +1,7 @@
 <?php 
 	use Cake\Routing\Router;
 ?>
-<h1><?php echo __('Password Reset'); ?></h1>
-<p><?php echo __('To reset your password click on the bellow link or paste on your browser.'); ?></p>
+<h1><?php echo __('PASSWORD_RESET'); ?></h1>
+<p><?php echo __('RESET_PASSWORD_CLICK'); ?></p>
 <a href="<?php echo Router::url(array('controller'=>'users', 'action' => 'reset_password', $data->reset_code),true); ?>"><?php echo Router::url(array('controller'=>'users', 'action' => 'reset_password', $data->reset_code),true); ?></a>
-<p><?php echo __('If you have not sent this request, just ignore this mail.'); ?></p>
+<p><?php echo __('IF_NOT_SENT_IGNORE'); ?></p>

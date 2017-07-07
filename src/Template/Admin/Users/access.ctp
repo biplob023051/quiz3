@@ -6,7 +6,7 @@
         <div class="col-md-12 col-xs-12">
             <?php
             echo $this->Form->input('email', array(
-                'label' => __("Email")
+                'label' => __("EMAIL")
             ));
             ?>
         </div>
@@ -15,7 +15,7 @@
         <div class="col-md-12 col-xs-12">
             <?php
             echo $this->Form->input('password', array(
-                'label' => __("Password")
+                'label' => __("PASSWORD")
             ));
             ?>
         </div>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block"><?php echo __('Login') ?></button>
+                <button type="submit" class="btn btn-success btn-lg btn-block"><?php echo __('LOGGIN') ?></button>
             </div>
         </div>
     </div>

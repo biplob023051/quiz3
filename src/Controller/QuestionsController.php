@@ -118,7 +118,7 @@ class QuestionsController extends AppController
                     $data['Choice'][$i]['points'] = 0;
 
                 if (empty($data['Choice'][$i]['text']))
-                    $data['Choice'][$i]['text'] = __('Choice %d', $i);
+                    $data['Choice'][$i]['text'] = __('CHOICE %d', $i);
 
                 $data['Choice'][$i]['question_id'] = $questionId;
                 unset($data['Choice'][$i]['id']);
@@ -143,15 +143,15 @@ class QuestionsController extends AppController
             // essay
             if (!(isset($data['isNew']) && $data['isNew']) || $questionId != -1) {
                 $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
-                $data['Choice'][0]['text'] = 'Essay';
+                $data['Choice'][0]['text'] = __('ESSAY');
             } else {
                 if (!empty($data['Choice'])) unset($data['Choice']);
                 $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
-                $data['Choice'][0]['text'] = 'Essay';
+                $data['Choice'][0]['text'] = __('ESSAY');
             }
         } elseif($data['Question']['question_type_id'] == 7) { // youtube type
             if (empty($data['Choice'][0]['text'])) {   
-                echo json_encode(array('success' => false, 'message' => __('Enter youtube url')));
+                echo json_encode(array('success' => false, 'message' => __('ENTER_YOUTUBE_URL')));
                 exit;
             }
             $rx = '~^(?:https?://)?(?:www[.])?(?:youtube[.]com/watch[?]v=|youtu[.]be/) ([^&]{11})~x';
@@ -161,13 +161,13 @@ class QuestionsController extends AppController
             } else if(strpos($data['Choice'][0]['text'], 'https://www.youtube.com/embed/') !== false) {
                 
             } else {
-                echo json_encode(array('success' => false, 'message' => __('Invalid youtube video')));
+                echo json_encode(array('success' => false, 'message' => __('REQUIRED_YOUTUBE_URL')));
                 exit;
             }
         } elseif($data['Question']['question_type_id'] == 8) { // image url type
             // short_auto
             if (empty($data['Choice'][0]['text'])) {   
-                echo json_encode(array('success' => false, 'message' => __('Enter image url')));
+                echo json_encode(array('success' => false, 'message' => __('ENTER_IMAGE_URL')));
                 exit;
             }
         }
@@ -181,7 +181,7 @@ class QuestionsController extends AppController
 
         // If user leave form empty, set the default
         if (empty($data['Question']['text']))
-            $data['Question']['text'] = __('New Question');
+            $data['Question']['text'] = __('NEW_QUESTION');
 
         // If we are editing a existing question, set the ID
         if (!(isset($data['isNew']) && $data['isNew']) || $questionId != -1) {
@@ -276,11 +276,11 @@ class QuestionsController extends AppController
             // pr($copy_question);
             // exit;
             if ($this->Questions->save($copy_question)) {
-               $response['message'] = __('Duplicated Successfully');
+               $response['message'] = __('QUIZ_DUPLICATED');
                 $response['success'] = true;
                 $response['id'] = $copy_question->id;
             } else {
-                $response['message'] = __('Something went wrong, please try again later!');
+                $response['message'] = __('SOMETHING_WENT_WRONG');
             }
         } else {
             $response['message'] = __('Invalid question');

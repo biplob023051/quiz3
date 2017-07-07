@@ -1,4 +1,4 @@
-<?php $this->assign('title', __('Login')); ?>
+<?php $this->assign('title', __('LOGGIN')); ?>
 <div id="login-container">
     <?= $this->Flash->render(); ?>
     <?= $this->Form->create(); ?>
@@ -6,7 +6,7 @@
         <div class="col-md-12 col-xs-12">
             <?php
             echo $this->Form->input('email', array(
-                'label' => __("Email")
+                'label' => __("EMAIL")
             ));
             ?>
         </div>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block"><?php echo __('Login') ?></button>
+                <button type="submit" class="btn btn-success btn-lg btn-block"><?= __('LOGGIN') ?></button>
             </div>
         </div>
     </div>
@@ -33,12 +33,12 @@
 </div>
 
 <p class="text-center text-muted">
-    <?php echo __('If you don’t have account?'); ?> 
-    <?php echo $this->Html->link(__('Register Now!'), '/users/create'); ?>
+    <?= __('NOT_ACCOUNT'); ?> 
+    <?= $this->Html->link(__('REGISTER_NOW'), '/users/create'); ?>
 </p>
 <p class="text-center text-muted">
-    <?php echo __('If you forgot password?'); ?> 
-    <?php echo $this->Html->link(__('Password Recover'), '/users/password_recover'); ?>
+    <?= __('FORGOT_PASSWORD'); ?> 
+    <?= $this->Html->link(__('RECOVER_PASSWORD'), '/users/password_recover'); ?>
 </p>
 
 

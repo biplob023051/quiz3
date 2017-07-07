@@ -1,6 +1,6 @@
 <?php
 $this->Html->script(array('preview',), array('inline' => false));
-$this->assign('title', __('Preview Quiz'));
+$this->assign('title', __('PREVIEW_QUIZ'));
 
 if (!empty($data['Quiz']['subjects'])) {
     $selectedSubjects = json_decode($data['Quiz']['subjects'], true);
@@ -32,20 +32,20 @@ echo $this->Form->create('Quiz', array(
     <div class="col-xs-12 col-md-12">
         <a href="javascript:void(0)" class="btn btn-default btn-block" id="show-settings">
             <b class="caret"></b>
-            <?php echo __('Quiz Settings'); ?>
+            <?php echo __('QUIZ_SETTINGS'); ?>
         </a>
     </div>
     <div class="col-xs-4 col-md-6 settings-options" style="display: none;">
         <div class="form-group">
             <?php 
                 echo $this->Form->checkbox('show_result', array('default' => $data['Quiz']['show_result'])); 
-                echo $this->Form->label('show_result', __('Show results to the student after finishing the quiz.'));
+                echo $this->Form->label('show_result', __('SHOW_RESULTS_AFTER_QUIZ'));
             ?>
         </div>
         <div class="form-group">
             <?php 
                 echo $this->Form->checkbox('anonymous', array('default' => $data['Quiz']['anonymous'])); 
-                echo $this->Form->label('anonymous', __('Anonymous participation?'));
+                echo $this->Form->label('anonymous', __('ANONYMOUS_PARTICIPATION'));
             ?>
         </div>
     </div>
@@ -83,7 +83,7 @@ echo $this->Form->create('Quiz', array(
                 <?php
                     echo $this->Form->input('Quiz.name', array(
                         'default' => $data['Quiz']['name'],
-                        'placeholder' => __('Name the quiz'),
+                        'placeholder' => __('NAME_QUIZ'),
                         'class' => 'form-control input-lg'
                     ));
                 ?>
@@ -92,7 +92,7 @@ echo $this->Form->create('Quiz', array(
                 <?php
                 echo $this->Form->input('Quiz.description', array(
                     'default' => $data['Quiz']['description'],
-                    'placeholder' => __('Describe the quiz to respondents'),
+                    'placeholder' => __('DESCRIBE_QUIZ'),
                     'class' => 'form-control input-lg'
                 ));
                 ?>
@@ -133,15 +133,15 @@ echo $this->Form->create('Quiz', array(
 <div class="row">
     <div class="col-xs-12 col-md-6">
         <div class="form-group">
-            <?php echo $this->Html->link(__('Close'), 'javascript:close_window();' ,array('escape'=>false, 'id' => 'close-window', 'class'=>'btn btn-danger')); ?>
+            <?php echo $this->Html->link(__('CLOSE'), 'javascript:close_window();' ,array('escape'=>false, 'id' => 'close-window', 'class'=>'btn btn-danger')); ?>
         </div>
     </div>
     <div class="col-xs-12 col-md-6 text-right">
         <div class="form-group">
             <?php if (!empty($this->request->query['redirect_url'])) : ?>
-                <a href="<?php echo $this->request->query['redirect_url']; ?>" class="btn btn-success">Back</a>
+                <a href="<?php echo $this->request->query['redirect_url']; ?>" class="btn btn-success"><?= __('BACK'); ?></a>
             <?php else : ?>
-                <?php echo $this->Html->link(__('Back'), array('controller' => 'quiz', 'action' => 'shared', 'admin' => true), array('escape'=>false, 'class'=>'btn btn-success')); ?>
+                <?php echo $this->Html->link(__('BACK'), array('controller' => 'quiz', 'action' => 'shared', 'admin' => true), array('escape'=>false, 'class'=>'btn btn-success')); ?>
             <?php endif; ?>
         </div>
     </div>

@@ -8,7 +8,7 @@
     </script>
 <?php endif; ?>
 <?php
-    $this->assign('title', __('Quiz: ') . $data->name);
+    $this->assign('title', __('QUIZ') . $data->name);
     echo $this->Flash->render(); 
 
     echo $this->Form->create('', array(
@@ -29,7 +29,7 @@
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('fname', array(
-                        'placeholder' => __('First Name'),
+                        'placeholder' => __('FIRST_NAME'),
                         'label' => false,
                         'class' => 'basic-info',
                         'value' => !empty($student->fname) ? $student->fname : ''
@@ -44,7 +44,7 @@
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('lname', array(
-                        'placeholder' => __('Last Name'),
+                        'placeholder' => __('LAST_NAME'),
                         'label' => false,
                         'class' => 'basic-info',
                         'value' => !empty($student->lname) ? $student->lname : ''
@@ -59,7 +59,7 @@
                 <div class="col-xs-12 col-md-4">
                     <?php
                     echo $this->Form->input('class', array(
-                        'placeholder' => __('Class'),
+                        'placeholder' => __('CLASS'),
                         'label' => false,
                         'class' => 'basic-info',
                         'value' => !empty($student->class) ? $student->class : ''
@@ -144,8 +144,8 @@
 <?php echo $this->element('Quiz/confirm_submit'); ?>
 <div class="row">
     <div class="col-xs-12 col-md-4 pull-right">
-        <span class="text-danger no-internet"><?php echo __('Sorry, you lost your internet connection.'); ?></span>
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="std_form_submit"><?php echo __('Turn in your quiz') ?></button>
+        <span class="text-danger no-internet"><?php echo __('SORRY_LOST_CONNECTION'); ?></span>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="std_form_submit"><?php echo __('WANT_TURN_IN_QUIZ') ?></button>
     </div>
 </div>
 

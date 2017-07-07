@@ -38,22 +38,22 @@ class MaintenanceController extends AppController
             $this->Flash->success(__('Changes have been saved'));
             return $this->redirect($this->referer());
         }
-        $this->set('title_for_layout', 'System Settings');
+        $this->set('title_for_layout', __('System Settings'));
 
     }
 
     public function import() {
         $this->isAdminUser();
-        $this->set('title_for_layout',__('Import Demo Quiz'));
+        $this->set('title_for_layout',__('IMPORT_DEMO_QUIZZES'));
 
         if ($this->request->is('post')) {
             if (empty($this->request->data['user_id'])) {
-                $this->Flash->error(__('Please enter an user id'));
+                $this->Flash->error(__('ENTER_USER_ID'));
             } elseif (!is_numeric($this->request->data['user_id'])) {
-                $this->Flash->error(__('Please enter a numeric id'));
+                $this->Flash->error(__('ENTER_NUMERIC_ID'));
             } else {
                 $this->importQuizzes($this->request->data['user_id']);
-                $this->Flash->success(__('Imported successfully'));
+                $this->Flash->success(__('QUIZ_IMPORTED'));
             }
             $this->redirect($this->referer());
         }
@@ -911,7 +911,7 @@ class MaintenanceController extends AppController
 
                     $questions[1]['quiz_id'] = $new_quiz->id;
                     $questions[1]['question_type_id'] = 7;
-                    $questions[1]['text'] = 'New Question';
+                    $questions[1]['text'] = __('NEW_QUESTION');
                     $questions[1]['explanation'] = 'Katso video ja vastaa sen jälkeen alla oleviin kysymyksiin. Kaikkien kysymysten vastaukset löytyvät videosta.';
                     $questions[1]['weight'] = NULL;
                     $questions[1]['max_allowed'] = NULL;
@@ -967,7 +967,7 @@ class MaintenanceController extends AppController
 
                     $questions[9]['quiz_id'] = $new_quiz->id;
                     $questions[9]['question_type_id'] = 7;
-                    $questions[9]['text'] = 'New Question';
+                    $questions[9]['text'] = __('NEW_QUESTION');
                     $questions[9]['explanation'] = 'Seuraavalla tunnilla opettelemme beat-kompin. Voit tutustua siihen jo ennalta katsomalla oheisen videon.';
                     $questions[9]['weight'] = NULL;
                     $questions[9]['max_allowed'] = NULL;

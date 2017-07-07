@@ -1,7 +1,7 @@
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
-    <h2><?php echo __('Prices'); ?></h2>
-    <p class="text-muted"><?php echo __('Select your favorite package to continue.'); ?></p>
+    <h2><?php echo __('PRICES'); ?></h2>
+    <p class="text-muted"><?php echo __('SELECT_PACKAGE'); ?></p>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <table class="table table-striped">
@@ -9,40 +9,40 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th><?php echo __('FREE'); ?></th>
-                        <th><?php echo __('29 E/Y'); ?></th>
-                        <th><?php echo __('49 E/Y'); ?></th>
+                        <th><?php echo __('29_EUR'); ?></th>
+                        <th><?php echo __('49_EUR'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo __('Users'); ?></td>
+                        <td><?php echo __('USERS'); ?></td>
                         <td><?php echo __('1'); ?></td>
                         <td><?php echo __('1'); ?></td>
                         <td><?php echo __('1'); ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo __('Tests'); ?></td>
+                        <td><?php echo __('TESTS'); ?></td>
                         <td><?php echo __('1'); ?></td>
-                        <td><?php echo __('Unlimited'); ?></td>
-                        <td><?php echo __('Unlimited'); ?></td>
+                        <td><?php echo __('UNLIMITED'); ?></td>
+                        <td><?php echo __('UNLIMITED'); ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo __('Days to use'); ?></td>
-                        <td><?php echo '30 ' . __('Days'); ?></td>
-                        <td><?php echo '365 ' . __('Days'); ?></td>
-                        <td><?php echo '365 ' . __('Days'); ?></td>
+                        <td><?php echo __('DAYS_TO_USE'); ?></td>
+                        <td><?php echo '30 ' . __('DAYS'); ?></td>
+                        <td><?php echo '365 ' . __('DAYS'); ?></td>
+                        <td><?php echo '365 ' . __('DAYS'); ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo __('Quiz Bank'); ?></td>
-                        <td><?php echo __('Limited Access'); ?></td>
+                        <td><?php echo __('QUIZ_BANK'); ?></td>
+                        <td><?php echo __('LIMITED_ACCESS'); ?></td>
                         <td><?php echo '-'; ?></td>
-                        <td><?php echo __('Unlimited'); ?></td>
+                        <td><?php echo __('UNLIMITED'); ?></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><?php echo $this->Html->link(__('Register Now!'), '/users/create', array('class' => 'btn btn-success')); ?></td>
-                        <td><button type="button" id="buy-button-29" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
-                        <td><button type="button" id="buy-button-49" class="btn btn-success"><?php echo __('Buy'); ?></button></td>
+                        <td><?php echo $this->Html->link(__('REGISTER_NOW'), '/users/create', array('class' => 'btn btn-success')); ?></td>
+                        <td><button type="button" id="buy-button-29" class="btn btn-success"><?php echo __('BUY'); ?></button></td>
+                        <td><button type="button" id="buy-button-49" class="btn btn-success"><?php echo __('BUY'); ?></button></td>
                     </tr>
                 </tbody>
             </table>

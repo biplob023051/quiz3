@@ -3,7 +3,7 @@ echo $this->Html->css('answer-table', array(
     'inline' => false
 ));
 
-$this->assign('title', __('Answer Table'));
+$this->assign('title', __('ANSWER_TABLE'));
 ?>
 <?= $this->Form->create('', ['id' => 'answer-table-filter']);  ?>
     <div class="row">
@@ -12,11 +12,11 @@ $this->assign('title', __('Answer Table'));
             <?php
             echo $this->Form->input('Filter.daterange', array(
                 'options' => array(
-                    'all' => __('All Time'),
-                    'today' => __('Today'),
-                    'this_year' => __('This Year'),
-                    'this_month' => __('This Month'),
-                    'this_week' => __('This Week'),
+                    'all' => __('ALL_TIME'),
+                    'today' => __('TODAY'),
+                    'this_year' => __('THIS_YEAR'),
+                    'this_month' => __('THIS_MONTH'),
+                    'this_week' => __('THIS_WEEK'),
                 ),
                 'div' => array('class' => 'form-group'),
                 'default' => $filter['daterange'],
@@ -41,8 +41,8 @@ $this->assign('title', __('Answer Table'));
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <div class="btn-group btn-group-justified">
-                    <a href="javascript:void(0);" class="btn btn-default" id="answer-table-overview"><?php echo __('Overview'); ?></a>
-                    <a href="javascript:void(0);" class="btn btn-primary" id="answer-table-show"><?php echo __('Answers'); ?></a>
+                    <a href="javascript:void(0);" class="btn btn-default" id="answer-table-overview"><?= __('OVERVIEW'); ?></a>
+                    <a href="javascript:void(0);" class="btn btn-primary" id="answer-table-show"><?= __('ANSWERS'); ?></a>
                 </div>
             </div>
         </div>
@@ -50,19 +50,17 @@ $this->assign('title', __('Answer Table'));
 <?= $this->Form->end(); ?>
 
 <div class="panel panel-default">
-    <?php echo $this->element('Quiz/table_extension', array('quizDetails' => $quizDetails)); ?>    
+    <?= $this->element('Quiz/table_extension', array('quizDetails' => $quizDetails)); ?>    
 </div>
-<?php echo $this->element('Answer/confirm_delete'); ?>
+<?= $this->element('Answer/confirm_delete'); ?>
 <div id="prev_data" style="display : none;"><?php echo $studentIds; ?></div>
 <div id="quizId" style="display : none;"><?php echo $quizId; ?></div>
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-8">
-        <button type="button" class="btn btn-primary btn-block" id="print"><?php echo __('Print'); ?></button>
+        <button type="button" class="btn btn-primary btn-block" id="print"><?= __('PRINT'); ?></button>
     </div>
     <div class="col-xs-12 col-md-2">
-        <?php
-        echo $this->Html->link(__('Back'), '/', array('class' => 'btn btn-primary btn-block'));
-        ?>
+        <?= $this->Html->link(__('BACK'), '/', array('class' => 'btn btn-primary btn-block'));?>
     </div>
 </div>
 <div id="print_div" style="display: none;"></div>
@@ -73,8 +71,4 @@ $this->assign('title', __('Answer Table'));
     var onlineStds = <?php echo json_encode($onlineStds) ?>;
 </script>
 
-<?php
-echo $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array(
-    'inline' => false
-));
-?>
+<?= $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array('inline' => false));?>
