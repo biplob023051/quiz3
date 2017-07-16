@@ -7,3 +7,5 @@ ALTER TABLE `students` CHANGE `class` `class` CHAR(40) CHARACTER SET latin1 COLL
 -- Sprint 1706
 ALTER TABLE `users` CHANGE `language` `language` CHAR(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'fin';
 update `users` set users.language = 'en_GB' where users.language = 'eng';
+ALTER TABLE `users` ADD `isactive` TINYINT(1) NULL DEFAULT NULL COMMENT '1 for active' AFTER `resettime`;
+UPDATE `users` SET isactive = 1 WHERE activation IS NULL;

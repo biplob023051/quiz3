@@ -7,7 +7,6 @@
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <h3><?php echo __('Get in Touch'); ?></h3>
-        <!-- <form class="form-horizontal" style="margin-top:30px;"  method="post" action="<?php echo $this->request->base; ?>/users/contact" id="contactForm" novalidate="novalidate" accept-charset="utf-8"> -->
         <?php 
         echo $this->Form->create('', [
             'horizontal' => true,

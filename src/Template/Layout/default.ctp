@@ -47,6 +47,7 @@ use Cake\Routing\Router;
         //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'
         'jquery.min.js',
         'bootstrap.min.js',
+        'bootstrap-notify.min',
         'language.js'
     ));
     ?>

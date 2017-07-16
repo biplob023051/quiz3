@@ -27,17 +27,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
-        <?php
-            echo $this->Form->input('password', array(
-                'label' => __("PASSWORD"),
-                'placeholders' => __("FILL_CHANGE_PASSWORD"),
-                'required' => false
-            ));
-        ?>
-    </div>
-</div>
+<?php echo $this->element('password'); ?>
 <?php echo $this->element('upgrade', array('userPermissions' => $userPermissions)); ?>
 <div class="row">
     <div class="col-md-5 col-md-offset-3 col-xs-12 col-sm-12">
@@ -97,6 +87,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 <?= $this->element('Invoice/invoice'); ?>
 <?= $this->element('Invoice/invoice_success_dialog'); ?>
 <?= $this->element('Invoice/invoice_error_dialog'); ?>
+<?= $this->element('Invoice/password'); ?>
 
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;

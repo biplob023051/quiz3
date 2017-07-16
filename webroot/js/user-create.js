@@ -58,7 +58,7 @@
         }
 
         // check if empty captcha
-        if ($("#captcha").val() == '') {
+        if(grecaptcha.getResponse() == '') {
             $("#error-message").show();
             $("#error-message").html(lang_strings['empty_captcha']);
             return;

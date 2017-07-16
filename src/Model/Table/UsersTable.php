@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use App\Auth\SimplePasswordHasher;
 
 /**
  * Users Model
@@ -54,6 +55,11 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Statistics', [
+            'className' => 'Statistics',
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('UserStatistics', [
+            'className' => 'Statistics',
             'foreignKey' => 'user_id'
         ]);
     }
@@ -88,10 +94,10 @@ class UsersTable extends Table
                     'rule' => ['minLength', 8],
                     'message' => 'PASSWORD_MUST_BE_LONGER',
                 ],
-                // 'compare' => [
-                //     'rule' => ['compareWith', 'passwordVerify'],
-                //     'message' => __('Password did not match, please try again') 
-                // ]
+                'compare' => [
+                    'rule' => ['compareWith', 'passwordVerify'],
+                    'message' => __('Password did not match, please try again') 
+                ]
             ]);
 
 
@@ -119,6 +125,58 @@ class UsersTable extends Table
 
         $validator
             ->allowEmpty('imported_ids');
+
+        return $validator;
+    }
+
+
+    // Custom password validator
+    public function validationPassword(Validator $validator )
+    {
+
+        $validator
+            ->add('old_password','custom',[
+                'rule'=>  function($value, $context){
+                    $user = $this->get($context['data']['id']);
+                    if ($user) {
+                        if ((new SimplePasswordHasher(['hashType' => 'sha256']))->check($value, $user->password)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
+                'message'=> 'OLD_PASSWORD_DID_NOT_MATCH',
+            ])
+            ->notEmpty('old_password');
+
+        $validator
+            ->add('password1', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'PASSWORD_MUST_BE_LONGER',
+                ]
+            ])
+            ->add('password1',[
+                'match'=>[
+                    'rule'=> ['compareWith','password2'],
+                    'message'=>'Password did not match, please try again',
+                ]
+            ])
+            ->notEmpty('password1');
+        $validator
+            ->add('password2', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'PASSWORD_MUST_BE_LONGER',
+                ]
+            ])
+            ->add('password2',[
+                'match'=>[
+                    'rule'=> ['compareWith','password1'],
+                    'message'=>'Password did not match, please try again',
+                ]
+            ])
+            ->notEmpty('password2');
 
         return $validator;
     }

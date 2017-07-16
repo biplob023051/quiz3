@@ -1,3 +1,4 @@
+<script src='https://www.google.com/recaptcha/api.js?hl=<?php echo $site_language; ?>'></script>
 <?php
 $session = $this->request->session();
 // pr($session);
@@ -62,14 +63,8 @@ $this->assign('title', __('CREATE_ACCOUNT'));
         ?>
 
         <div class="form-group required">
-            <label for="UserCaptcha" class="col-sm-4 control-label"><?= $captcha; ?></label>
-            <div class="col-md-7 col-xs-12">
-                <?php 
-                    echo $this->Form->input('captcha', array(
-                        'label' => false,
-                        'placeholder' => __('ENTER_RESULT')
-                    )); 
-                ?>
+            <div class="col-sm-offset-4 col-sm-7">
+                <div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_SECRET_KEY; ?>"></div>
             </div>
         </div>
        

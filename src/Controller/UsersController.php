@@ -22,7 +22,33 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage', 'changePassword']);
+    }
+
+    // Method for ajax password update
+    public function changePassword()
+    {
+        $this->autoRender = false;
+        $response['success'] = false;
+        $user =$this->Users->get($this->Auth->user('id'));
+        if (!empty($this->request->data)) {
+            $user = $this->Users->patchEntity($user, [
+                    'old_password'  => $this->request->data['old_password'],
+                    'password'      => $this->request->data['password1'],
+                    'password1'     => $this->request->data['password1'],
+                    'password2'     => $this->request->data['password2']
+                ],
+                ['validate' => 'password']
+            );
+            if ($this->Users->save($user)) {
+                $response['success'] = true;
+                $response['message'] = __('PASSWORD_CHANGED_SUCCESS');
+            } else {
+                $response['errors'] = $user->errors();
+                $response['message'] = __('PASSWORD_CHANGED_FAILED');
+            }
+        }
+        echo json_encode($response);
     }
 
     // Method of switching language 
@@ -36,50 +62,36 @@ class UsersController extends AppController
         if ($this->Auth->user()) {
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }
-        // load MathCaptchaComponent on fly
-        $site_language = Configure::read('Config.language');
-        if ($site_language == 'fi') {
-            //$this->MathCaptcha = $this->Components->load('MathCaptcha');
-            $this->MathCaptcha = $this->loadComponent('MathCaptcha');
-        } else {
-            //$this->MathCaptcha = $this->Components->load('QuizCaptcha');
-            $this->MathCaptcha = $this->loadComponent('QuizCaptcha');
-        }
         $user = $this->Users->newEntity();
+        $site_language = Configure::read('Config.language');
         if ($this->request->is('post')) {
-            // $this->request->data['activation'] = $this->User->randText(16);
-            // pr($this->request->data);
-            // exit;
-            if ($this->MathCaptcha->validate($this->request->data['captcha'])) {
+            require_once(ROOT . '/vendor' . DS . '/recaptcha/src/autoload.php');
+            $secret = RECAPTCHA_SERVER_KEY;
+            $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+            $resp = $recaptcha->verify($this->request->data['g-recaptcha-response'], Router::url('/', true));
+            if ($resp->isSuccess()) {
                 $this->request->data['account_level'] = 22;
                 $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
                 $this->request->data['activation'] = $this->randText(16);
                 $this->request->data['language'] = $site_language;
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $user = $this->Users->save($user);
-                // pr($user);
-                // exit;
                 if (!empty($user->id)) {
                     // Send email to user for email confirmation
                     $user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
-                    //pr($user_email);
-                    // Send email to admin
-                    //Configure::read('AdminEmail')
-                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
-                    // pr($admin_email);
-                    // exit;
+                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', '', true);
                     $this->request->session()->write('registration', true);
                     $this->redirect(array('action' => 'success'));
-
                 } else {
                     $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 }
-
             } else {
-                $this->Flash->error(__('INCORRECT_CALCULATION'));
+                foreach ($resp->getErrorCodes() as $code) {
+                    $message = '<tt>' . $code  . '</tt> ';
+                }
+                $this->Flash->error($message);
             }
         }
-        $this->set('captcha', $this->MathCaptcha->getCaptcha());
         // language strings
         $lang_strings['empty_name'] = __('REQUIRE_NAME');
         $lang_strings['invalid_characters'] = __('NAME_CONTAINS_INVALID_CHAR');
@@ -90,7 +102,7 @@ class UsersController extends AppController
         $lang_strings['varify_password'] = __('PASSWORD_NOT_MATCH');
         $lang_strings['character_count'] = __('PASSWORD_MUST_BE_LONGER');
         $lang_strings['empty_captcha'] = __('REQUIRE_CAPTCHA');
-        $this->set(compact('lang_strings'));
+        $this->set(compact('lang_strings', 'site_language'));
 
         $this->loadModel('Helps');
         $create_video = $this->Helps->getVideoByType('create');
@@ -153,16 +165,22 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
-                $this->Auth->setUser($user);
-                //Login Event.
-                $this->eventManager()->attach(new Statistics($this));
-                $event = new Event('Model.Users.login', $this, [
-                    'user_id' => $user['id']
-                ]);
-                $this->eventManager()->dispatch($event);
-                return $this->redirect($this->Auth->redirectUrl());
+                if ($user['isactive']) {
+                    $this->Auth->setUser($user);
+                    //Login Event.
+                    $this->eventManager()->attach(new Statistics($this));
+                    $event = new Event('Model.Users.login', $this, [
+                        'user_id' => $user['id']
+                    ]);
+                    $this->eventManager()->dispatch($event);
+                    return $this->redirect($this->Auth->redirectUrl());
+                } else {
+                    $this->Session->destroy();
+                    $this->Flash->error(__('SORRY_YOUR_ACCOUNT_DISABLED'));
+                }
+            } else {
+                $this->Flash->error(__('USERNAME_OR_PASSWORD_INCORRECT'));
             }
-            $this->Flash->error(__('USERNAME_OR_PASSWORD_INCORRECT'));
         }
     }
 
@@ -367,7 +385,7 @@ class UsersController extends AppController
                 // Send email to user for email confirmation
                 $user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
                 // Send email to admin
-                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create');
+                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', '', true);
                 
                 $user->package = $package;
                 // Send email for upgrade notice to the admin 
