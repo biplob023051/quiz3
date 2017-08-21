@@ -5,7 +5,25 @@ use App\Vendor\qqFileUploader;
 
 class UploadController extends AppController {
 
-	public function video($id = null) {
+	public function photo() {
+		$this->autoRender = false;
+		$response['success'] = false;
+		$path = 'uploads' . DS . 'tmp';
+		$url = 'uploads/tmp/';
+		$filename = $this->request->data['myfile']['tmp_name'];
+		list($width, $height, $typeCode) = getimagesize($filename);
+		$imageType = ($typeCode == 1 ? "gif" : ($typeCode == 2 ? "jpeg" : ($typeCode == 3 ? "png" : FALSE)));
+		$imagePath = 'uploads/tmp/';
+		$uniquesavename=time(). '_' .uniqid(rand());
+		$destFile = $imagePath . $uniquesavename . '.' . $imageType;
+		if (move_uploaded_file($filename,  $destFile)) {
+			$response['success'] = true;
+			$response['filename'] = $uniquesavename . '.' . $imageType;
+		}
+		echo json_encode($response);
+	}
+
+	public function ajaxVideo($id = null) {
 		$this->loadModel('Helps');
 		if (!$id) {
 			$path = 'uploads' . DS . 'tmp';
@@ -20,15 +38,16 @@ class UploadController extends AppController {
 		$allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
 
 		$uploader = new qqFileUploader($allowedExtensions);
-		// pr($uploader);
-		// exit;
 		
 		// Call handleUpload() with the name of the folder, relative to PHP's getcwd()
 		$result = $uploader->handleUpload($path);
+		// pr($result);
+		// exit;
 		
 		if (!empty($result['success'])) {
-			require_once(ROOT . '/vendor' . DS . '/phpThumb/ThumbLib.inc.php');
-			$photo = \PhpThumbFactory::create($path . DS . $result['filename'], array('jpegQuality' => 100));
+			require_once(ROOT . '/vendor' . DS . 'phpThumb/ThumbLib.inc.php');
+			//$phpThumb = new PhpThumbFactory();
+			$photo = PhpThumbFactory::create($path . DS . $result['filename'], array('jpegQuality' => 100));
 			// // resize image
 			// App::import('Vendor', 'phpThumb', array('file' => 'phpThumb/ThumbLib.inc.php'));
 			// $photo = PhpThumbFactory::create($path . DS . $result['filename'], array('jpegQuality' => 100));

@@ -1,5 +1,5 @@
 <?=
-$this->Html->script(array('invoice', 'quiz-bank'), array(
+$this->Html->script(array('invoice'), array(
     'inline' => false
 ));
 $this->assign('title', __('MY_QUIZZES'));
@@ -225,7 +225,8 @@ $this->assign('title', __('MY_QUIZZES'));
     <?php if (!empty($userPermissions['quiz_bank_access'])) : ?>
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-success btn-sm pull-right quiz-bank"  title="<?php echo __('EXPLORE_QUIZ_BANK'); ?>"><i class="glyphicon glyphicon-briefcase"></i> <?php echo __('QUIZ_BANK'); ?></button>
+                <!-- <button type="button" class="btn btn-success btn-sm pull-right quiz-bank"  title="<?php //echo __('EXPLORE_QUIZ_BANK'); ?>"><i class="glyphicon glyphicon-briefcase"></i> <?php //echo __('QUIZ_BANK'); ?></button> -->
+                <?= $this->Html->link('<i class="glyphicon glyphicon-briefcase"></i> ' . __('QUIZ_BANK'), ['action' => 'bank'], ['class' => 'btn btn-success btn-sm pull-right', 'escape' => false]); ?>
             </div>
         </div>
     <?php endif; ?>
@@ -238,9 +239,6 @@ $this->assign('title', __('MY_QUIZZES'));
 <?php echo $this->element('Invoice/demo_dialog'); ?>
 
 <div class="modal fade" id="public-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-</div>
-
-<div class="modal fade" id="preview-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
 <script type="text/javascript">

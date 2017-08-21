@@ -805,11 +805,7 @@ var webQuiz = {
     questionOptions: function(question_type_id) {
         // if multiple choice many correct show max allowed input field
         // otherwise it will be hidden always
-        if (question_type_id == 3) {
-            $('#max_allowed').show();
-        } else {
-            $('#max_allowed').hide();
-        }
-
+        (question_type_id == 3) ? $('#max_allowed').show() : $('#max_allowed').hide();
+        (question_type_id == 8) ? $('#image-section').show() : $('#image-section').hide();
     }
 };

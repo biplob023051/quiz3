@@ -117,7 +117,7 @@ class AppController extends Controller
     {
         $result = parent::beforeFilter ($event) ;
 
-        if (in_array($this->request->action, ['updateStudent'])) {
+        if (in_array($this->request->action, ['updateStudent', 'ajaxVideo'])) {
             $this->eventManager()->off($this->Csrf);
         }
         $setting = $this->_getSettings();

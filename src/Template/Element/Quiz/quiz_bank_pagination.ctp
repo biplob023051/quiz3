@@ -41,7 +41,7 @@
             <?php else : ?>
                 <?php foreach ($quizzes as $quiz): ?>
                     <tr>
-                        <td class="pbutton"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
+                        <td class="pbutton text-center"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
                         <td class="text-center"><?php echo h($quiz->name); ?></td>
                         <?php
                             $related_subjects = '';

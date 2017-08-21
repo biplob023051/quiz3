@@ -1,4 +1,5 @@
 (function ($) {
+    $('#maintenance-alert').css({width: $(window).width()});
 	$.fn.extend({
         donetyping: function(callback,timeout){
             timeout = timeout || 3e3; // 1 second default timeout
@@ -102,6 +103,10 @@
         updatedStatus = '';
     });
 
+    $(document).on('change', '.on-select', function(){
+        $(this).closest('form').submit();
+    });
+
     function updateInfo(element) {
         var user_info = element.attr('data-rel');
         // console.log(user_info);
@@ -134,6 +139,11 @@
                     });
                     if (isActive) {
                         updatedStatus = true;
+                        if (value_info == null) {
+                            element.closest('tr').addClass('inactive-row');
+                        } else {
+                            element.closest('tr').removeClass('inactive-row');
+                        }
                     } else {
                         element.hide();
                         var toDisplay = (selected) ? selected : value_info;

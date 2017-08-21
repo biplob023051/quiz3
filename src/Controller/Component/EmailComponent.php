@@ -27,11 +27,4 @@ class EmailComponent extends Component {
 		$checkEmail = $Email->send();
 		return $checkEmail;
 	}
-
-// 	$email = new Email();
-// $email->template('welcome', 'fancy')
-//     ->emailFormat('html')
-//     ->to('bob@example.com')
-//     ->from('app@domain.com')
-//     ->send();
 }

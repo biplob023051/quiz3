@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -13,7 +14,7 @@ use Cake\Network\Exception\NotFoundException;
 class UsersController extends AppController
 {
     public $paginate = [
-        'limit' => 10,
+        'limit' => 50,
         'order' => ['Users.id' => 'ASC']
     ];
 
@@ -26,7 +27,56 @@ class UsersController extends AppController
     // Method for user manangement panel
     public function index() {
         $this->set('title_for_layout', __('MANAGE_USER'));
+        $acc_type = 'all';
+        if ($this->request->is(['post','put'])) { // If form submitted
+            if (!empty($this->request->data['limit_size'])) {
+                $this->Session->write('limit_size', $this->request->data['limit_size']);
+            }
+            if (!empty($this->request->data['acc_type'])) {
+                $this->Session->write('acc_type', $this->request->data['acc_type']);
+            }
+            return $this->redirect(['action' => 'index']);
+        } 
+        if ($this->Session->check('limit_size')) {
+            $this->paginate['limit'] = $this->Session->read('limit_size');
+        }
+        if ($this->Session->check('acc_type')) {
+            $acc_type = $this->Session->read('acc_type');
+        }
         $conditions = [];
+        switch ($acc_type) {
+            case 'all':
+                break;
+            case 'active':
+                $conditions = ['Users.isactive' => 1];
+                break;
+            case 'inactive':
+                $conditions = ['Users.isactive IS NULL'];
+                break;
+            case 'expired':
+                $conditions = ['DATE(Users.expired) <' => date('Y-m-d')];
+                break;
+            case 'paid':
+                $conditions = [
+                    'Users.account_level IN' => [1,2],
+                    'DATE(Users.expired) >=' => date('Y-m-d')
+                ];
+                break;
+            case 'trial_days':
+                $conditions = [
+                    'Users.account_level' => 22,
+                    'DATE(Users.expired) >=' => date('Y-m-d')
+                ];
+                break;
+            case 'trial_limit':
+                $conditions = [
+                    'Users.account_level' => 0
+                ];
+                break;
+            default:
+                # code...
+                break;
+        }
         $contain = [
             'Statistics' => function($q) {
                 $q->select([
@@ -66,6 +116,8 @@ class UsersController extends AppController
                 ->contain($contain)
             );
             $this->set(compact('users'));
+            $this->request->data['limit_size'] = $this->paginate['limit'];
+            $this->request->data['acc_type'] = $acc_type;
         } catch (NotFoundException $e) { 
             return $this->redirect(array('controller' => 'users', 'action' => 'index'));
         }

@@ -32,17 +32,7 @@
                             $_others[$qt['QuestionType']['id']] = __($qt['QuestionType']['name']);
                         }
                     }
-                    //array_unshift($_data, __('Question types'));
-                    // echo $this->Form->input('Question.question_type_id', array(
-                    //     'options' => $_data,
-                    //     'default' => $data['QuestionTypes'][0]['QuestionType']['id'],
-                    //     'class' => 'form-control choice-type-selector',
-                    //     'label' => false,
-                    //     'id' => 'qs-{{id}}'
-                    // ));
                     ?>
-                    
-
                     <div class="form-group">
                         <div class="input select">
                             <select name="data[Question][question_type_id]" class="form-control choice-type-selector" id="qs-{{id}}">
@@ -96,16 +86,21 @@
                 </div>           
             </div>
         </div>
+        <div class="row" id="image-section" style="display: none;">
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" id="upload" style="padding:0 20px;"><?= __('UPLOAD') ?></button>
+                    <button type="button" class="btn btn-default active" id="from-web" style="padding:0 20px;"><?= __('FROM_WEB') ?></button>
+                </div>           
+            </div>
+        </div>
         <div class="choices">
             {{#choice Choice}}
             {{choice_tpl}}
             {{/choice}}
         </div>
-
         <button type="button" class="btn btn-success add-choice" style="margin:16px 0 5px;"><?php echo __('ADD_CHOICE') ?></button>
-        
-            <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('SAVE_QUESTION') ?></button>
-        
-        <?php echo $this->Form->end(); ?>
+        <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('SAVE_QUESTION') ?></button>
+        <?= $this->Form->end(); ?>
     </td>
 </tr>

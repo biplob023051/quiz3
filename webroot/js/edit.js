@@ -1,5 +1,42 @@
 var debugVar;
 (function ($) {
+    $(document).on('click', '#upload', function(){
+        $(this).addClass('active');
+        $('#from-web').removeClass('active');
+        $('#web-panel').hide();
+        $('#upload-panel').show();
+
+        $("#fileuploader").html('').uploadFile({
+            url:projectBaseUrl + 'upload/photo',
+            fileName:"myfile",
+            acceptFiles:"image/*",
+            showPreview:true,
+            multiple:false,
+            previewHeight: "100px",
+            previewWidth: "100px",
+            onSuccess:function(files,data,xhr,pd)
+            {
+                var data = $.parseJSON(data);
+                if (data.success) {
+                    //$('#temp_photo').val(data.filename);
+                    $('#web-panel').find('input').val(projectBaseUrl + 'uploads/questions/' + data.filename);
+                } else {
+                    window.location.reload();
+                }
+                //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
+                
+            },
+        });
+
+    });
+
+    $(document).on('click', '#from-web', function(){
+        $(this).addClass('active');
+        $('#upload').removeClass('active');
+        $('#web-panel').show();
+        $('#upload-panel').hide();
+    });
+
     var appData = $.parseJSON($("#app-data").text());
     var webQuizConfig = {
         "quizId": appData.quizId,

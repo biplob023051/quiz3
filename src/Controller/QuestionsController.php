@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Intervention\Image\ImageManager;
 
 /**
  * Questions Controller
@@ -170,6 +171,30 @@ class QuestionsController extends AppController
                 echo json_encode(array('success' => false, 'message' => __('ENTER_IMAGE_URL')));
                 exit;
             }
+            if (strpos($data['Choice'][0]['text'], $_SERVER['SERVER_NAME']) !== false) {
+                // Move file from tmp to questions folder
+                $imageInfo = pathinfo($data['Choice'][0]['text']);
+                if ($questionId == -1) {
+                    if (file_exists(WWW_ROOT . 'uploads/tmp/' . $imageInfo['basename'])) {
+                        $this->processImage($imageInfo['basename'], 'questions');
+                    } else {
+                        echo json_encode(array('success' => false, 'message' => __('INVALID_TRY')));
+                        exit;
+                    }
+                } else {
+                    if (file_exists(WWW_ROOT . 'uploads/tmp/' . $imageInfo['basename'])) {
+                        // Delete all file
+                        $this->deleteFile($questionId);
+                        $this->processImage($imageInfo['basename'], 'questions');
+                    } elseif (file_exists(WWW_ROOT . 'uploads/questions/' . $imageInfo['basename'])) {
+                        // Do nothing if not changed
+                    } else {
+                        echo json_encode(array('success' => false, 'message' => __('INVALID_TRY')));
+                        exit;
+                    }
+                }
+
+            }
         }
 
         if ($data['Question']['question_type_id'] == 6) $data['Question']['explanation'] = NULL;
@@ -230,11 +255,43 @@ class QuestionsController extends AppController
         }
     }
 
+    // Method for image upload
+    private function processImage($image, $folder) {
+        $original_image = WWW_ROOT . 'uploads/tmp/' . $image;
+        $manager = new ImageManager(array('driver' => 'imagick'));
+        $resized_image = $manager->make($original_image);
+        $resized_image->resize(600, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $resized_image->save(WWW_ROOT . 'uploads/'. $folder .'/' . $image);
+        $resized_image->destroy();
+        unlink($original_image);
+    }
+
+    // Method for deleting image
+    public function deleteFile($questionId) {
+        $query = $this->Questions->Choices->find('all', [
+            'keyField' => 'id',
+            'valueField' => 'text'
+        ])->where([
+            'question_id' => $questionId,
+            'text LIKE' => '%'. $_SERVER['SERVER_NAME'] .'%'
+        ]);
+        $choice = $query->first();
+        if (!empty($choice)) {
+            $imageInfo = pathinfo($choice->text);
+            if (file_exists(WWW_ROOT . 'uploads/questions/' . $imageInfo['basename'])) {
+                unlink(WWW_ROOT . 'uploads/questions/' . $imageInfo['basename']);
+            }
+        }
+    }
+
     public function delete() {
         $this->autoRender = false;
         $questionId = $this->request->data['id'];
         // If user is trying to delete another user quiz, cancel.
         if ($this->isAuthorized($questionId) && $this->Questions->deleteAll(['Questions.id' => $questionId])) {
+            $this->deleteFile($questionId);
             // delete choices related to this question
             $this->Questions->Choices->deleteAll(['Choices.question_id' => $questionId]);
             // delete answers related to this question

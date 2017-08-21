@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="web-panel">
     <div class="col-xs-12 col-md-6">
         <div class="well well-sm">
             <div class="row">
@@ -13,6 +13,19 @@
                         'id' => 'Choice{{id}}Text'
                     ));
                     ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="upload-panel" style="display: none;">
+    <div class="col-xs-12 col-md-6">
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <div id="fileuploader"><?= __('BROWSE_PHOTO'); ?></div>
+                    <?= $this->Form->input('data.Choice.{{id}}.temp', ['type' => 'hidden', 'id' => 'temp_photo']); ?>
                 </div>
             </div>
         </div>

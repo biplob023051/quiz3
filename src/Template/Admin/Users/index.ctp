@@ -3,9 +3,11 @@
       display: none;
       width: 90px;
     }
-
     .user-info {
         cursor: pointer;
+    }
+    .inactive-row {
+        color: #bbb;
     }
 </style>
 <?php 
@@ -30,12 +32,36 @@
         '2' => __('PAID_49'),
         '22' => __('TRIAL_DAYS')
     ];
+
+    $accoutLists = [
+        'all' => __('ALL'),
+        'active' => __('ACTIVE'),
+        'inactive' => __('INACTIVE'),
+        'expired' => __('EXPIRED'),
+        'paid' => __('PAID'),
+        'trial_days' => __('TRIAL_DAYS'),
+        'trial_limit' => __('TRIAL_LIMIT'),
+    ];
+    $limitOptions = [50 => 50, 100 => 100, 500 => 500, 1000 => 1000];
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default" id="manage-user">
     <div class="panel-heading">
         <h3 class="panel-name"><span class="glyphicon glyphicon-th"></span> <b><?= $title_for_layout;?></b></h3>
     </div>
     <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <?= $this->Form->create(''); ?>
+                <?= $this->Form->input('limit_size', ['options' => $limitOptions, 'class' => 'on-select']); ?>
+                <?= $this->Form->end(); ?>
+            </div>
+            <div class="col-md-3 col-md-offset-6">
+                <?= $this->Form->create(''); ?>
+                <?= $this->Form->input('acc_type', ['options' => $accoutLists, 'class' => 'on-select']); ?>
+                <?= $this->Form->end(); ?>
+            </div>
+        </div> 
+        <hr>
         <div class="row">
             <div class="col-md-12 text-right font-10 font-bold">
                 <?php 
@@ -70,7 +96,7 @@
                     <?php else : ?>
                         <?php foreach ($users as $user): ?>
                             <?php if ($user->account_level != 51) : ?>
-                                <tr id="user-<?= $user->id; ?>">
+                                <tr id="user-<?= $user->id; ?>" class="<?= ($user->isactive) ? '' : 'inactive-row'; ?>">
                                     <td class="text-center"><?= $user->id; ?></td>
                                     <td class="text-center"><span class="user-info"><?= h($user->name); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_NAME'); ?>" class="form-control update-user" name="class" data-rel="name-<?= $user->id; ?>" value="<?= $user->name; ?>" data-value="<?= $user->name ?>"></td>
                                     <td class="text-center"><?= h($user->email); ?></td>

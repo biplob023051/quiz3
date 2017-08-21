@@ -144,8 +144,6 @@ class QuizzesController extends AppController
         $lang_strings['remove_share'] = __('CANCEL_SHARE_QUIZ');
         $lang_strings['remove_share_question'] = __('DO_YOU_REMOVE_SHARING');
         $lang_strings['remove_shared_quiz'] = __('CANCEL_SHARE');
-        $lang_strings['check_select'] = __('Please choose at least one quiz to import');
-        $lang_strings['import_success'] = __('QUIZ_IMPORTED');
 
         $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
     }
@@ -973,9 +971,6 @@ class QuizzesController extends AppController
                 ]
             ]);
 
-            // pr($new_quiz);
-            // exit;
-
             if ($this->Quizzes->save($new_quiz)) {
                 if ($this->Quizzes->updateAll(
                         ['random_id' => $new_quiz->id . $this->randText(2, true)], 
@@ -1057,13 +1052,8 @@ class QuizzesController extends AppController
         return $this->redirect($this->referer());
     }
 
-    // Method for listing all quizzes from quiz bank
-    public function ajaxBank() {
-        $this->temp_common();
-    }
-
-    public function temp_common() {
-        $this->viewBuilder()->layout('ajax');
+    public function bank() {
+        $this->set('title_for_layout', __('PUBLIC_QUIZZES'));
         $this->hasQuizBankAccess();
         $this->loadModel('Subjects');
         $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
@@ -1072,51 +1062,29 @@ class QuizzesController extends AppController
             'Subjects.is_del IS NULL'
         ])->toArray();
 
-        // pr($subjectOptions);
-        // exit;
-
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type' => 1,
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL'
         ])->toArray();
 
-        // pr($classOptions);
-        // exit;
         // Selected subjects
         $selectedSubjects = $this->Session->read('Auth.User.subjects');
+        $selectedSubjects = !empty($selectedSubjects) ? json_decode($selectedSubjects, true) : [];
 
-        // pr($selectedSubjects);
-        // exit;
-
-        if (!empty($selectedSubjects)) {
-            $selectedSubjects = json_decode($selectedSubjects, true);
-        } else {
-            $selectedSubjects = array();
-        }
-
-        // pr($selectedSubjects);
-        // exit;
         foreach ($selectedSubjects as $term) {
             $term = trim($term);
             if (!empty($term)) {
                 $conditions['OR'][] = array('Quizzes.subjects LIKE' => '%' . '"' . $term . '"' . '%');
             }
         }
-
         $user_id = $this->Auth->user('id');
-
-        //$this->Quizzes->virtualFields['imported'] = 'SELECT count(*) FROM imported_quizzes AS ImportedQuiz WHERE (Downloads.user_id = '.$user_id.' AND Downloads.quiz_id = Quizzes.id)';
-
         // Get pagination
         $conditions[] = array(
             'Quizzes.shared' => 1,
             'Quizzes.is_approve' => 1,
             'Downloads.id IS NULL'
         );
-
-        // pr($this->Paginator->settings);
-        // exit;
 
         $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
             ->join([
@@ -1130,11 +1098,6 @@ class QuizzesController extends AppController
                 ]
             ])
         );
-
-
-        // pr($quizzes);
-        // exit;
-
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
@@ -1143,7 +1106,10 @@ class QuizzesController extends AppController
             $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
-        $this->set(compact('subjectOptions', 'classOptions', 'selectedSubjects', 'quizzes'));
+        $lang_strings['check_select'] = __('Please choose at least one quiz to import');
+        $lang_strings['import_success'] = __('QUIZ_IMPORTED');
+
+        $this->set(compact('subjectOptions', 'classOptions', 'selectedSubjects', 'quizzes', 'lang_strings'));
     }
 
     // Method for quiz bank pagination

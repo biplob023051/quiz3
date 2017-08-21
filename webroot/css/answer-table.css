@@ -222,3 +222,11 @@ span.score {
     width: 1890px;
   }
 } /* min-width 1921px, xxlarge screens */
+
+.timestamp {
+  max-width: 160px !important;  
+}
+
+.overview-section {
+  min-width: 620px !important;
+}

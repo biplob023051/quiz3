@@ -57,9 +57,6 @@ function getUpdated() {
 
                         })
                         interval = setInterval(getUpdated, 5000);
-                        // $(".panel").html(data);
-                        // testFunc();
-                        // interval = setInterval(getUpdated, 2000);
                     }
                 });
             }
@@ -105,26 +102,18 @@ function updateIndividulaStudent(student_id) {
 }
 
 $(document).ready(function(){ 
-    //alert($('.navbar').height());
-    // Window height calculation
-    //var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+50);
-    var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+150);
+    var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190);
     $('#answer-table tbody').css({'height' : windowHeight});
     // end of height calculation
-
-    // $('table').on('scroll', function () {
-    //     $("table > *").width($("table").width() + $("table").scrollLeft());
-    // });
-
     $("#fixTable").tableHeadFixer({"head" : true, "left" : 2});
-
     interval = setInterval(getUpdated, 5000);
     testFunc();
     $(".table").tablesorter({ selectorHeaders: 'thead th.sortable' }); 
 }); 
 
 (function ($) {
-
+    $('#maintenance-alert').css({width: $(window).width()});
+    $("body").css("overflow", "hidden");
     $.fn.extend({
         donetyping: function(callback,timeout){
             timeout = timeout || 3e3; // 1 second default timeout
@@ -169,6 +158,11 @@ $(document).ready(function(){
         $(this).addClass('active');
         $('#answer-table-show').removeClass('active');
         $('.question-collapse').hide();
+        // $("th, td").each(function() {
+        //     $(this).addClass("overview-section");
+        // });
+
+        $('.progress-section').addClass("overview-section");
     });
 
     $(document).on('click', '#answer-table-show', function () {
@@ -180,6 +174,7 @@ $(document).ready(function(){
         $(this).addClass('active');
         $('#answer-table-overview').removeClass('active');
         $('.question-collapse').show();
+        $('.progress-section').removeClass("overview-section");
     });
 
     $(document).on('change', '#answer-table-filter select', function () {
