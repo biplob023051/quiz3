@@ -8,7 +8,7 @@
     </script>
 <?php endif; ?>
 <?php
-    $this->assign('title', __('QUIZ') . $data->name);
+    $this->assign('title', $data->name);
     echo $this->Flash->render(); 
 
     echo $this->Form->create('', array(

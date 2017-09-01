@@ -19,6 +19,10 @@ class QuizHelper extends Helper {
 		}
 	}
 
+	public function getHelpPictureNew($pic = null, $folder = 'videos') {
+		return $this->request->webroot . 'uploads/' . $folder . '/' . $pic;
+	}
+
 	public function getImageUtubeChoice($question_id) {
 		$choices = TableRegistry::get('Choices');
         $result = $choices->findByQuestionId($question_id)->select(['text'])->first();
@@ -60,16 +64,16 @@ class QuizHelper extends Helper {
 		$lang_str = '';
 		switch ($lang) {
 			case 'fi':
-				$lang_str = '<i class="glyphicon finish"></i> ' . 'Suomi';
+				$lang_str = 'Suomi';
 				break;
 			case 'eng':
-				$lang_str = '<i class="glyphicon english"></i> ' . 'English';
+				$lang_str = 'English';
 				break;
 			case 'sv_FI':
-				$lang_str = '<i class="glyphicon swedish"></i> ' . 'Svenska (FI)';
+				$lang_str = 'Svenska (FI)';
 				break;
 			default:
-				$lang_str = '<i class="glyphicon finish"></i> ' . 'Suomi';
+				$lang_str = 'Suomi';
 				break;
 		}
 		return $lang_str;

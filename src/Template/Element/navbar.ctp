@@ -12,7 +12,10 @@
         <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
                 <?php if ($session->check('Auth.User.name')): ?>
-                    <li <?php if ($c_controller == 'quiz' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('MY_QUIZZES'), '/'); ?></li>
+                    <li <?php if ($c_controller == 'quizzes' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('MY_QUIZZES'), '/'); ?></li>
+                <?php endif; ?>
+                <?php if (!empty($authUser['quiz_bank_access'])) : ?>
+                    <li <?php if ($c_controller == 'quizzes' && $c_action == 'bank') : ?>class="active"<?php endif; ?>><?= $this->Html->link(__('QUIZ_BANK'), ['controller' => 'quizzes', 'action' => 'bank'], ['escape' => false]); ?></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -26,6 +29,7 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
+                                <li <?php if ($c_controller == 'users' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('USERS'), array('controller' => 'users', 'action' => 'index', 'prefix' => 'admin')); ?></li>
                                 <li <?php if ($c_controller == 'standards' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('CLASSES'), array('controller' => 'standards', 'action' => 'index', 'prefix' => 'admin')); ?></li>
                                 <li <?php if ($c_controller == 'subjects' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('SUBJECTS'), array('controller' => 'subjects', 'action' => 'index', 'prefix' => 'admin')); ?></li>
                                 <li <?php if ($c_controller == 'helps' && in_array($c_action, $admin_actions)) : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('CREATE_HELP'), array('controller' => 'helps', 'action' => 'titles', 'prefix' => 'admin')); ?></li>
@@ -37,19 +41,11 @@
                             </ul>
                         </li>
                     <?php endif ?>
-                    <li <?php if ($c_controller == 'helps' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('Help'), '/helps'); ?></li>
+                    <li <?php if ($c_controller == 'helps' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('HELP'), '/helps'); ?></li>
                     <li>
                         <div class="user-image"></div>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo h($authUser['name']); ?> 
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><?php echo $this->Html->link(__('SETTINGS'), '/users/settings'); ?></li>
-                        </ul>
-                    </li>
+                    <li><?= $this->Html->link(h($authUser['name']), array('controller' => 'users', 'action' => 'settings', 'prefix' => false)); ?></li>
                     <li><?php echo $this->Html->link(__('LOGOUT'), '/users/logout'); ?></li>
                     <!--/nocache-->
                 <?php else: ?>

@@ -1,20 +1,21 @@
 (function ($) {
 	tinymce.init({selector:'textarea'});
-	jQuery('#select-0').fineUploader({
-		request: {
-			endpoint: projectBaseUrl + 'upload/ajax_video/' + video_id
-		},
-		text: {
-			uploadButton: lang_strings['upload_button']
-		},
-		validation: {
-			allowedExtensions: ['jpg', 'jpeg', 'gif', 'png'],
-			sizeLimit: 10 * 1024 * 1024
-		},
-		multiple: false,
-		dropZone: true
-	}).on('complete', function(event, id, fileName, response) {
-		$('#HelpPhoto').val(response.filename);
-		$('#item-avatar').attr('src', response.avatar);
-	});
+	$("#fileuploader").html('').uploadFile({
+        url:projectBaseUrl + 'upload/photo',
+        fileName:"myfile",
+        acceptFiles:"image/*",
+        showPreview:true,
+        multiple:false,
+        previewHeight: "100px",
+        previewWidth: "100px",
+        onSuccess:function(files,data,xhr,pd)
+        {
+            var data = $.parseJSON(data);
+            if (data.success) {
+                $('input[name=temp_photo]').val(data.filename);
+            } else {
+                window.location.reload();
+            }
+        },
+    });
 })(jQuery);

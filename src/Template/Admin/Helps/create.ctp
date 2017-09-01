@@ -1,3 +1,5 @@
+<link href="https://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
+<script src="https://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
 <?= $this->Flash->render(); ?>
 <div class="row">
     <div class="col-sm-12">
@@ -15,10 +17,12 @@
         <?php echo $this->Form->create($video, array(
             'type' => 'file',
             'novalidate'=>'novalidate'
-        )); ?>
+        )); 
+        ?>
     
             <?php
                 echo $this->Form->hidden('photo');
+                echo $this->Form->hidden('temp_photo');
                 echo $this->Form->input('type', array('label'=>array('text'=>__('DISPLAY_PAGE')),'options' => $siteOptions, 'empty' => __('SELECT_ONE') ));
                 echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('INSERT_VIDEO_TITLE')));
                 echo $this->Form->input('sub_title', array('label'=>array('text'=>__('SUB_TITLE')), 'placeholder' => __('INSERT_VIDEO_SUB_TITLE')));
@@ -28,17 +32,21 @@
             ?>
             <div class="form-group">
                 <label><?php echo __('Photo'); ?></label>
-                <img src="<?php echo $this->Quiz->getHelpPicture($this->request->data, 'videos'); ?>" id="item-avatar" class="img_wrapper">
-                <div id="select-0" style="margin: 10px 0px 0px 210px;"></div>
+                <?php if ($video->errors() && $video->temp_photo) : ?>
+                    <img src="<?php echo $this->Quiz->getHelpPictureNew($video->temp_photo, 'tmp'); ?>" id="item-avatar" style="width: 200px; height: auto;">
+                <?php elseif ($video->photo) : ?>
+                    <img src="<?php echo $this->Quiz->getHelpPictureNew($video->photo, 'videos'); ?>" id="item-avatar" style="width: 200px; height: auto;">
+                <?php else : ?>
+                <?php endif; ?>
+                <div id="fileuploader"><?= __('BROWSE_PHOTO'); ?></div>
             </li>
             <div class="form-group">
                 <?php 
                     echo $this->Form->button(__('SAVE'), ['class' => 'btn btn-primary btn-xlarge']) . ' ';
-                    echo empty($this->request->query['redirect_url']) ? $this->Html->link(__('BACK'),array('controller' => 'helps','action' => 'videos', 'admin' => true),array('class'=>'btn btn-danger')) : $this->Html->link(__('BACK'),urldecode($this->request->query['redirect_url']),array('class'=>'btn btn-danger')); 
+                    echo empty($this->request->query['redirect_url']) ? $this->Html->link(__('BACK'),array('controller' => 'helps','action' => 'videos'),array('class'=>'btn btn-danger')) : $this->Html->link(__('BACK'),urldecode($this->request->query['redirect_url']),array('class'=>'btn btn-danger')); 
                 ?>
             </div>
-            
-        <?php echo $this->Form->end(); ?>
+        <?= $this->Form->end(); ?>
     </div>
 </div>
 <script type="text/javascript">
@@ -50,10 +58,7 @@
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
 <?php
-    echo $this->Html->script(array('tinymce/tinymce.min', 'jquery.fineuploader', 'admin-insert-help'), array(
-        'inline' => false
-    ));
-    echo $this->Html->css('fineuploader', array(
+    echo $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
         'inline' => false
     ));
 ?>

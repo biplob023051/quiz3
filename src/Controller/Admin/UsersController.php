@@ -15,17 +15,24 @@ class UsersController extends AppController
 {
     public $paginate = [
         'limit' => 50,
+        'maxLimit' => 1000,
         'order' => ['Users.id' => 'ASC']
     ];
 
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['access']);
+        $this->Auth->allow(['access', 'login']);
+    }
+
+    public function login()
+    {
+        $this->redirect(['action' => 'access']);
     }
 
     // Method for user manangement panel
     public function index() {
+        $this->isAdminUser();
         $this->set('title_for_layout', __('MANAGE_USER'));
         $acc_type = 'all';
         if ($this->request->is(['post','put'])) { // If form submitted
@@ -64,8 +71,7 @@ class UsersController extends AppController
                 break;
             case 'trial_days':
                 $conditions = [
-                    'Users.account_level' => 22,
-                    'DATE(Users.expired) >=' => date('Y-m-d')
+                    'Users.account_level' => 22
                 ];
                 break;
             case 'trial_limit':
@@ -109,15 +115,24 @@ class UsersController extends AppController
                 return $q;
             }
         ];
+        
         try {
             $users = $this->paginate(
                 $this->Users->find('all')
                 ->where($conditions)
                 ->contain($contain)
-            );
+            )->toArray();
+            // pr($users);
+            // exit;
             $this->set(compact('users'));
             $this->request->data['limit_size'] = $this->paginate['limit'];
             $this->request->data['acc_type'] = $acc_type;
+
+            $lang_strings['status_active_body'] = __('ACTIVATE_USER');
+            $lang_strings['status_inactive_body'] = __('DEACTIVATE_USER');
+            $lang_strings['success'] = __('SUCCESS');
+            $lang_strings['failed'] = __('FAILED');
+            $this->set(compact('lang_strings'));
         } catch (NotFoundException $e) { 
             return $this->redirect(array('controller' => 'users', 'action' => 'index'));
         }
@@ -127,10 +142,11 @@ class UsersController extends AppController
     public function ajaxUpdate() {
         $this->autoRender = false;
         $response['success'] = false;
+        $this->isAdminUser();
         if (!empty($this->request->data['user_info'])) {
             $user_info = explode('-', $this->request->data['user_info']);
             if ((!in_array($user_info[0], ['account_level', 'isactive'])) && empty($this->request->data['value_info'])) {
-                $response['message'] = __('VALUE_REQUIRED');
+                $response['message'] = __('INVALID_INPUT');
             } else {
                 if (in_array($user_info[0], ['name', 'expired', 'account_level', 'isactive'])) {
                     $validate = true;
@@ -196,8 +212,6 @@ class UsersController extends AppController
     }
 
     public function access() {
-        // pr($this->request->data);
-        // exit;
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -206,6 +220,7 @@ class UsersController extends AppController
                    $this->Flash->error(__('Unauthorized access to this login area!'));
                     return $this->redirect(array('controller' => 'maintenance', 'action' => 'notice', 'prefix' => false));
                 }
+                $user['quiz_bank_access'] = true;
                 $this->Auth->setUser($user);
                 //save statistics data
                 $statisticsTable = TableRegistry::get('Statistics');
@@ -214,7 +229,7 @@ class UsersController extends AppController
                 $statistic->type = 'user_login';
                 $statistic->created = date("Y-m-d H:i:s");
                 $statisticsTable->save($statistic);
-                return $this->redirect(['controller' => 'maintenance', 'action' => 'settings', 'prefix' => 'admin']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('USERNAME_OR_PASSWORD_INCORRECT'));
         }

@@ -36,26 +36,30 @@
                         'url' => ['controller'=>'users', 'action'=>'buy_create']
                     ]);
 
-                    echo $this->Form->input('name', array(
+                    echo $this->Form->input('name', [
+                        'label' => ['text' => __('NAME')],
                         'placeholder' => __('ENTER_YOUR_NAME')
-                    ));
+                    ]);
 
-                    echo $this->Form->input('email', array(
+                    echo $this->Form->input('email', [
+                        'label' => ['text' => __('EMAIL')],
                         'placeholder' => __('ENTER_VALID_EMAIL')
-                    ));
+                    ]);
 
-                    echo $this->Form->input('password', array(
+                    echo $this->Form->input('password', [
+                        'label' => ['text' => __('PASSWORD')],
                         'type' => 'password',
                         'placeholder' => __('ENTER_PASSWORD'),
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'bottom',
                         'data-original-title' => __('PASSWORD_MUST_BE_LONGER')
-                    ));
+                    ]);
 
-                    echo $this->Form->input('passwordVerify', array(
+                    echo $this->Form->input('passwordVerify', [
+                        'label' => ['text' => __('PASSWORD_VERIFY')],
                         'type' => 'password',
                         'placeholder' => __('PASSWORD_VERIFY')
-                    ));
+                    ]);
 
                     echo $this->Form->hidden('package', ['id' => 'package']);
                 ?>

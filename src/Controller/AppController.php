@@ -20,6 +20,7 @@ use Cake\Core\Configure;
 use Cake\Auth\SimplePasswordHasher; //include this line
 
 use Cake\I18n\I18n;
+use Intervention\Image\ImageManager;
 
 /**
  * Application Controller
@@ -169,7 +170,7 @@ class AppController extends Controller
         $c_user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first()->toArray();
         $access = false;
         if (!empty($c_user['expired'])) {
-            $days_left = floor((strtotime($c_user['expired'])-time())/(60*60*24));
+            $days_left = floor((strtotime($c_user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
         }
 
         // For admin role 51 always true
@@ -181,19 +182,19 @@ class AppController extends Controller
         } elseif(($c_user['account_level'] == 1) && ($days_left >= 0)) { // for paid users
             $access = true;
         } elseif($c_user['account_level'] == 22) { // if new user unpaid 
-            $days_left_created = floor((strtotime($c_user['created'])-time())/(60*60*24));
+            $days_left_created = floor((strtotime($c_user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
             if ($days_left_created >= -30) {
                 $access = true;
             }
             
-        } elseif($c_user['account_level'] == 2) { // if new user unpaid 
+        } elseif(($c_user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
             $access = true;
         } elseif($c_user['account_level'] == 0) { // for old user
             $access = true;
         }
 
         if (empty($access)) {
-            $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
+            $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }
     }
 
@@ -233,7 +234,7 @@ class AppController extends Controller
             'days_left' => 0
         );
         if (!empty($c_user['expired'])) {
-            $days_left = floor((strtotime($c_user['expired'])-time())/(60*60*24));
+            $days_left = floor((strtotime($c_user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
         } else {
             $days_left = 365; // always acccess for old unpaid users
         }
@@ -254,7 +255,7 @@ class AppController extends Controller
             if ($days_left > 30) { // if days left greater than 30 then upgrade request sent
                 $permissions['request_sent'] = true;
             }
-            $days_left_created = floor((strtotime($c_user['created'])-time())/(60*60*24));
+            $days_left_created = floor((strtotime($c_user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
 
             if ($days_left_created >= -30) {
                 $permissions['access'] = true;
@@ -262,7 +263,7 @@ class AppController extends Controller
                 $permissions['quiz_bank_access'] = true;
             }
             
-        } elseif($c_user['account_level'] == 2) { // if new user unpaid 
+        } elseif(($c_user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
             $permissions['access'] = true;
             $permissions['canCreateQuiz'] = true;
             $permissions['upgraded'] = true;
@@ -282,6 +283,8 @@ class AppController extends Controller
             }
         }
         $permissions['days_left'] = $days_left;
+        // pr($permissions);
+        // exit;
         return $permissions;
     }
 
@@ -321,5 +324,19 @@ class AppController extends Controller
         if ($this->Auth->user('account_level') != 51) {
             return $this->redirect(['controller' => 'Users', 'action' => 'logout', 'prefix' => false]);
         }
+    }
+
+
+    // Method for image upload
+    public function processImage($image, $folder) {
+        $original_image = WWW_ROOT . 'uploads/tmp/' . $image;
+        $manager = new ImageManager(array('driver' => 'imagick'));
+        $resized_image = $manager->make($original_image);
+        $resized_image->resize(600, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $resized_image->save(WWW_ROOT . 'uploads/'. $folder .'/' . $image);
+        $resized_image->destroy();
+        unlink($original_image);
     }
 }

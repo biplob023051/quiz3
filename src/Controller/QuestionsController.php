@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Intervention\Image\ImageManager;
-
 /**
  * Questions Controller
  *
@@ -255,19 +253,6 @@ class QuestionsController extends AppController
         }
     }
 
-    // Method for image upload
-    private function processImage($image, $folder) {
-        $original_image = WWW_ROOT . 'uploads/tmp/' . $image;
-        $manager = new ImageManager(array('driver' => 'imagick'));
-        $resized_image = $manager->make($original_image);
-        $resized_image->resize(600, 400, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $resized_image->save(WWW_ROOT . 'uploads/'. $folder .'/' . $image);
-        $resized_image->destroy();
-        unlink($original_image);
-    }
-
     // Method for deleting image
     public function deleteFile($questionId) {
         $query = $this->Questions->Choices->find('all', [
@@ -333,14 +318,23 @@ class QuestionsController extends AppController
             // pr($copy_question);
             // exit;
             if ($this->Questions->save($copy_question)) {
-               $response['message'] = __('QUIZ_DUPLICATED');
+                if (!empty($this->request->data['name']) || !empty($this->request->data['description'])) {
+                    $this->Questions->Quizzes->updateAll(
+                        [
+                            'name' => $this->request->data['name'],
+                            'description' => $this->request->data['description']
+                        ], 
+                        ['id' => $question->quiz_id]
+                    );
+                }
+                $response['message'] = __('QUIZ_DUPLICATED');
                 $response['success'] = true;
                 $response['id'] = $copy_question->id;
             } else {
                 $response['message'] = __('SOMETHING_WENT_WRONG');
             }
         } else {
-            $response['message'] = __('Invalid question');
+            $response['message'] = __('INVALID_TRY');
         }
 
         echo json_encode($response);

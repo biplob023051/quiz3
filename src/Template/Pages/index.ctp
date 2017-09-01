@@ -1,7 +1,7 @@
 <div id="hero-unit">
     <div class="container">
         <h2 class="text-center"><?php echo __('WEB_TEST_ENABLES_TEACHER'); ?></h2>
-        <h3 class="text-center"><?php echo __('GIVE_QUIZ_QUICKLY_EASILY'); ?><br /><?php echo __('WITH_THEIR'); ?><span class="text-black"><?php echo __('mobile phones'); ?></span></h3>
+        <h3 class="text-center"><?php echo __('GIVE_QUIZ_QUICKLY_EASILY'); ?><br /><?php echo __('WITH_THEIR'); ?><span class="text-black"><?php echo __('MOBILE_PHONES'); ?></span></h3>
         <hr class="invisible" />
         <p class="text-center"><a href="<?php echo $this->request->base; ?>/users/create" class="btn btn-success btn-lg"><?php echo __('CREATE_ACCOUNT'); ?></a></p>
     </div>

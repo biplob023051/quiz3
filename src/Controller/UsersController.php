@@ -166,6 +166,26 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 if ($user['isactive']) {
+                    // For quiz bank settings
+                    if (!empty($user['expired'])) {
+                        $days_left = floor((strtotime($user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
+                    } else {
+                        $days_left = 365; // always acccess for old unpaid users
+                    }
+                    if ($user['account_level'] == 51) { // for admin
+                        $user['quiz_bank_access'] = true;
+                    } elseif($user['account_level'] == 22) { // if new user unpaid 
+                        $days_left_created = floor((strtotime($user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
+                        if ($days_left_created >= -30) {
+                            $user['quiz_bank_access'] = true;
+                        }
+                    } elseif(($user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
+                        $user['quiz_bank_access'] = true;
+                    } else {
+
+                    }
+                    // End of bank settings
+
                     $this->Auth->setUser($user);
                     //Login Event.
                     $this->eventManager()->attach(new Statistics($this));
@@ -203,6 +223,9 @@ class UsersController extends AppController
             
             if (empty($this->request->data['password'])) {
                 unset($this->request->data['password']);
+            }
+            if (!empty($this->request->data['email'])) {
+                unset($this->request->data['email']);
             }
             $user = $this->Users->patchEntity($user, $this->request->data);
             if (empty($this->request->data['password'])) {

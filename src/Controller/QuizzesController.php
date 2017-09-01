@@ -7,6 +7,7 @@ use Cake\Network\Exception\NotFoundException;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Hash;
 use Cake\Core\Configure;
+use Cake\I18n\I18n;
 
 /**
  * Quizzes Controller
@@ -488,6 +489,7 @@ class QuizzesController extends AppController
             $this->set('name', $data->name);
             $this->render('no_question');
         } else {
+            I18n::locale($data->user->language);
             // check user access level
             if ((($data->user->account_level == 0) || 
                 (($data->user->account_level == 1) && (strtotime($data->user->expired) < time()))) 

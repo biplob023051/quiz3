@@ -11,22 +11,7 @@
                     <li>
                         <div class="user-image"></div>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo h($this->Session->read('Auth.User.name')); ?> 
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <?php
-                                echo $this->Html->link(__('SETTINGS'), array(
-                                    'controller' => 'user',
-                                    'action' => 'settings'
-                                ));
-                                ?>
-                            </li>
-                        </ul>
-                    </li>
+                    <li><?= $this->Html->link(h($this->Session->read('Auth.User.name')), array('controller' => 'users', 'action' => 'settings')); ?></li>
                     <li>                            
                         <?php
                         echo $this->Html->link(__('LOGOUT'), array(

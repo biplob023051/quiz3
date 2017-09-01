@@ -4,7 +4,7 @@ use App\Controller\AppController;
 use App\Vendor\qqFileUploader;
 
 class UploadController extends AppController {
-
+	// Method for upload question photo
 	public function photo() {
 		$this->autoRender = false;
 		$response['success'] = false;

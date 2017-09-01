@@ -146,13 +146,15 @@ if (!empty($data['Quiz']['classes'])) {
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <?php
-                if (isset($initial)) {
+                if (isset($initial) && in_array($data['Quiz']['name'], ['Name the quiz', 'Nimeä testi', 'Namnge testet'])) {
                     echo $this->Form->input('name', array(
+                        'label' => false,
                         'placeholder' => __('NAME_QUIZ'),
                         'class' => 'form-control input-lg'
                     ));
                 } else {
                     echo $this->Form->input('name', array(
+                        'label' => false,
                         'default' => $data['Quiz']['name'],
                         'placeholder' => __('NAME_QUIZ'),
                         'class' => 'form-control input-lg'
@@ -163,6 +165,7 @@ if (!empty($data['Quiz']['classes'])) {
             <div class="col-xs-12 col-md-6">
                 <?php
                 echo $this->Form->input('description', array(
+                    'label' => false,
                     'default' => $data['Quiz']['description'],
                     'placeholder' => __('DESCRIBE_QUIZ'),
                     'class' => 'form-control input-lg'
@@ -211,7 +214,7 @@ if (!empty($data['Quiz']['classes'])) {
     </div>
     <div class="col-xs-12 col-md-3">
         <div class="form-group">
-            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('FINNISH'); ?>" />
+            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('SUBMIT'); ?>" />
         </div>
     </div>
 </div>
@@ -348,6 +351,10 @@ echo json_encode(array(
     opacity: 0.3;
     vertical-align: middle;
     width: 0;
+}
+
+.settings-options label {
+    font-weight: normal !important;
 }
 
 </style>

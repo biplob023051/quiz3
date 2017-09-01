@@ -38,10 +38,12 @@ $this->assign('title', __('CREATE_ACCOUNT'));
         ]);
 
         echo $this->Form->input('name', [
+            'label' => ['text' => __('NAME')],
             'placeholder' => __('ENTER_YOUR_NAME'),
         ]);
 
         echo $this->Form->input('email', [
+            'label' => ['text' => __('EMAIL')],
             'placeholder' => __('ENTER_VALID_EMAIL'),
             'data-toggle' => 'tooltip',
             'data-placement' => 'bottom',
@@ -49,6 +51,7 @@ $this->assign('title', __('CREATE_ACCOUNT'));
         ]);
 
         echo $this->Form->input('password', [
+            'label' => ['text' => __('PASSWORD')],
             'type' => 'password',
             'placeholder' => __('ENTER_PASSWORD'),
             'data-toggle' => 'tooltip',
@@ -57,6 +60,7 @@ $this->assign('title', __('CREATE_ACCOUNT'));
         ]);
 
         echo $this->Form->input('passwordVerify', [
+            'label' => ['text' => __('PASSWORD_VERIFY')],
             'type' => 'password',
             'placeholder' => __('PASSWORD_VERIFY')
         ]);

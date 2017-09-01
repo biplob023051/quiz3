@@ -195,7 +195,7 @@ msgstr "Your answer(s) has been submitted successfully."
 
 #: View/User/create.ctp:5
 msgid "CREATE_ACCOUNT"
-msgstr "Create Account"
+msgstr "Register now!"
 
 #: View/User/create.ctp:45
 msgid "CREATE_ACCOUNT_LOG_IN"
@@ -486,7 +486,7 @@ msgstr "Create Help"
 
 #: Menu item Help
 msgid "NOT_ACCOUNT"
-msgstr "If you don’t have account?"
+msgstr "No account?"
 
 #: View/Helps/index.ctp:13
 msgid "GETTING_STARTED"
@@ -720,7 +720,7 @@ msgstr "Prices"
 #: View/Elements/page-navbar.ctp:20
 #: View/Pages/contact.ctp:6
 msgid "CONTACT"
-msgstr "Ota yhteyttä"
+msgstr "Contact Us"
 
 #: View/Pages/contact.ctp:12
 msgid "GET_TOUCH"
@@ -1622,7 +1622,7 @@ msgstr "Create and use quizzes freely without limits."
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
-msgstr "Quiz Bank:"
+msgstr "Quiz Bank"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
@@ -1687,3 +1687,127 @@ msgstr "Reset"
 #: Controller/QuestionController.php:121
 msgid "CHOICE %d"
 msgstr "Choice %d"
+
+#: View/User/settings.ctp:46
+msgid "CHANGE_PASSWORD"
+msgstr "Change Password"
+
+#: Coming from db
+msgid "Image"
+msgstr "Image"
+
+#: Coming from db
+msgid "Image"
+msgstr "Header"
+
+#: Coming from db
+msgid "Youtube Video"
+msgstr "Youtube Video"
+
+#:
+msgid "MANAGE_USER"
+msgstr "Manage Users"
+
+#:
+msgid "LAST_LOGIN"
+msgstr "Last Login"
+
+#:
+msgid "LOGIN_COUNT"
+msgstr "Login Count"
+
+#:
+msgid "QUIZ_COUNT"
+msgstr "Quiz Count"
+
+#:
+msgid "ACC_TYPE"
+msgstr "Account Type"
+
+#:
+msgid "EXP_DATE"
+msgstr "Expire Date"
+
+#:
+msgid "CHANGE_USER_STATUS"
+msgstr "Change User Status"
+
+#:
+msgid "ACTIVATE_USER"
+msgstr "Do you really want to activate the selected user?"
+
+#:
+msgid "DEACTIVATE_USER"
+msgstr "Do you really want to deactivate the selected user?"
+
+#:
+msgid "INVALID_INPUT"
+msgstr "Invalid input data"
+
+#:
+msgid "USER_UPDATE_SUCCESS"
+msgstr "User updated successfully"
+
+#:
+msgid "FAILED"
+msgstr "Failed!"
+
+#:
+msgid "TRIAL_LIMIT"
+msgstr "Trial Limit"
+
+#:
+msgid "PAID_29"
+msgstr "$29 Paid"
+
+#:
+msgid "PAID_49"
+msgstr "$49 Paid"
+
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
+
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
+
+#:
+msgid "ADMIN"
+msgstr "Admin"
+
+#:
+msgid "ACTIVE"
+msgstr "Active"
+
+#:
+msgid "INACTIVE"
+msgstr "Inactive"
+
+#:
+msgid "EXPIRED"
+msgstr "Expired"
+
+#:
+msgid "PAID"
+msgstr "Paid"
+
+#:
+msgid "PAID"
+msgstr "Paid"
+
+#:
+msgid "USERS_NOT_FOUND"
+msgstr "User not found"
+
+#:
+msgid "ENTER_NAME"
+msgstr "Enter name"
+
+#:
+msgid "ENTER_EXPIRE_DATE"
+msgstr "Enter expire date"
+
+#:
+msgid "NO_EXPIRE_DATE"
+msgstr "Not found"

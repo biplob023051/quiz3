@@ -195,7 +195,7 @@ msgstr "Svaret/svaren har sänts in."
 
 #: View/User/create.ctp:5
 msgid "CREATE_ACCOUNT"
-msgstr "Skapa gratis användarkonto"
+msgstr "Skapa nu?"
 
 #: View/User/create.ctp:45
 msgid "CREATE_ACCOUNT_LOG_IN"
@@ -340,10 +340,6 @@ msgstr "Essä"
 msgid "ADD_CHOICE"
 msgstr "Lägg till alternativ"
 
-#: A placeholder for an empty choice textbox
-msgid "CHOICE"
-msgstr "CHOICE"
-
 #: Error when creating quiz without a name
 msgid "QUIZ_NAME_REQUIRED"
 msgstr "Lägg till testets namn"
@@ -486,7 +482,7 @@ msgstr "Skapa hjälp"
 
 #: Menu item Help
 msgid "NOT_ACCOUNT"
-msgstr "Har du inget användarkonto?"
+msgstr "Inget användarkonto?"
 
 #: View/Helps/index.ctp:13
 msgid "GETTING_STARTED"
@@ -528,25 +524,13 @@ msgstr "Skapad"
 msgid "SORT"
 msgstr "Sortera"
 
-#: View/Helps/admin_titles.ctp:25
-msgid "STATUS"
-msgstr "Status"
-
 #: View/Helps/admin_titles.ctp:26
 msgid "ACTION"
 msgstr "Kör"
 
 #: View/Helps/admin_titles.ctp:41
-msgid "On"
-msgstr "On"
-
-#: View/Helps/admin_titles.ctp:41
 msgid "Confirm inactive title %s?"
 msgstr "Bekräfta rubrik för: %s?"
-
-#: View/Helps/admin_titles.ctp:43
-msgid "Off"
-msgstr "Off"
 
 #: View/Helps/admin_titles.ctp:43
 msgid "Confirm active title %s?"
@@ -563,10 +547,6 @@ msgstr "Rubrik"
 #: View/Helps/admin_index.ctp:28
 msgid "SUB_TITLE"
 msgstr "Underrubrik"
-
-#: View/Helps/admin_index.ctp:30
-msgid "Url"
-msgstr "Url"
 
 #: View/Helps/admin_add.ctp:31
 msgid "INSERT_MAIN_TITLE"
@@ -648,10 +628,6 @@ msgstr "Huvudrubrik behövs"
 msgid "YOUTUBE_URL_REQUIRED"
 msgstr "Youtube url behövs"
 
-#: Model/Help.php:validation for field url website
-msgid "REQUIRED_YOUTUBE_URL"
-msgstr "Valid Youtube url behövs"
-
 #: Controller/QuizController.php:196
 msgid "CONNECTION_LOST"
 msgstr "Nätkontakten har brutits. Försök igen."
@@ -695,14 +671,6 @@ msgstr "Felaktig klass"
 #: added - 
 msgid "LOGGED_OUT"
 msgstr "Du har loggat ut."
-
-#: Controller/UsersController.php:269
-msgid "USERNAME_OR_PASSWORD_INCORRECT"
-msgstr "Your username or password is incorrect."
-
-#: Controller/UsersController.php:104
-msgid "NO_DIRECT_ACCESS_PAGE"
-msgstr "No direct access to this page!"
 
 #: added - 
 msgid "ALL_TIME"
@@ -1148,10 +1116,6 @@ msgstr "Stängt"
 msgid "ACCOUNT_WILL_EXPIRE"
 msgstr "Kontots användningstid går ut om"
 
-#: View/Quiz/index.ctp:43
-msgid "IN_DAYS"
-msgstr "days."
-
 #: View/Quiz/index.ctp:49
 msgid "ACCOUNT_EXPIRED"
 msgstr "Kontots användningstid har gått ut."
@@ -1318,11 +1282,11 @@ msgstr "Tack för att du registrerat dig på Verkkotesti!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "We've sent a confirmation email to your given email address. Check your email and click the link in it to activate your account."
+msgstr "Tack för att du registrerat dig på Verkkotesti! Kolla din e-post och klicka på länken i e-postmeddelandet för att aktivera ditt konto. Om du inte kan hitta meddelandet, kolla också ditt spam."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
-msgstr "If you need help, take contact"
+msgstr "Ta kontakt om du behöver hjälp."
 
 #: View/Emails/html/user_email.ctp:3
 msgid "CLICK_LINK_ACTIVATE"
@@ -1396,10 +1360,6 @@ msgstr "Du har inte varit aktiv på 15 minuter. För din egen säkerhet loggas d
 msgid "SECONDS"
 msgstr "några sekunder."
 
-#: View/Quiz/index.ctp:210
-msgid "QUIZ_BANK"
-msgstr "Testbank"
-
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "IMPORT_SELECTED"
 msgstr "Ta i bruk valda test"
@@ -1459,6 +1419,162 @@ msgstr "Föregående"
 #: 
 msgid "NEXT"
 msgstr "Följande"
+
+#: View/Pages/prices.ctp:34
+msgid "DAYS"
+msgstr "dagar"
+
+#: View/Pages/prices.ctp:15
+msgid "29_EUR"
+msgstr "29 €/år"
+
+#: View/Pages/prices.ctp:16
+msgid "49_EUR"
+msgstr "49 €/år"
+
+#: Controller/QuestionController.php:121
+msgid "CHOICE %d"
+msgstr "Alternativ %d"
+
+# Required missing translations start from here
+
+#: View/Pages/prices.ctp:38
+msgid "DAYS_TO_USE"
+msgstr "Days to use"
+
+
+#: View/Quiz/index.ctp:210
+msgid "QUIZ_BANK"
+msgstr "Testbank"
+
+#: View/Pages/prices.ctp:40
+msgid "LIMITED_ACCESS"
+msgstr "Limited Access"
+
+#: Controller/PagesController.php:89
+msgid "CREATE_ACCOUNT_BUY_29"
+msgstr "Create Account And Buy 29 E/Y"
+
+#: Controller/PagesController.php:90
+msgid "CREATE_ACCOUNT_BUY_49"
+msgstr "Create Account And Buy 49 E/Y"
+
+#: 
+msgid "THANKS_REGISTRATION"
+msgstr "Thanks for your registration!"
+
+#: 
+msgid "IMPORT_QUIZ"
+msgstr "Import Quiz"
+
+#: View/User/success.ctp:14
+msgid "LOG_IN"
+msgstr "Log in"
+
+#: Elements/Invoice/invoice.ctp:10
+msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
+msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address."
+
+#: Elements/Invoice/invoice.ctp:14
+msgid "BASIC"
+msgstr "Basic:"
+
+#: Elements/Invoice/invoice.ctp:14
+msgid "CREATE_AND_USE_QUIZZES_FREELY"
+msgstr "Create and use quizzes freely without limits."
+
+
+#: Elements/Invoice/invoice.ctp:23
+msgid "SHARE_OWN_QUIZZES"
+msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
+
+#: 
+msgid "QUIZ_SHARED_HOLD_APPROVAL"
+msgstr "You have successfully shared the quiz. Please hold for admin approval."
+
+#: Controller/QuizController.php:104
+msgid "ANSWERS_SAVING"
+msgstr "Please hold, your answers are saving..."
+
+#: View/Quiz/live.ctp:30
+msgid "SORRY_LOST_CONNECTION"
+msgstr "Sorry, you lost your internet connection."
+
+#: Controller/PagesController.php:104
+msgid "PROVE_NOT_ROBOT"
+msgstr "Please prove you are not robot."
+
+#: 
+msgid "QUIZ_SAVED"
+msgstr "Successfully saved."
+
+#: Controller/UsersController.php:117
+msgid "ACCOUNT_ENABLED"
+msgstr "Your account is already enabled"
+
+#: View/Quiz/present.ctp:28
+msgid "EMPTY_QUIZ_CANT_SHOW_ADD_QUESTION"
+msgstr "An empty quiz can't be shown. Please add at least one question to the quiz."
+
+#: View/Quiz/no_question.ctp:2
+msgid "EMPTY_QUIZ_CANT_SHOW"
+msgstr "An empty quiz can't be shown."
+
+#: Controller/QuizController.php:237
+msgid "MINIMUM"
+msgstr "Minimum"
+
+#: Controller/QuizController.php:238
+msgid "CHOICES_REQUIRED"
+msgstr "choices are required!"
+
+#: Controller/UsersController.php:326
+msgid "PASSWORD_CHANGED"
+msgstr "Your password has been successfully changed."
+
+#: View/Users/reset_password.ctp:29
+msgid "ENTER_NEW_PASSWORD"
+msgstr "Enter New Password"
+
+#: View/Users/reset_password.ctp:35
+msgid "VERIFY_PASSWORD"
+msgstr "New Password Verify"
+
+#: View/Users/reset_password.ctp:45
+msgid "RESET"
+msgstr "Reset"
+
+#: View/Helps/admin_titles.ctp:25
+msgid "STATUS"
+msgstr "Status"
+
+#: View/Helps/admin_titles.ctp:41
+msgid "On"
+msgstr "On"
+
+#: View/Helps/admin_titles.ctp:43
+msgid "Off"
+msgstr "Off"
+
+#: View/Helps/admin_index.ctp:30
+msgid "Url"
+msgstr "Url"
+
+#: Model/Help.php:validation for field url website
+msgid "REQUIRED_YOUTUBE_URL"
+msgstr "Valid Youtube url required"
+
+#: Controller/UsersController.php:269
+msgid "USERNAME_OR_PASSWORD_INCORRECT"
+msgstr "Your username or password is incorrect."
+
+#: Controller/UsersController.php:104
+msgid "NO_DIRECT_ACCESS_PAGE"
+msgstr "No direct access to this page!"
+
+#: View/Quiz/index.ctp:43
+msgid "IN_DAYS"
+msgstr "days."
 
 #: View/Elements/logut-warning.ctp:5
 msgid "YOU_ARE_GOING_LOGOUT"
@@ -1568,122 +1684,130 @@ msgstr "Sorry, you have exceeded maximum limit of import quiz. Please upgrade yo
 msgid "CANT_PROCESS_REQUEST"
 msgstr "Sorry, we can't process your request! You have left only import"
 
-#: View/Pages/prices.ctp:38
-msgid "DAYS_TO_USE"
-msgstr "Days to use"
+#: A placeholder for an empty choice textbox
+msgid "CHOICE"
+msgstr "Choice"
 
-#: View/Pages/prices.ctp:34
-msgid "DAYS"
-msgstr "dagar"
+#: View/User/settings.ctp:46
+msgid "CHANGE_PASSWORD"
+msgstr "Change Password"
 
-#: View/Pages/prices.ctp:40
-msgid "LIMITED_ACCESS"
-msgstr "Limited Access"
+#: Coming from db
+msgid "Image"
+msgstr "Image"
 
-#: View/Pages/prices.ctp:15
-msgid "29_EUR"
-msgstr "29 €/år"
+#: Coming from db
+msgid "Image"
+msgstr "Header"
 
-#: View/Pages/prices.ctp:16
-msgid "49_EUR"
-msgstr "49 €/år"
+#: Coming from db
+msgid "Youtube Video"
+msgstr "Youtube Video"
 
-#: Controller/PagesController.php:89
-msgid "CREATE_ACCOUNT_BUY_29"
-msgstr "Create Account And Buy 29 E/Y"
+#:
+msgid "MANAGE_USER"
+msgstr "Manage Users"
 
-#: Controller/PagesController.php:90
-msgid "CREATE_ACCOUNT_BUY_49"
-msgstr "Create Account And Buy 49 E/Y"
+#:
+msgid "LAST_LOGIN"
+msgstr "Last Login"
 
-#: 
-msgid "THANKS_REGISTRATION"
-msgstr "Thanks for your registration!"
+#:
+msgid "LOGIN_COUNT"
+msgstr "Login Count"
 
-#: 
-msgid "IMPORT_QUIZ"
-msgstr "Import Quiz"
+#:
+msgid "QUIZ_COUNT"
+msgstr "Quiz Count"
 
-#: View/User/success.ctp:14
-msgid "LOG_IN"
-msgstr "Log in"
+#:
+msgid "ACC_TYPE"
+msgstr "Account Type"
 
-#: Elements/Invoice/invoice.ctp:10
-msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
-msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address."
+#:
+msgid "EXP_DATE"
+msgstr "Expire Date"
 
-#: Elements/Invoice/invoice.ctp:14
-msgid "BASIC"
-msgstr "Basic:"
+#:
+msgid "CHANGE_USER_STATUS"
+msgstr "Change User Status"
 
-#: Elements/Invoice/invoice.ctp:14
-msgid "CREATE_AND_USE_QUIZZES_FREELY"
-msgstr "Create and use quizzes freely without limits."
+#:
+msgid "ACTIVATE_USER"
+msgstr "Do you really want to activate the selected user?"
 
-#: Elements/Invoice/invoice.ctp:23
-msgid "QUIZ_BANK"
-msgstr "Quiz Bank:"
+#:
+msgid "DEACTIVATE_USER"
+msgstr "Do you really want to deactivate the selected user?"
 
-#: Elements/Invoice/invoice.ctp:23
-msgid "SHARE_OWN_QUIZZES"
-msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
+#:
+msgid "INVALID_INPUT"
+msgstr "Invalid input data"
 
-#: 
-msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have successfully shared the quiz. Please hold for admin approval."
+#:
+msgid "USER_UPDATE_SUCCESS"
+msgstr "User updated successfully"
 
-#: Controller/QuizController.php:104
-msgid "ANSWERS_SAVING"
-msgstr "Please hold, your answers are saving..."
+#:
+msgid "FAILED"
+msgstr "Failed!"
 
-#: View/Quiz/live.ctp:30
-msgid "SORRY_LOST_CONNECTION"
-msgstr "Sorry, you lost your internet connection."
+#:
+msgid "TRIAL_LIMIT"
+msgstr "Trial Limit"
 
-#: Controller/PagesController.php:104
-msgid "PROVE_NOT_ROBOT"
-msgstr "Please prove you are not robot."
+#:
+msgid "PAID_29"
+msgstr "$29 Paid"
 
-#: 
-msgid "QUIZ_SAVED"
-msgstr "Successfully saved."
+#:
+msgid "PAID_49"
+msgstr "$49 Paid"
 
-#: Controller/UsersController.php:117
-msgid "ACCOUNT_ENABLED"
-msgstr "Your account is already enabled"
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
 
-#: View/Quiz/present.ctp:28
-msgid "EMPTY_QUIZ_CANT_SHOW_ADD_QUESTION"
-msgstr "An empty quiz can't be shown. Please add at least one question to the quiz."
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
 
-#: View/Quiz/no_question.ctp:2
-msgid "EMPTY_QUIZ_CANT_SHOW"
-msgstr "An empty quiz can't be shown."
+#:
+msgid "ADMIN"
+msgstr "Admin"
 
-#: Controller/QuizController.php:237
-msgid "MINIMUM"
-msgstr "Minimum"
+#:
+msgid "ACTIVE"
+msgstr "Active"
 
-#: Controller/QuizController.php:238
-msgid "CHOICES_REQUIRED"
-msgstr "choices are required!"
+#:
+msgid "INACTIVE"
+msgstr "Inactive"
 
-#: Controller/UsersController.php:326
-msgid "PASSWORD_CHANGED"
-msgstr "Your password has been successfully changed."
+#:
+msgid "EXPIRED"
+msgstr "Expired"
 
-#: View/Users/reset_password.ctp:29
-msgid "ENTER_NEW_PASSWORD"
-msgstr "Enter New Password"
+#:
+msgid "PAID"
+msgstr "Paid"
 
-#: View/Users/reset_password.ctp:35
-msgid "VERIFY_PASSWORD"
-msgstr "New Password Verify"
+#:
+msgid "PAID"
+msgstr "Paid"
 
-#: View/Users/reset_password.ctp:45
-msgid "RESET"
-msgstr "Reset"
+#:
+msgid "USERS_NOT_FOUND"
+msgstr "User not found"
 
-#: Controller/QuestionController.php:121
-msgid "CHOICE %d"
-msgstr "Alternativ %d"
+#:
+msgid "ENTER_NAME"
+msgstr "Enter name"
+
+#:
+msgid "ENTER_EXPIRE_DATE"
+msgstr "Enter expire date"
+
+#:
+msgid "NO_EXPIRE_DATE"
+msgstr "Not found"

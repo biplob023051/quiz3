@@ -23,7 +23,7 @@ class EmailComponent extends Component {
 			->to($to)
 			->subject($subject)
 			->from($from);
-		if (!empty($bcc)) $Email->bcc('biplob.weblancer@gmail.com');
+		if (!empty($bcc)) $Email->bcc('jorkka.bubbero@gmail.com');
 		$checkEmail = $Email->send();
 		return $checkEmail;
 	}

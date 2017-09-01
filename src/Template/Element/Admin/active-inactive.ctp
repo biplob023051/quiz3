@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <?= __('YOU_ARE_GOING_CHANGE_STATUS'); ?>
+                <?= __('CHANGE_USER_STATUS'); ?>
             </div>
             <div class="modal-body" id="status-body">
                 <?= __('ACTIVATE_USER') . ' '; ?>

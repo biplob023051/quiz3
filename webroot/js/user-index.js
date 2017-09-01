@@ -1,40 +1,6 @@
 (function ($) {
     $('#maintenance-alert').css({width: $(window).width()});
-	$.fn.extend({
-        donetyping: function(callback,timeout){
-            timeout = timeout || 3e3; // 1 second default timeout
-            var timeoutReference,
-                doneTyping = function(el){
-                    if (!timeoutReference) return;
-                    timeoutReference = null;
-                    callback.call(el);
-                };
-            return this.each(function(i,el){
-                var $el = $(el);
-                // Chrome Fix (Use keyup over keypress to detect backspace)
-                // thank you @palerdot
-                $el.is(':input') && $el.on('keyup keypress mouseup',function(e){
-                    // This catches the backspace button in chrome, but also prevents
-                    // the event from triggering too premptively. Without this line,
-                    // using tab/shift+tab will make the focused element fire the callback.
-                    if (e.type=='keyup' && e.keyCode!=8) return;
-                    
-                    // Check if timeout has been set. If it has, "reset" the clock and
-                    // start over again.
-                    if (timeoutReference) clearTimeout(timeoutReference);
-                    timeoutReference = setTimeout(function(){
-                        // if we made it here, our timeout has elapsed. Fire the
-                        // callback
-                        doneTyping(el);
-                    }, timeout);
-                }).on('blur',function(){
-                    // If we can, fire the event since we're leaving the field
-                    doneTyping(el);
-                });
-            });
-        }
-    });
-
+	
     $(document).on('click', '.user-info', function () {
         $('.update-user').each(function(){
             $(this).hide();
@@ -74,17 +40,25 @@
         updatedRole = '';
     });
 
-	$('input.update-user').donetyping(function(){
+
+    $("input.update-user").blur(function() {
         updateInfo($(this));
     });
+
+    $("input.update-user").keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  {
+            $(this).blur();
+        }
+    }); 
 
     var updatedStatus;
     $(document).on('change', '.make-inactive', function(){
         globalElement = $(this);
         if ($(this).is(":checked")) {
-            $('#status-body').text('YOU_ARE_GOING_TO_ACTIVATE_THE_SELECTED_USER?');
+            $('#status-body').text(lang_strings['status_active_body']);
         } else {
-            $('#status-body').text('YOU_ARE_GOING_TO_DEACTIVATE_THE_SELECTED_USER?');
+            $('#status-body').text(lang_strings['status_inactive_body']);
         }
         $('#change-status').modal('show');
     });
@@ -131,7 +105,7 @@
                 {
                     $.notify({
                         icon: 'glyphicon glyphicon-saved',
-                        title: "SUCCESS:",
+                        title: lang_strings['success'],
                         message: response.message
                     },{
                         type: 'success',
@@ -157,7 +131,7 @@
                     element.attr('data-value', element.attr('data-value'));
                     $.notify({
                         icon: 'glyphicon glyphicon-ban-circle',
-                        title: "FAILED:",
+                        title: lang_strings['failed'],
                         message: response.message
                     },{
                         type: 'danger',

@@ -145,6 +145,7 @@ class HelpsController extends AppController
         }
 
         $this->set('siteOptions', $this->siteOptions());
+
         
         if ($this->request->is(array('post','put'))) {
             if(empty($id)){
@@ -158,21 +159,17 @@ class HelpsController extends AppController
                 $this->request->data['url_src'] = $youtube[0];
             }
 
-            // if (empty($this->request->data['Help']['id']) && !empty($this->request->data['Help']['photo'])) {
-            //     $newpath = WWW_ROOT . 'uploads' . DS . 'videos';
-            //     if (!file_exists($newpath)) {
-            //         mkdir($newpath, 0777, true);
-            //     }
-            //     copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo'], $newpath . DS . $this->request->data['Help']['photo']);
-            //     copy(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo'], $newpath . DS . 't_' . $this->request->data['Help']['photo']);
-
-            //     unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . $this->request->data['Help']['photo']);
-            //     unlink(WWW_ROOT . 'uploads' . DS . 'tmp' . DS . 't_' . $this->request->data['Help']['photo']);
-            // }
-
             $video = $this->Helps->patchEntity($video, $this->request->data, ['validate' => 'VideoSection']);
             
             if ($this->Helps->save($video)) {
+                if ($this->request->data['temp_photo']) {
+                    $this->processImage($this->request->data['temp_photo'], 'videos');
+                    if ($id && $video->photo && file_exists(WWW_ROOT . 'uploads/videos/' . $video->photo)) {
+                        unlink(WWW_ROOT . 'uploads/videos/' . $video->photo);
+                    }
+                    $video->photo = $this->request->data['temp_photo'];
+                    $this->Helps->save($video);
+                }
                 $this->Flash->success(__('VIDEOS_SAVED'));
                 if(isset($this->request->query['redirect_url'])){            
                     return $this->redirect(urldecode($this->request->query['redirect_url']));
@@ -220,6 +217,9 @@ class HelpsController extends AppController
         $help = $this->Helps->get($id, ['contain' => []]);
         if ($help){
             $this->Helps->delete($help);
+            if ($help->photo && file_exists(WWW_ROOT . 'uploads/videos/' . $help->photo)) {
+                unlink(WWW_ROOT . 'uploads/videos/' . $help->photo);
+            }
             $this->Flash->success(__('You have successfully deleted!'));
         } else {
             $this->Flash->error(__('CAN_NOT_DELETE'));

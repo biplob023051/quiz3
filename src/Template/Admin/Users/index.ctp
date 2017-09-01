@@ -52,12 +52,12 @@
         <div class="row">
             <div class="col-md-3">
                 <?= $this->Form->create(''); ?>
-                <?= $this->Form->input('limit_size', ['options' => $limitOptions, 'class' => 'on-select']); ?>
+                <?= $this->Form->input('limit_size', ['options' => $limitOptions, 'class' => 'on-select', 'label' => false]); ?>
                 <?= $this->Form->end(); ?>
             </div>
             <div class="col-md-3 col-md-offset-6">
                 <?= $this->Form->create(''); ?>
-                <?= $this->Form->input('acc_type', ['options' => $accoutLists, 'class' => 'on-select']); ?>
+                <?= $this->Form->input('acc_type', ['options' => $accoutLists, 'class' => 'on-select', 'label' => false]); ?>
                 <?= $this->Form->end(); ?>
             </div>
         </div> 
@@ -77,22 +77,22 @@
             <table cellpadding="0" cellspacing="0"  class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center col-md-1"><?= $this->Paginator->sort('id', __('ID')); ?></th>
+                        <th class="text-center" style="width: 1%"><?= $this->Paginator->sort('id', __('ID')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('name', __('NAME')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('email', __('EMAIL')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('email', __('LAST_LOGIN')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('email', __('LOGIN_COUNT')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('email', __('QUIZ_COUNT')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('email', __('ANWSER_COUNT')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('email', __('ACC_TYPE')); ?></th>
+                        <th class="text-center"><?= $this->Paginator->sort('UserStatistics.last_login', __('LAST_LOGIN')); ?></th>
+                        
+                        <th class="text-center"><?= __('LOGIN_COUNT'); ?></th>
+                        <th class="text-center"><?= __('QUIZ_COUNT'); ?></th>
+                        <th class="text-center"><?= $this->Paginator->sort('account_level', __('ACC_TYPE')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('created', __('CREATED')); ?></th>
-                        <th class="text-center"><?= $this->Paginator->sort('created', __('EXP_DATE')); ?></th>
-                        <th class="text-center col-md-1"><?= $this->Paginator->sort('isactive', __('STATUS')); ?></th>
+                        <th class="text-center"><?= $this->Paginator->sort('expired', __('EXP_DATE')); ?></th>
+                        <th class="text-center" style="width: 1%"><?= $this->Paginator->sort('isactive', __('STATUS')); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($users)) : ?>
-                        <tr><td colspan="5"><?= __('Class not found'); ?></td></tr>
+                        <tr><td colspan="10"><?= __('USERS_NOT_FOUND'); ?></td></tr>
                     <?php else : ?>
                         <?php foreach ($users as $user): ?>
                             <?php if ($user->account_level != 51) : ?>
@@ -103,7 +103,6 @@
                                     <td class="text-center"><?= !empty($user->user_statistics[0]['created']) ? $user->user_statistics[0]['created']->todatestring() : ''; ?></td>
                                     <td class="text-center"><?= !empty($user->statistics[0]['total_login']) ? $user->statistics[0]['total_login'] : '0'; ?></td>
                                     <td class="text-center"><?= !empty($user->quizzes[0]['total_quiz']) ? $user->quizzes[0]['total_quiz'] : '0'; ?></td>
-                                    <td class="text-center"><?= '0'; ?></td>
                                     <td class="text-center">
                                         <span class="user-info"><?= $allAccOptions[$user->account_level]; ?> <i class="glyphicon pencil-small"></i></span>
                                         <select name="account_level" class="form-control change-level update-user" data-rel="account_level-<?= $user->id; ?>" data-value="<?= $user->account_level; ?>">
@@ -117,7 +116,7 @@
                                         <?php if ($user->expired) : ?>
                                             <span class="user-info"><?= h($user->expired->todatestring()); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="<?= $user->expired->todatestring(); ?>" data-value="<?= $user->expired->todatestring(); ?>">
                                         <?php else : ?>
-                                            <span class="user-info"><?= __('NO_EXIRE_DATE'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="0000-00-00" data-value="0000-00-00">
+                                            <span class="user-info"><?= __('NO_EXPIRE_DATE'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="0000-00-00" data-value="0000-00-00">
                                             <?php 
                                                 // $expired = new Carbon($user->expired);
                                                 // $now = Carbon::now();
@@ -140,10 +139,9 @@
                                     <td class="text-center"><?= !empty($user->user_statistics[0]['created']) ? $user->user_statistics[0]['created']->todatestring() : ''; ?></td>
                                     <td class="text-center"><?= !empty($user->statistics[0]['total_login']) ? $user->statistics[0]['total_login'] : '0'; ?></td>
                                     <td class="text-center"><?= !empty($user->quizzes[0]['total_quiz']) ? $user->quizzes[0]['total_quiz'] : '0'; ?></td>
-                                    <td class="text-center"><?= '0'; ?></td>
                                     <td class="text-center"><?= $allAccOptions[$user->account_level]; ?></td>
-                                    <td class="text-center"><?= h($user->created); ?></td>
-                                    <td class="text-center"><?= h($user->expired); ?></td>
+                                    <td class="text-center"><?= $user->created ? $user->created->todatestring() : ''; ?></td>
+                                    <td class="text-center"><?= $user->expired ? $user->expired->todatestring() : ''; ?></td>
                                     <td class="text-center" nowrap="nowrap">
                                         
                                     </td>
@@ -172,4 +170,7 @@
 </div>
 <?= $this->element('Admin/confirm'); ?>
 <?= $this->element('Admin/active-inactive'); ?>
+<script>
+    var lang_strings = <?= json_encode($lang_strings); ?>;
+</script>
 <?= $this->Html->script('user-index', ['inline' => false]); ?>

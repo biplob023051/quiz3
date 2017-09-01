@@ -68,7 +68,7 @@ var debugVar;
     $('#questions button.add-choice').trigger('click');
 
     $(document).on('change', '#questions select.choice-type-selector', function () {
-
+        $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
         var element = $(this),
                 questionId = element.attr('id');
 

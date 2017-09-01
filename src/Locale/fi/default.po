@@ -195,7 +195,7 @@ msgstr "Vastauksesi on lähetetty."
 
 #: View/User/create.ctp:5
 msgid "CREATE_ACCOUNT"
-msgstr "Luo ilmainen käyttäjätili"
+msgstr "Luo ilmainen tili!"
 
 #: View/User/create.ctp:45
 msgid "CREATE_ACCOUNT_LOG_IN"
@@ -486,7 +486,7 @@ msgstr "Luo apua"
 
 #: Menu item Help
 msgid "NOT_ACCOUNT"
-msgstr "Ei vielä tunnuksia?"
+msgstr "Ei tunnuksia?"
 
 #: View/Helps/index.ctp:13
 msgid "GETTING_STARTED"
@@ -1318,7 +1318,7 @@ msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin! Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön."
+msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin! Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön. Jos et löydä viestiä, tarkistathan myös roskapostikansiosi."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
@@ -1621,10 +1621,6 @@ msgid "CREATE_AND_USE_QUIZZES_FREELY"
 msgstr "Luo ja käytä testejä rajattomasti."
 
 #: Elements/Invoice/invoice.ctp:23
-msgid "QUIZ_BANK"
-msgstr "Testipankki:"
-
-#: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
 msgstr "Testipankki: Edellisen lisäksi, jaa omia testejäsi toisten käyttäjien kanssa ja säästä aikaa käyttämällä Testipankin valmiita testejä."
 
@@ -1688,3 +1684,128 @@ msgstr "Vaihda salasana"
 msgid "CHOICE %d"
 msgstr "Vastaus %d"
 
+# Required missing translations start from here
+
+#: View/User/settings.ctp:46
+msgid "CHANGE_PASSWORD"
+msgstr "Change Password"
+
+#: Coming from db
+msgid "Image"
+msgstr "Image"
+
+#: Coming from db
+msgid "Image"
+msgstr "Header"
+
+#: Coming from db
+msgid "Youtube Video"
+msgstr "Youtube Video"
+
+#:
+msgid "MANAGE_USER"
+msgstr "Manage Users"
+
+#:
+msgid "LAST_LOGIN"
+msgstr "Last Login"
+
+#:
+msgid "LOGIN_COUNT"
+msgstr "Login Count"
+
+#:
+msgid "QUIZ_COUNT"
+msgstr "Quiz Count"
+
+#:
+msgid "ACC_TYPE"
+msgstr "Account Type"
+
+#:
+msgid "EXP_DATE"
+msgstr "Expire Date"
+
+#:
+msgid "CHANGE_USER_STATUS"
+msgstr "Change User Status"
+
+#:
+msgid "ACTIVATE_USER"
+msgstr "Do you really want to activate the selected user?"
+
+#:
+msgid "DEACTIVATE_USER"
+msgstr "Do you really want to deactivate the selected user?"
+
+#:
+msgid "INVALID_INPUT"
+msgstr "Invalid input data"
+
+#:
+msgid "USER_UPDATE_SUCCESS"
+msgstr "User updated successfully"
+
+#:
+msgid "FAILED"
+msgstr "Failed!"
+
+#:
+msgid "TRIAL_LIMIT"
+msgstr "Trial Limit"
+
+#:
+msgid "PAID_29"
+msgstr "$29 Paid"
+
+#:
+msgid "PAID_49"
+msgstr "$49 Paid"
+
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
+
+#:
+msgid "TRIAL_DAYS"
+msgstr "Trial Days"
+
+#:
+msgid "ADMIN"
+msgstr "Admin"
+
+#:
+msgid "ACTIVE"
+msgstr "Active"
+
+#:
+msgid "INACTIVE"
+msgstr "Inactive"
+
+#:
+msgid "EXPIRED"
+msgstr "Expired"
+
+#:
+msgid "PAID"
+msgstr "Paid"
+
+#:
+msgid "PAID"
+msgstr "Paid"
+
+#:
+msgid "USERS_NOT_FOUND"
+msgstr "User not found"
+
+#:
+msgid "ENTER_NAME"
+msgstr "Enter name"
+
+#:
+msgid "ENTER_EXPIRE_DATE"
+msgstr "Enter expire date"
+
+#:
+msgid "NO_EXPIRE_DATE"
+msgstr "Not found"
