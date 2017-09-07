@@ -4,6 +4,14 @@ use App\Controller\AppController;
 use App\Vendor\qqFileUploader;
 
 class UploadController extends AppController {
+	// Method for deleting photo
+	public function deletePhoto() {
+		$this->autoRender = false;
+		if (file_exists(WWW_ROOT . 'uploads/tmp/' . $this->request->data['image'])) {
+			unlink(WWW_ROOT . 'uploads/tmp/' . $this->request->data['image']);
+		}
+	}
+
 	// Method for upload question photo
 	public function photo() {
 		$this->autoRender = false;

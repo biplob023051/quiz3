@@ -25,13 +25,13 @@
                     <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('LOGGIN'); ?></button></a></li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo ($language != 'en_GB') ? $this->Quiz->getLang($language) : 'International'; ?>
+                            <?php echo $this->Quiz->getLang($language); ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:void(0)" class="my-language" data-value="fi">Suomi</a></li>
-                            <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">International</a></li>
-                            <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI">Svenska (FI)</a></li>
+                            <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">English</a></li>
+                            <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI">Svenska</a></li>
                         </ul>
                     </li>
                 </ul>

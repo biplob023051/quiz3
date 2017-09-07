@@ -28,7 +28,7 @@ msgstr "Uusi kysymys"
 
 #: Controller/UserController.php:37
 msgid "REGISTRATION_SUCCESS"
-msgstr "Uusi käyttäjätili on luotu."
+msgstr "Käyttäjätili on luotu"
 
 #: Controller/QuizController.php:104
 #: View/Quiz/edit.ctp:41
@@ -41,7 +41,7 @@ msgstr "Vastaustaulukko"
 
 #: View/Answer/table.ctp:129
 msgid "NO_SUBMISSION"
-msgstr "No Submission KÄÄNNÄ"
+msgstr "No Submission"
 
 #: View/Answer/table.ctp:139
 #: View/Elements/Invoice/invoice_error_dialog.ctp:13
@@ -63,7 +63,7 @@ msgstr "Laskun lähetys epäonnistui! Yritä uudelleen."
 
 #: View/Elements/Invoice/invoice_send_dialog.ctp:10
 msgid "INVOICE_CONFIRM"
-msgstr "29€ lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat Verkkotestiin 12 kk lisää käyttöaikaa. <br/><br/>Jatketaanko?"
+msgstr "Lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat Verkkotestiin 12 kk lisää käyttöaikaa. <br/><br/>Jatketaanko?"
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "YOU_RECEIVE_INVOICE"
@@ -317,23 +317,23 @@ msgid "Debug setting does not allow access to this url."
 msgstr "Debug setting does not allow access to this url."
 
 #: Question type description
-msgid "Multiple choice - One correct"
+msgid "MCOC"
 msgstr "Monivalinta - Yksi oikea"
 
 #: Question type description
-msgid "Short Text - Automatic rating"
+msgid "STAR"
 msgstr "Lyhyt Teksti - Automaattinen pisteytys"
 
 #: Question type description
-msgid "Multiple choice - Many correct"
+msgid "MCMC"
 msgstr "Monivalinta - Monta oikeaa"
 
 #: Question type description
-msgid "Short Text - Manual rating"
+msgid "STMR"
 msgstr "Lyhyt Teksti - Pisteytys käsin"
 
 #: Question type description
-msgid "Essay"
+msgid "ESSAY"
 msgstr "Essee"
 
 #: Adding a new multiple choice
@@ -378,7 +378,7 @@ msgstr "Takaisin"
 
 #: Answer table - Back
 msgid "ALL"
-msgstr "Alla"
+msgstr "Kaikki"
 
 #: Answer table - Back
 msgid "TODAY"
@@ -398,7 +398,7 @@ msgstr "Tällä viikolla"
 
 #: Answer table - Back
 msgid "RATE"
-msgstr "Arvioi!"
+msgstr "Arvioi"
 
 #: Settings - Language
 msgid "LANGUAGE"
@@ -422,27 +422,23 @@ msgstr "Kirjoita kysymys."
 
 #: Controller/QuizController.php:128
 msgid "EMPTY_OR_SAME_NOT_ALLOWED"
-msgstr "Älä käytä täsmälleen samoja tai kokonaan tyhjiä vastausvaihtoehtoja."
+msgstr "Älä käytä samoja tai tyhjiä vastauksia."
 
 #: Controller/QuizController.php:129
 msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "Ainakin yhden vaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Ainakin yhden pisteytyksen täytyy olla suurempi kuin 0."
 
 #: Controller/QuizController.php:130
 msgid "ENTER_CORRECT_ANSWERS"
-msgstr "Kirjoita oikeat vastausvaihtoehdot pilkulla erotettuna."
-
-#: Controller/QuizController.php:131
-msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "Ainakin yhden vaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Kirjoita oikeat vastaukset pilkulla erotettuna."
 
 #: Controller/QuizController.php:132
 msgid "TWO_CHOICES_GREATER_THAN_ZERO"
-msgstr "Ainakin kahden vastausvaihtoehdon pisteytyksen täytyy olla suurempi kuin 0."
+msgstr "Ainakin kahden pisteytyksen täytyy olla suurempi kuin 0."
 
 #: Controller/QuizController.php:133
 msgid "CHOOSE_ANOTHER_CHOOSE"
-msgstr "Valitse vielä toinen vastausvaihtoehto, jonka pisteytys on suurempi kuin 0."
+msgstr "Valitse vielä toinen vastaus, jonka pisteytys on suurempi kuin 0."
 
 #: Controller/QuizController.php:251
 msgid "SURELY_REMOVE"
@@ -590,11 +586,11 @@ msgstr "Kirjoita videon alaotsikko"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "YOUTUBE_URL"
-msgstr "Youtube url"
+msgstr "Youtube-videon verkko-osoite"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "INSERT_YOUTUBE_URL_HERE"
-msgstr "Kirjoita videon Youtube url"
+msgstr "Kirjoita Youtube-videon verkko-osoite"
 
 #: Controller/HelpsController.php:117
 msgid "EDIT_MAIN_TITLE"
@@ -606,7 +602,7 @@ msgstr "Otsikko tallennettu"
 
 #: Controller/HelpsController.php:132
 msgid "TITLE_FAILED"
-msgstr "Otsikon tallentaminen epäonnistui!"
+msgstr "Otsikon tallentaminen epäonnistui"
 
 #: Controller/HelpsController.php:146
 msgid "TITLE_NOT_FOUND"
@@ -626,15 +622,15 @@ msgstr "Video tallennettu"
 
 #: Controller/HelpsController.php:66
 msgid "HELP_SAVE_FAIL"
-msgstr "Videon tallentaminen epäonnistui!"
+msgstr "Videon tallentaminen epäonnistui"
 
 #: Controller/HelpsController.php:80
 msgid "HELP_NOT_FOUND"
-msgstr "Videota ei löytynyt!"
+msgstr "Videota ei löytynyt"
 
 #: Controller/HelpsController.php:80
 msgid "SORT_FAILED"
-msgstr "Lajittelu epäonnistui!"
+msgstr "Lajittelu epäonnistui"
 
 #: Model/Help.php:validation for field title
 msgid "TITLE_REQUIRED"
@@ -646,11 +642,11 @@ msgstr "Pääotsikko on pakollinen"
 
 #: Model/Help.php:validation for field url notempty
 msgid "YOUTUBE_URL_REQUIRED"
-msgstr "Youtube url on pakollinen"
+msgstr "Youtube-videon verkko-osoite on pakollinen"
 
 #: Model/Help.php:validation for field url website
 msgid "REQUIRED_YOUTUBE_URL"
-msgstr "Validi Youtube url on pakollinen"
+msgstr "Youtube-videon verkko-osoite täytyy olla oikean muotoinen"
 
 #: Controller/QuizController.php:196
 msgid "CONNECTION_LOST"
@@ -800,7 +796,7 @@ msgstr "Kirjaudu sisään ja osta"
 #: View/Elements/Page/buy_modal.ctp:15
 #: View/User/login.ctp:63
 msgid "RECOVER_PASSWORD"
-msgstr "Nollaa salasana"
+msgstr "Uusi salasana"
 
 #: View/Elements/Page/buy_modal.ctp:34
 msgid "ENTER_YOUR_NAME"
@@ -821,7 +817,7 @@ msgstr "Salasana uudestaan"
 
 #: View/Elements/Page/buy_modal.ctp:59
 msgid "SUBMIT"
-msgstr "Lähetä"
+msgstr "Tallenna"
 
 #: Controller/PagesController.php:79
 msgid "REQUIRE_NAME"
@@ -861,7 +857,7 @@ msgstr "Email-osoitetta ei ole rekisteröity"
 
 #: Controller/UserController.php:148
 msgid "RESET_PASSWORD"
-msgstr "Nollaa Verkkotesti-tilin salasanasi"
+msgstr "Uusi Verkkotesti-tilin salasanasi"
 
 #: Controller/UserController.php:150
 msgid "REQUEST_RECEIVED_CHECK_EMAIL"
@@ -881,7 +877,7 @@ msgstr "Lähettäjän email-osoite"
 
 #: Controller/UserController.php:120
 msgid "EMAIL_SENT"
-msgstr "Viestisi on lähetetty."
+msgstr "Viestisi on lähetetty"
 
 #: View/Emails/html/invoice.ctp:1
 msgid "INVOICE"
@@ -889,11 +885,11 @@ msgstr "Lasku"
 
 #: View/Emails/html/reset_password.ctp:1
 msgid "PASSWORD_RESET"
-msgstr "Salasanan nollaaminen"
+msgstr "Salasanan uusiminen"
 
 #: View/Emails/html/reset_password.ctp:2
 msgid "RESET_PASSWORD_CLICK"
-msgstr "Salasanan nollaamiseksi klikkaa alla olevaa linkkiä tai liitä linkki selaimesi osoiteriville."
+msgstr "Salasanan uusimiseksi klikkaa alla olevaa linkkiä tai liitä linkki selaimesi osoiteriville."
 
 #: View/Emails/html/reset_password.ctp:4
 msgid "IF_NOT_SENT_IGNORE"
@@ -993,11 +989,11 @@ msgstr "Muokkaa videota"
 
 #: Controller/HelpsController.php:183
 msgid "VIDEOS_SAVED"
-msgstr "Videon tiedot tallennettu."
+msgstr "Videon tiedot tallennettu"
 
 #: Controller/HelpsController.php:183
 msgid "VIDEO_SAVE_FAIL"
-msgstr "Videon tallennus epäonnistui!"
+msgstr "Videon tallennus epäonnistui"
 
 #: Model/Help.php:validation for field type
 msgid "DISPLAY_PAGE_REQUIRED"
@@ -1118,7 +1114,7 @@ msgstr "Näytä tulokset vastaajalle testin jälkeen."
 
 #: View/Student/success.ctp:25
 msgid "ON_HOLD"
-msgstr "Väntar på bedömning"
+msgstr "Odottaa arviointia"
 
 #: View/Student/success.ctp:39
 msgid "YOUR_RESULTS"
@@ -1174,7 +1170,7 @@ msgstr "Kuva verkosta"
 
 #
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Kirjoita videon www-osoite"
+msgstr "Kirjoita Youtube-videon www-osoite"
 
 #
 msgid "ENTER_IMAGE_URL"
@@ -1190,7 +1186,7 @@ msgstr "Videon selite (vapaaehtoinen)"
 
 #: Controller/QuizController.php:143
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Lisää videon www-osoite"
+msgstr "Lisää Youtube-videon www-osoite"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_IMAGE_URL"
@@ -1222,7 +1218,7 @@ msgstr "Pahoittelut raksapölystä!"
 
 #: View/Elements/Maintenance/notice.ctp:11
 msgid "WELL_BE_BACK"
-msgstr "Teemme parhaillaan Verkkotestistä entistäkin parempaa. Verkkotesti on käytössäsi taas tänään klo 22:00."
+msgstr "Teemme parhaillaan Verkkotestistä entistäkin parempaa. Verkkotesti on käytössäsi taas mahdollisimman pian!"
 
 #: View/Quiz/index.ctp:150
 msgid "LOAD_DEMO_QUIZZES"
@@ -1302,7 +1298,7 @@ msgstr "Monista testi"
 
 #: Controller/QuizController.php:641
 msgid "STUDENT_ONLINE_AND_GIVING_TEST"
-msgstr "Oppilas vastaa parhaillaan testiin! "
+msgstr "Oppilas vastaa parhaillaan testiin"
 
 #: 
 msgid "DEMAND_UPPER_LOWERCASE"
@@ -1318,7 +1314,7 @@ msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "Kiitos rekisteröitymisestäsi Verkkotestiin! Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön. Jos et löydä viestiä, tarkistathan myös roskapostikansiosi."
+msgstr "Lähetimme sähköpostiisi linkin jota klikkaamalla käyttäjätilisi otetaan käyttöön.<br/>Jos et löydä viestiä, tarkistathan myös roskapostikansiosi."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
@@ -1338,7 +1334,7 @@ msgstr "Tunnusten luonti onnistui"
 
 #: Controller/UserController.php:60
 msgid "CONFIRM_EMAIL"
-msgstr "[Verkkotesti tunnukset] Sähköpostiosoitteen vahvistaminen"
+msgstr "[Verkkotesti-tunnukset] Sähköpostiosoitteen vahvistaminen"
 
 #: View/User/success.ctp:6
 msgid "HERE"
@@ -1358,7 +1354,7 @@ msgstr "Kaikki oppiaineet"
 
 #: Controller/QuizController.php:262
 msgid "ALL_CLASS"
-msgstr "Kaikki luokka-asteet"
+msgstr "Kaikki luokat"
 
 #: Controller/QuizController.php:127
 msgid "CANCEL_SHARE"
@@ -1688,124 +1684,140 @@ msgstr "Vastaus %d"
 
 #: View/User/settings.ctp:46
 msgid "CHANGE_PASSWORD"
-msgstr "Change Password"
+msgstr "Vaihda salasana"
 
 #: Coming from db
-msgid "Image"
-msgstr "Image"
+msgid "IMAGE"
+msgstr "Kuva"
 
 #: Coming from db
-msgid "Image"
-msgstr "Header"
+msgid "HEADER"
+msgstr "Otsikko"
 
 #: Coming from db
-msgid "Youtube Video"
-msgstr "Youtube Video"
+msgid "TUBE_VIDEO"
+msgstr "Youtube video"
 
 #:
 msgid "MANAGE_USER"
-msgstr "Manage Users"
+msgstr "Hallinnoi käyttäjiä"
 
 #:
 msgid "LAST_LOGIN"
-msgstr "Last Login"
+msgstr "Viimeisin kirjautuminen"
 
 #:
 msgid "LOGIN_COUNT"
-msgstr "Login Count"
+msgstr "Kirjautumisten määrä"
 
 #:
 msgid "QUIZ_COUNT"
-msgstr "Quiz Count"
+msgstr "Testien määrä"
 
 #:
 msgid "ACC_TYPE"
-msgstr "Account Type"
+msgstr "Tilin tyyppi"
 
 #:
 msgid "EXP_DATE"
-msgstr "Expire Date"
+msgstr "Päättymispäivä"
 
 #:
 msgid "CHANGE_USER_STATUS"
-msgstr "Change User Status"
+msgstr "Vaihda käyttäjän tila"
 
 #:
 msgid "ACTIVATE_USER"
-msgstr "Do you really want to activate the selected user?"
+msgstr "Haluatko aktivoida käyttäjän?"
 
 #:
 msgid "DEACTIVATE_USER"
-msgstr "Do you really want to deactivate the selected user?"
+msgstr "Haluatko de-aktivoida käyttäjän?"
 
 #:
 msgid "INVALID_INPUT"
-msgstr "Invalid input data"
+msgstr "Virheellinen syöte"
 
 #:
 msgid "USER_UPDATE_SUCCESS"
-msgstr "User updated successfully"
+msgstr "Käyttäjä päivitetty"
 
 #:
 msgid "FAILED"
-msgstr "Failed!"
+msgstr "Pahoittelut, ei onnistunut"
 
 #:
 msgid "TRIAL_LIMIT"
-msgstr "Trial Limit"
+msgstr "Kokeilu - 1 testi"
 
 #:
 msgid "PAID_29"
-msgstr "$29 Paid"
+msgstr "Maksullinen - 29 €"
 
 #:
 msgid "PAID_49"
-msgstr "$49 Paid"
+msgstr "Maksullinen - 49 €"
 
 #:
 msgid "TRIAL_DAYS"
-msgstr "Trial Days"
-
-#:
-msgid "TRIAL_DAYS"
-msgstr "Trial Days"
+msgstr "Kokeilu - 30pv"
 
 #:
 msgid "ADMIN"
-msgstr "Admin"
+msgstr "Ylläpitäjä"
 
 #:
 msgid "ACTIVE"
-msgstr "Active"
+msgstr "Aktiivinen"
 
 #:
 msgid "INACTIVE"
-msgstr "Inactive"
+msgstr "Ei-aktiivinen"
 
 #:
 msgid "EXPIRED"
-msgstr "Expired"
+msgstr "Päättyneet"
 
 #:
 msgid "PAID"
-msgstr "Paid"
-
-#:
-msgid "PAID"
-msgstr "Paid"
+msgstr "Maksulliset"
 
 #:
 msgid "USERS_NOT_FOUND"
-msgstr "User not found"
+msgstr "Käyttäjiä ei löytynyt"
 
 #:
 msgid "ENTER_NAME"
-msgstr "Enter name"
+msgstr "Syötä nimi"
 
 #:
 msgid "ENTER_EXPIRE_DATE"
-msgstr "Enter expire date"
+msgstr "Syötä päättymispäivä"
 
 #:
 msgid "NO_EXPIRE_DATE"
-msgstr "Not found"
+msgstr "Ei löytynyt"
+
+#:
+msgid "DUPLICATE_QUESTION"
+msgstr "Monista kysymys"
+
+#: 
+msgid "PROCESSING"
+msgstr "Ladataan..."
+
+#: 
+msgid "UPLOAD"
+msgstr "Kuva omalta koneelta"
+
+#: 
+msgid "FROM_WEB"
+msgstr "Kuva verkosta"
+
+#: 
+msgid "CHOOSE_FILE"
+msgstr "Valitse tiedosto"
+
+#: 
+msgid "DRAG_DROP"
+msgstr "Raahaa kuva tähän"

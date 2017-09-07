@@ -20,7 +20,7 @@ msgstr ""
 #: View/Elements/Invoice/invoice_success_dialog.ctp:7
 #: View/User/settings.ctp:55
 msgid "UPGRADE_ACCOUNT"
-msgstr "Beställ årslicens (29 €)"
+msgstr "Beställ årslicens"
 
 #: Controller/QuestionController.php:60
 msgid "NEW_QUESTION"
@@ -131,7 +131,7 @@ msgstr "Skapa nytt test"
 
 #: View/Quiz/index.ctp:20
 msgid "UPGRADE_CREATE_QUIZZ"
-msgstr "Beställ årslicens (29 €)"
+msgstr "Beställ årslicens"
 
 #: View/Quiz/index.ctp:39
 msgid "GIVE_TEST"
@@ -143,7 +143,7 @@ msgstr "Katso tulokset "
 
 #: View/Quiz/index.ctp:50
 msgid "REMOVE_QUIZ"
-msgstr "Ta bort test"
+msgstr "Ta bort testet"
 
 #: View/Quiz/index.ctp:54
 msgid "ARCHIVE_QUIZ"
@@ -171,7 +171,7 @@ msgstr "Grupp"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Skicka in svaren?"
+msgstr "Skicka in svaren"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
@@ -317,23 +317,23 @@ msgid "Debug setting does not allow access to this url."
 msgstr "Debug setting does not allow access to this url."
 
 #: Question type description
-msgid "Multiple choice - One correct"
+msgid "MCOC"
 msgstr "Flerval - Ett rätt svar"
 
 #: Question type description
-msgid "Short Text - Automatic rating"
+msgid "STAR"
 msgstr "Kort text - Automatisk poängsättning"
 
 #: Question type description
-msgid "Multiple choice - Many correct"
+msgid "MCMC"
 msgstr "Flerval - Många rätta svar"
 
 #: Question type description
-msgid "Short Text - Manual rating"
+msgid "STMR"
 msgstr "Kort text - Manuell poängsättning"
 
 #: Question type description
-msgid "Essay"
+msgid "ESSAY"
 msgstr "Essä"
 
 #: Adding a new multiple choice
@@ -784,7 +784,7 @@ msgstr "Skriv lösenord"
 
 #: View/Elements/Page/buy_modal.ctp:51
 #: View/User/create.ctp:43
-msgid "PASSWORD_VERIFY
+msgid "PASSWORD_VERIFY"
 msgstr "Lösenord på nytt"
 
 #: View/Elements/Page/buy_modal.ctp:59
@@ -1282,7 +1282,7 @@ msgstr "Tack för att du registrerat dig på Verkkotesti!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "Tack för att du registrerat dig på Verkkotesti! Kolla din e-post och klicka på länken i e-postmeddelandet för att aktivera ditt konto. Om du inte kan hitta meddelandet, kolla också ditt spam."
+msgstr "Kolla din e-post och klicka på länken i e-postmeddelandet för att aktivera ditt konto. Om du inte kan hitta meddelandet, kolla också ditt spam."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
@@ -1334,7 +1334,7 @@ msgstr "Testet är nu offentligt delat"
 
 #: Controller/QuizController.php:885
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have successfully shared the quiz. Please hold for admin approval."
+msgstr "Du har delat testet. Vänta på administratörens godkännande."
 
 #: View/Quiz/edit.ctp:129
 msgid "SHARE_PENDING"
@@ -1440,109 +1440,109 @@ msgstr "Alternativ %d"
 
 #: View/Pages/prices.ctp:38
 msgid "DAYS_TO_USE"
-msgstr "Days to use"
+msgstr "Användningsperiod"
 
 
 #: View/Quiz/index.ctp:210
 msgid "QUIZ_BANK"
-msgstr "Testbank"
+msgstr "Testbanken"
 
 #: View/Pages/prices.ctp:40
 msgid "LIMITED_ACCESS"
-msgstr "Limited Access"
+msgstr "Avgränsad inskrivning"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
-msgstr "Create Account And Buy 29 E/Y"
+msgstr "Skapa ett konto och köp för 29 e/år"
 
 #: Controller/PagesController.php:90
 msgid "CREATE_ACCOUNT_BUY_49"
-msgstr "Create Account And Buy 49 E/Y"
+msgstr "Skapa ett konto och köp för 49 e/år"
 
 #: 
 msgid "THANKS_REGISTRATION"
-msgstr "Thanks for your registration!"
+msgstr "Tack för registreningen!"
 
 #: 
 msgid "IMPORT_QUIZ"
-msgstr "Import Quiz"
+msgstr "Ta testen i bruk"
 
 #: View/User/success.ctp:14
 msgid "LOG_IN"
-msgstr "Log in"
+msgstr "Logga in"
 
 #: Elements/Invoice/invoice.ctp:10
 msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
-msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address."
+msgstr "Uppgradera ditt konto. Du kan använda de nya egenskaperna med det samma och fakturan skickas till din e-post inom kort."
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "BASIC"
-msgstr "Basic:"
+msgstr "Standardkonto:"
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "CREATE_AND_USE_QUIZZES_FREELY"
-msgstr "Create and use quizzes freely without limits."
+msgstr "Skapa nya tester och använd dem obegränsat."
 
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
+msgstr "Testbank: Du kan dela ut dina frågesporter och tester till andra användare av banken och spara tid genom att använda de färdiga testerna i banken."
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have successfully shared the quiz. Please hold for admin approval."
+msgstr "Din test är utdelad och väntar på administratörens koll."
 
 #: Controller/QuizController.php:104
 msgid "ANSWERS_SAVING"
-msgstr "Please hold, your answers are saving..."
+msgstr "Ett ögonblick, dina svar laddas ned..."
 
 #: View/Quiz/live.ctp:30
 msgid "SORRY_LOST_CONNECTION"
-msgstr "Sorry, you lost your internet connection."
+msgstr "Problem att ansluta till nätverk."
 
 #: Controller/PagesController.php:104
 msgid "PROVE_NOT_ROBOT"
-msgstr "Please prove you are not robot."
+msgstr "Bevisa att du inte är en robot."
 
 #: 
 msgid "QUIZ_SAVED"
-msgstr "Successfully saved."
+msgstr "Testen nedladdad."
 
 #: Controller/UsersController.php:117
 msgid "ACCOUNT_ENABLED"
-msgstr "Your account is already enabled"
+msgstr "Ditt användarkonto är redan bekräftad."
 
 #: View/Quiz/present.ctp:28
 msgid "EMPTY_QUIZ_CANT_SHOW_ADD_QUESTION"
-msgstr "An empty quiz can't be shown. Please add at least one question to the quiz."
+msgstr "En oskriven test kan inte visas. Tillägg åtminstone en fråga i testen."
 
 #: View/Quiz/no_question.ctp:2
 msgid "EMPTY_QUIZ_CANT_SHOW"
-msgstr "An empty quiz can't be shown."
+msgstr "En oskriven test kan inte visas."
 
 #: Controller/QuizController.php:237
 msgid "MINIMUM"
-msgstr "Minimum"
+msgstr "Skapa minst"
 
 #: Controller/QuizController.php:238
 msgid "CHOICES_REQUIRED"
-msgstr "choices are required!"
+msgstr "svarsmöjligheter"
 
 #: Controller/UsersController.php:326
 msgid "PASSWORD_CHANGED"
-msgstr "Your password has been successfully changed."
+msgstr "Ditt lösenord är uppdaterat."
 
 #: View/Users/reset_password.ctp:29
 msgid "ENTER_NEW_PASSWORD"
-msgstr "Enter New Password"
+msgstr "Skriv det nya lösenordet"
 
 #: View/Users/reset_password.ctp:35
 msgid "VERIFY_PASSWORD"
-msgstr "New Password Verify"
+msgstr "Skriv det nya lösenordet en gång till"
 
 #: View/Users/reset_password.ctp:45
 msgid "RESET"
-msgstr "Reset"
+msgstr "Byt lösenord"
 
 #: View/Helps/admin_titles.ctp:25
 msgid "STATUS"
@@ -1562,123 +1562,123 @@ msgstr "Url"
 
 #: Model/Help.php:validation for field url website
 msgid "REQUIRED_YOUTUBE_URL"
-msgstr "Valid Youtube url required"
+msgstr "En giltig Youtube url krävs"
 
 #: Controller/UsersController.php:269
 msgid "USERNAME_OR_PASSWORD_INCORRECT"
-msgstr "Your username or password is incorrect."
+msgstr "Användarnamnet eller lösenordet ogiltigt."
 
 #: Controller/UsersController.php:104
 msgid "NO_DIRECT_ACCESS_PAGE"
-msgstr "No direct access to this page!"
+msgstr "Man kunde inte återvända till sidan!"
 
 #: View/Quiz/index.ctp:43
 msgid "IN_DAYS"
-msgstr "days."
+msgstr "dagar."
 
 #: View/Elements/logut-warning.ctp:5
 msgid "YOU_ARE_GOING_LOGOUT"
-msgstr "You are going to be logout...?"
+msgstr "Du kommer att loggas ut automatiskt..."
 
 #: View/Quiz/index.ctp:230
 msgid "EXPLORE_QUIZ_BANK"
-msgstr "Explore Quiz Bank"
+msgstr "Bläddra i testbanken"
 
 #: View/Quiz/admin_shared.ctp:21
 msgid "APPROVED_QUIZZES"
-msgstr "Approved Quizzes"
+msgstr "De godkända testerna"
 
 #: Controller/QuizController.php:1192
 msgid "SHARED_QUIZ_LIST"
-msgstr "Shared Quiz List"
+msgstr "Listan av de utdelade testerna"
 
 #: Controller/QuizController.php:1246
 msgid "DECLINE_QUIZ"
-msgstr "Decline the quiz"
+msgstr "Avslå testen"
 
 #: Controller/QuizController.php:1249
 msgid "ENTER_DECLINE_REASON"
-msgstr "Enter decline reason if any!"
+msgstr "Uppge orsaken till avslaget"
 
 #: Controller/QuizController.php:1249
 msgid "APPROVE_QUIZ"
-msgstr "Approve the quiz"
+msgstr "Godkänn testen"
 
 #: Controller/QuizController.php:1251
 msgid "IF_APPROVE_CAN_DECLINE"
-msgstr "If you approve the quiz, you have always option to decline sharing!"
+msgstr "Om du godkänner testen, kan du avslå den också senare."
 
 #: View/Quiz/ajax_bank.ctp:4
 msgid "PUBLIC_QUIZZES"
-msgstr "Public Quizzes"
+msgstr "De utdelade testerna"
 
 #: Controller/StandardsController.php:96
 msgid "NEW_CLASS"
-msgstr "New Class"
+msgstr "Ny klassnivå"
 
 #: View/Standards/admin_insert.ctp:31
 msgid "ENTER_CLASS_NAME"
-msgstr "Please enter class name"
+msgstr "Skriv namnet på klassnivån"
 
 #: Controller/SubjectsController.php:96
 msgid "NEW_SUBJECT"
-msgstr "New Subject"
+msgstr "Nytt läroämne"
 
 #: View/Subjeects/admin_insert.ctp:31
 msgid "ENTER_SUBJECT_NAME"
-msgstr "Please enter subject name"
+msgstr "Skriv läroämnets namn"
 
 #: Controller/QuizController.php:126
 msgid "CANCEL_SHARE_QUIZ"
-msgstr "Cancel share quiz"
+msgstr "Ställ in utdelningen av testen"
 
 #: Controller/QuizController.php:127
 msgid "DO_YOU_REMOVE_SHARING"
-msgstr "Do you want to remove sharing the quiz?"
+msgstr "Vill du ställa in utdelningen av testen?"
 
 #: Controller/QuizController.php:124
 msgid "SHARE_QUIZ"
-msgstr "Share quiz"
+msgstr "Dela ut testet"
 
 #: View/Quiz/ajax_preview.ctp:17
 msgid "QUIZ_STUDENT_VIEW"
-msgstr "Quiz student view"
+msgstr "Testens elevutsikt"
 
 #: View/Quiz/index.ctp:194
 msgid "VIEW_DECLINE_REASON"
-msgstr "View decline reason"
+msgstr "Visa orsaken till avslaget"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "SHARED_QUIZ_NOT_FOUND"
-msgstr "Shared quizzes not found. Filter the list by choosing subjects and classes."
+msgstr "De utdelade testerna hittades inte. Filtrera enligt läroämnet och klassnivån."
 
 #: View/Elements/navbar.ctp:24
 msgid "ADMIN_SETTINGS"
-msgstr "Admin Settings"
+msgstr "Inställning av administratör"
 
 #: View/Elements/navbar.ctp:32
 msgid "MAINTENANCE"
-msgstr "Maintenance"
+msgstr "Service"
 
 #: Controller/StandardsController.php:113
 msgid "CLASS_SAVE_FAILED"
-msgstr "Class saved failed"
+msgstr "Nerladdningen av klassnivån olyckades"
 
 #: Model/Standard.php:validation for field name
 msgid "CLASS_ALREADY_CREATED"
-msgstr "Class already created"
+msgstr "Klassnivån finns redan"
 
 #: Controller/SubjectsController.php:113
 msgid "SUBJECT_SAVE_FAILED"
-msgstr "Subject saved failed"
+msgstr "Nerladdningen av läroämnet olyckades"
 
 #: Model/Subject.php:validation for field name
 msgid "SUBJECT_ALREADY_CREATED"
-msgstr "Subject already created"
+msgstr "Läroämnet finns redan"
 
 #: Controller/QuizController.php:1097
 msgid "YOU_HAVE_EXCEEDED_MAX_IMPORT"
-msgstr "Sorry, you have exceeded maximum limit of import quiz. Please upgrade your account to get unlimited access on quiz bank!"
+msgstr "You have exceeded maximum limit of import quiz. Please upgrade your account (49 €/y) to get unlimited access on quiz bank!"
 
 #: Controller/QuizController.php:1100
 msgid "CANT_PROCESS_REQUEST"
@@ -1686,22 +1686,18 @@ msgstr "Sorry, we can't process your request! You have left only import"
 
 #: A placeholder for an empty choice textbox
 msgid "CHOICE"
-msgstr "Choice"
+msgstr "Svar"
 
 #: View/User/settings.ctp:46
 msgid "CHANGE_PASSWORD"
-msgstr "Change Password"
+msgstr "Byt lösenord"
 
 #: Coming from db
-msgid "Image"
-msgstr "Image"
+msgid "IMAGE"
+msgstr "Bild"
 
 #: Coming from db
-msgid "Image"
-msgstr "Header"
-
-#: Coming from db
-msgid "Youtube Video"
+msgid "TUBE_VIDEO"
 msgstr "Youtube Video"
 
 #:
@@ -1714,100 +1710,120 @@ msgstr "Last Login"
 
 #:
 msgid "LOGIN_COUNT"
-msgstr "Login Count"
+msgstr "Logga in kontot"
 
 #:
 msgid "QUIZ_COUNT"
-msgstr "Quiz Count"
+msgstr "Testkonto"
 
 #:
 msgid "ACC_TYPE"
-msgstr "Account Type"
+msgstr "Kontotyp"
 
 #:
 msgid "EXP_DATE"
-msgstr "Expire Date"
+msgstr "Utgångsdatum"
 
 #:
 msgid "CHANGE_USER_STATUS"
-msgstr "Change User Status"
+msgstr "Ändra användarstatus"
 
 #:
 msgid "ACTIVATE_USER"
-msgstr "Do you really want to activate the selected user?"
+msgstr "Vill du verkligen aktivera den utvalda användaren?"
 
 #:
 msgid "DEACTIVATE_USER"
-msgstr "Do you really want to deactivate the selected user?"
+msgstr "Vill du verkligen inaktivera den utvalda användaren?"
 
 #:
 msgid "INVALID_INPUT"
-msgstr "Invalid input data"
+msgstr "Ogiltiga uppgifter"
 
 #:
 msgid "USER_UPDATE_SUCCESS"
-msgstr "User updated successfully"
+msgstr "Lyckad uppdatering av användaren"
 
 #:
 msgid "FAILED"
-msgstr "Failed!"
+msgstr "Misslyckad"
 
 #:
 msgid "TRIAL_LIMIT"
-msgstr "Trial Limit"
+msgstr "Begränsad försöksperiod"
 
 #:
 msgid "PAID_29"
-msgstr "$29 Paid"
+msgstr "29 € betalt"
 
 #:
 msgid "PAID_49"
-msgstr "$49 Paid"
+msgstr "49 € betalt"
 
 #:
 msgid "TRIAL_DAYS"
-msgstr "Trial Days"
-
-#:
-msgid "TRIAL_DAYS"
-msgstr "Trial Days"
+msgstr "Försöksperiod"
 
 #:
 msgid "ADMIN"
-msgstr "Admin"
+msgstr "Övervakaren"
 
 #:
 msgid "ACTIVE"
-msgstr "Active"
+msgstr "Aktiv"
 
 #:
 msgid "INACTIVE"
-msgstr "Inactive"
+msgstr "Oaktiv"
 
 #:
 msgid "EXPIRED"
-msgstr "Expired"
+msgstr "Avslutat"
 
 #:
 msgid "PAID"
-msgstr "Paid"
-
-#:
-msgid "PAID"
-msgstr "Paid"
+msgstr "Betald"
 
 #:
 msgid "USERS_NOT_FOUND"
-msgstr "User not found"
+msgstr "Användaren icke funnen"
 
 #:
 msgid "ENTER_NAME"
-msgstr "Enter name"
+msgstr "Tillägg namn"
 
 #:
 msgid "ENTER_EXPIRE_DATE"
-msgstr "Enter expire date"
+msgstr "Tillägg utgångsdatum"
 
 #:
 msgid "NO_EXPIRE_DATE"
-msgstr "Not found"
+msgstr "Icke funnen"
+
+#: Coming from db
+msgid "HEADER"
+msgstr "Rubrik"
+
+#:
+msgid "DUPLICATE_QUESTION"
+msgstr "Duplicera frågan"
+
+#: 
+msgid "PROCESSING"
+msgstr "Öppnas..."
+
+#: 
+msgid "UPLOAD"
+msgstr "Bild från min dator"
+
+#: 
+msgid "FROM_WEB"
+msgstr "Bild från Internet"
+
+#: 
+msgid "CHOOSE_FILE"
+msgstr "Välj din fil"
+
+#: 
+msgid "DRAG_DROP"
+msgstr "Dra din bild här"

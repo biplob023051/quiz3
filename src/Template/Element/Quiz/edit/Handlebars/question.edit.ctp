@@ -101,6 +101,7 @@
         </div>
         <button type="button" class="btn btn-success add-choice" style="margin:16px 0 5px;"><?php echo __('ADD_CHOICE') ?></button>
         <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('SAVE_QUESTION') ?></button>
+        <!-- <button type="button" class="btn btn-danger pull-right delete-question-onedit" style="margin:16px 5px 5px;"><?php echo __('DELETE_QUESTION') ?></button> -->
         <?= $this->Form->end(); ?>
     </td>
 </tr>

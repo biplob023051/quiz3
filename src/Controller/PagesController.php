@@ -63,11 +63,12 @@ class PagesController extends AppController
         }
 
         if ($this->request->params['pass'][0] == 'contact') {
+            $site_language = Configure::read('Config.language');
             $lang_strings['empty_email'] = __('REQUIRE_EMAIL');
             $lang_strings['invalid_email'] = __('INVALID_EMAIL');
             $lang_strings['empty_message'] = __('REQUIRE_MESSAGE');
             $lang_strings['empty_captcha'] = __('PROVE_NOT_ROBOT');
-            $this->set(compact('lang_strings'));
+            $this->set(compact('lang_strings', 'site_language'));
         }
 
         if (($this->request->params['pass'][0] == '1bgfg9sq') || ($this->request->params['pass'][0] == '4bgfg9sq') || ($this->request->params['pass'][0] == '5bgfg9sq') || ($this->request->params['pass'][0] == '9bgfg9sq') || ($this->request->params['pass'][0] == 'prices')) {

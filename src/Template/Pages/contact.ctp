@@ -1,4 +1,4 @@
-<script src='https://www.google.com/recaptcha/api.js?hl=fi'></script>
+<script src='https://www.google.com/recaptcha/api.js?hl=<?php echo $site_language; ?>'></script>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
 <h2><?php echo __('CONTACT'); ?></h2>
@@ -6,7 +6,6 @@
 <?= $this->Flash->render() ?>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h3><?php echo __('Get in Touch'); ?></h3>
         <?php 
         echo $this->Form->create('', [
             'horizontal' => true,

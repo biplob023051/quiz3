@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="ajax-loader col-xs-12 col-md-12" style="color: red; font-weight: bold"><?php echo __('Processing...'); ?></div>
+        <div class="ajax-loader col-xs-12 col-md-12" style="color: red; font-weight: bold"><?= __('PROCESSING'); ?></div>
         <table class="table table-condensed" id="questions">
             <tbody>
                 <?php

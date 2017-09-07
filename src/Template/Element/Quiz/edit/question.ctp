@@ -65,7 +65,7 @@ echo json_encode(array(
                 <button type="button" class="btn btn-danger btn-sm delete-question" id="delete-q<?php echo $id ?>" title="<?php echo __('REMOVE_QUESTION'); ?>">
                     <i class="glyphicon trash"></i>
                 </button>
-                <button type="button" class="btn btn-success btn-sm duplicate-question" id="duplicate-q<?php echo $id ?>" title="<?php echo __('Duplicate question'); ?>">
+                <button type="button" class="btn btn-success btn-sm duplicate-question" id="duplicate-q<?php echo $id ?>" title="<?php echo __('DUPLICATE_QUESTION'); ?>">
                     <i class="glyphicon duplicate"></i>
                 </button>
             </div>

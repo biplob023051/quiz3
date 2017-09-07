@@ -22,12 +22,8 @@
 <div class="row" id="upload-panel" style="display: none;">
     <div class="col-xs-12 col-md-6">
         <div class="well well-sm">
-            <div class="row">
-                <div class="col-xs-12 col-md-12">
-                    <div id="fileuploader"><?= __('BROWSE_PHOTO'); ?></div>
-                    <?= $this->Form->input('data.Choice.{{id}}.temp', ['type' => 'hidden', 'id' => 'temp_photo']); ?>
-                </div>
-            </div>
+            <div id="fileuploader"><?= __('CHOOSE_FILE_1'); ?></div>
+            <?= $this->Form->input('data.Choice.{{id}}.temp', ['type' => 'hidden', 'id' => 'temp_photo']); ?>
         </div>
     </div>
 </div>

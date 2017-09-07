@@ -357,4 +357,45 @@ echo json_encode(array(
     font-weight: normal !important;
 }
 
+.ajax-file-upload, .ajax-file-upload:hover {
+    font-weight: normal;
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+    border: none;
+    -moz-box-shadow: 0 0px 0 0 #398439;
+    -webkit-box-shadow: 0 2px 0 0 #398439;
+     box-shadow: 0 2px 0 0 #398439; 
+    line-height: 16px;
+}
+
+.ajax-file-upload .upload-text {
+    vertical-align: top;  
+}
+
+.ajax-upload-dragdrop {
+    padding: 40px 0 40px 0px;
+    width: 100% !important;
+    text-align: center;
+}
+
+.ajax-file-upload-container {
+    margin: 0px;
+}
+
+.ajax-file-upload-statusbar {
+    width: 100% !important;
+    text-align: center;
+    margin: 5px 0px;
+}
+
+.ajax-file-upload-filename, .ajax-file-upload-abort {
+    display: none !important;
+}
+
+#file-delete-button {
+    position: absolute;
+    right: 26px;
+    margin-top: -5px;
+}
 </style>

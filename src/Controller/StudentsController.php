@@ -4,6 +4,7 @@ use Cake\Utility\Hash;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\I18n\I18n;
 
 /**
  * Students Controller
@@ -340,7 +341,7 @@ class StudentsController extends AppController
     }
 
     public function submit($quizRandomId) {
-        
+
         // remove unwanted space and make uppercase for student class
         $this->request->data['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
         $quiz = $this->Students->Quizzes->findByRandomId($quizRandomId, ['contain' => []])->select(['id', 'show_result'])->first();
@@ -360,19 +361,17 @@ class StudentsController extends AppController
         $this->Session->delete($runningFor);
         $this->Session->delete('started');
         $this->Session->delete('student_id');
-
         // save std id
         if (!empty($quiz->show_result)) {
-            $this->Session->write('show_result', true);
             return $this->redirect(array('action' => 'success', $student_id));
         } else {
-            $this->Session->destroy();
             return $this->redirect(array('action' => 'success'));
         }
     }
     
     public function success($std_id = null) {
-        if ($this->Session->check('show_result')) { // show result true
+        I18n::locale($this->Session->read('user_language'));
+        if ($std_id) { // show result true
             $student_result = $this->Students->find('all')
             ->where(['id' => $std_id])
             ->contain(['Answers', 'Rankings'])
@@ -386,11 +385,9 @@ class StudentsController extends AppController
                 }
             ])
             ->first();
-
             $this->set(compact('student_result', 'quiz'));
-            $this->Session->delete('show_result');
-            $this->Session->destroy();
         }
+        $this->Session->destroy();
     }
 
     public function deleteStudent() {

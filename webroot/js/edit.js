@@ -1,4 +1,5 @@
 var debugVar;
+var uploadObj;
 (function ($) {
     $(document).on('click', '#upload', function(){
         $(this).addClass('active');
@@ -6,19 +7,31 @@ var debugVar;
         $('#web-panel').hide();
         $('#upload-panel').show();
 
-        $("#fileuploader").html('').uploadFile({
+        uploadObj = $("#fileuploader").html('').uploadFile({
             url:projectBaseUrl + 'upload/photo',
             fileName:"myfile",
             acceptFiles:"image/*",
             showPreview:true,
             multiple:false,
-            previewHeight: "100px",
-            previewWidth: "100px",
+            previewHeight: "150px",
+            previewWidth: "150px",
+            showProgress:true,
+            dragDropStr: "<span class='upload-drag-drop'>"+ lang_strings['drag_drop'] +"</span>",
+            uploadStr: lang_strings['upload'],
+            onSelect:function(files)
+            {
+                $('#fileuploader').hide();
+                $('#upload').hide();
+                $('#from-web').hide();
+                return true; //to allow file submission.
+            },
             onSuccess:function(files,data,xhr,pd)
             {
                 var data = $.parseJSON(data);
                 if (data.success) {
-                    //$('#temp_photo').val(data.filename);
+                    $('.ajax-file-upload-progress').hide();
+                    // $('.ajax-file-upload-container').show();
+                    $('.ajax-file-upload-statusbar').prepend('<button data-img="'+ data.filename +'" type="button" class="btn btn-default" id="file-delete-button" title="Delete image"><i class="glyphicon close"></i></button>');
                     $('#web-panel').find('input').val(projectBaseUrl + 'uploads/questions/' + data.filename);
                 } else {
                     window.location.reload();
@@ -26,8 +39,26 @@ var debugVar;
                 //$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Success for: "+JSON.stringify(data));
                 
             },
+            onError: function(files,status,errMsg,pd)
+            {
+                $('#fileuploader').show();
+                $('#upload').show();
+                $('#from-web').show();
+            }
         });
+    });
 
+    $(document).on('click', '#file-delete-button', function(e) {
+        e.preventDefault();
+        var image = $(this).attr('data-img');
+        $('#fileuploader').show();
+        $('#upload').show();
+        $('#from-web').show();
+        // $('.ajax-file-upload-container').hide();
+        $('#web-panel').find('input').val('');
+        $('.ajax-file-upload-statusbar').remove();
+        $.post(projectBaseUrl + 'upload/delete_photo', {image:image}, function( data ) {});
+        uploadObj.reset();
     });
 
     $(document).on('click', '#from-web', function(){
@@ -294,6 +325,15 @@ var debugVar;
                 $(this)
                 );
     });
+
+    
+    // $(document).on('click', '#questions button.delete-question-onedit', function (e) {
+    //     e.preventDefault();
+    //     var question_id = webQuiz.currentEditQid;
+    //     if (question_id == -1) { // New question delete
+
+    //     }
+    // });
 
     $(document).on('click', '#questions button.edit-done', function (e) {
         e.preventDefault();

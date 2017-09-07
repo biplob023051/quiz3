@@ -317,23 +317,23 @@ msgid "Debug setting does not allow access to this url."
 msgstr "Debug setting does not allow access to this url."
 
 #: Question type description
-msgid "Multiple choice - One correct"
+msgid "MCOC"
 msgstr "Multiple choice - One correct"
 
 #: Question type description
-msgid "Short Text - Automatic rating"
+msgid "STAR"
 msgstr "Short Text - Automatic rating"
 
 #: Question type description
-msgid "Multiple choice - Many correct"
+msgid "MCMC"
 msgstr "Multiple choice - Many correct"
 
 #: Question type description
-msgid "Short Text - Manual rating"
+msgid "STMR"
 msgstr "Short Text - Manual rating"
 
 #: Question type description
-msgid "Essay"
+msgid "ESSAY"
 msgstr "Essay"
 
 #: Adding a new multiple choice
@@ -1318,7 +1318,7 @@ msgstr "Thank you for creating a user account!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "We've sent a confirmation email to your given email address. Check your email and click the link in it to activate your account."
+msgstr "We've sent a confirmation email to your given email address. Check your email and click the link to activate your account. If you can't find the email, please check your spam folder."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
@@ -1693,15 +1693,15 @@ msgid "CHANGE_PASSWORD"
 msgstr "Change Password"
 
 #: Coming from db
-msgid "Image"
+msgid "IMAGE"
 msgstr "Image"
 
 #: Coming from db
-msgid "Image"
+msgid "HEADER"
 msgstr "Header"
 
 #: Coming from db
-msgid "Youtube Video"
+msgid "TUBE_VIDEO"
 msgstr "Youtube Video"
 
 #:
@@ -1811,3 +1811,27 @@ msgstr "Enter expire date"
 #:
 msgid "NO_EXPIRE_DATE"
 msgstr "Not found"
+
+#: 
+msgid "DUPLICATE_QUESTION"
+msgstr "Duplicate question"
+
+#: 
+msgid "PROCESSING"
+msgstr "Processing..."
+
+#: 
+msgid "UPLOAD"
+msgstr "Upload image"
+
+#: 
+msgid "FROM_WEB"
+msgstr "Online image"
+
+#: 
+msgid "CHOOSE_FILE"
+msgstr "Choose file"
+
+#: 
+msgid "DRAG_DROP"
+msgstr "Drag image file here"

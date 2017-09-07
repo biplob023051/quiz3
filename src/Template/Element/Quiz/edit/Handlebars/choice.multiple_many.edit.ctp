@@ -11,7 +11,7 @@
                             <input type="checkbox"  disabled  />
                         </label>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.text', array(
                             'default' => '{{text}}',
@@ -23,7 +23,7 @@
                         ));
                         ?>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
@@ -46,7 +46,7 @@
                         'value' => '{{weight}}'
                     ));
                     ?>
-                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('REMOVE_CHOICE'))); ?>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                             <input type="checkbox"  disabled  />
                         </label>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.text', array(
                             'default' => '{{text}}',
@@ -78,7 +78,7 @@
                         ));
                         ?>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                         <?php
                         echo $this->Form->input('data.Choice.{{id}}.points', array(
                             'class' => 'form-control c-points',
@@ -101,7 +101,7 @@
                         'value' => '{{weight}}'
                     ));
                     ?>
-                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         <?php echo $this->Form->button('<i class="glyphicon close"></i>', array('type' => 'button', 'choice' => '{{id}}', 'class' => 'remove-choice', 'title' => __('REMOVE_CHOICE'))); ?>
                     </div>
                 </div>

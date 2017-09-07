@@ -66,11 +66,11 @@ class QuizHelper extends Helper {
 			case 'fi':
 				$lang_str = 'Suomi';
 				break;
-			case 'eng':
+			case 'en_GB':
 				$lang_str = 'English';
 				break;
 			case 'sv_FI':
-				$lang_str = 'Svenska (FI)';
+				$lang_str = 'Svenska';
 				break;
 			default:
 				$lang_str = 'Suomi';

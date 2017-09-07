@@ -36,7 +36,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         $languages = array(
             'en_GB' => 'English',
             'fin' => 'Suomi',
-            'sv_FI' => 'Svenska (FI)'
+            'sv_FI' => 'Svenska'
         );
         echo $this->Form->input('language', [
             'label' => ['text' => __('LANGUAGE')],

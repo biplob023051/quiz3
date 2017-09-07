@@ -235,6 +235,8 @@ class QuizzesController extends AppController
         $lang_strings['empty_header'] = __('ENTER_HEADER_TEXT');
         $lang_strings['no_choice_1'] = __('MINIMUM');
         $lang_strings['no_choice_2'] = __('CHOICES_REQUIRED');
+        $lang_strings['drag_drop'] = __('DRAG_DROP');
+        $lang_strings['upload'] = __('CHOOSE_FILE');
 
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
@@ -489,6 +491,9 @@ class QuizzesController extends AppController
             $this->set('name', $data->name);
             $this->render('no_question');
         } else {
+            $this->Session->write('user_language', $data->user->language);
+            // pr($this->Session->read('user_language'));
+            // exit;
             I18n::locale($data->user->language);
             // check user access level
             if ((($data->user->account_level == 0) || 
