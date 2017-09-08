@@ -222,9 +222,14 @@ var uploadObj;
             );
         }
     });
+
+    $(document).on('click', '.cancel-add', function(e) {
+        $('#q-1').hide();
+    });
     
     $(document).on('click', "#add-question", function (e) {
         if(!$('#q-1').is(':visible')) {
+            $('#q-1 .cancel-add').show();
             $('#q-1').show();
             return;
         }
@@ -265,8 +270,8 @@ var uploadObj;
                 }
             }
             var response = webQuiz.setToPreview(webQuiz.lastEditQid, $("#q" + webQuiz.lastEditQid), 'test', 'questions/save/', question_number);    
+            $('.cancel-add').show();
         }
-
         
     });
 
