@@ -398,4 +398,10 @@ echo json_encode(array(
     right: 26px;
     margin-top: -5px;
 }
+
+#file-delete-existing {
+    position: absolute;
+    right: 26px;
+    margin-top: -5px;
+}
 </style>

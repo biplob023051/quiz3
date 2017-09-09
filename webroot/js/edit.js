@@ -61,6 +61,17 @@ var uploadObj;
         uploadObj.reset();
     });
 
+    $(document).on('click', '#file-delete-existing', function(e) {
+        e.preventDefault();
+        var image = $(this).attr('data-img');
+        $('#upload').show();
+        $('#from-web').show();
+        $('#web-panel').find('input').val('');
+        $('#preview-panel').remove();
+        $('#upload').trigger('click');
+        //$.post(projectBaseUrl + 'upload/delete_photo', {image:image}, function( data ) {});
+    });
+
     $(document).on('click', '#from-web', function(){
         $(this).addClass('active');
         $('#upload').removeClass('active');
@@ -126,6 +137,7 @@ var uploadObj;
     });
 
     $(document).on('click', '#questions tr td div.preview-btn button.edit-question', function () {
+        $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
         var blank_question = false;
         if ($('#QuestionText').val() == '') {
             blank_question = true;
@@ -167,6 +179,12 @@ var uploadObj;
                                     $('#QuestionExplanation').closest('.row').hide();
                                 } else {
                                     $('#QuestionExplanation').closest('.row').show();
+                                }
+                                if (question.value.QuestionType.id == 8) { 
+                                    $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
+                                    $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    $('#from-web').hide();
+                                    $('#upload').hide();
                                 }
                                 // Set the editing question type
                                 editing_q_type = question.value.QuestionType.id;
@@ -212,6 +230,11 @@ var uploadObj;
                                 } else {
                                     $('#QuestionExplanation').closest('.row').show();
                                 }
+                                
+                                if (question.value.QuestionType.id == 8) { 
+                                    $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
+                                    $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                }
                             }
                     );
                     $("#q" + questionId).show();
@@ -224,7 +247,9 @@ var uploadObj;
     });
 
     $(document).on('click', '.cancel-add', function(e) {
-        $('#q-1').hide();
+        $('#q-1').remove();
+        webQuiz.addNewQuestion();
+        $('#questions button.add-choice').trigger('click');
     });
     
     $(document).on('click', "#add-question", function (e) {
@@ -330,15 +355,6 @@ var uploadObj;
                 $(this)
                 );
     });
-
-    
-    // $(document).on('click', '#questions button.delete-question-onedit', function (e) {
-    //     e.preventDefault();
-    //     var question_id = webQuiz.currentEditQid;
-    //     if (question_id == -1) { // New question delete
-
-    //     }
-    // });
 
     $(document).on('click', '#questions button.edit-done', function (e) {
         e.preventDefault();

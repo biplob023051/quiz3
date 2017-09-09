@@ -339,4 +339,12 @@ class AppController extends Controller
         $resized_image->destroy();
         unlink($original_image);
     }
+
+    // Method for image upload
+    public function processImageLocal($image, $folder) {
+        $original_image = WWW_ROOT . 'uploads/tmp/' . $image;
+        if (copy($original_image, WWW_ROOT . 'uploads/'. $folder .'/' . $image)) {
+            unlink($original_image);
+        }
+    }
 }

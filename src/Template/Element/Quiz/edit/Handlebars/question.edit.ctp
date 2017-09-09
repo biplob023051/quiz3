@@ -101,9 +101,7 @@
         </div>
         <button type="button" class="btn btn-success add-choice" style="margin:16px 0 5px;"><?php echo __('ADD_CHOICE') ?></button>
         <button type="button" class="btn btn-primary pull-right edit-done" style="margin:16px 0 5px;"><?php echo __('SAVE_QUESTION') ?></button>
-        {{#if id}}
-            <button type="button" class="btn btn-danger pull-right cancel-add" style="display: none; margin:16px 5px 5px;"><?php echo __('CANCEL') ?></button>
-        {{/if}}
+        <button type="button" class="btn btn-danger pull-right cancel-add" style="display: none; margin:16px 5px 5px;"><?php echo __('CANCEL') ?></button>
         <?= $this->Form->end(); ?>
     </td>
 </tr>
