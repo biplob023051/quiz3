@@ -136,49 +136,49 @@ class QuizzesTable extends Table
                 case 'today':
                     if (isset($filter['class']) and $filter['class'] !== 'all') {
                         $studentOptions = array(
-                            "DAY(Students.submitted) = DAY(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 DAY)",
                             "Students.class" => $filter['class']
                         );
 
                     } else {
                         $studentOptions = array(
-                            "DAY(Students.submitted) = DAY(CURDATE())"
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 DAY)",
                         );       
                     }
                     break;
                 case 'this_week':
                     if (isset($filter['class']) and $filter['class'] !== 'all') {
                         $studentOptions = array(
-                            "WEEK(Students.submitted) = WEEK(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 WEEK)",
                             "Students.class" => $filter['class']
                         );
                     } else {
                         $studentOptions = array(
-                            "WEEK(Students.submitted) = WEEK(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 WEEK)",
                         );
                     }
                     break;
                 case 'this_month':
                     if (isset($filter['class']) and $filter['class'] !== 'all') {
                         $studentOptions = array(
-                            "MONTH(Students.submitted) = MONTH(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 MONTH)",
                             "Students.class" => $filter['class']
                         );
                     } else {
                         $studentOptions = array(
-                            "MONTH(Students.submitted) = MONTH(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 MONTH)",
                         );
                     }
                     break;
                 case 'this_year':
                     if (isset($filter['class']) and $filter['class'] !== 'all') {
                         $studentOptions = array(
-                            "YEAR(Students.submitted) = YEAR(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 YEAR)",
                             "Students.class" => $filter['class']
                         );
                     } else {
                         $studentOptions = array(
-                            "YEAR(Students.submitted) = YEAR(CURDATE())",
+                            "date(Students.submitted) > DATE_SUB(NOW(), INTERVAL 1 YEAR)",
                         );
                     }
                     break;

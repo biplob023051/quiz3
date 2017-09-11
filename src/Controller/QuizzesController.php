@@ -17,7 +17,7 @@ use Cake\I18n\I18n;
 class QuizzesController extends AppController
 {
     public $paginate = [
-        'limit' => 3
+        'limit' => 25
     ];
 
     public function initialize()
