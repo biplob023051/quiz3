@@ -168,7 +168,7 @@ class QuizzesController extends AppController
         // pr($data);
         // exit;
 
-        if (empty($data->questios)) {
+        if (empty($data->questions)) {
             $this->set('no_question', true);
         }
 
@@ -210,8 +210,11 @@ class QuizzesController extends AppController
 
         if (!empty($data->user->subjects)) {
             $selectedSubjects = json_decode($data->user->subjects, true);
-            $subject_cond[] = array('Subjects.id' => $selectedSubjects);
+            $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }
+
+        // pr($subject_cond);
+        // exit;
 
         $subjectOptions = $this->Subjects->find('list')->where($subject_cond)->toArray();
         // pr($subjectOptions);

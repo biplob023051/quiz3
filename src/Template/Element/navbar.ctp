@@ -15,7 +15,7 @@
                     <li <?php if ($c_controller == 'quizzes' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('MY_QUIZZES'), '/'); ?></li>
                 <?php endif; ?>
                 <?php if (!empty($authUser['quiz_bank_access'])) : ?>
-                    <li <?php if ($c_controller == 'quizzes' && $c_action == 'bank') : ?>class="active"<?php endif; ?>><?= $this->Html->link(__('QUIZ_BANK'), ['controller' => 'quizzes', 'action' => 'bank'], ['escape' => false]); ?></li>
+                    <li <?php if ($c_controller == 'quizzes' && $c_action == 'bank') : ?>class="active"<?php endif; ?>><?= $this->Html->link(__('QUIZ_BANK'), ['controller' => 'quizzes', 'action' => 'bank', 'prefix' => false], ['escape' => false]); ?></li>
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">

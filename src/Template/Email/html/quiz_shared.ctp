@@ -7,7 +7,7 @@
 <p><?php echo __('NAME') . ': ' . $data->user->name; ?></p>
 <p><?php echo __('EMAIL') . ': ' . $data->user->email; ?></p>
 <p><?php echo __('To view, approve or decline sharing, please clik the quiz name or copy paste the bellow link'); ?></p>
-<a href="<?php echo Router::url('/', true) . 'admin/quizzes/preview/' . $data['Quiz']['id']; ?>"><?php echo $data->name; ?></a>
+<a href="<?php echo Router::url('/', true) . 'admin/quizzes/preview/' . $data->id; ?>"><?php echo $data->name; ?></a>
 <br/>
 
 <?php echo Router::url('/', true) . 'admin/quizzes/preview/' . $data->id; ?>
