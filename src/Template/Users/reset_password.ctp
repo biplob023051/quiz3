@@ -27,13 +27,18 @@ echo $this->Flash->render();
 
             echo $this->Form->input('id');
             echo $this->Form->input('password', array(
+                'label' => array('text' => __('PASSWORD')),
                 'placeholder' => __('ENTER_NEW_PASSWORD'),
                 'type' => 'password',
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'bottom',
                 'data-original-title' => __('PASSWORD_MUST_BE_LONGER')
             ));
-            echo $this->Form->input('passwordVerify', array('placeholder' => __('VERIFY_PASSWORD'),'type'=>'password'));
+            echo $this->Form->input('passwordVerify', array(
+                'label' => array('text' => __('PASSWORD_VERIFY')),
+                'placeholder' => __('VERIFY_PASSWORD'),
+                'type'=>'password'
+            ));
 
             // echo $this->Form->end(array(
             //     'label' => __("Reset"),

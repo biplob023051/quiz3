@@ -67,19 +67,15 @@ class StudentsController extends AppController
         $response = array('success' => true);
         // pr($this->request->data);
         // exit;
-        if (empty($this->request->data['student_id']) && !$this->Session->check('student_id')) { // check student record
+        if (!$this->Session->check('student_id')) { // check student record
             // student record new entry
-            $this->request->data['fname'] = '';
-            $this->request->data['lname'] = '';
-            $this->request->data['class'] = '';
-            $response = $this->recordStudentData($this->request->data);
-            $this->request->data['student_id'] = $response['student_id'];
+            $response = $this->recordStudentData();
+            $student_id = $response['student_id'];
+        } else {
+            $student_id = $this->Session->read('student_id');
         } 
 
-        $student = $this->Students->findById($this->request->data['student_id'])->contain(['Rankings', 'Answers'])->first();
-
-        // pr($student);
-        // exit;
+        $student = $this->Students->findById($student_id)->contain(['Rankings', 'Answers'])->first();
 
         $checkbox_record_delete = $this->request->data['checkbox_record_delete'];
         $checkBox = $this->request->data['checkBox'];
@@ -206,7 +202,7 @@ class StudentsController extends AppController
                 $data['id'] = '';
             }
             $data['question_id'] = (int) $this->request->data['question_id'];
-            $data['student_id'] = (int) $this->request->data['student_id'];
+            $data['student_id'] = (int) $student_id;
             if (empty($data['id'])) {
                 $answer = $this->Students->Answers->newEntity();
                 $answer = $this->Students->Answers->patchEntity($answer, $data);
@@ -227,7 +223,7 @@ class StudentsController extends AppController
 
     public function updateStudent() {
         $this->autoRender = false;
-        $response = $this->recordStudentData($this->request->data);
+        $response = $this->recordStudentData();
         echo json_encode($response);
         exit;
     }
@@ -235,9 +231,9 @@ class StudentsController extends AppController
     // student information updating
     private function recordStudentData() {
         $response = array('success' => false);
-        if (!empty($this->request->data['student_id']) || $this->Session->check('student_id')) {
+        if ($this->Session->check('student_id')) {
             // Update student information
-            $student_id = !empty($this->request->data['student_id']) ? $this->request->data['student_id'] : (int) $this->Session->read('student_id');
+            $student_id = (int) $this->Session->read('student_id');
             $student = $this->Students->get($student_id, ['contain' => []]);
 
             // pr($student);

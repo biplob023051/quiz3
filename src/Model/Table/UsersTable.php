@@ -58,9 +58,20 @@ class UsersTable extends Table
             'className' => 'Statistics',
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('UserStatistics', [
+        $this->hasOne('UserStatistic', [
             'className' => 'Statistics',
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'strategy' => 'select',
+            // 'conditions' => function (\Cake\Database\Expression\QueryExpression $exp, \Cake\ORM\Query $query) {
+            //     $query->where(['UserStatistic.type' => 'user_login'])->order(['UserStatistic.id' => 'ASC']);
+            //     return [];
+            // },
+            'conditions' => [
+                'UserStatistic.type' => 'user_login'
+            ],
+            'fields' => [
+                'UserStatistic.created'
+            ]
         ]);
     }
 

@@ -4,15 +4,16 @@
         e.preventDefault();
         alert(lang_strings['right_click_disabled']);
     });
-	if (!student_id || student_id == '') {
-		$(".ajax-loader").show();
-		//$( "#StudentLiveForm" ).prop( "disabled", true );
-		$("#StudentLiveForm :input").attr("disabled", true);
-		var fname = $('#fname').val();
-		var lname = $('#lname').val();
-		var std_class = $('#class').val();
-		setTimeout(saveStudentRecord,1000);
-	}
+ 
+	// if (!student_id || student_id == '') {
+	// 	$(".ajax-loader").show();
+	// 	//$( "#StudentLiveForm" ).prop( "disabled", true );
+	// 	$("#StudentLiveForm :input").attr("disabled", true);
+	// 	var fname = $('#fname').val();
+	// 	var lname = $('#lname').val();
+	// 	var std_class = $('#class').val();
+	// 	setTimeout(saveStudentRecord,1000);
+	// }
 	var interval;
 	var answered = {};
  	var std_updated = false;
@@ -43,7 +44,7 @@
             dataType: 'json',
             url: projectBaseUrl + 'students/update_answer',
             type: 'post',
-            data: {'student_id' : student_id, 'question_id': question.question_id, 'text' : question.answer_text, 'checkbox_record' : question.checkbox_record, 'checkBoxDelete' : question.checkBoxDelete, 'checkbox_record_delete' : question.checkbox_record_delete, 'checkBox' : question.checkBox, 'random_id' : question.random_id, 'case_sensitive' : question.case_sensitive},
+            data: {'question_id': question.question_id, 'text' : question.answer_text, 'checkbox_record' : question.checkbox_record, 'checkBoxDelete' : question.checkBoxDelete, 'checkbox_record_delete' : question.checkbox_record_delete, 'checkBox' : question.checkBox, 'random_id' : question.random_id, 'case_sensitive' : question.case_sensitive},
             success: function (response)
             {
 				if (response.success) {
@@ -149,7 +150,7 @@
 	            dataType: 'json',
 	            url: projectBaseUrl + 'students/update_student',
 	            type: 'post',
-	            data: {'student_id' : student_id, 'fname': fname, 'lname' : lname, 'class' : std_class, 'random_id' : random_id},
+	            data: {'fname': fname, 'lname' : lname, 'class' : std_class, 'random_id' : random_id},
 	            success: function (response)
 	            {
 	            	if (response.success) {
@@ -216,7 +217,6 @@
 			checkBox = 1;
 		}
     	$('#quest-' + question_id).removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning');
-		//$('#studentId').attr('value', response.student_id);
 		answered[glob_index] = {
 			'question_id' : question_id,
 			'case_sensitive' : element.closest('tr').prev().attr('data-case'),

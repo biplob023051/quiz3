@@ -1,12 +1,15 @@
-<!-- 
+<script type="text/javascript">
+    var lang_strings = <?php echo json_encode($lang_strings) ?>;
+</script>
+<!-- $this->Html->script(array('invoice'), array(
+    'inline' => false
+)); -->
+<?= 
 $this->Html->script(array('payment'), array(
     'inline' => false
 ));
--->
+?>
 <?=
-$this->Html->script(array('invoice'), array(
-    'inline' => false
-));
 $this->assign('title', __('MY_QUIZZES'));
 ?>
 
@@ -69,7 +72,7 @@ $this->assign('title', __('MY_QUIZZES'));
             }
         }
     } else {
-        if (($userPermissions['days_left'] < '31') && ($authUser['account_level'] == 1)) { // if expire date soon for previous paid users
+        if (($userPermissions['days_left'] < '31') && in_array($authUser['account_level'], [1,2])) { // if expire date soon for previous paid users
             echo '<div class="col-xa-12 col-md-4">';
             echo '<div class="form-group text-right">';
             echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
@@ -236,18 +239,14 @@ $this->assign('title', __('MY_QUIZZES'));
     </div>
 <?php endif; ?>
 
-<?php echo $this->element('Invoice/invoice'); ?>
+<?php //echo $this->element('Invoice/invoice'); ?>
 <?php echo $this->element('Invoice/invoice_success_dialog'); ?>
 <?php echo $this->element('Invoice/invoice_error_dialog'); ?>
 <?php echo $this->element('Invoice/delete_confirm'); ?>
 <?php echo $this->element('Invoice/demo_dialog'); ?>
-<?php //echo $this->element('Invoice/payment'); ?>
+<?php echo $this->element('Invoice/payment'); ?>
 <div class="modal fade" id="public-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
-
-<script type="text/javascript">
-    var lang_strings = <?php echo json_encode($lang_strings) ?>;
-</script>
 
 <style type="text/css">
     @media (min-width: 992px) {

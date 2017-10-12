@@ -9,6 +9,7 @@ use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Routing\Router;
+use Stripe\Stripe;
 
 /**
  * Users Controller
@@ -79,7 +80,7 @@ class UsersController extends AppController
                 if (!empty($user->id)) {
                     // Send email to user for email confirmation
                     $user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
-                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', '', true);
+                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
                     $this->request->session()->write('registration', true);
                     $this->redirect(array('action' => 'success'));
                 } else {
@@ -227,6 +228,9 @@ class UsersController extends AppController
             if (!empty($this->request->data['email'])) {
                 unset($this->request->data['email']);
             }
+            if (!empty($this->request->data['account_level'])) {
+                unset($this->request->data['account_level']);
+            }
             $user = $this->Users->patchEntity($user, $this->request->data);
             if (empty($this->request->data['password'])) {
                 unset($user->password);
@@ -259,7 +263,20 @@ class UsersController extends AppController
             'Subjects.type IS NULL'
         ])
         ->toArray();
+        
         $lang_strings['request_sent'] = __('UPGRADE_PENDING');
+        $lang_strings['drag_drop'] = __('DRAG_DROP');
+        $lang_strings['upload'] = __('CHOOSE_FILE');
+        $lang_strings['validating'] = __('VALIDATING');
+        $lang_strings['retry'] = __('RETRY');
+        $lang_strings['processing'] = __('PROCESSING');
+        $lang_strings['pay_success'] = __('PAY_SUCCESS');
+        $lang_strings['pay_failed'] = __('PAY_FAILED');
+        $lang_strings['try_refresh'] = __('TRY_REFRESH');
+        $lang_strings['confirm'] = __('CONFIRM_CANCEL');
+        $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
+        $lang_strings['upgrade'] = __('UPGRADE_PLAN');
+        $lang_strings['current_plan'] = __('CURRENT_PLAN');
         $this->set(compact('user', 'subjects', 'lang_strings'));
     }
 
@@ -439,4 +456,124 @@ class UsersController extends AppController
         }
         echo json_encode($response);
     }
+
+    public function payment() {
+        $this->autoRender = false;
+        $output = ['success' => false];
+        if ($this->request->data['amount'] == 49) {
+            $plan = 'bank-yearly';
+            $account_level = 2;
+        } else {
+            $plan = 'basic-yearly';
+            $account_level = 1;
+        }
+        $plan = ($this->request->data['amount'] == 49) ? 'bank-yearly' : 'basic-yearly';
+        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        $customer_id = $this->Auth->user('customer_id');
+        if (!$customer_id) {
+            $customer = \Stripe\Customer::create(array(
+                "card" => $this->request->data['token'],
+                "email" => $this->Auth->user('email'),
+                "metadata" => ['name' => $this->Auth->user('name')],
+            ));
+            
+            \Stripe\Subscription::create(array(
+              "customer" => $customer->id,
+              "items" => array(
+                array(
+                  "plan" => $plan
+                ),
+              ),
+            ));
+            $expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+            $this->Users->updateAll(
+                [
+                    'account_level' => $account_level,
+                    'expired' => $expired,
+                    'customer_id' => $customer->id,
+                    'plan_switched' => NULL,
+                ], 
+                ['id' => $this->Auth->user('id')]
+            );
+            $user = $this->Auth->user();
+            $user['account_level'] = $account_level;
+            $user['expired'] = $expired;
+            $user['customer_id'] = $customer->id;
+            $user['plan_switched'] = '';
+            $this->Auth->setUser($user);
+            $output['success'] = true;
+            $output['message'] = __('THANKS_FOR_PURCHASING');
+        } else {
+            $output['message'] = __('INVALID_TRY');
+        } 
+        echo json_encode($output);
+    }
+
+    public function changePlan() {
+        $this->autoRender = false;
+        $output['success'] = false;
+        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        $customer_id = $this->Auth->user('customer_id');
+        $customer = \Stripe\Customer::retrieve($customer_id);
+        $customer_plan = $customer->subscriptions->data[0]->plan['id'];
+        $subscription_id = $customer->subscriptions->data[0]->id;
+        $subscription = \Stripe\Subscription::retrieve($subscription_id);
+        $user = $this->Auth->user();
+        if ($this->request->data['utype'] == 'Cancel') {
+            $subscription->cancel(array('at_period_end' => true));
+            $output['success'] = true;
+            $output['message'] = __('SUBSCRIPTION_CANCELLED_SUCCESS');
+            $account_level = 22;
+            $plan_switched = 3;
+        } else {
+            $account_level = $this->Auth->user('account_level');
+            $plan = ($account_level == 1) ? 'bank-yearly' : 'basic-yearly';
+            // Plan upgrade or downgraded
+            if ($customer_plan != $plan) {
+                $itemID = $subscription->items->data[0]->id;
+
+                \Stripe\Subscription::update($subscription_id, array(
+                  "items" => array(
+                    array(
+                      "id" => $itemID,
+                      "plan" => $plan,
+                    ),
+                  ),
+                ));
+                // Id plan upgrade create an invoice
+                if ($plan == 'bank-yearly') {
+                    $invoice = \Stripe\Invoice::create(array(
+                        "customer" => $customer_id
+                    ));
+                    // Immediate invoice send
+                    //$invoice = \Stripe\Invoice::retrieve($upgrade_invoice->id);
+                    $invoice->pay();
+                    $output['message'] = __('UPGRADE_PLAN_SUCCESS');
+                    $plan_switched = 2;
+                    $account_level = 2;
+                } else {
+                    $output['message'] = __('DOWNGRADE_PLAN_SUCCESS');
+                    $plan_switched = 1;
+                    $account_level = 1;
+                }
+                $output['success'] = true;
+            }   
+        }
+        if ($output['success']) {
+            $this->Users->updateAll(
+                [
+                    'account_level' => $account_level,
+                    'plan_switched' => $plan_switched,
+                ], 
+                ['id' => $this->Auth->user('id')]
+            );
+            $user['plan_switched'] = $plan_switched;
+            $user['account_level'] = $account_level;
+            $this->Auth->setUser($user);
+            $output['account_level'] = $account_level;
+            $this->Flash->success($output['message']);
+        }
+        echo json_encode($output);
+    }
+
 }

@@ -26,7 +26,8 @@
                         'class' => 'form-control c-points',
                         'label' => false,
                         'type' => 'number',
-                        'step' => '0.01',
+                        'step' => '1',
+                        'min' => '1',
                         'placeholder' => __("MAX_POINTS")
                     ));
                     ?>

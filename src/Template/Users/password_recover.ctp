@@ -23,6 +23,7 @@
             ]);
 
             echo $this->Form->input('email', array(
+                'label' => array('text' => __('EMAIL')),
                 'placeholder' => __('ENTER_YOUR_EMAIL')
             ));
 

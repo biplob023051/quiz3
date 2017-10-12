@@ -252,9 +252,9 @@ class AppController extends Controller
             $permissions['canCreateQuiz'] = true;
             $permissions['upgraded'] = true;
         } elseif($c_user['account_level'] == 22) { // if new user unpaid 
-            if ($days_left > 30) { // if days left greater than 30 then upgrade request sent
-                $permissions['request_sent'] = true;
-            }
+            // if ($days_left > 30) { // if days left greater than 30 then upgrade request sent
+            //     $permissions['request_sent'] = true;
+            // }
             $days_left_created = floor((strtotime($c_user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
 
             if ($days_left_created >= -30) {

@@ -145,6 +145,14 @@ class QuizzesController extends AppController
         $lang_strings['remove_share'] = __('CANCEL_SHARE_QUIZ');
         $lang_strings['remove_share_question'] = __('DO_YOU_REMOVE_SHARING');
         $lang_strings['remove_shared_quiz'] = __('CANCEL_SHARE');
+        $lang_strings['drag_drop'] = __('DRAG_DROP');
+        $lang_strings['upload'] = __('CHOOSE_FILE');
+        $lang_strings['validating'] = __('VALIDATING');
+        $lang_strings['retry'] = __('RETRY');
+        $lang_strings['processing'] = __('PROCESSING');
+        $lang_strings['pay_success'] = __('PAY_SUCCESS');
+        $lang_strings['pay_failed'] = __('PAY_FAILED');
+        $lang_strings['try_refresh'] = __('TRY_REFRESH');
 
         $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
     }

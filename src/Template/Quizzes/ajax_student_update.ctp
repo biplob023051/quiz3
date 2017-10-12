@@ -1,8 +1,7 @@
 <?php $othersQuestionType = array(6, 7, 8); // this categories for others type questions ?>
 <?php $question_count = count($quizDetails->questions); ?>
 <td class="serial">
-    <i class="glyphicon online"></i>
-    <span class="question-serial"><?php echo $sl; ?></span>
+    <span class="number-fix question-serial"><i class="glyphicon online"></i><?php echo $sl; ?></span>
     <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1->id; ?>" title="<?php echo __('REMOVE_ANSWER'); ?>">
         <i class="glyphicon trash"></i>
     </button>
@@ -14,7 +13,7 @@
         <?php echo $value1->fname; ?> 
     </td>
 <?php endif; ?>
-<td><?php echo $value1->submitted ?></td>
+<td class="timestamp"><?php echo $value1->submitted ?></td>
 <?php if (empty($quizDetails->anonymous)) : ?>
     <td class="class-th"><?php echo $value1->class; ?></td>
 <?php endif; ?>
@@ -25,7 +24,7 @@
         </td>
     <?php endif; ?>
 <?php endforeach; ?>
-<td>
+<td class="progress-section">
     <?php
         $answer_array = array();
         $answer_count = 0;

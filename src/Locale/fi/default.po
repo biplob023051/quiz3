@@ -171,7 +171,7 @@ msgstr "Luokka"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Lähetä vastauksesi?"
+msgstr "Lähetä vastauksesi"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
@@ -386,15 +386,15 @@ msgstr "Tänään"
 
 #: Answer table - Back
 msgid "THIS_YEAR"
-msgstr "Tänä vuonna"
+msgstr "365 päivää"
 
 #: Answer table - Back
 msgid "THIS_MONTH"
-msgstr "Tässä kuussa"
+msgstr "30 päivää"
 
 #: Answer table - Back
 msgid "THIS_WEEK"
-msgstr "Tällä viikolla"
+msgstr "7 päivää"
 
 #: Answer table - Back
 msgid "RATE"
@@ -702,7 +702,7 @@ msgstr "Sivulle ei voitu palata"
 
 #: added - 
 msgid "ALL_TIME"
-msgstr "Kaikki ajat"
+msgstr "Kaikki päivät"
 
 #: View/Elements/page-navbar.ctp:9
 msgid "NAVIGATION"
@@ -1821,3 +1821,11 @@ msgstr "Valitse tiedosto"
 #: 
 msgid "DRAG_DROP"
 msgstr "Raahaa kuva tähän"
+
+#: 
+msgid "CANCEL_SUBSCRIPTION"
+msgstr "Cancel Subscription"
+
+#: 
+msgid "SUBSCRITION_CANCEL_TEXT"
+msgstr "With this option your account will not be renewed after your expiration date"

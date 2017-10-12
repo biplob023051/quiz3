@@ -171,7 +171,7 @@ msgstr "Class"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Turn in your quiz?"
+msgstr "Turn in your quiz"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
@@ -386,15 +386,15 @@ msgstr "Today"
 
 #: Answer table - Back
 msgid "THIS_YEAR"
-msgstr "This Year"
+msgstr "365 days"
 
 #: Answer table - Back
 msgid "THIS_MONTH"
-msgstr "This Month"
+msgstr "30 days"
 
 #: Answer table - Back
 msgid "THIS_WEEK"
-msgstr "This Week"
+msgstr "7 days"
 
 #: Answer table - Back
 msgid "RATE"
@@ -706,7 +706,7 @@ msgstr "No direct access to this page!"
 
 #: added - 
 msgid "ALL_TIME"
-msgstr "All Time"
+msgstr "All days"
 
 #: View/Elements/page-navbar.ctp:9
 msgid "NAVIGATION"
@@ -1146,7 +1146,7 @@ msgstr "Closed"
 
 #: View/Quiz/index.ctp:17
 msgid "ACCOUNT_WILL_EXPIRE"
-msgstr "Your account will be expired in"
+msgstr "Your account will expire in"
 
 #: View/Quiz/index.ctp:43
 msgid "IN_DAYS"
@@ -1835,3 +1835,99 @@ msgstr "Choose file"
 #: 
 msgid "DRAG_DROP"
 msgstr "Drag image file here"
+
+#: 
+msgid "CANCEL_SUBSCRIPTION"
+msgstr "Cancel Subscription"
+
+#: 
+msgid "SUBSCRITION_CANCEL_TEXT"
+msgstr "With this option your account will not be renewed after your expiration date"
+
+#: 
+msgid "CARD_NUMBER"
+msgstr "Card Number"
+
+#: 
+msgid "VALID_CARD_REQUIRED"
+msgstr "Valid Card Number Required"
+
+#: 
+msgid "EXPIRATION"
+msgstr "Expiration"
+
+#: 
+msgid "DATE"
+msgstr "Date"
+
+#: 
+msgid "INVOICE_INFO"
+msgstr "Invoice Number"
+
+#: 
+msgid "INVOICE_INFO_PLACEHOLDER"
+msgstr "Enter Invoice Number"
+
+#: 
+msgid "INVOICE_ATTACHMENT"
+msgstr "Attach Invoice"
+
+#: 
+msgid "START_SUBSCRIPTION"
+msgstr "Start Subscription"
+
+#: 
+msgid "VALIDATING"
+msgstr "Validating"
+
+#: 
+msgid "RETRY"
+msgstr "Try again"
+
+#: 
+msgid "PAY_SUCCESS"
+msgstr "Payment successful"
+
+#: 
+msgid "PAY_FAILED"
+msgstr "There was a problem"
+
+#: 
+msgid "TRY_REFRESH"
+msgstr "Try refreshing the page and trying again."
+
+#: 
+msgid "THANKS_FOR_PURCHASING"
+msgstr "Thanks for purchasing a package."
+
+#: 
+msgid "ACCOUNT_EXPIRE"
+msgstr "Expire Date"
+
+#: 
+msgid "CURRENT_PLAN"
+msgstr "Current Plan"
+
+#: 
+msgid "EDIT_PLAN"
+msgstr "Edit Plan"
+
+#: 
+msgid "TAX_CHARGE"
+msgstr "(Incl. 24% sales tax)"
+
+#: 
+msgid "CONFIRM_CANCEL"
+msgstr "Cancel Plan"
+
+#: 
+msgid "DOWNGRADE_PLAN"
+msgstr "Downgrade Plan"
+
+#: 
+msgid "UPGRADE_PLAN"
+msgstr "Upgrade Plan"
+
+#: 
+msgid "CURRENT_PLAN"
+msgstr "Current Plan"

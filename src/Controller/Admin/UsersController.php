@@ -16,7 +16,17 @@ class UsersController extends AppController
     public $paginate = [
         'limit' => 50,
         'maxLimit' => 1000,
-        'order' => ['Users.id' => 'ASC']
+        'order' => ['Users.id' => 'ASC'],
+        // 'sortWhitelist' => [
+        //     'id',
+        //     'name',
+        //     'email',
+        //     'account_level',
+        //     'created',
+        //     'expired',
+        //     'isactive',
+        //     'UserStatistic.created'
+        // ]
     ];
 
     public function initialize()
@@ -104,19 +114,12 @@ class UsersController extends AppController
                 ->group(['Quizzes.user_id']);
                 return $q;
             },
-            'UserStatistics' => function($q) {
-                $q->select([
-                    'UserStatistics.created',
-                    'UserStatistics.user_id'
-                ])
-                ->where(['UserStatistics.type' => 'user_login'])
-                ->order(['UserStatistics.created' => 'DESC'])
-                ->limit(10);
-                return $q;
-            }
+            'UserStatistic'
         ];
         
         try {
+            //$this->paginate['sortWhitelist'] = $this->Users->schema()->columns();
+            //$this->paginate['sortWhitelist'][] = 'UserStatistic.created';
             $users = $this->paginate(
                 $this->Users->find('all')
                 ->where($conditions)

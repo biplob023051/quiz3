@@ -1,11 +1,2 @@
-ALTER TABLE `quizzes` CHANGE `random_id` `random_id` BIGINT(20) NULL;
-ALTER TABLE `students` CHANGE `fname` `fname` CHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
-ALTER TABLE `students` CHANGE `lname` `lname` CHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
-ALTER TABLE `students` CHANGE `class` `class` CHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
-
-
--- Sprint 1706
-ALTER TABLE `users` CHANGE `language` `language` CHAR(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'fin';
-update `users` set users.language = 'en_GB' where users.language = 'eng';
-ALTER TABLE `users` ADD `isactive` TINYINT(1) NULL DEFAULT NULL COMMENT '1 for active' AFTER `resettime`;
-UPDATE `users` SET isactive = 1 WHERE activation IS NULL;
+ALTER TABLE `users` ADD `customer_id` VARCHAR(255) NULL AFTER `imported_ids`;
+ALTER TABLE `users` ADD `plan_switched` TINYINT(2) NULL DEFAULT NULL COMMENT '1 for downgrade, 2 for upgrade, null for default' AFTER `customer_id`;

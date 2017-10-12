@@ -483,6 +483,12 @@ i.share {
     color: #ffffff;
 }
 
+.btn-info2 {
+    background-color: #377bb5;
+    border-color: #377bb5;
+    color: #ffffff;    
+}
+
  #demo-data {
     width: 100%;
     margin: 60px auto;
@@ -633,4 +639,16 @@ i.spanish {
     .collapsing {
         overflow: hidden!important;
     }
+}
+.m-b-10 {
+    margin-bottom: 10px;
+}
+.m-t-10 {
+    margin-top: 10px;
+}
+.m-b-5 {
+    margin-bottom: 5px;
+}
+.m-t-5 {
+    margin-top: 5px;
 }

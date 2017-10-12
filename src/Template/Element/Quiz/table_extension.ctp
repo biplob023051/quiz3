@@ -31,8 +31,8 @@
                     <?php //pr($value1); ?>
                     <tr id="student-<?php echo $value1->id; ?>">
                         <td class="serial">
-                            <?php if (in_array($value1->id, $onlineStds)) : ?><i class="glyphicon online"></i><?php $paddingClass = 'small-padding-false'; else : $paddingClass = 'small-padding-true'; ?><?php endif; ?>
-                            <span class="number-fix question-serial <?php echo $paddingClass; ?>"><?php echo $sl; ?></span>
+                            <?php if (in_array($value1->id, $onlineStds)) : ?><?php $paddingClass = 'small-padding-false'; else : $paddingClass = 'small-padding-true'; ?><?php endif; ?>
+                            <span class="number-fix question-serial <?php echo $paddingClass; ?>"><?php if (in_array($value1->id, $onlineStds)) : ?><i class="glyphicon online"></i><?php endif; ?><?php echo $sl; ?></span>
                             <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1['id']; ?>" title="<?php echo __('REMOVE_ANSWER'); ?>">
                                 <i class="glyphicon trash"></i>
                             </button>
