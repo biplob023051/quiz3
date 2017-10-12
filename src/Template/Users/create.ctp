@@ -7,7 +7,16 @@ $this->assign('title', __('CREATE_ACCOUNT'));
 ?>
 <?= $this->Flash->render() ?>
 <div class="row">
-    <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-b-30">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <p><?php echo __('CREATE_MSG_TEACHER'); ?></p>
+                <p><?php echo __('CREATE_MSG_STUDENT'); ?></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="alert alert-danger" id="error-message" style="display : none;"></div>
         <div id="email-exist" style="display : none;">
             <div class="col-sm-4 col-xs-12"><?= __('ALREADY_REGISTERED'); ?></div>
@@ -101,5 +110,9 @@ $this->assign('title', __('CREATE_ACCOUNT'));
     .form-group.required .control-label:after {
         content:"*";
         color:red;
+    }
+
+    .m-b-30 {
+        margin-bottom: 30px;
     }
 </style>

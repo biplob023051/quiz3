@@ -73,16 +73,29 @@ class UsersController extends AppController
             if ($resp->isSuccess()) {
                 $this->request->data['account_level'] = 22;
                 $this->request->data['expired'] = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
-                $this->request->data['activation'] = $this->randText(16);
+                //$this->request->data['activation'] = $this->randText(16);
+                $this->request->data['activation'] = NULL;
                 $this->request->data['language'] = $site_language;
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $user = $this->Users->save($user);
                 if (!empty($user->id)) {
                     // Send email to user for email confirmation
-                    $user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
+                    //$user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
                     $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
-                    $this->request->session()->write('registration', true);
-                    $this->redirect(array('action' => 'success'));
+                    // $this->request->session()->write('registration', true);
+                    // $this->redirect(array('action' => 'success'));
+
+                    // New codes added here for removing email confirmation
+                    $this->Auth->setUser($user);
+                    //Login Event.
+                    $this->eventManager()->attach(new Statistics($this));
+                    $event = new Event('Model.Users.login', $this, [
+                        'user_id' => $user->id
+                    ]);
+                    $this->eventManager()->dispatch($event);
+                    //return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+                    // End of new code
                 } else {
                     $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 }
@@ -401,7 +414,8 @@ class UsersController extends AppController
 
     public function buyCreate() {
         if ($this->request->is(array('post', 'put'))) {
-            $this->request->data['activation'] = $this->randText(16);
+            //$this->request->data['activation'] = $this->randText(16);
+            $this->request->data['activation'] = NULL;
             //ate("Y-m-d H:i:s")
             $date = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
             if ($this->request->data['package'] == 29) {
@@ -423,19 +437,27 @@ class UsersController extends AppController
             // exit;
             if (!empty($user->id)) {
                 // Send email to user for email confirmation
-                $user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
+                //$user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
                 // Send email to admin
-                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', '', true);
+                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
                 
                 $user->package = $package;
                 // Send email for upgrade notice to the admin 
-                $upgrade_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice');
-                // pr($user_email);
-                // pr($admin_email);
-                // pr($upgrade_email);
-                // exit;
-                $this->Session->write('registration', true);
-                return $this->redirect(array('action' => 'success'));
+                $upgrade_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice', $user->email, true);
+                // $this->Session->write('registration', true);
+                // return $this->redirect(array('action' => 'success'));
+
+                // New codes added here for removing email confirmation
+                $this->Auth->setUser($user);
+                //Login Event.
+                $this->eventManager()->attach(new Statistics($this));
+                $event = new Event('Model.Users.login', $this, [
+                    'user_id' => $user->id
+                ]);
+                $this->eventManager()->dispatch($event);
+                //return $this->redirect($this->Auth->redirectUrl());
+                return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+                // End of new code
             } else {
                 $this->Flash->error(__('SOMETHING_WENT_WRONG'));
                 return $this->redirect($this->referer());

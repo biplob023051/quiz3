@@ -1822,6 +1822,14 @@ msgstr "Valitse tiedosto"
 msgid "DRAG_DROP"
 msgstr "Raahaa kuva tähän"
 
+#:
+msgid "CREATE_MSG_TEACHER"
+msgstr "Hyvä opettaja! Tervetuloa kokeilemaan Verkkotestiä 30 päivää ilmaiseksi. Täytä oheinen lomake luodaksesi ilmaisen kokeilutilisi."
+
+#:
+msgid "CREATE_MSG_STUDENT"
+msgstr "Oppilaat eivät tarvitse lainkaan käyttäjätunnuksia. Opettaja antaa oppilaille linkin Verkkotestiin."
+
 #: 
 msgid "CANCEL_SUBSCRIPTION"
 msgstr "Cancel Subscription"
@@ -1829,3 +1837,91 @@ msgstr "Cancel Subscription"
 #: 
 msgid "SUBSCRITION_CANCEL_TEXT"
 msgstr "With this option your account will not be renewed after your expiration date"
+
+#: 
+msgid "CARD_NUMBER"
+msgstr "Card Number"
+
+#: 
+msgid "VALID_CARD_REQUIRED"
+msgstr "Valid Card Number Required"
+
+#: 
+msgid "EXPIRATION"
+msgstr "Expiration"
+
+#: 
+msgid "DATE"
+msgstr "Date"
+
+#: 
+msgid "INVOICE_INFO"
+msgstr "Invoice Number"
+
+#: 
+msgid "INVOICE_INFO_PLACEHOLDER"
+msgstr "Enter Invoice Number"
+
+#: 
+msgid "INVOICE_ATTACHMENT"
+msgstr "Attach Invoice"
+
+#: 
+msgid "START_SUBSCRIPTION"
+msgstr "Start Subscription"
+
+#: 
+msgid "VALIDATING"
+msgstr "Validating"
+
+#: 
+msgid "RETRY"
+msgstr "Try again"
+
+#: 
+msgid "PAY_SUCCESS"
+msgstr "Payment successful"
+
+#: 
+msgid "PAY_FAILED"
+msgstr "There was a problem"
+
+#: 
+msgid "TRY_REFRESH"
+msgstr "Try refreshing the page and trying again."
+
+#: 
+msgid "THANKS_FOR_PURCHASING"
+msgstr "Thanks for purchasing a package."
+
+#: 
+msgid "ACCOUNT_EXPIRE"
+msgstr "Expire Date"
+
+#: 
+msgid "CURRENT_PLAN"
+msgstr "Current Plan"
+
+#: 
+msgid "EDIT_PLAN"
+msgstr "Edit Plan"
+
+#: 
+msgid "TAX_CHARGE"
+msgstr "(Incl. 24% sales tax)"
+
+#: 
+msgid "CONFIRM_CANCEL"
+msgstr "Cancel Plan"
+
+#: 
+msgid "DOWNGRADE_PLAN"
+msgstr "Downgrade Plan"
+
+#: 
+msgid "UPGRADE_PLAN"
+msgstr "Upgrade Plan"
+
+#: 
+msgid "CURRENT_PLAN"
+msgstr "Current Plan"

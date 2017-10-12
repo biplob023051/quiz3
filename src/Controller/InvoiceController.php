@@ -29,7 +29,7 @@ class InvoiceController extends AppController
        	$user = $this->Users->patchEntity($user, $this->request->data);
        	unset($user->password);
         if ($this->Users->save($user)) {
-        	$email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice', '', true);
+        	$email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice', $user->email, true);
         	echo json_encode(array('success' => true));
         } else {
         	echo json_encode(array('success' => false));
