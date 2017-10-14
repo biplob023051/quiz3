@@ -23,7 +23,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage', 'changePassword']);
+        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage', 'changePassword', 'paymentSuccess']);
     }
 
     // Method for ajax password update
@@ -183,9 +183,7 @@ class UsersController extends AppController
                     // For quiz bank settings
                     if (!empty($user['expired'])) {
                         $days_left = floor((strtotime($user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
-                    } else {
-                        $days_left = 365; // always acccess for old unpaid users
-                    }
+                    } 
                     if ($user['account_level'] == 51) { // for admin
                         $user['quiz_bank_access'] = true;
                     } elseif($user['account_level'] == 22) { // if new user unpaid 
@@ -194,6 +192,8 @@ class UsersController extends AppController
                             $user['quiz_bank_access'] = true;
                         }
                     } elseif(($user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
+                        $user['quiz_bank_access'] = true;
+                    } elseif(($user['account_level'] == 1) && ($days_left >= 0) && ($user['plan_switched'] == 1)) { // if new user unpaid 
                         $user['quiz_bank_access'] = true;
                     } else {
 
@@ -290,6 +290,9 @@ class UsersController extends AppController
         $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
         $lang_strings['upgrade'] = __('UPGRADE_PLAN');
         $lang_strings['current_plan'] = __('CURRENT_PLAN');
+        $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
+        $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
+        $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
         $this->set(compact('user', 'subjects', 'lang_strings'));
     }
 
@@ -525,6 +528,7 @@ class UsersController extends AppController
             $this->Auth->setUser($user);
             $output['success'] = true;
             $output['message'] = __('THANKS_FOR_PURCHASING');
+            $this->Flash->success($output['message']);
         } else {
             $output['message'] = __('INVALID_TRY');
         } 
@@ -541,14 +545,14 @@ class UsersController extends AppController
         $subscription_id = $customer->subscriptions->data[0]->id;
         $subscription = \Stripe\Subscription::retrieve($subscription_id);
         $user = $this->Auth->user();
+        $account_level = (int) $this->Auth->user('account_level');
         if ($this->request->data['utype'] == 'Cancel') {
             $subscription->cancel(array('at_period_end' => true));
+            $account_level = 22;
+            $plan_switched = ($account_level == 1) ? 'CANCEL_DOWNGRADE' : 'CANCEL_UPGRADE';
             $output['success'] = true;
             $output['message'] = __('SUBSCRIPTION_CANCELLED_SUCCESS');
-            $account_level = 22;
-            $plan_switched = 3;
         } else {
-            $account_level = $this->Auth->user('account_level');
             $plan = ($account_level == 1) ? 'bank-yearly' : 'basic-yearly';
             // Plan upgrade or downgraded
             if ($customer_plan != $plan) {
@@ -571,11 +575,11 @@ class UsersController extends AppController
                     //$invoice = \Stripe\Invoice::retrieve($upgrade_invoice->id);
                     $invoice->pay();
                     $output['message'] = __('UPGRADE_PLAN_SUCCESS');
-                    $plan_switched = 2;
+                    $plan_switched = 'UPGRADE';
                     $account_level = 2;
                 } else {
                     $output['message'] = __('DOWNGRADE_PLAN_SUCCESS');
-                    $plan_switched = 1;
+                    $plan_switched = 'DOWNGRADE';
                     $account_level = 1;
                 }
                 $output['success'] = true;
@@ -596,6 +600,95 @@ class UsersController extends AppController
             $this->Flash->success($output['message']);
         }
         echo json_encode($output);
+    }
+
+    // Reactivate subscription
+    public function reactivatePlan() {
+        $this->autoRender = false;
+        $output['success'] = false;
+        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        $customer_id = $this->Auth->user('customer_id');
+        $customer = \Stripe\Customer::retrieve($customer_id);
+        $customer_plan = $customer->subscriptions->data[0]->plan['id'];
+        $subscription_id = $customer->subscriptions->data[0]->id;
+        $subscription = \Stripe\Subscription::retrieve($subscription_id);
+        $user = $this->Auth->user();
+
+
+        $itemID = $subscription->items->data[0]->id;
+
+        $plan = ($this->request->data['utype'] == 1) ? 'basic-yearly' : 'bank-yearly';
+
+        \Stripe\Subscription::update($subscription_id, array(
+          "items" => array(
+            array(
+              "id" => $itemID,
+              "plan" => $plan,
+            ),
+          ),
+        ));
+
+        $output['success'] = true;
+        if ($user['plan_switched'] == 'CANCEL_UPGRADE' && $this->request->data['utype'] == 1) {
+            $user['plan_switched'] = 'DOWNGRADE';
+            $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED');
+        } elseif ($user['plan_switched'] == 'CANCEL_DOWNGRADE' && $this->request->data['utype'] == 2) {
+            $user['plan_switched'] = 'UPGRADE';
+            $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED');
+        } else {
+            $user['plan_switched'] = NULL;
+            $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS');
+        }
+
+        $this->Users->updateAll(
+            [
+                'account_level' => $this->request->data['utype'],
+                'plan_switched' => $user['plan_switched'],
+            ], 
+            ['id' => $this->Auth->user('id')]
+        );
+        $user['account_level'] = $this->request->data['utype'];
+        //$user['plan_switched'] = $this->request->data['utype'];
+        $this->Auth->setUser($user);
+        $this->Flash->success($output['message']);
+
+        echo json_encode($output);
+    }
+
+    // Webhook after successful payment charge
+    public function paymentSuccess() {
+        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+
+        // You can find your endpoint's secret in your webhook settings
+        $endpoint_secret = "whsec_glUxw47WE7duw2aaeIRR8AY5YWP8JqR8";
+
+        $payload = @file_get_contents("php://input");
+        $sig_header = $_SERVER["HTTP_STRIPE_SIGNATURE"];
+        $event = null;
+
+        try {
+          $event = \Stripe\Webhook::constructEvent(
+            $payload, $sig_header, $endpoint_secret
+          );
+        } catch(\UnexpectedValueException $e) {
+          // Invalid payload
+          http_response_code(400);
+          exit();
+        } catch(\Stripe\Error\SignatureVerification $e) {
+          // Invalid signature
+          http_response_code(400); // PHP 5.4 or greater
+          exit();
+        }
+
+        // Do something with $event
+        pr($event);
+
+        http_response_code(200); // PHP 5.4 or greater
+        exit();
+
+        // $stripe_event = $this->request->data;
+        // if ($stripe_event[])
+        // exit;
     }
 
 }

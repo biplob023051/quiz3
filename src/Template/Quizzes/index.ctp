@@ -15,82 +15,37 @@ $this->assign('title', __('MY_QUIZZES'));
 
 <?= $this->Flash->render(); ?>
 
+<?php if (($userPermissions['days_left'] < 30) && ($authUser['account_level'] == 22)) : ?>
 <div class="row notice" id="notice-section">
-<?php 
-    if (empty($userPermissions['upgraded'])) { 
-        if (empty($userPermissions['request_sent'])) {
-            if (!empty($userPermissions['canCreateQuiz'])) {
-                echo '<div class="col-xa-12 col-md-4">';
-                echo '<div class="form-group text-right">';
-                echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
-                echo '</div>';
-                echo '</div>';
-
-                echo '<div class="col-xa-12 col-md-4 col-md-offset-4">';
-                echo '<div class="form-group">';
-                echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT')));
-                echo '</div>';
-                echo '</div>';
-            } else {
-                echo '<div class="col-xa-12 col-md-8">';
-                echo '<div class="form-group text-center test-align">';
-                echo '<span class="expire-notice">' . __('ACCOUNT_EXPIRED') . '</span>';
-                echo '</div>';
-                echo '</div>';
-
-                echo '<div class="col-xa-12 col-md-4">';
-                echo '<div class="form-group">';
-                echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_CREATE_QUIZZ')));
-                echo '</div>';
-                echo '</div>';
-            }
-        } else {
-            if (!empty($userPermissions['canCreateQuiz'])) {
-                echo '<div class="col-xa-12 col-md-4">';
-                echo '<div class="form-group text-right">';
-                echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
-                echo '</div>';
-                echo '</div>';
-
-                echo '<div class="col-xa-12 col-md-4 col-md-offset-4">';
-                echo '<div class="form-group">';
-                echo '<button class="btn btn-primary btn-block" disabled="true"  id="upgrade_account"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>' . __('UPGRADE_PENDING') . '</button>';
-                echo '</div>';
-                echo '</div>';
-            } else {
-                echo '<div class="col-xa-12 col-md-8">';
-                echo '<div class="form-group text-center test-align">';
-                echo '<span class="expire-notice">' . __('ACCOUNT_EXPIRED') . '</span>';
-                echo '</div>';
-                echo '</div>';
-
-                echo '<div class="col-xa-12 col-md-4">';
-                echo '<div class="form-group">';
-                echo '<button class="btn btn-primary btn-block" disabled="true"  id="upgrade_account"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>' . __('UPGRADE_PENDING') . '</button>';
-                echo '</div>';
-                echo '</div>';
-            }
-        }
-    } else {
-        if (($userPermissions['days_left'] < '31') && in_array($authUser['account_level'], [1,2])) { // if expire date soon for previous paid users
-            echo '<div class="col-xa-12 col-md-4">';
-            echo '<div class="form-group text-right">';
-            echo '<span class="expire-notice">' . __('ACCOUNT_WILL_EXPIRE') . ' <span class="days_left">' . $userPermissions['days_left'] . '</span> ' . __('DAYS') . '</span>';
-            echo '</div>';
-            echo '</div>';
-
-            echo '<div class="col-xa-12 col-md-4 col-md-offset-4">';
-            echo '<div class="form-group">';
-            echo $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT')));
-            echo '</div>';
-            echo '</div>';
-        }
-    }
-?>
+    <?php if ($userPermissions['days_left'] > 0) : // Will expire ?>
+        <div class="col-xa-12 col-md-4">
+            <div class="form-group text-right">
+                <span class="expire-notice"><?= __('ACCOUNT_WILL_EXPIRE') ?><span class="days_left"><?= $userPermissions['days_left'] ?></span><?= __('DAYS') ?></span>
+            </div>
+        </div>
+        <div class="col-xa-12 col-md-4 col-md-offset-4">
+            <div class="form-group">
+                <?= $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT'))); ?>
+            </div>
+        </div>
+    <?php else : // Expired ?>
+        <?php $expired = true; ?>
+        <div class="col-xa-12 col-md-8">
+            <div class="form-group text-center test-align">
+                <span class="expire-notice"><?= __('ACCOUNT_EXPIRED'); ?></span>
+            </div>
+        </div>
+        <div class="col-xa-12 col-md-4">
+            <div class="form-group">
+                <?= $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_CREATE_QUIZZ'))); ?>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>
+<?php endif; ?>
 
 <div class="row">
-    <?php if (!empty($userPermissions['canCreateQuiz'])): ?>
+    <?php if (empty($expired) && (($authUser['account_level'] != 0) || ($authUser['account_level'] == 0 && empty($quiz_created)))) : ?>
         <div class="col-xa-12 col-md-4">
             <div class="form-group">
                 <a href="<?php echo $this->Url->build('/quizzes/add'); ?>" class="btn btn-primary btn-block">
@@ -101,7 +56,7 @@ $this->assign('title', __('MY_QUIZZES'));
         </div>
     <?php endif; ?>
 
-    <?php if (!empty($userPermissions['access']) && !empty($quiz_created)) : ?>
+    <?php if (empty($expired) && !empty($quiz_created)) : ?>
         <div class="col-xa-12 col-md-3 pull-right">
             <?= $this->Form->create('', ['id' => 'quiz-filter']); ?>
                 <div class="form-group">
@@ -137,7 +92,7 @@ $this->assign('title', __('MY_QUIZZES'));
 
     <?php endif; ?>
 </div>
-<?php if (!empty($userPermissions['access'])) : ?>
+<?php if (empty($expired)) : ?>
     <!-- Quiz list -->
     <div class="panel panel-default" id="user-quizzes">
         <?php if (!empty($data['quizzes'])) : ?>
@@ -245,9 +200,6 @@ $this->assign('title', __('MY_QUIZZES'));
 <?php echo $this->element('Invoice/delete_confirm'); ?>
 <?php echo $this->element('Invoice/demo_dialog'); ?>
 <?php echo $this->element('Invoice/payment'); ?>
-<div class="modal fade" id="public-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-</div>
-
 <style type="text/css">
     @media (min-width: 992px) {
         .modal-v-lg {

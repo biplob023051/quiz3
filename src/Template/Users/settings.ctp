@@ -1,3 +1,15 @@
+<style>
+    .new-br {
+        margin-bottom: 4px;
+        margin-left: -2.9%;
+    }
+
+    #subjects .checkbox {
+        width: 33% !important;
+        float: left;
+        margin-top: 0px;
+    }
+</style>
 <script type="text/javascript">
     var lang_strings = <?= json_encode($lang_strings) ?>;
 </script>
@@ -88,11 +100,34 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <?php if ($authUser['account_level'] != 51) : ?>
         <div class="col-xs-12 col-md-2">
             <div class="form-group text" style="margin-top: 22px;">
-                <a href="javascript:void(0)" class="btn btn-green form-control" data-toggle="modal" data-target="#invoice-payment"><i class="glyphicon glyphicon-edit"></i> <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?></a>
+                <a href="javascript:void(0)" class="btn btn-green form-control" data-toggle="modal" data-target="#invoice-payment"><i class="glyphicon glyphicon-edit"></i> 
+                    <?php if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
+                        <?= __('REACTIVATE'); ?>
+                    <?php else : ?>
+                        <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
+                    <?php endif; ?>
+                </a>
             </div>
         </div>
     <?php endif; ?>
 </div>
+<?php if ($authUser['plan_switched']) : ?>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+        <h4 class="text-info">
+            <?php 
+                if ($authUser['plan_switched'] == 'CANCEL_DOWNGRADE') {
+                    echo __('BENEFIT_OF_BASIC_ACCOUNT');
+                } else if ($authUser['plan_switched'] == 'CANCEL_UPGRADE') {
+                    echo __('BENEFIT_OF_BANK_ACCOUNT');
+                } else {
+                    
+                }
+            ?>
+        </h4>
+    </div>
+</div>
+<?php endif; ?>
 <hr>
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-3">
@@ -114,16 +149,3 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 <?php endif; ?>
 
 <?= $this->Html->script(array('payment'), array('inline' => false)); ?>
-
-<style>
-    .new-br {
-        margin-bottom: 4px;
-        margin-left: -2.9%;
-    }
-
-    #subjects .checkbox {
-        width: 33% !important;
-        float: left;
-        margin-top: 0px;
-    }
-</style>

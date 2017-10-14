@@ -80,6 +80,76 @@
         }
     });
 
+    $(document).on('click', '#29_package_activate, #49_package_activate', function () {
+        var chosen_account, button_text = '';
+        if (this.id == '29_package_activate') {
+            chosen_account = 1;
+            $("#29_package_input_activate").prop("checked", true);
+            $(this).removeClass('btn-yellow').addClass('btn-green');
+            $('#49_package_activate').removeClass('btn-green').addClass('btn-yellow');
+        } else {
+            chosen_account = 2;
+            $("#49_package_input_activate").prop("checked", true);
+            $(this).removeClass('btn-yellow').addClass('btn-green');
+            $('#29_package_activate').removeClass('btn-green').addClass('btn-yellow');
+        }
+        if (prev_account == chosen_account) {
+            button_text = lang_strings['reactivate'];
+        } else {
+            button_text = (prev_account == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
+        }
+        $('#confirm-reactivate').html(button_text).show().attr('disabled', false);
+    });
+
+    $(document).on('change', 'input:radio[name="activate"]', function(){
+        var button_text = '';
+        if (prev_account == $(this).val()) {
+            button_text = lang_strings['reactivate'];
+        } else {
+            button_text = (prev_account == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
+        }
+        switch($(this).val()) {
+            case '1':
+                $('#29_package_activate').removeClass('btn-yellow').addClass('btn-green');
+                $('#49_package_activate').removeClass('btn-green').addClass('btn-yellow');
+                break;
+            case '2':
+                $('#49_package_activate').removeClass('btn-yellow').addClass('btn-green');
+                $('#29_package_activate').removeClass('btn-green').addClass('btn-yellow');
+                break;
+            default:
+                window.location.reload();
+                break;
+        }
+        $('#confirm-reactivate').html(button_text).show().attr('disabled', false);
+    });
+
+    $(document).on('click', '#confirm-reactivate', function(e) {
+        e.preventDefault();
+        var utype = $('input:radio[name="activate"]:checked').val();
+        $(this).html(lang_strings['processing'] + ' <i class="fa fa-spinner fa-pulse"></i>').attr('disabled', true);
+        $.ajax({
+            type: 'post',
+            url: projectBaseUrl + 'users/reactivatePlan',
+            data: {utype: utype},
+            dataType: 'json',
+            success: function (response)
+            {
+                $('#invoice-payment').modal('hide');
+                if (response.success == true) {
+                    $('#invoice-success-dialog').modal('show');
+                } else {
+                    $('#invoice-error-dialog').modal('show');
+                }
+            },
+            error: function()
+            {
+                alert('Something went wrong, please try again later');
+                window.location.reload();
+            }
+        });
+    });
+
     $(document).on('click', '#confirm-upgrade', function (e) {
         e.preventDefault();
         var utype = $('input:radio[name="upgrade"]:checked').val();
@@ -88,8 +158,7 @@
             window.location.reload();
             return false;
         }
-        var $this = $(this);
-        $this.attr('disabled', true);
+        $(this).html(lang_strings['processing'] + ' <i class="fa fa-spinner fa-pulse"></i>').attr('disabled', true);
         $.ajax({
             type: 'post',
             url: projectBaseUrl + 'users/changePlan',
@@ -98,10 +167,7 @@
             success: function (response)
             {
                 $('#invoice-payment').modal('hide');
-                var json = $.parseJSON(response);
-                if (json.success == true) {
-                    account_level = response.account_level;
-                    $this.attr('disabled', false);
+                if (response.success == true) {
                     $('#invoice-success-dialog').modal('show');
                 } else {
                     $('#invoice-error-dialog').modal('show');
@@ -109,8 +175,8 @@
             },
             error: function()
             {
-                // alert('Something went wrong, please try again later');
-                // window.location.reload();
+                alert('Something went wrong, please try again later');
+                window.location.reload();
             }
         });
     });

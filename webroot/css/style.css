@@ -452,6 +452,7 @@ i.share {
 
 .days_left {
     font-size: 24px;
+    padding: 0 3px;
 }
 
 .notice .form-group {

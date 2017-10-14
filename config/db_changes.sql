@@ -1,2 +1,2 @@
 ALTER TABLE `users` ADD `customer_id` VARCHAR(255) NULL AFTER `imported_ids`;
-ALTER TABLE `users` ADD `plan_switched` TINYINT(2) NULL DEFAULT NULL COMMENT '1 for downgrade, 2 for upgrade, null for default' AFTER `customer_id`;
+ALTER TABLE `users` ADD `plan_switched` ENUM('DOWNGRADE','UPGRADE','CANCEL_DOWNGRADE','CANCEL_UPGRADE') NULL DEFAULT NULL AFTER `customer_id`;

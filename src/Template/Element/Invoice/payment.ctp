@@ -3,6 +3,9 @@
     if (in_array($authUser['account_level'], [1,2])) {
         $id_modifier = '_edit';
         $input_name = 'upgrade';
+    } else if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) {
+        $id_modifier = '_activate';
+        $input_name = 'activate';
     } else {
         $id_modifier = '';
         $input_name = 'package';
@@ -14,7 +17,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= __('CLOSE'); ?></span></button>
-                <h4 class="modal-title" id="invoice-dialog-title"><?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?></h4>
+                <h4 class="modal-title" id="invoice-dialog-title">
+                    <?php if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
+                        <?= __('REACTIVATE_SUBSCRIPTION'); ?>
+                    <?php else : ?>
+                        <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
+                    <?php endif; ?>
+                </h4>
             </div>
             <div class="modal-body">
                 <p><?= __('UPGRADE_ACCOUNT_WILL_GET_INVOICE'); ?></p>
@@ -170,6 +179,9 @@
             <div class="modal-footer">
                 <?php if (in_array($authUser['account_level'], [1,2])) : ?>
                     <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
+                <?php elseif (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
+                    <button type="button" class="btn btn-success" disabled="disabled" id="confirm-reactivate"><?= __('SUBSCRITION_CANCELLED'); ?></button>
+                <?php else : ?>
                 <?php endif; ?>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?= __('CANCEL'); ?></button>
             </div>
@@ -216,6 +228,12 @@
         width: 50%;
     }
 </style>
+<?php if ($authUser['plan_switched'] == 'CANCEL_UPGRADE') : ?>
+    <script type="text/javascript">var prev_account = 2;</script>
+<?php elseif ($authUser['plan_switched'] == 'CANCEL_DOWNGRADE') : ?>
+    <script type="text/javascript">var prev_account = 1;</script>
+<?php else: ?>
+<?php endif; ?>
 <script type="text/javascript">
     var account_level = '<?php echo $authUser['account_level']; ?>';
 </script>
@@ -320,6 +338,9 @@
                 }
             });
         }
+        $('#invoice-success-dialog').on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
         /* Fancy restrictive input formatting via jQuery.payment library*/
         $('input[name=cardNumber]').payment('formatCardNumber');
         $('input[name=cardCVC]').payment('formatCardCVC');
