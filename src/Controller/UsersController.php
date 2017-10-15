@@ -186,14 +186,14 @@ class UsersController extends AppController
                     } 
                     if ($user['account_level'] == 51) { // for admin
                         $user['quiz_bank_access'] = true;
+                    } elseif(!empty($user['plan_switched']) && ($user['plan_switched'] != 'CANCEL_DOWNGRADE')) { // if new user unpaid 
+                        $user['quiz_bank_access'] = true;
                     } elseif($user['account_level'] == 22) { // if new user unpaid 
                         $days_left_created = floor((strtotime($user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
                         if ($days_left_created >= -30) {
                             $user['quiz_bank_access'] = true;
                         }
                     } elseif(($user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
-                        $user['quiz_bank_access'] = true;
-                    } elseif(($user['account_level'] == 1) && ($days_left >= 0) && ($user['plan_switched'] == 1)) { // if new user unpaid 
                         $user['quiz_bank_access'] = true;
                     } else {
 
@@ -451,6 +451,9 @@ class UsersController extends AppController
                 // return $this->redirect(array('action' => 'success'));
 
                 // New codes added here for removing email confirmation
+                if ($this->request->data['account_level'] == 2) {
+                    $user['quiz_bank_access'] = true;
+                }
                 $this->Auth->setUser($user);
                 //Login Event.
                 $this->eventManager()->attach(new Statistics($this));
@@ -595,6 +598,11 @@ class UsersController extends AppController
             );
             $user['plan_switched'] = $plan_switched;
             $user['account_level'] = $account_level;
+            if ($plan_switched != 'CANCEL_DOWNGRADE') {
+                $user['quiz_bank_access'] = true;
+            } else {
+                $user['quiz_bank_access'] = false;
+            }
             $this->Auth->setUser($user);
             $output['account_level'] = $account_level;
             $this->Flash->success($output['message']);
@@ -648,7 +656,12 @@ class UsersController extends AppController
             ['id' => $this->Auth->user('id')]
         );
         $user['account_level'] = $this->request->data['utype'];
-        //$user['plan_switched'] = $this->request->data['utype'];
+        
+        if (($this->request->data['utype'] == 2) || !empty($user['plan_switched'])) {
+            $user['quiz_bank_access'] = true;
+        } else {
+            $user['quiz_bank_access'] = false;
+        }
         $this->Auth->setUser($user);
         $this->Flash->success($output['message']);
 
@@ -689,6 +702,46 @@ class UsersController extends AppController
         // $stripe_event = $this->request->data;
         // if ($stripe_event[])
         // exit;
+    }
+
+    // Method of invoice payment
+    public function invoicePayment() {
+        $this->autoRender = false;
+        $output['success'] = false;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (!empty($this->request->data['amount'])) {
+                $account_level = ((int)$this->request->data['amount'] == 29) ? 1 : 2;
+
+                $expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+                $this->Users->updateAll(
+                    [
+                        'account_level' => $account_level,
+                        'expired' => $expired,
+                        'customer_id' => NULL,
+                        'plan_switched' => NULL,
+                    ], 
+                    ['id' => $this->Auth->user('id')]
+                );
+                $user = $this->Auth->user();
+                $user['account_level'] = $account_level;
+                $user['expired'] = $this->formatDateObject($expired);
+                $user['customer_id'] = '';
+                $user['plan_switched'] = '';
+                $this->Auth->setUser($user);
+                $user['invoice_info'] = $this->request->data['invoice_info'];
+                $user['package'] = ($account_level == 1) ? __('29_EUR') : __('49_EUR');
+                if (!empty($this->request->data['temp_photo']) && file_exists(WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo'])) {
+                    $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice_payment', $user['email'], true, [WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo']]);
+                    unlink(WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo']);
+                } else {
+                    $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice_payment', $user['email'], true);
+                }
+                $output['success'] = true;
+                $output['message'] = __('THANKS_FOR_PURCHASING');
+                $this->Flash->success($output['message']);
+            }
+        }
+        echo json_encode($output);
     }
 
 }

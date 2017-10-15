@@ -21,6 +21,7 @@ use Cake\Auth\SimplePasswordHasher; //include this line
 
 use Cake\I18n\I18n;
 use Intervention\Image\ImageManager;
+use Cake\I18n\Time;
 
 /**
  * Application Controller
@@ -166,35 +167,9 @@ class AppController extends Controller
     // check account expiration
     public function accountStatus() 
     {
-        $this->loadModel('Users');
-        $c_user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first()->toArray();
-        $access = false;
-        if (!empty($c_user['expired'])) {
-            $days_left = floor((strtotime($c_user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
-        }
-
-        // For admin role 51 always true
-        // For paid users role 1 check expire date
-        // For unpaid old user role 0, always true
-        // For unpaid new user, check 30 days of expire 
-        if ($c_user['account_level'] == 51) { // for admin
-            $access = true;
-        } elseif(($c_user['account_level'] == 1) && ($days_left >= 0)) { // for paid users
-            $access = true;
-        } elseif($c_user['account_level'] == 22) { // if new user unpaid 
-            $days_left_created = floor((strtotime($c_user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
-            if ($days_left_created >= -30) {
-                $access = true;
-            }
-            
-        } elseif(($c_user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
-            $access = true;
-        } elseif($c_user['account_level'] == 0) { // for old user
-            $access = true;
-        }
-
-        if (empty($access)) {
-            $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+        $permissions = $this->userPermissions();
+        if ($permissions['days_left'] < 0) {
+            $this->redirect(['controller' => 'quizzes', 'action' => 'index']);
         }
     }
 
@@ -215,10 +190,7 @@ class AppController extends Controller
     // check user status
     public function userPermissions()
     {
-        //$c_user = $this->Auth->user();
-
-        $this->loadModel('Users');
-        $c_user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first()->toArray();
+        $c_user = $this->Auth->user();
 
             // pr($c_user);
             // exit;
@@ -314,5 +286,16 @@ class AppController extends Controller
         if (copy($original_image, WWW_ROOT . 'uploads/'. $folder .'/' . $image)) {
             unlink($original_image);
         }
+    }
+
+    // Method for time formatting in object
+    public function formatDateObject($timestamp) {
+        $time = new Time($timestamp);
+        $time->i18nFormat(); // outputs '4/20/14, 10:10 PM' for the en-US locale
+        $time->i18nFormat(\IntlDateFormatter::FULL); // Use the full date and time format
+        $time->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::SHORT]); // Use full date but short time format
+        $time->i18nFormat('yyyy-MM-dd HH:mm:ss'); // outputs '2014-04-20 22:10'
+        $time->i18nFormat(Time::UNIX_TIMESTAMP_FORMAT); // outputs '1398031800'
+        return $time;
     }
 }

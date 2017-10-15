@@ -15,7 +15,7 @@ $this->assign('title', __('MY_QUIZZES'));
 
 <?= $this->Flash->render(); ?>
 
-<?php if (($userPermissions['days_left'] < 30) && ($authUser['account_level'] == 22)) : ?>
+<?php if (($userPermissions['days_left'] < 30) && (($authUser['account_level'] == 22) || (($authUser['account_level'] == 1) && empty($authUser['customer_id'])))) : ?>
 <div class="row notice" id="notice-section">
     <?php if ($userPermissions['days_left'] > 0) : // Will expire ?>
         <div class="col-xa-12 col-md-4">
@@ -25,7 +25,7 @@ $this->assign('title', __('MY_QUIZZES'));
         </div>
         <div class="col-xa-12 col-md-4 col-md-offset-4">
             <div class="form-group">
-                <?= $this->element('Invoice/invoice_button', array('btn_text' => __('UPGRADE_ACCOUNT'))); ?>
+                <?= $this->element('Invoice/invoice_button', array('btn_text' => (($authUser['account_level'] == 1) && empty($authUser['customer_id'])) ? __('SEND_INVOICE_AGAIN') : __('UPGRADE_ACCOUNT'))); ?>
             </div>
         </div>
     <?php else : // Expired ?>

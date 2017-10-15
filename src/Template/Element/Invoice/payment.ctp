@@ -1,4 +1,8 @@
 <!-- Modal -->
+<?php if (!in_array($authUser['account_level'], [1,2])) : ?>
+    <?= $this->Html->script(['jquery.uploadfile.min'], ['inline' => false]); ?>
+    <?= $this->Html->css(['uploadfile'], ['inline' => false]); ?>
+<?php endif; ?>
 <?php
     if (in_array($authUser['account_level'], [1,2])) {
         $id_modifier = '_edit';
@@ -65,7 +69,7 @@
                             <div class="col-md-12 text-success" id="chosen-package"></div>
                             <div class="col-md-6">
                                 <label for="card-payment">
-                                <input type="radio" name="payment_option" id="card-payment" value="card" /><img src="http://i76.imgup.net/accepted_c22e0.png" /></label>
+                                <input type="radio" name="payment_option" id="card-payment" value="card" /><img src="<?= $this->request->webroot ?>img/accepted_c22e0.png" /></label>
                             </div>
                             <div class="col-md-6 m-t-10">
                                 <label for="invoice-payment"><input type="radio" name="payment_option" id="invoice-payment" value="invoice" /> Invoice (Institutions only)</label>
@@ -138,9 +142,7 @@
                                 </form>
                             </div>
                             <div class="col-md-12" id="invoice-portion" style="display: none;">
-                                <link href="https://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
-                                <script src="https://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
-                                <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                                <form role="form" id="invoice-payment-form" method="POST" action="javascript:void(0);">
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-group">
@@ -161,7 +163,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <input type="hidden" name="amount" class="amount" />
-                                            <button class="invoice-subscribe btn btn-success btn-lg btn-block" type="button" disabled="disabled"><?= __('START_SUBSCRIPTION'); ?></button>
+                                            <button class="invoice-subscribe btn btn-success btn-lg btn-block" type="button"><?= __('START_SUBSCRIPTION'); ?></button>
                                         </div>
                                     </div>
                                     <div class="row" style="display:none;">
@@ -227,6 +229,14 @@
         vertical-align: middle;
         width: 50%;
     }
+    .ajax-file-upload-progress, .ajax-file-upload-progress, .ajax-file-upload-red {
+        display: none !important;
+    }
+    .ajax-file-upload-statusbar {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 </style>
 <?php if ($authUser['plan_switched'] == 'CANCEL_UPGRADE') : ?>
     <script type="text/javascript">var prev_account = 2;</script>
@@ -239,6 +249,26 @@
 </script>
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
     <script type="text/javascript">
+        $(document).on('click', '.invoice-subscribe', function(e){
+            var $this = $(this);
+            $this.html(lang_strings['processing'] + ' <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true);
+            $.post(projectBaseUrl + 'users/invoice_payment', $('#invoice-payment-form').serialize())
+            .done(function(data, textStatus, jqXHR) {
+                var data = $.parseJSON(data);
+                if (data.success == true) {
+                    $this.html(data.message + ' <i class="fa fa-check"></i>');
+                    $('#invoice-payment').modal('hide');
+                    $('#invoice-success-dialog').modal('show');
+                } else {
+                    $this.html(data.message).removeClass('success').addClass('alert-danger');
+                }
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                // alert(lang_strings['try_refresh']);
+                // window.location.reload();
+            });
+        });
+
         $('input[name=payment_option]').click(function() {
             if ($(this).val() == 'card') {
                 $('#card-portion').show();
@@ -252,11 +282,14 @@
         $("#fileuploader").html('').uploadFile({
             url:projectBaseUrl + 'upload/photo',
             fileName:"myfile",
-            acceptFiles:"image/*",
-            showPreview:true,
+            allowedTypes: "jpg,png,gif,pdf,jpeg",
+            //acceptFiles:"image/*",
+            showPreview:false,
+            showProgress: false,
             multiple:false,
-            previewHeight: "100px",
-            previewWidth: "100px",
+            maxFileCount:1,
+            //previewHeight: "100px",
+            //previewWidth: "100px",
             dragDropStr: "<span class='upload-drag-drop'>"+ lang_strings['drag_drop'] +"</span>",
             uploadStr: lang_strings['upload'],
             onSuccess:function(files,data,xhr,pd)
