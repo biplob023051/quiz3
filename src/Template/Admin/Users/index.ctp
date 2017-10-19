@@ -114,7 +114,7 @@
                                     <td class="text-center"><?= $user->created->todatestring(); ?></td>
                                     <td class="text-center">
                                         <?php if ($user->expired) : ?>
-                                            <span class="user-info"><?= h($user->expired->todatestring()); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="<?= $user->expired->todatestring(); ?>" data-value="<?= $user->expired->todatestring(); ?>">
+                                            <span class="user-info expired-td"><?= h($user->expired->todatestring()); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="<?= $user->expired->todatestring(); ?>" data-value="<?= $user->expired->todatestring(); ?>">
                                         <?php else : ?>
                                             <span class="user-info"><?= __('NO_EXPIRE_DATE'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EXPIRE_DATE'); ?>" class="form-control update-user" name="class" data-rel="expired-<?= $user->id; ?>" value="0000-00-00" data-value="0000-00-00">
                                         <?php endif; ?>

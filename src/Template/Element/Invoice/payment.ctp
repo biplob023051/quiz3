@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var account_level = '<?php echo $authUser['account_level']; ?>';
+</script>
 <!-- Modal -->
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
     <?= $this->Html->script(['jquery.uploadfile.min'], ['inline' => false]); ?>
@@ -49,7 +52,7 @@
                         <button type="button" class="btn <?php echo ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm" id="49_package<?php echo $id_modifier; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?= __('49_EUR'); ?></span></button>
                     </div>
                 </div>
-                <?php if (in_array($authUser['account_level'], [1,2])) : ?>
+                <?php if (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id'])) : ?>
                     <div class="row m-b-10">
                         <div class="col-md-12">
                             <input name="<?= $input_name; ?>" id="cancel_package_input" value="Cancel" type="radio" />
@@ -76,7 +79,7 @@
                             </div>
                             <div class="col-md-12" id="card-portion" style="display: none;">
                                 <!-- If you're using Stripe for payments -->
-                                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
                                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
                                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
                                 <script src="https://js.stripe.com/v2/"></script>
@@ -180,7 +183,16 @@
             </div>
             <div class="modal-footer">
                 <?php if (in_array($authUser['account_level'], [1,2])) : ?>
-                    <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
+                    <?php if (empty($authUser['customer_id'])) : ?>
+                        <button type="button" class="btn btn-success" id="purchase-again"><?= $lang_strings['next_buy']; ?></button>
+                        <?php if ($userPermissions['days_left'] < 30) : ?>
+                            <button type="button" class="btn btn-success" data-expire="1" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
+                        <?php else : ?>
+                            <button type="button" class="btn btn-success" data-expire="0" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
+                        <?php endif; ?>
+                    <?php else : ?>
+                        <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
+                    <?php endif; ?>
                 <?php elseif (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
                     <button type="button" class="btn btn-success" disabled="disabled" id="confirm-reactivate"><?= __('SUBSCRITION_CANCELLED'); ?></button>
                 <?php else : ?>
@@ -244,9 +256,6 @@
     <script type="text/javascript">var prev_account = 1;</script>
 <?php else: ?>
 <?php endif; ?>
-<script type="text/javascript">
-    var account_level = '<?php echo $authUser['account_level']; ?>';
-</script>
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
     <script type="text/javascript">
         $(document).on('click', '.invoice-subscribe', function(e){

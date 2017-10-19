@@ -293,6 +293,9 @@ class UsersController extends AppController
         $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
         $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
         $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
+        $lang_strings['next_buy'] = __('CONTINUE_BUY_FOR_NEXT_YEAR');
+        $lang_strings['upgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
+        $lang_strings['downgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
         $this->set(compact('user', 'subjects', 'lang_strings'));
     }
 
@@ -525,7 +528,7 @@ class UsersController extends AppController
             );
             $user = $this->Auth->user();
             $user['account_level'] = $account_level;
-            $user['expired'] = $expired;
+            $user['expired'] = $this->formatDateObject($expired);
             $user['customer_id'] = $customer->id;
             $user['plan_switched'] = '';
             $this->Auth->setUser($user);
@@ -541,14 +544,48 @@ class UsersController extends AppController
     public function changePlan() {
         $this->autoRender = false;
         $output['success'] = false;
+        $user = $this->Auth->user();
+        $account_level = $user['account_level'];
+        $customer_id = $user['customer_id'];
+        if (empty($customer_id)) { // Inovice paid user plan change / upgrade
+            $chosen_account = $this->request->data['utype'];
+            $days_left = floor((strtotime($user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
+            if ($chosen_account != $account_level) {
+                $output['success'] = true;
+                // Upgrade or downgrade account
+                if ($chosen_account == 2) {
+                    // Upgrade account
+                    $user['amount_to_pay'] = (49*$days_left)/365;
+                    $user['request_type'] = 2;
+                    $flash_message = __('INVOICE_UPGRADE_PLAN_SUCCESS');
+                    $email_subject = __('INVOICE_UPGRADE_PLAN');
+                } else {
+                    $flash_message = __('INVOICE_DOWNGRADE_PLAN_SUCCESS');
+                    $user['request_type'] = 1;
+                    $user['amount_to_pay'] = 0;
+                    $email_subject = __('INVOICE_DOWNGRADE_PLAN');
+                }
+                $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), $email_subject, $user, 'invoice_plan_modify', $user['email'], true);
+
+                $this->Users->updateAll(
+                    [
+                        'account_level' => $chosen_account,
+                    ], 
+                    ['id' => $user['id']]
+                );
+                $user['account_level'] = $chosen_account;
+                $this->Auth->setUser($user);
+                $output['message'] = $flash_message;
+                $this->Flash->success($flash_message);
+            }
+            echo json_encode($output);
+            exit;
+        }
         \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        $customer_id = $this->Auth->user('customer_id');
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
         $subscription_id = $customer->subscriptions->data[0]->id;
         $subscription = \Stripe\Subscription::retrieve($subscription_id);
-        $user = $this->Auth->user();
-        $account_level = (int) $this->Auth->user('account_level');
         if ($this->request->data['utype'] == 'Cancel') {
             $subscription->cancel(array('at_period_end' => true));
             $account_level = 22;
@@ -694,14 +731,20 @@ class UsersController extends AppController
         }
 
         // Do something with $event
-        pr($event);
-
+        if ($event->type == 'customer.subscription.deleted') {
+            $customer_id = $event->data->object->customer;
+            $customer_id = 'cus_Baxlz4kyTpeFL7';
+            $user = $this->Users->findByCustomerId($customer_id)->first();
+            if (!empty($user)) {
+                $user->expired = date('Y-m-d H:i:s');
+                $user->account_level = 22;
+                $user->plan_switched = NULL;
+                $user->customer_id = NULL;
+                $this->Users->save($user);
+            }
+        } 
         http_response_code(200); // PHP 5.4 or greater
         exit();
-
-        // $stripe_event = $this->request->data;
-        // if ($stripe_event[])
-        // exit;
     }
 
     // Method of invoice payment
@@ -738,6 +781,85 @@ class UsersController extends AppController
                 }
                 $output['success'] = true;
                 $output['message'] = __('THANKS_FOR_PURCHASING');
+                $this->Flash->success($output['message']);
+            }
+        }
+        echo json_encode($output);
+    }
+
+    // Continue subscription for next year for a invoice paid user
+    public function nextYearSubscription() {
+        $this->autoRender = false;
+        $output['success'] = false;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if (!empty($this->request->data['utype'])) {
+                $user = $this->Auth->user();
+                $account_level = (int) $this->request->data['utype'];
+                $current_account_level = $user['account_level'];
+
+                $now = time();
+                $current_expire_date = strtotime($user['expired']->format('Y-m-d'));
+                $datediff = $current_expire_date-$now;
+                $days_left = floor($datediff / (60 * 60 * 24));
+                $additional_charge = 0;
+
+                if ($account_level != $current_account_level) {
+                    if ($account_level == 2) {
+                        $email_subject =  __('UPGRADED_AND_NEXT_YEAR_PURCHASE');
+                        $flash_message = __('THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION');
+                        $request_type = 3;
+                        if ($days_left > 0) {
+                            $additional_charge = (49*$days_left)/365;
+                        }
+                    } else {
+                        $email_subject =  __('DOWNGRADED_AND_NEXT_YEAR_PURCHASE');
+                        $flash_message = __('THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION');
+                        $request_type = 2;
+                    }
+                } else {
+                    $request_type = 1;
+                    $email_subject = __('CONTINUE_NEXT_YEAR_SUBSCRIPTION');
+                    $flash_message = __('THANKS_FOR_CONTINUE_SUBSCRIPTION');
+                }
+                $days = ($days_left > 0) ? ($days_left+365) : 365;
+                $expired = date('Y-m-d H:i:s', strtotime('+'. $days .' day', time()));
+
+                // pr($days_left);
+                // pr($days);
+                // pr($additional_charge);
+                // pr($expired);
+                // exit;
+                
+                $this->Users->updateAll(
+                    [
+                        'account_level' => $account_level,
+                        'expired' => $expired,
+                        'customer_id' => NULL,
+                        'plan_switched' => NULL,
+                    ], 
+                    ['id' => $user['id']]
+                );
+
+                $user['expired'] = $this->formatDateObject($expired);
+                $user['account_level'] = $account_level;
+                $user['customer_id'] = '';
+                $user['plan_switched'] = '';
+                $this->Auth->setUser($user);
+                $user['request_type'] = $request_type;
+
+                if ($account_level == 1) {
+                    $user['amount_to_pay'] = 29;
+                    $user['package'] = __('29_EUR');
+                } else {
+                    $user['amount_to_pay'] = 49+$additional_charge;
+                    $user['package'] = __('49_EUR');
+                }
+
+                
+                $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), $email_subject, $user, 'invoice_payment_continue', $user['email'], true);
+
+                $output['success'] = true;
+                $output['message'] = $flash_message;
                 $this->Flash->success($output['message']);
             }
         }

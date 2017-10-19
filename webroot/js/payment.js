@@ -37,37 +37,61 @@
     });
 
     $(document).on('click', '#29_package_edit, #49_package_edit', function () {
+        var button_text, chosen_account;
         if (this.id == '29_package_edit') {
+            chosen_account = 1;
             $("#29_package_input_edit").prop("checked", true);
             $(this).removeClass('btn-yellow').addClass('btn-green');
             $('#49_package_edit').removeClass('btn-green').addClass('btn-yellow');
         } else {
+            chosen_account = 2;
             $("#49_package_input_edit").prop("checked", true);
             $(this).removeClass('btn-yellow').addClass('btn-green');
             $('#29_package_edit').removeClass('btn-green').addClass('btn-yellow');
+        }
+        if (chosen_account != account_level) {
+            button_text = (chosen_account == 1) ? lang_strings['downgrade'] : lang_strings['upgrade'];
+            if ($('#confirm-upgrade').attr('data-expire') != 1) {
+                $('#confirm-upgrade').html(button_text).show().attr('disabled', false);
+            } else {
+                $('#confirm-upgrade').html(button_text).show().attr('disabled', true);
+            }
+            (chosen_account == 1) ? $('#purchase-again').html(lang_strings['downgrade_next_buy']) : $('#purchase-again').html(lang_strings['upgrade_next_buy']);
+        } else {
+            $('#confirm-upgrade').html(lang_strings['current_plan']).show().attr('disabled', true); 
+            $('#purchase-again').html(lang_strings['next_buy']);   
         }
     });
 
     $(document).on('change', 'input:radio[name="upgrade"]', function(){
         if ($(this).val() != account_level) {
-            var button_text = '';
+            var button_text = '', next_buy = '';
             switch($(this).val()) {
                 case '1':
                     $('#29_package_edit').removeClass('btn-yellow').addClass('btn-green');
                     $('#49_package_edit').removeClass('btn-green').addClass('btn-yellow');
                     button_text = lang_strings['downgrade'];
+                    next_buy = lang_strings['downgrade_next_buy'];
                     break;
                 case '2':
                     $('#49_package_edit').removeClass('btn-yellow').addClass('btn-green');
                     $('#29_package_edit').removeClass('btn-green').addClass('btn-yellow');
                     button_text = lang_strings['upgrade'];
+                    next_buy = lang_strings['upgrade_next_buy'];
                     break;
                 default:
                     $('#29_package_edit').removeClass('btn-green').addClass('btn-yellow');
                     $('#49_package_edit').removeClass('btn-green').addClass('btn-yellow');
                     button_text = lang_strings['confirm'];
+                    next_buy = lang_strings['next_buy'];
             }
-            $('#confirm-upgrade').html(button_text).show().attr('disabled', false);
+
+            if ($('#confirm-upgrade').attr('data-expire') != 1) {
+                $('#confirm-upgrade').html(button_text).show().attr('disabled', false);
+            } else {
+                $('#confirm-upgrade').html(button_text).show().attr('disabled', true);
+            }
+            $('#purchase-again').html(next_buy);
         } else {
             if (account_level == 1) {
                 $('#29_package_edit').removeClass('btn-yellow').addClass('btn-green');
@@ -77,6 +101,7 @@
                 $('#29_package_edit').removeClass('btn-green').addClass('btn-yellow');
             }
             $('#confirm-upgrade').html(lang_strings['current_plan']).show().attr('disabled', true);
+            $('#purchase-again').html(lang_strings['next_buy']);
         }
     });
 
@@ -179,6 +204,33 @@
                 window.location.reload();
             }
         });
+    });
+
+    // Invoice paid users next subscription
+    $(document).on('click', '#purchase-again', function(e){
+        e.preventDefault();
+        var utype = $('input:radio[name="upgrade"]:checked').val();
+        $(this).html(lang_strings['processing'] + ' <i class="fa fa-spinner fa-pulse"></i>').attr('disabled', true);
+        $.ajax({
+            type: 'post',
+            url: projectBaseUrl + 'users/nextYearSubscription',
+            data: {utype: utype},
+            dataType: 'json',
+            success: function (response)
+            {
+                $('#invoice-payment').modal('hide');
+                if (response.success == true) {
+                    $('#invoice-success-dialog').modal('show');
+                } else {
+                    $('#invoice-error-dialog').modal('show');
+                }
+            },
+            error: function()
+            {
+                // alert('Something went wrong, please try again later');
+                // window.location.reload();
+            }
+        });    
     });
 
     $(document).on('submit', '#change-form', function(e) {

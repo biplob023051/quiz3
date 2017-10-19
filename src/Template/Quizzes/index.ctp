@@ -15,7 +15,7 @@ $this->assign('title', __('MY_QUIZZES'));
 
 <?= $this->Flash->render(); ?>
 
-<?php if (($userPermissions['days_left'] < 30) && (($authUser['account_level'] == 22) || (($authUser['account_level'] == 1) && empty($authUser['customer_id'])))) : ?>
+<?php if (($userPermissions['days_left'] < 30) && empty($authUser['customer_id'])) : ?>
 <div class="row notice" id="notice-section">
     <?php if ($userPermissions['days_left'] > 0) : // Will expire ?>
         <div class="col-xa-12 col-md-4">
@@ -25,7 +25,8 @@ $this->assign('title', __('MY_QUIZZES'));
         </div>
         <div class="col-xa-12 col-md-4 col-md-offset-4">
             <div class="form-group">
-                <?= $this->element('Invoice/invoice_button', array('btn_text' => (($authUser['account_level'] == 1) && empty($authUser['customer_id'])) ? __('SEND_INVOICE_AGAIN') : __('UPGRADE_ACCOUNT'))); ?>
+                <?php $button_text = in_array($authUser['account_level'], [1,2]) ? __('CONTINUE_SUBSCRIPTION') : __('UPGRADE_ACCOUNT'); ?>
+                <?= $this->element('Invoice/invoice_button', array('btn_text' => (($authUser['account_level'] == 1) && empty($authUser['customer_id'])) ? __('SEND_INVOICE_AGAIN') : $button_text)); ?>
             </div>
         </div>
     <?php else : // Expired ?>

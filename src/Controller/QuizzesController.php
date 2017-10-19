@@ -154,6 +154,13 @@ class QuizzesController extends AppController
         $lang_strings['pay_failed'] = __('PAY_FAILED');
         $lang_strings['try_refresh'] = __('TRY_REFRESH');
 
+        $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
+        $lang_strings['upgrade'] = __('UPGRADE_PLAN');
+        $lang_strings['current_plan'] = __('CURRENT_PLAN');
+        $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
+        $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
+        $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
+
         $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
     }
 

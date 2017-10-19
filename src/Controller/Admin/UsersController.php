@@ -185,6 +185,14 @@ class UsersController extends AppController
                                     break;
                                 case 'account_level':
                                     $user->account_level = $this->request->data['value_info'];
+                                    if (in_array($this->request->data['value_info'], [1,2])) {
+                                        $user->expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+                                    } elseif ($this->request->data['value_info'] == 0) {
+                                        $user->expired = NULL;
+                                    } else {
+                                        $user->expired = date('Y-m-d H:i:s', strtotime('-1 day', time()));
+                                    }
+                                    $response['expired'] = !empty($user->expired) ? date('Y-m-d', strtotime($user->expired)) : '0000-00-00';
                                     break;
                                 case 'expired':
                                     $user->expired = $this->request->data['value_info'];
