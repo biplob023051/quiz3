@@ -1,3 +1,53 @@
+<?php
+    $lang_strings['delete_quiz_1'] = __('THERE_ARE');
+    $lang_strings['delete_quiz_2'] = __('ANSWERS_COMMA');
+    $lang_strings['delete_quiz_3'] = __('STUDENTS_AND');
+    $lang_strings['delete_quiz_4'] = __('SURELY_DELETE');
+    $lang_strings['delete_quiz_5'] = __('DELETE_QUIZ');
+    $lang_strings['request_sent'] = __('UPGRADE_PENDING');
+    $lang_strings['share_quiz'] = __('SHARE_QUIZ');
+    $lang_strings['share_quiz_question'] = __('DO_YOU_SHARE_QUIZ');
+    $lang_strings['remove_share'] = __('CANCEL_SHARE_QUIZ');
+    $lang_strings['remove_share_question'] = __('DO_YOU_REMOVE_SHARING');
+    $lang_strings['remove_shared_quiz'] = __('CANCEL_SHARE');
+    $lang_strings['drag_drop'] = __('DRAG_DROP');
+    $lang_strings['upload'] = __('CHOOSE_FILE');
+    $lang_strings['validating'] = __('VALIDATING');
+    $lang_strings['retry'] = __('RETRY');
+    $lang_strings['processing'] = __('PROCESSING');
+    $lang_strings['pay_success'] = __('PAY_SUCCESS');
+    $lang_strings['pay_failed'] = __('PAY_FAILED');
+    $lang_strings['try_refresh'] = __('TRY_REFRESH');
+
+    $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
+    $lang_strings['upgrade'] = __('UPGRADE_PLAN');
+    $lang_strings['current_plan'] = __('CURRENT_PLAN');
+    $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
+    $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
+    $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
+
+    $lang_strings['incl_tax'] = __('INCL_TAX');
+    $lang_strings['excl_tax'] = __('EXCL_TAX');
+    $lang_strings['basic_btn_txt'] = __('29_YEARLY_BTN_TEXT');
+    $lang_strings['bank_btn_txt'] = __('49_YEARLY_BTN_TEXT');
+    $lang_strings['pay_scs_title'] = __('UPGRADE_ACCOUNT');
+    $lang_strings['pay_scs_body'] = __('YOU_RECEIVE_INVOICE'); 
+    $lang_strings['cancel_title'] = __('CANCEL_PLAN_TITLE');
+    $lang_strings['cancel_body'] = __('CANCEL_PLAN_BODY');
+    $lang_strings['upgrade_title'] = __('UPGRADE_PLAN_TITLE');
+    $lang_strings['upgrade_body'] = __('UPGRADE_PLAN_BODY');
+    $lang_strings['downgrade_title'] = __('DOWNGRADE_PLAN_TITLE');
+    $lang_strings['downgrade_body'] = __('DOWNGRADE_PLAN_BODY');
+    $lang_strings['reactivate_title'] = __('REACTIVATE_TITLE');
+    $lang_strings['reactivate_body'] = __('REACTIVATE_BODY');
+    $lang_strings['reactivate_upgraded_body'] = __('REACTIVATE_UPGRADED_BODY');
+    $lang_strings['reactivate_downgraded_body'] = __('REACTIVATE_DOWNGRADED_BODY');
+    $lang_strings['next_year_title'] = __('NEXT_YEAR_TITLE');
+    $lang_strings['next_year_body'] = __('NEXT_YEAR_BODY');
+    $lang_strings['upgrade_next_year_body'] = __('UPGRADE_AND_NEXT_YEAR_BODY');
+    $lang_strings['downgrade_next_year_body'] = __('DOWNGRADE_AND_NEXT_YEAR_BODY');
+
+?>
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
@@ -200,7 +250,7 @@ $this->assign('title', __('MY_QUIZZES'));
 <?php echo $this->element('Invoice/invoice_error_dialog'); ?>
 <?php echo $this->element('Invoice/delete_confirm'); ?>
 <?php echo $this->element('Invoice/demo_dialog'); ?>
-<?php echo $this->element('Invoice/payment'); ?>
+<?php echo $this->element('Invoice/payment', ['lang_strings' => $lang_strings]); ?>
 <style type="text/css">
     @media (min-width: 992px) {
         .modal-v-lg {

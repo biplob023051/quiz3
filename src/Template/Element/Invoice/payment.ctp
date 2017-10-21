@@ -28,48 +28,49 @@
                     <?php if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
                         <?= __('REACTIVATE_SUBSCRIPTION'); ?>
                     <?php else : ?>
-                        <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
+                        <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('PURCHASE_YEARLY_LICENCE'); ?>
                     <?php endif; ?>
                 </h4>
             </div>
             <div class="modal-body">
-                <p><?= __('UPGRADE_ACCOUNT_WILL_GET_INVOICE'); ?></p>
                 <div class="row m-b-10">
+                    <div class="col-md-12 m-b-5"><strong><?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PACKAGE') : __('1_CHOOSE_PACKAGE'); ?></strong></div>
                     <div class="col-md-9">
-                        <input name="<?= $input_name; ?>" id="29_package_input<?php echo $id_modifier; ?>" value="1"<?php if ($authUser['account_level'] == 1) echo ' checked'; ?> type="radio" />
+                        <input name="<?= $input_name; ?>" id="29_package_input<?php echo $id_modifier; ?>" value="1"<?php if ($authUser['account_level'] == 1) echo ' checked'; ?> type="radio" class="package-btn" />
                         <strong><?= __('BASIC'); ?></strong> <?= __('CREATE_AND_USE_QUIZZES_FREELY'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 1) ? 'btn-green' : 'btn-yellow'; ?> btn-sm" id="29_package<?php echo $id_modifier; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?= __('29_EUR'); ?></span></button>
+                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 1) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="29_package<?php echo $id_modifier; ?>"><span><?= __('29_EUR'); ?></span></button>
                     </div>
                 </div>
                 <div class="row m-b-10">
                     <div class="col-md-9">
-                        <input name="<?= $input_name; ?>" id="49_package_input<?php echo $id_modifier; ?>" value="2" type="radio"<?php if ($authUser['account_level'] == 2) echo ' checked'; ?> />
+                        <input name="<?= $input_name; ?>" id="49_package_input<?php echo $id_modifier; ?>" value="2" type="radio"<?php if ($authUser['account_level'] == 2) echo ' checked'; ?> class="package-btn" />
                         <strong><?= __('QUIZ_BANK'); ?></strong> <?= __('SHARE_OWN_QUIZZES'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm" id="49_package<?php echo $id_modifier; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span><?= __('49_EUR'); ?></span></button>
+                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="49_package<?php echo $id_modifier; ?>"><span><?= __('49_EUR'); ?></span></button>
                     </div>
                 </div>
                 <?php if (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id'])) : ?>
                     <div class="row m-b-10">
-                        <div class="col-md-12">
-                            <input name="<?= $input_name; ?>" id="cancel_package_input" value="Cancel" type="radio" />
+                        <div class="col-md-9">
+                            <input name="<?= $input_name; ?>" id="cancel_package_input" value="Cancel" type="radio"  class="package-btn" />
                             <strong><?= __('CANCEL_SUBSCRIPTION'); ?>:</strong> <?= __('SUBSCRITION_CANCEL_TEXT'); ?>
                         </div>
+                        <div class="col-md-3"></div>
                     </div>
                 <?php endif; ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <small><?= __('TAX_CHARGE'); ?></small>
-                    </div>
-                </div>
                 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
                     <div id="payment-details" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small id="tax-info"></small>
+                            </div>
+                        </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-12 text-success" id="chosen-package"></div>
+                            <div class="col-md-12 m-b-5"><strong><?= __('2_CHOOSE_PAYMENT_METHOD'); ?></strong></div>
                             <div class="col-md-6">
                                 <label for="card-payment">
                                 <input type="radio" name="payment_option" id="card-payment" value="card" /><img src="<?= $this->request->webroot ?>img/accepted_c22e0.png" /></label>
@@ -131,10 +132,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-12 m-b-5"><strong><?= __('3_PURCHASE'); ?></strong></div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <ul class="list-unstyled">
+                                                    <li><?= __('AUTO_CHARGE_PER_YEAR'); ?></li>
+                                                    <li><?= __('CANCEL_ANYTIME_FROM_SETTINGS'); ?></li>
+                                                    <li><?= __('NO_PAYMENT_AFTER_CANCEL'); ?></li>
+                                                    <li><?= __('AFTER_CANCEL_STILL_BENEFIT_TILL_END'); ?></li>
+                                                    <li><?= __('REOPEN_ACCOUNT_ANYTIME'); ?></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 m-b-20"><?= __('IMMEDIATE_ACCESS_AFTER_PURCHASE'); ?></div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <input type="hidden" name="amount" class="amount" />
-                                            <button class="subscribe btn btn-success btn-lg btn-block" type="button"><?= __('START_SUBSCRIPTION'); ?></button>
+                                            <button class="subscribe btn btn-success btn-lg btn-block subscribe-text" type="button"><?= __('START_SUBSCRIPTION'); ?></button>
                                         </div>
                                     </div>
                                     <div class="row" style="display:none;">
@@ -166,7 +183,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <input type="hidden" name="amount" class="amount" />
-                                            <button class="invoice-subscribe btn btn-success btn-lg btn-block" type="button"><?= __('START_SUBSCRIPTION'); ?></button>
+                                            <button class="invoice-subscribe btn btn-success btn-lg btn-block subscribe-text" type="button"><?= __('START_SUBSCRIPTION'); ?></button>
                                         </div>
                                     </div>
                                     <div class="row" style="display:none;">
@@ -249,6 +266,13 @@
         margin: 0 !important;
         padding: 0 !important;
     }
+    .package-btn {
+        height: 1.1em;
+        width: 3%;
+    }
+    .btn-40 {
+        padding: 7px 14px;
+    }
 </style>
 <?php if ($authUser['plan_switched'] == 'CANCEL_UPGRADE') : ?>
     <script type="text/javascript">var prev_account = 2;</script>
@@ -267,6 +291,8 @@
                 if (data.success == true) {
                     $this.html(data.message + ' <i class="fa fa-check"></i>');
                     $('#invoice-payment').modal('hide');
+                    $('#pay-title').html(lang_strings['pay_scs_title']);
+                    $('#pay-body').html(lang_strings['pay_scs_body']);
                     $('#invoice-success-dialog').modal('show');
                 } else {
                     $this.html(data.message).removeClass('success').addClass('alert-danger');
@@ -280,9 +306,11 @@
 
         $('input[name=payment_option]').click(function() {
             if ($(this).val() == 'card') {
+                $('#tax-info').html(lang_strings['incl_tax']);
                 $('#card-portion').show();
                 $('#invoice-portion').hide();
             } else {
+                $('#tax-info').html(lang_strings['excl_tax']);
                 $('#invoice-portion').show();
                 $('#card-portion').hide();
             }
@@ -366,6 +394,8 @@
                             if (data.success == true) {
                                 $form.find('.subscribe').html(data.message + ' <i class="fa fa-check"></i>');
                                 $('#invoice-payment').modal('hide');
+                                $('#pay-title').html(lang_strings['pay_scs_title']);
+                                $('#pay-body').html(lang_strings['pay_scs_body']);
                                 $('#invoice-success-dialog').modal('show');
                             } else {
                                 $form.find('.subscribe').html(data.message).removeClass('success').addClass('alert-danger');

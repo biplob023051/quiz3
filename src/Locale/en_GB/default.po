@@ -1618,7 +1618,7 @@ msgstr "Basic:"
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "CREATE_AND_USE_QUIZZES_FREELY"
-msgstr "Create and use quizzes freely without limits."
+msgstr "Create and use quizzes without limits for 365 days"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
@@ -1626,7 +1626,7 @@ msgstr "Quiz Bank"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
+msgstr "In addition, share and receive ready made quizzes"
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
@@ -1921,8 +1921,12 @@ msgid "EDIT_PLAN"
 msgstr "Edit Plan"
 
 #: 
-msgid "TAX_CHARGE"
+msgid "INCL_TAX"
 msgstr "(Incl. 24% sales tax)"
+
+#: 
+msgid "EXCL_TAX"
+msgstr "(Excl. 24% sales tax)"
 
 #: 
 msgid "CONFIRM_CANCEL"
@@ -1939,3 +1943,35 @@ msgstr "Upgrade Plan"
 #: 
 msgid "CURRENT_PLAN"
 msgstr "Current Plan"
+
+#: 
+msgid "29_YEARLY_BTN_TEXT"
+msgstr "Confirm yearly order (29 €/year)"
+
+#: 
+msgid "49_YEARLY_BTN_TEXT"
+msgstr "Confirm yearly order (49 €/year)"
+
+#: 
+msgid "1_CHOOSE_PACKAGE"
+msgstr "1. Choose your package:"
+
+#: 
+msgid "2_CHOOSE_PAYMENT_METHOD"
+msgstr "2. Choose your payment method:"
+
+#: 
+msgid "3_PURCHASE"
+msgstr "3. Purchase:"
+
+#: 
+msgid "PURCHASE_YEARLY_LICENCE"
+msgstr "Purchase yearly license"
+
+#:
+msgid "CANCEL_PLAN_TITLE"
+msgstr "Cancel order"
+
+#:
+msgid "CANCEL_PLAN_BODY"
+msgstr "We received your cancellation. You can use your account to the last paid day. No new payments are charged after that."

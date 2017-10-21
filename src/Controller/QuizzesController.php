@@ -134,34 +134,7 @@ class QuizzesController extends AppController
             'quizzes' => $quizzes,
         );
 
-        $lang_strings['delete_quiz_1'] = __('THERE_ARE');
-        $lang_strings['delete_quiz_2'] = __('ANSWERS_COMMA');
-        $lang_strings['delete_quiz_3'] = __('STUDENTS_AND');
-        $lang_strings['delete_quiz_4'] = __('SURELY_DELETE');
-        $lang_strings['delete_quiz_5'] = __('DELETE_QUIZ');
-        $lang_strings['request_sent'] = __('UPGRADE_PENDING');
-        $lang_strings['share_quiz'] = __('SHARE_QUIZ');
-        $lang_strings['share_quiz_question'] = __('DO_YOU_SHARE_QUIZ');
-        $lang_strings['remove_share'] = __('CANCEL_SHARE_QUIZ');
-        $lang_strings['remove_share_question'] = __('DO_YOU_REMOVE_SHARING');
-        $lang_strings['remove_shared_quiz'] = __('CANCEL_SHARE');
-        $lang_strings['drag_drop'] = __('DRAG_DROP');
-        $lang_strings['upload'] = __('CHOOSE_FILE');
-        $lang_strings['validating'] = __('VALIDATING');
-        $lang_strings['retry'] = __('RETRY');
-        $lang_strings['processing'] = __('PROCESSING');
-        $lang_strings['pay_success'] = __('PAY_SUCCESS');
-        $lang_strings['pay_failed'] = __('PAY_FAILED');
-        $lang_strings['try_refresh'] = __('TRY_REFRESH');
-
-        $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
-        $lang_strings['upgrade'] = __('UPGRADE_PLAN');
-        $lang_strings['current_plan'] = __('CURRENT_PLAN');
-        $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
-        $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
-        $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
-
-        $this->set(compact('data', 'filter', 'lang_strings', 'quiz_created'));
+        $this->set(compact('data', 'filter', 'quiz_created'));
     }
 
     public function edit($quizId, $initial = '') {

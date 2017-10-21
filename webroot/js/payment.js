@@ -7,12 +7,12 @@
             $("#29_package_input").prop("checked", true);
             $(this).removeClass('btn-yellow').addClass('btn-green');
             $('#49_package').removeClass('btn-green').addClass('btn-yellow');
-            $('#chosen-package').html('<p><strong>You have chosen 29 package</strong></p>');
+            $('.subscribe-text').html(lang_strings['basic_btn_txt']);
         } else {
             $("#49_package_input").prop("checked", true);
             $(this).removeClass('btn-yellow').addClass('btn-green');
             $('#29_package').removeClass('btn-green').addClass('btn-yellow');
-            $('#chosen-package').html('<p><strong>You have chosen 49 package</strong></p>');
+            $('.subscribe-text').html(lang_strings['bank_btn_txt']);
         }
         $('.amount').val(parseInt(this.id));
         $('#payment-details').show();
@@ -22,14 +22,14 @@
         if ($(this).val() == '1') {
             $('#29_package').removeClass('btn-yellow').addClass('btn-green');
             $('#49_package').removeClass('btn-green').addClass('btn-yellow');
-            $('#chosen-package').html('<p><strong>You have chosen 29 package</strong></p>');
             $('.amount').val('29');
+            $('.subscribe-text').html(lang_strings['basic_btn_txt']);
             $('#payment-details').show();
         } else if ($(this).val() == '2') {
             $('#49_package').removeClass('btn-yellow').addClass('btn-green');
             $('#29_package').removeClass('btn-green').addClass('btn-yellow');
-            $('#chosen-package').html('<p><strong>You have chosen 49 package</strong></p>');
             $('.amount').val('49');
+            $('.subscribe-text').html(lang_strings['bank_btn_txt']);
             $('#payment-details').show();
         } else {
             // Do nothing       
@@ -162,6 +162,14 @@
             {
                 $('#invoice-payment').modal('hide');
                 if (response.success == true) {
+                    $('#pay-title').html(lang_strings['reactivate_title']);
+                    if (response.type == 'UPGRADE') {
+                        $('#pay-body').html(lang_strings['reactivate_upgraded_body']);
+                    } else if (response.type == 'DOWNGRADE') {
+                        $('#pay-body').html(lang_strings['reactivate_downgraded_body']);
+                    } else {
+                        $('#pay-body').html(lang_strings['reactivate_body']);
+                    }
                     $('#invoice-success-dialog').modal('show');
                 } else {
                     $('#invoice-error-dialog').modal('show');
@@ -193,9 +201,20 @@
             {
                 $('#invoice-payment').modal('hide');
                 if (response.success == true) {
+                    if (utype == 'Cancel') {
+                        $('#pay-title').html(lang_strings['cancel_title']);
+                        $('#pay-body').html(lang_strings['cancel_body']);
+                    } else if (utype == 1) {
+                        $('#pay-title').html(lang_strings['downgrade_title']);
+                        $('#pay-body').html(lang_strings['downgrade_body']);
+                    } else {
+                        $('#pay-title').html(lang_strings['upgrade_title']);
+                        $('#pay-body').html(lang_strings['upgrade_body']);
+                    }
                     $('#invoice-success-dialog').modal('show');
                 } else {
-                    $('#invoice-error-dialog').modal('show');
+                    alert('Something went wrong, please try again later');
+                    window.location.reload();
                 }
             },
             error: function()
@@ -220,6 +239,14 @@
             {
                 $('#invoice-payment').modal('hide');
                 if (response.success == true) {
+                    $('#pay-title').html(lang_strings['next_year_title']);
+                    if (response.type == 3) {
+                        $('#pay-body').html(lang_strings['upgrade_next_year_body']);
+                    } else if (response.type == 2) {
+                        $('#pay-body').html(lang_strings['downgrade_next_year_body']);
+                    } else {
+                        $('#pay-body').html(lang_strings['next_year_body']);
+                    }
                     $('#invoice-success-dialog').modal('show');
                 } else {
                     $('#invoice-error-dialog').modal('show');

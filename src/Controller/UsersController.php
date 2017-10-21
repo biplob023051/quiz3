@@ -277,26 +277,7 @@ class UsersController extends AppController
         ])
         ->toArray();
         
-        $lang_strings['request_sent'] = __('UPGRADE_PENDING');
-        $lang_strings['drag_drop'] = __('DRAG_DROP');
-        $lang_strings['upload'] = __('CHOOSE_FILE');
-        $lang_strings['validating'] = __('VALIDATING');
-        $lang_strings['retry'] = __('RETRY');
-        $lang_strings['processing'] = __('PROCESSING');
-        $lang_strings['pay_success'] = __('PAY_SUCCESS');
-        $lang_strings['pay_failed'] = __('PAY_FAILED');
-        $lang_strings['try_refresh'] = __('TRY_REFRESH');
-        $lang_strings['confirm'] = __('CONFIRM_CANCEL');
-        $lang_strings['downgrade'] = __('DOWNGRADE_PLAN');
-        $lang_strings['upgrade'] = __('UPGRADE_PLAN');
-        $lang_strings['current_plan'] = __('CURRENT_PLAN');
-        $lang_strings['reactivate'] = __('REACTIVATE_SUBSCRIPTION');
-        $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION');
-        $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
-        $lang_strings['next_buy'] = __('CONTINUE_BUY_FOR_NEXT_YEAR');
-        $lang_strings['upgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
-        $lang_strings['downgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
-        $this->set(compact('user', 'subjects', 'lang_strings'));
+        $this->set(compact('user', 'subjects'));
     }
 
     public function contact() {
@@ -677,12 +658,15 @@ class UsersController extends AppController
         if ($user['plan_switched'] == 'CANCEL_UPGRADE' && $this->request->data['utype'] == 1) {
             $user['plan_switched'] = 'DOWNGRADE';
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED');
+            $output['type'] = 'DOWNGRADE';
         } elseif ($user['plan_switched'] == 'CANCEL_DOWNGRADE' && $this->request->data['utype'] == 2) {
             $user['plan_switched'] = 'UPGRADE';
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED');
+            $output['type'] = 'UPGRADE';
         } else {
             $user['plan_switched'] = NULL;
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS');
+            $output['type'] = 'REACTIVATE';
         }
 
         $this->Users->updateAll(
@@ -860,6 +844,7 @@ class UsersController extends AppController
 
                 $output['success'] = true;
                 $output['message'] = $flash_message;
+                $output['type'] = $request_type;
                 $this->Flash->success($output['message']);
             }
         }
