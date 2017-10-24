@@ -86,6 +86,7 @@ class UsersController extends AppController
                     // $this->redirect(array('action' => 'success'));
 
                     // New codes added here for removing email confirmation
+                    $user->quiz_bank_access = true;
                     $this->Auth->setUser($user);
                     //Login Event.
                     $this->eventManager()->attach(new Statistics($this));
@@ -186,14 +187,14 @@ class UsersController extends AppController
                     } 
                     if ($user['account_level'] == 51) { // for admin
                         $user['quiz_bank_access'] = true;
-                    } elseif(!empty($user['plan_switched']) && ($user['plan_switched'] != 'CANCEL_DOWNGRADE')) { // if new user unpaid 
-                        $user['quiz_bank_access'] = true;
                     } elseif($user['account_level'] == 22) { // if new user unpaid 
                         $days_left_created = floor((strtotime($user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
                         if ($days_left_created >= -30) {
                             $user['quiz_bank_access'] = true;
                         }
                     } elseif(($user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
+                        $user['quiz_bank_access'] = true;
+                    } elseif(($user['account_level'] == 1) && ($days_left >= 0) && in_array($user['plan_switched'], ['DOWNGRADE', 'CANCELLED_DOWNGRADE'])) { // if new user unpaid 
                         $user['quiz_bank_access'] = true;
                     } else {
 
@@ -569,8 +570,7 @@ class UsersController extends AppController
         $subscription = \Stripe\Subscription::retrieve($subscription_id);
         if ($this->request->data['utype'] == 'Cancel') {
             $subscription->cancel(array('at_period_end' => true));
-            $account_level = 22;
-            $plan_switched = ($account_level == 1) ? 'CANCEL_DOWNGRADE' : 'CANCEL_UPGRADE';
+            $plan_switched = ($user['plan_switched'] == 'DOWNGRADE') ? 'CANCELLED_DOWNGRADE' : 'CANCELLED';
             $output['success'] = true;
             $output['message'] = __('SUBSCRIPTION_CANCELLED_SUCCESS');
         } else {
@@ -616,7 +616,7 @@ class UsersController extends AppController
             );
             $user['plan_switched'] = $plan_switched;
             $user['account_level'] = $account_level;
-            if ($plan_switched != 'CANCEL_DOWNGRADE') {
+            if (($account_level == 2) || in_array($plan_switched, ['DOWNGRADE', 'CANCELLED_DOWNGRADE'])) {
                 $user['quiz_bank_access'] = true;
             } else {
                 $user['quiz_bank_access'] = false;
@@ -655,16 +655,16 @@ class UsersController extends AppController
         ));
 
         $output['success'] = true;
-        if ($user['plan_switched'] == 'CANCEL_UPGRADE' && $this->request->data['utype'] == 1) {
+        if (($user['account_level'] == 2) && ($this->request->data['utype'] == 1)) {
             $user['plan_switched'] = 'DOWNGRADE';
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED');
             $output['type'] = 'DOWNGRADE';
-        } elseif ($user['plan_switched'] == 'CANCEL_DOWNGRADE' && $this->request->data['utype'] == 2) {
+        } elseif (($user['account_level'] == 1) && $this->request->data['utype'] == 2) {
             $user['plan_switched'] = 'UPGRADE';
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED');
             $output['type'] = 'UPGRADE';
         } else {
-            $user['plan_switched'] = NULL;
+            $user['plan_switched'] = ($user['account_level'] == 1 && $user['plan_switched'] == 'CANCELLED_DOWNGRADE') ? 'DOWNGRADE' : NULL;
             $output['message'] = __('SUBSCRIPTION_REACTIVATION_SUCCESS');
             $output['type'] = 'REACTIVATE';
         }
@@ -678,7 +678,7 @@ class UsersController extends AppController
         );
         $user['account_level'] = $this->request->data['utype'];
         
-        if (($this->request->data['utype'] == 2) || !empty($user['plan_switched'])) {
+        if (($this->request->data['utype'] == 2) || ($user['plan_switched'] == 'DOWNGRADE')) {
             $user['quiz_bank_access'] = true;
         } else {
             $user['quiz_bank_access'] = false;

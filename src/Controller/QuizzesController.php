@@ -1234,6 +1234,7 @@ class QuizzesController extends AppController
     public function ajaxImport() {
         $this->autoRender = false;
         $this->accountStatus();
+        $this->hasQuizBankAccess();
         $response['result'] = 0;
 
         $user_id = $this->Auth->user('id');

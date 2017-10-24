@@ -7,10 +7,10 @@
     <?= $this->Html->css(['uploadfile'], ['inline' => false]); ?>
 <?php endif; ?>
 <?php
-    if (in_array($authUser['account_level'], [1,2])) {
+    if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) {
         $id_modifier = '_edit';
         $input_name = 'upgrade';
-    } else if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) {
+    } else if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) {
         $id_modifier = '_activate';
         $input_name = 'activate';
     } else {
@@ -25,7 +25,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= __('CLOSE'); ?></span></button>
                 <h4 class="modal-title" id="invoice-dialog-title">
-                    <?php if (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
+                    <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                         <?= __('REACTIVATE_SUBSCRIPTION'); ?>
                     <?php else : ?>
                         <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('PURCHASE_YEARLY_LICENCE'); ?>
@@ -34,25 +34,31 @@
             </div>
             <div class="modal-body">
                 <div class="row m-b-10">
-                    <div class="col-md-12 m-b-5"><strong><?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PACKAGE') : __('1_CHOOSE_PACKAGE'); ?></strong></div>
+                    <div class="col-md-12 m-b-5">
+                        <?php if (!in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
+                            <strong><?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PACKAGE') : __('1_CHOOSE_PACKAGE'); ?></strong>
+                        <?php else : ?>
+                            <strong><?= __('REACTIVATE_SUBSCRIPTION_TITLE'); ?></strong>
+                        <?php endif; ?>
+                    </div>
                     <div class="col-md-9">
-                        <input name="<?= $input_name; ?>" id="29_package_input<?php echo $id_modifier; ?>" value="1"<?php if ($authUser['account_level'] == 1) echo ' checked'; ?> type="radio" class="package-btn" />
+                        <input name="<?= $input_name; ?>" id="29_package_input<?= $id_modifier; ?>" value="1"<?php if ($authUser['account_level'] == 1) echo ' checked'; ?> type="radio" class="package-btn" />
                         <strong><?= __('BASIC'); ?></strong> <?= __('CREATE_AND_USE_QUIZZES_FREELY'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 1) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="29_package<?php echo $id_modifier; ?>"><span><?= __('29_EUR'); ?></span></button>
+                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 1) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="29_package<?= $id_modifier; ?>"><span><?= __('29_EUR'); ?></span></button>
                     </div>
                 </div>
                 <div class="row m-b-10">
                     <div class="col-md-9">
-                        <input name="<?= $input_name; ?>" id="49_package_input<?php echo $id_modifier; ?>" value="2" type="radio"<?php if ($authUser['account_level'] == 2) echo ' checked'; ?> class="package-btn" />
+                        <input name="<?= $input_name; ?>" id="49_package_input<?= $id_modifier; ?>" value="2" type="radio"<?php if ($authUser['account_level'] == 2) echo ' checked'; ?> class="package-btn" />
                         <strong><?= __('QUIZ_BANK'); ?></strong> <?= __('SHARE_OWN_QUIZZES'); ?>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn <?php echo ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="49_package<?php echo $id_modifier; ?>"><span><?= __('49_EUR'); ?></span></button>
+                        <button type="button" class="btn <?= ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="49_package<?= $id_modifier; ?>"><span><?= __('49_EUR'); ?></span></button>
                     </div>
                 </div>
-                <?php if (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id'])) : ?>
+                <?php if (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id']) && !in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                     <div class="row m-b-10">
                         <div class="col-md-9">
                             <input name="<?= $input_name; ?>" id="cancel_package_input" value="Cancel" type="radio"  class="package-btn" />
@@ -199,7 +205,7 @@
                 <?php endif; ?>
             </div>
             <div class="modal-footer">
-                <?php if (in_array($authUser['account_level'], [1,2])) : ?>
+                <?php if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                     <?php if (empty($authUser['customer_id'])) : ?>
                         <button type="button" class="btn btn-success" id="purchase-again"><?= $lang_strings['next_buy']; ?></button>
                         <?php if ($userPermissions['days_left'] < 30) : ?>
@@ -210,8 +216,8 @@
                     <?php else : ?>
                         <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
                     <?php endif; ?>
-                <?php elseif (in_array($authUser['plan_switched'], ['CANCEL_DOWNGRADE', 'CANCEL_UPGRADE'])) : ?>
-                    <button type="button" class="btn btn-success" disabled="disabled" id="confirm-reactivate"><?= __('SUBSCRITION_CANCELLED'); ?></button>
+                <?php elseif (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
+                    <button type="button" class="btn btn-success" id="confirm-reactivate"><?= $lang_strings['reactivate']; ?></button>
                 <?php else : ?>
                 <?php endif; ?>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?= __('CANCEL'); ?></button>
@@ -274,12 +280,6 @@
         padding: 7px 14px;
     }
 </style>
-<?php if ($authUser['plan_switched'] == 'CANCEL_UPGRADE') : ?>
-    <script type="text/javascript">var prev_account = 2;</script>
-<?php elseif ($authUser['plan_switched'] == 'CANCEL_DOWNGRADE') : ?>
-    <script type="text/javascript">var prev_account = 1;</script>
-<?php else: ?>
-<?php endif; ?>
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
     <script type="text/javascript">
         $(document).on('click', '.invoice-subscribe', function(e){

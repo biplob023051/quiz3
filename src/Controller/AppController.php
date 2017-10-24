@@ -197,7 +197,6 @@ class AppController extends Controller
         $permissions = array(
             'days_left' => 0,
             'quiz_bank_access' => false,
-            'plan_switched' => $c_user['plan_switched']
         );
         if (!empty($c_user['expired'])) {
             $days_left = floor((strtotime($c_user['expired']->format('Y-m-d H:i:s'))-time())/(60*60*24));
@@ -210,14 +209,14 @@ class AppController extends Controller
         // For unpaid new user, check 30 days of expire 
         if ($c_user['account_level'] == 51) { // for admin
             $permissions['quiz_bank_access'] = true;
-        } elseif(($c_user['account_level'] == 1) && ($c_user['plan_switched'] == 1)) { // for paid users
-            $permissions['quiz_bank_access'] = true;
         } elseif($c_user['account_level'] == 22) { // if new user unpaid 
             $days_left_created = floor((strtotime($c_user['created']->format('Y-m-d H:i:s'))-time())/(60*60*24));
             if ($days_left_created >= -30) {
                 $permissions['quiz_bank_access'] = true;
             }
         } elseif(($c_user['account_level'] == 2) && ($days_left >= 0)) { // if new user unpaid 
+            $permissions['quiz_bank_access'] = true;
+        } elseif(($c_user['account_level'] == 1) && ($days_left >= 0) && in_array($c_user['plan_switched'], ['DOWNGRADE', 'CANCELLED_DOWNGRADE'])) { // if new user unpaid 
             $permissions['quiz_bank_access'] = true;
         } elseif($c_user['account_level'] == 0) { // for old user
             

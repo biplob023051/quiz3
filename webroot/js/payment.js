@@ -118,20 +118,20 @@
             $(this).removeClass('btn-yellow').addClass('btn-green');
             $('#29_package_activate').removeClass('btn-green').addClass('btn-yellow');
         }
-        if (prev_account == chosen_account) {
+        if (account_level == chosen_account) {
             button_text = lang_strings['reactivate'];
         } else {
-            button_text = (prev_account == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
+            button_text = (account_level == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
         }
         $('#confirm-reactivate').html(button_text).show().attr('disabled', false);
     });
 
     $(document).on('change', 'input:radio[name="activate"]', function(){
         var button_text = '';
-        if (prev_account == $(this).val()) {
+        if (account_level == $(this).val()) {
             button_text = lang_strings['reactivate'];
         } else {
-            button_text = (prev_account == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
+            button_text = (account_level == 2) ? lang_strings['reactivate_downgrade'] : lang_strings['reactivate_upgrade'];
         }
         switch($(this).val()) {
             case '1':
