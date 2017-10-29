@@ -127,19 +127,6 @@
                             updatedRole = true;
                         }
                     } 
-                    var result = user_info.split('-');
-                    if (response.expired) {
-                        var expire_td = element.closest('tr').find('.expired-td');
-                        console.log(expire_td);
-                        if (response.expired == '0000-00-00') {
-                            expire_td.html('Not found <i class="glyphicon pencil-small"></i>');
-                        } else {
-                            expire_td.html(response.expired + ' <i class="glyphicon pencil-small"></i>');
-                        }
-                        expire_td.next('.update-user').val(response.expired);
-                        expire_td.next('.update-user').attr('data-value', response.expired);
-                        //expire_td.after('<input type="text" placeholder="Enter expire date" class="form-control update-user" name="class" data-rel="expired-'+ user_id +'" value="0000-00-00" data-value="0000-00-00" style="display: none;">');
-                    }
                 } else {
                     element.attr('data-value', element.attr('data-value'));
                     $.notify({
