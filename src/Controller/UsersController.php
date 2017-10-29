@@ -773,16 +773,29 @@ class UsersController extends AppController
         // Do something with $event
         if ($event->type == 'customer.subscription.deleted') {
             $customer_id = $event->data->object->customer;
-            $customer_id = 'cus_Baxlz4kyTpeFL7';
             $user = $this->Users->findByCustomerId($customer_id)->first();
             if (!empty($user)) {
-                $user->expired = date('Y-m-d H:i:s');
+                //$user->expired = date('Y-m-d H:i:s');
                 $user->account_level = 22;
                 $user->plan_switched = NULL;
                 $user->customer_id = NULL;
                 $this->Users->save($user);
             }
+        }
+
+        // If payment success
+        if (($event->type == 'invoice.payment_succeeded') && empty($event->request)) {
+            $amount = $event->data->object->amount_due;
+            $customer_id = $event->data->object->customer;
+            if (($amount == '2900') || ($amount == '4900')) {
+                $user = $this->Users->findByCustomerId($customer_id)->first();
+                if (!empty($user)) {
+                    $user->expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+                    $this->Users->save($user);
+                }
+            }
         } 
+
         http_response_code(200); // PHP 5.4 or greater
         exit();
     }
