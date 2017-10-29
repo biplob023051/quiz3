@@ -401,6 +401,8 @@ class UsersController extends AppController
     }
 
     public function buyCreate() {
+        $this->autoRender = false;
+        $output['success'] = false;
         if ($this->request->is(array('post', 'put'))) {
             //$this->request->data['activation'] = $this->randText(16);
             $this->request->data['activation'] = NULL;
@@ -413,6 +415,7 @@ class UsersController extends AppController
                 $package = __('49_EUR');
                 $this->request->data['account_level'] = 2;
             }
+            $package = $this->request->data['package'];
             unset($this->request->data['package']);
             $this->request->data['expired'] = $date;
             $this->request->data['language'] = Configure::read('Config.language');
@@ -423,21 +426,71 @@ class UsersController extends AppController
             $user = $this->Users->save($user);
             // pr($user);
             // exit;
+            $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
+
             if (!empty($user->id)) {
+
+                if ($this->request->data['payment_type'] == 'card') {
+                    $plan = ($package == 49) ? 'bank-yearly' : 'basic-yearly';
+                    \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");  
+
+                    $customer = \Stripe\Customer::create(array(
+                        "card" => $this->request->data['token'],
+                        "email" => $user->email,
+                        "metadata" => ['name' => $user->name],
+                    ));
+                    if (!empty($customer->id)) {
+                        \Stripe\Subscription::create(array(
+                          "customer" => $customer->id,
+                          "items" => array(
+                            array(
+                              "plan" => $plan
+                            ),
+                          ),
+                        ));
+                        $this->Users->updateAll(
+                            [
+                                'customer_id' => $customer->id
+                            ], 
+                            ['id' => $user->id]
+                        );
+                        $user->customer_id = $customer->id;
+                    } else {
+                        $expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d') + 30, date('Y')));
+                        $this->Users->updateAll(
+                            [
+                                'expired' => $expired,
+                                'account_level' => 22
+                            ], 
+                            ['id' => $user->id]
+                        );
+                        $this->request->data['account_level'] = 22;
+                    }
+                } else {
+                    $data = $user->toArray();
+                    $data['package'] = ($package == 29) ? __('29_EUR') : __('49_EUR');
+                    if (!empty($this->request->data['invoice_info']))
+                    $data['invoice_info'] = $this->request->data['invoice_info'];
+                    if (!empty($this->request->data['temp_photo']) && file_exists(WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo'])) {
+                        $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $data, 'invoice_payment', $data['email'], true, [WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo']]);
+                        unlink(WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo']);
+                    } else {
+                        $email_success = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $data, 'invoice_payment', $data['email'], true);
+                    }
+                }
+
+
+
                 // Send email to user for email confirmation
                 //$user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
                 // Send email to admin
-                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
                 
-                $user->package = $package;
-                // Send email for upgrade notice to the admin 
-                $upgrade_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('UPGRADE_ACCOUNT'), $user, 'invoice', $user->email, true);
                 // $this->Session->write('registration', true);
                 // return $this->redirect(array('action' => 'success'));
 
                 // New codes added here for removing email confirmation
                 if ($this->request->data['account_level'] == 2) {
-                    $user['quiz_bank_access'] = true;
+                    $user->quiz_bank_access = true;
                 }
                 $this->Auth->setUser($user);
                 //Login Event.
@@ -447,13 +500,16 @@ class UsersController extends AppController
                 ]);
                 $this->eventManager()->dispatch($event);
                 //return $this->redirect($this->Auth->redirectUrl());
-                return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+                $flash_message = ($this->request->data['account_level'] != 22) ? __('BUY_CREATE_SUCCESS') : __('BUY_FAILED_BUT_ACC_CREATE_SUCCESS');
+                $this->Flash->success($flash_message);
+                $output['success'] = true;
+                $output['message'] = $flash_message;
                 // End of new code
             } else {
                 $this->Flash->error(__('SOMETHING_WENT_WRONG'));
-                return $this->redirect($this->referer());
             }
         }
+        echo json_encode($output);
     }
 
      /* 

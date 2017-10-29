@@ -4,6 +4,12 @@ use App\Controller\AppController;
 use App\Vendor\qqFileUploader;
 
 class UploadController extends AppController {
+	public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['photo']);
+    }
+
 	// Method for deleting photo
 	public function deletePhoto() {
 		$this->autoRender = false;

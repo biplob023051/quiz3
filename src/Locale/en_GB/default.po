@@ -1582,19 +1582,19 @@ msgstr "Limited Access"
 
 #: View/Pages/prices.ctp:15
 msgid "29_EUR"
-msgstr "29 E/Y"
+msgstr "29 €/Y"
 
 #: View/Pages/prices.ctp:16
 msgid "49_EUR"
-msgstr "49 E/Y"
+msgstr "49 €/Y"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
-msgstr "Create Account And Buy 29 E/Y"
+msgstr "Create Account And Buy 29 €/Y"
 
 #: Controller/PagesController.php:90
 msgid "CREATE_ACCOUNT_BUY_49"
-msgstr "Create Account And Buy 49 E/Y"
+msgstr "Create Account And Buy 49 €/Y"
 
 #: 
 msgid "THANKS_REGISTRATION"
