@@ -187,6 +187,9 @@ class UsersController extends AppController
                                     $user->account_level = $this->request->data['value_info'];
                                     if (in_array($this->request->data['value_info'], [1,2])) {
                                         $user->expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+                                        $user->plan_switched = NULL;
+                                    } elseif ($this->request->data['value_info'] == 22) {
+                                        $user->expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')+30, date('Y')));
                                     } elseif ($this->request->data['value_info'] == 0) {
                                         $user->expired = NULL;
                                     } else {
