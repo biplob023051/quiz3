@@ -322,30 +322,6 @@
         });
     });
 
-    $(document).on('click', '#send-invoice', function () {
-        //console.profile("Sending invoice");
-        $.ajax({
-            url: projectBaseUrl + 'invoice/create',
-            dataType: 'json',
-            success: function (response)
-            {
-                if(response.success)
-                {
-                    $('#invoice-dialog').modal('hide');
-                    $('#invoice-success-dialog').modal('show');
-                    $('#upgrade_account').attr('disabled', true);
-                    $('span#btn_text').html(lang_strings['request_sent']);
-                }
-            },
-            error: function()
-            {
-                $('#invoice-dialog').modal('hide');
-                $('#invoice-error-dialog').modal('show');
-            }
-        });
-        //console.profileEnd();
-    });
-
     $('#invoice-success-dialog').on('hidden.bs.modal', function () {
         window.location.reload();
     });

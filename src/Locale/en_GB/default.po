@@ -171,7 +171,7 @@ msgstr "Class"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Turn in your quiz"
+msgstr "Turn in your quiz?"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
@@ -386,15 +386,15 @@ msgstr "Today"
 
 #: Answer table - Back
 msgid "THIS_YEAR"
-msgstr "365 days"
+msgstr "This Year"
 
 #: Answer table - Back
 msgid "THIS_MONTH"
-msgstr "30 days"
+msgstr "This Month"
 
 #: Answer table - Back
 msgid "THIS_WEEK"
-msgstr "7 days"
+msgstr "This Week"
 
 #: Answer table - Back
 msgid "RATE"
@@ -706,7 +706,7 @@ msgstr "No direct access to this page!"
 
 #: added - 
 msgid "ALL_TIME"
-msgstr "All days"
+msgstr "All Time"
 
 #: View/Elements/page-navbar.ctp:9
 msgid "NAVIGATION"
@@ -763,7 +763,7 @@ msgstr "FREE"
 
 #: View/Pages/prices.ctp:15
 msgid "19_EUR"
-msgstr "19 E/Y"
+msgstr "19 €/Y"
 
 #: View/Pages/prices.ctp:20
 msgid "USERS"
@@ -1146,7 +1146,7 @@ msgstr "Closed"
 
 #: View/Quiz/index.ctp:17
 msgid "ACCOUNT_WILL_EXPIRE"
-msgstr "Your account will expire in"
+msgstr "Your account will be expired in"
 
 #: View/Quiz/index.ctp:43
 msgid "IN_DAYS"
@@ -1618,7 +1618,7 @@ msgstr "Basic:"
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "CREATE_AND_USE_QUIZZES_FREELY"
-msgstr "Create and use quizzes without limits for 365 days"
+msgstr "Create and use quizzes freely without limits."
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
@@ -1626,7 +1626,7 @@ msgstr "Quiz Bank"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "In addition, share and receive ready made quizzes"
+msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
@@ -1844,134 +1844,292 @@ msgstr "Dear teacher! Welcome to try Verkkotesti 30 days for free. You're only o
 msgid "CREATE_MSG_STUDENT"
 msgstr "Students don't need an account. The teacher will provide the quiz link."
 
-#: 
-msgid "CANCEL_SUBSCRIPTION"
-msgstr "Cancel Subscription"
+#: PLEASE_START_FROM_HERE
 
-#: 
-msgid "SUBSCRITION_CANCEL_TEXT"
-msgstr "With this option your account will not be renewed after your expiration date"
-
-#: 
-msgid "CARD_NUMBER"
-msgstr "Card Number"
-
-#: 
-msgid "VALID_CARD_REQUIRED"
-msgstr "Valid Card Number Required"
-
-#: 
-msgid "EXPIRATION"
-msgstr "Expiration"
-
-#: 
-msgid "DATE"
-msgstr "Date"
-
-#: 
-msgid "INVOICE_INFO"
-msgstr "Invoice Number"
-
-#: 
-msgid "INVOICE_INFO_PLACEHOLDER"
-msgstr "Enter Invoice Number"
-
-#: 
-msgid "INVOICE_ATTACHMENT"
-msgstr "Attach Invoice"
-
-#: 
-msgid "START_SUBSCRIPTION"
-msgstr "Start Subscription"
-
-#: 
-msgid "VALIDATING"
-msgstr "Validating"
-
-#: 
-msgid "RETRY"
-msgstr "Try again"
-
-#: 
-msgid "PAY_SUCCESS"
-msgstr "Payment successful"
-
-#: 
-msgid "PAY_FAILED"
-msgstr "There was a problem"
-
-#: 
-msgid "TRY_REFRESH"
-msgstr "Try refreshing the page and trying again."
-
-#: 
-msgid "THANKS_FOR_PURCHASING"
-msgstr "Thanks for purchasing a package."
-
-#: 
-msgid "ACCOUNT_EXPIRE"
-msgstr "Expire Date"
-
-#: 
-msgid "CURRENT_PLAN"
-msgstr "Current Plan"
-
-#: 
-msgid "EDIT_PLAN"
-msgstr "Edit Plan"
-
-#: 
-msgid "INCL_TAX"
-msgstr "(Incl. 24% sales tax)"
-
-#: 
-msgid "EXCL_TAX"
-msgstr "(Excl. 24% sales tax)"
-
-#: 
-msgid "CONFIRM_CANCEL"
-msgstr "Cancel Plan"
-
-#: 
-msgid "DOWNGRADE_PLAN"
-msgstr "Downgrade Plan"
-
-#: 
-msgid "UPGRADE_PLAN"
-msgstr "Upgrade Plan"
-
-#: 
-msgid "CURRENT_PLAN"
-msgstr "Current Plan"
-
-#: 
-msgid "29_YEARLY_BTN_TEXT"
-msgstr "Confirm yearly order (29 €/year)"
-
-#: 
-msgid "49_YEARLY_BTN_TEXT"
-msgstr "Confirm yearly order (49 €/year)"
-
-#: 
+#:
 msgid "1_CHOOSE_PACKAGE"
-msgstr "1. Choose your package:"
+msgstr "1_CHOOSE_PACKAGE"
 
-#: 
+#:
+msgid "INCL_TAX"
+msgstr "INCL_TAX"
+
+#:
+msgid "EXCL_TAX"
+msgstr "EXCL_TAX"
+
+#:
 msgid "2_CHOOSE_PAYMENT_METHOD"
-msgstr "2. Choose your payment method:"
+msgstr "2_CHOOSE_PAYMENT_METHOD"
 
-#: 
+#:
+msgid "INVOICE_INSTITUTION"
+msgstr "INVOICE_INSTITUTION"
+
+#:
+msgid "INVOICE_INFO"
+msgstr "INVOICE_INFO"
+
+#:
+msgid "INVOICE_INFO_PLACEHOLDER"
+msgstr "INVOICE_INFO_PLACEHOLDER"
+
+#:
+msgid "INVOICE_ATTACHMENT"
+msgstr "INVOICE_ATTACHMENT"
+
+#:
+msgid "CARD_NUMBER"
+msgstr "CARD_NUMBER"
+
+#:
+msgid "VALID_CARD_REQUIRED"
+msgstr "VALID_CARD_REQUIRED"
+
+#:
+msgid "EXPIRATION"
+msgstr "EXPIRATION"
+
+#:
+msgid "DATE"
+msgstr "DATE"
+
+#:
+msgid "CVC"
+msgstr "CVC"
+
+#:
 msgid "3_PURCHASE"
-msgstr "3. Purchase:"
+msgstr "3_PURCHASE"
 
-#: 
+#:
+msgid "AUTO_CHARGE_PER_YEAR"
+msgstr "AUTO_CHARGE_PER_YEAR"
+
+#:
+msgid "CANCEL_ANYTIME_FROM_SETTINGS"
+msgstr "CANCEL_ANYTIME_FROM_SETTINGS"
+
+#:
+msgid "NO_PAYMENT_AFTER_CANCEL"
+msgstr "NO_PAYMENT_AFTER_CANCEL"
+
+#:
+msgid "AFTER_CANCEL_STILL_BENEFIT_TILL_END"
+msgstr "AFTER_CANCEL_STILL_BENEFIT_TILL_END"
+
+#:
+msgid "REOPEN_ACCOUNT_ANYTIME"
+msgstr "REOPEN_ACCOUNT_ANYTIME"
+
+#:
+msgid "IMMEDIATE_ACCESS_AFTER_PURCHASE"
+msgstr "IMMEDIATE_ACCESS_AFTER_PURCHASE"
+
+#:
+msgid "29_YEARLY_BTN_TEXT"
+msgstr "29_YEARLY_BTN_TEXT"
+
+#:
+msgid "49_YEARLY_BTN_TEXT"
+msgstr "49_YEARLY_BTN_TEXT"
+
+#:
 msgid "PURCHASE_YEARLY_LICENCE"
-msgstr "Purchase yearly license"
+msgstr "PURCHASE_YEARLY_LICENCE"
+
+#:
+msgid "VALIDATING"
+msgstr "VALIDATING"
+
+#:
+msgid "RETRY"
+msgstr "RETRY"
+
+#:
+msgid "PROCESSING"
+msgstr "PROCESSING"
+
+#:
+msgid "PAY_SUCCESS"
+msgstr "PAY_SUCCESS"
+
+#:
+msgid "PAY_FAILED"
+msgstr "PAY_FAILED"
+
+#:
+msgid "TRY_REFRESH"
+msgstr "TRY_REFRESH"
+
+#:
+msgid "DOWNGRADE_PLAN"
+msgstr "DOWNGRADE_PLAN"
+
+#:
+msgid "UPGRADE_PLAN"
+msgstr "UPGRADE_PLAN"
+
+#:
+msgid "CURRENT_PLAN"
+msgstr "CURRENT_PLAN"
+
+#:
+msgid "REACTIVATE_SUBSCRIPTION"
+msgstr "REACTIVATE_SUBSCRIPTION"
+
+#:
+msgid "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
+msgstr "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
+
+#:
+msgid "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
+msgstr "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
+
+#:
+msgid "STRIPE_PAY_SUC_TITLE"
+msgstr "STRIPE_PAY_SUC_TITLE"
+
+#:
+msgid "STRIPE_PAY_SUC_BODY"
+msgstr "STRIPE_PAY_SUC_BODY"
 
 #:
 msgid "CANCEL_PLAN_TITLE"
-msgstr "Cancel order"
+msgstr "CANCEL_PLAN_TITLE"
 
 #:
 msgid "CANCEL_PLAN_BODY"
-msgstr "We received your cancellation. You can use your account to the last paid day. No new payments are charged after that."
+msgstr "CANCEL_PLAN_BODY"
+
+#:
+msgid "UPGRADE_PLAN_TITLE"
+msgstr "UPGRADE_PLAN_TITLE"
+
+#:
+msgid "UPGRADE_PLAN_BODY"
+msgstr "UPGRADE_PLAN_BODY"
+
+#:
+msgid "DOWNGRADE_PLAN_TITLE"
+msgstr "DOWNGRADE_PLAN_TITLE"
+
+#:
+msgid "DOWNGRADE_PLAN_BODY"
+msgstr "DOWNGRADE_PLAN_BODY"
+
+#:
+msgid "REACTIVATE_TITLE"
+msgstr "REACTIVATE_TITLE"
+
+#:
+msgid "REACTIVATE_BODY"
+msgstr "REACTIVATE_BODY"
+
+#:
+msgid "REACTIVATE_UPGRADED_BODY"
+msgstr "REACTIVATE_UPGRADED_BODY"
+
+#:
+msgid "REACTIVATE_DOWNGRADED_BODY"
+msgstr "REACTIVATE_DOWNGRADED_BODY"
+
+#:
+msgid "NEXT_YEAR_TITLE"
+msgstr "NEXT_YEAR_TITLE"
+
+#:
+msgid "NEXT_YEAR_BODY"
+msgstr "NEXT_YEAR_BODY"
+
+#:
+msgid "UPGRADE_AND_NEXT_YEAR_BODY"
+msgstr "UPGRADE_AND_NEXT_YEAR_BODY"
+
+#:
+msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
+msgstr "DOWNGRADE_AND_NEXT_YEAR_BODY"
+
+#:
+msgid "THANKS_FOR_PURCHASING"
+msgstr "THANKS_FOR_PURCHASING"
+
+#:
+msgid "INVOICE_UPGRADE_PLAN_SUCCESS"
+msgstr "INVOICE_UPGRADE_PLAN_SUCCESS"
+
+#:
+msgid "INVOICE_UPGRADE_PLAN"
+msgstr "INVOICE_UPGRADE_PLAN"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
+msgstr "INVOICE_DOWNGRADE_PLAN_SUCCESS"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN"
+msgstr "INVOICE_DOWNGRADE_PLAN"
+
+#:
+msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
+msgstr "SUBSCRIPTION_CANCELLED_SUCCESS"
+
+#:
+msgid "UPGRADE_PLAN_SUCCESS"
+msgstr "UPGRADE_PLAN_SUCCESS"
+
+#:
+msgid "DOWNGRADE_PLAN_SUCCESS"
+msgstr "DOWNGRADE_PLAN_SUCCESS"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS"
+msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS"
+
+#:
+msgid "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+
+#:
+msgid "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
+
+#:
+msgid "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+
+#:
+msgid "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
+
+#:
+msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+
+#:
+msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
+msgstr "THANKS_FOR_CONTINUE_SUBSCRIPTION"
+
+#:
+msgid "REQUIRED_FIELD"
+msgstr "REQUIRED_FIELD"
+
+#:
+msgid "INVALID_CARD"
+msgstr "INVALID_CARD"
+
+#:
+msgid "INVALID_EXPIRE_DATE"
+msgstr "INVALID_EXPIRE_DATE"
+
+#:
+msgid "INVALID_CVC"
+msgstr "INVALID_CVC"

@@ -205,8 +205,8 @@
                                 success_url = 1;
                                 $('#create-user').html(data.message + ' <i class="fa fa-check"></i>');
                                 $('#buy-modal').modal('hide');
-                                $('#pay-title').html(lang_strings['pay_scs_title']);
-                                $('#pay-body').html(lang_strings['pay_scs_body']);
+                                $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
+                                $('#pay-body').html(lang_strings['stripe_pay_scs_body']);
                                 $('#invoice-success-dialog').modal('show');
                             } else {
                                 $('#create-user').html(data.message).removeClass('success').addClass('alert-danger');

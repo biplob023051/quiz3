@@ -82,7 +82,7 @@
                                 <input type="radio" name="payment_option" id="card-payment" value="card" /><img src="<?= $this->request->webroot ?>img/accepted_c22e0.png" /></label>
                             </div>
                             <div class="col-md-6 m-t-10">
-                                <label for="invoice-payment"><input type="radio" name="payment_option" id="invoice-payment" value="invoice" /> Invoice (Institutions only)</label>
+                                <label for="invoice-payment"><input type="radio" name="payment_option" id="invoice-payment" value="invoice" /> <?= __('INVOICE_INSTITUTION'); ?></label>
                             </div>
                             <div class="col-md-12" id="card-portion" style="display: none;">
                                 <!-- If you're using Stripe for payments -->
@@ -126,12 +126,12 @@
                                         </div>
                                         <div class="col-xs-5 col-md-5 pull-right">
                                             <div class="form-group">
-                                                <label for="cardCVC">CV Code</label>
+                                                <label for="cardCVC"><?= __('CVC'); ?></label>
                                                 <input 
                                                     type="tel" 
                                                     class="form-control"
                                                     name="cardCVC"
-                                                    placeholder="CVC"
+                                                    placeholder="<?= __('CVC'); ?>"
                                                     autocomplete="cc-csc"
                                                     required
                                                 />
@@ -394,8 +394,8 @@
                             if (data.success == true) {
                                 $form.find('.subscribe').html(data.message + ' <i class="fa fa-check"></i>');
                                 $('#invoice-payment').modal('hide');
-                                $('#pay-title').html(lang_strings['pay_scs_title']);
-                                $('#pay-body').html(lang_strings['pay_scs_body']);
+                                $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
+                                $('#pay-body').html(lang_strings['stripe_pay_scs_body']);
                                 $('#invoice-success-dialog').modal('show');
                             } else {
                                 $form.find('.subscribe').html(data.message).removeClass('success').addClass('alert-danger');
