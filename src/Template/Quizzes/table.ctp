@@ -71,4 +71,4 @@ $this->assign('title', __('ANSWER_TABLE'));
     var onlineStds = <?php echo json_encode($onlineStds) ?>;
 </script>
 
-<?= $this->Html->script(array('tableHeadFixer', 'answer-table', 'jquery.tablesorter.min'), array('inline' => false));?>
+<?= $this->Html->script(array('tableHeadFixer', 'jquery.tablesorter.min', 'answer-table'), array('inline' => false));?>

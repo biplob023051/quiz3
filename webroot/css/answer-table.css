@@ -235,3 +235,7 @@ span.score {
 .number-fix {
   width: 39px; float: left; margin-top: 7px; 
 }
+
+.header {
+  font-size: 14px !important;
+}
