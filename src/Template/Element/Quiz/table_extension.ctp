@@ -40,14 +40,14 @@
                         </td>
                         <?php if (empty($quizDetails->anonymous)) : ?>
                             <td class="std-name">
-                                <span class="std-info" style="margin-right: 5px;"><?php echo !empty($value1->lname) ? $value1->lname : __('LAST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter last name'); ?>" class="form-control update-std" name="lname" data-rel="lname-<?php echo $value1->id; ?>" value="<?php echo $value1->lname; ?>">
+                                <span class="std-info" style="margin-right: 5px;"><?php echo !empty($value1->lname) ? $value1->lname : __('LAST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_LAST_NAME'); ?>" class="form-control update-std" name="lname" data-rel="lname-<?php echo $value1->id; ?>" value="<?php echo $value1->lname; ?>">
                                 
-                                <span class="std-info"><?php echo !empty($value1->fname) ? $value1->fname : __('FIRST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter first name'); ?>" class="form-control update-std" name="fname" data-rel="fname-<?php echo $value1->id; ?>" value="<?php echo $value1->fname; ?>">
+                                <span class="std-info"><?php echo !empty($value1->fname) ? $value1->fname : __('FIRST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_FIRST_NAME'); ?>" class="form-control update-std" name="fname" data-rel="fname-<?php echo $value1->id; ?>" value="<?php echo $value1->fname; ?>">
                             </td>
                         <?php endif; ?>
-                        <td class="timestamp"><?php echo !empty($value1->submitted) ? date('d/m/Y, H:m', $value1->submitted->timestamp) : ''; ?></td>
+                        <td class="timestamp"><?php echo !empty($value1->submitted) ? date('d.m.Y, H:m', $value1->submitted->timestamp) : ''; ?></td>
                         <?php if (empty($quizDetails->anonymous)) : ?>
-                            <td class="class-th"><span class="std-info"><?php echo !empty($value1->class) ? $value1->class : __('CLASS'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('Enter class'); ?>" class="form-control update-std" name="class" data-rel="class-<?php echo $value1->id; ?>" value="<?php echo $value1->class; ?>"></td>
+                            <td class="class-th"><span class="std-info"><?php echo !empty($value1->class) ? $value1->class : __('CLASS'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_CLASS'); ?>" class="form-control update-std" name="class" data-rel="class-<?php echo $value1->id; ?>" value="<?php echo $value1->class; ?>"></td>
                         <?php endif; ?>
                         <?php foreach ($quizDetails->rankings as $key2 => $value2) : ?>
                             <?php if ($value1->id == $value2->student_id) : ?>

@@ -115,7 +115,7 @@ $.tablesorter.addParser({
         }
         var dateTimeParts = s.split(', '),
         timeParts = dateTimeParts[1].split(':'),
-        dateParts = dateTimeParts[0].split('/'),
+        dateParts = dateTimeParts[0].split('.'),
         date;
         date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
         return date.getTime();

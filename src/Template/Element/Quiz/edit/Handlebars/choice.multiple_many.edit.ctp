@@ -32,7 +32,7 @@
                             'label' => false,
                             'id' => 'Choice{{id}}Points',
                             'type' => 'number',
-                            'step' => '0.01',
+                            'step' => '1',
                             'value' => '{{points}}'
                         ));
                         ?>
@@ -87,7 +87,7 @@
                             'label' => false,
                             'id' => 'Choice{{id}}Points',
                             'type' => 'number',
-                            'step' => '0.01',
+                            'step' => '1',
                             'value' => '{{points}}' 
                         ));
                         ?>

@@ -2133,3 +2133,16 @@ msgstr "INVALID_EXPIRE_DATE"
 #:
 msgid "INVALID_CVC"
 msgstr "INVALID_CVC"
+
+#:
+msgid "ENTER_LAST_NAME"
+msgstr "ENTER_LAST_NAME"
+
+#:
+msgid "ENTER_FIRST_NAME"
+msgstr "ENTER_FIRST_NAME"
+
+#:
+msgid "ENTER_CLASS"
+msgstr "ENTER_CLASS"
+

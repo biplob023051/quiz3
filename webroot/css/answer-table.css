@@ -239,3 +239,7 @@ span.score {
 .header {
   font-size: 14px !important;
 }
+
+.automatic_rating_box {
+  padding-right: 10px;
+}

@@ -31,7 +31,7 @@
                             'default' => '{{points}}',
                             'label' => false,
                             'type' => 'number',
-                            'step' => '0.01',
+                            'step' => '1',
                             'id' => 'Choice{{id}}Points',
                             'value' => '{{points}}'
                         ));
@@ -86,7 +86,7 @@
                             'default' => 0,
                             'label' => false,
                             'type' => 'number',
-                            'step' => '0.01',
+                            'step' => '1',
                             'id' => 'Choice{{id}}Points',
                             'value' => '{{points}}'
                         ));
