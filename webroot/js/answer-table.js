@@ -370,6 +370,13 @@ $(document).ready(function(){
             $(this).blur();
         }
     });
+
+    $('#answer-table input:not(.update-std)').keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  {
+            $(this).blur();
+        }
+    });
     
 })(jQuery);
 
@@ -461,13 +468,6 @@ function testFunc() {
             }, 500);
             return false;
         } else if (marks == current_score) {
-            // $("#ajax-message").removeClass('alert-success');
-            // $("#ajax-message").addClass('alert-danger');
-            // $("#ajax-message").html(lang_strings['update_require']);
-            // $("#ajax-message").show();
-            // $('html, body').animate({
-            //     scrollTop: $(".page-header").offset().top
-            // }, 500);
             return false;
         } else if (marks > max) {
             $("#ajax-message").removeClass('alert-success');
