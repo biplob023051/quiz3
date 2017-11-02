@@ -1,7 +1,8 @@
 <style>
     .update-user {
       display: none;
-      width: 90px;
+      width: 100%;
+      text-align: center;
     }
     .user-info {
         cursor: pointer;
@@ -99,7 +100,7 @@
                                 <tr id="user-<?= $user->id; ?>" class="<?= ($user->isactive) ? '' : 'inactive-row'; ?>">
                                     <td class="text-center"><?= $user->id; ?></td>
                                     <td class="text-center"><span class="user-info"><?= h($user->name); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_NAME'); ?>" class="form-control update-user" name="class" data-rel="name-<?= $user->id; ?>" value="<?= $user->name; ?>" data-value="<?= $user->name ?>"></td>
-                                    <td class="text-center"><?= h($user->email); ?></td>
+                                    <td class="text-center"><span class="user-info"><?= h($user->email); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EMAIL'); ?>" class="form-control update-user" name="email" data-rel="email-<?= $user->id; ?>" value="<?= $user->email; ?>" data-value="<?= $user->email; ?>"></td>
                                     <td class="text-center"><?= !empty($user->user_statistic->created) ? h($user->user_statistic->created->todatestring()) : ''; ?></td>
                                     <td class="text-center"><?= !empty($user->statistics[0]['total_login']) ? $user->statistics[0]['total_login'] : '0'; ?></td>
                                     <td class="text-center"><?= !empty($user->quizzes[0]['total_quiz']) ? $user->quizzes[0]['total_quiz'] : '0'; ?></td>

@@ -151,7 +151,7 @@ class UsersController extends AppController
             if ((!in_array($user_info[0], ['account_level', 'isactive'])) && empty($this->request->data['value_info'])) {
                 $response['message'] = __('INVALID_INPUT');
             } else {
-                if (in_array($user_info[0], ['name', 'expired', 'account_level', 'isactive'])) {
+                if (in_array($user_info[0], ['name', 'expired', 'account_level', 'isactive', 'email'])) {
                     $validate = true;
                     if ($user_info[0] == 'expired') {
                         $test_date = $this->request->data['value_info'];
@@ -199,6 +199,17 @@ class UsersController extends AppController
                                     break;
                                 case 'isactive':
                                     $user->isactive = $this->request->data['value_info'];
+                                    break;
+                                case 'email':
+                                    // Check if user email is unique
+                                    $emailExist = $this->Users->findByEmail($this->request->data['value_info'])->toArray();
+                                    if (!$emailExist) {
+                                        $user->email = $this->request->data['value_info'];
+                                    } else {
+                                        $response['message'] = __('EMAIL_EXIST');
+                                        echo json_encode($response);
+                                        exit;
+                                    }
                                     break;
                                 default:
                                     # code...
