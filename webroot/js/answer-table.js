@@ -361,42 +361,46 @@ $(document).ready(function(){
     });
 
     $('input.update-std').donetyping(function(){
-        var std_info = $(this).attr('data-rel');
-        var value_info = $(this).val();
-        var inputField = $(this);
-        clearInterval(interval);
-        $.ajax({
-            async: false,
-            dataType: 'json',
-            url: projectBaseUrl + 'students/ajax_std_update',
-            type: 'post',
-            data: {'std_info' : std_info, 'value_info' : value_info},
-            success: function (response)
-            {
-                if (response.success || response.success === "true")
-                {
-                    // var result = std_info.split('-');
-                    // var old_data = $.parseJSON($("#prev_data").html());
-                    // if (result[1] in old_data.onlineStds) {
-                    //     old_data.studentIds[result[1]][0][result[0]] = response.changetext;
-                    //     $("#prev_data").html(JSON.stringify(old_data));
-                    // }
-                    inputField.hide();
-                    if (response.changetext == '') {
-                        inputField.prev().show();
-                    } else {
-                        inputField.prev().html(response.changetext + ' <i class="glyphicon pencil-small"></i>').show();
-                    }
-                } else {
-                    alert(response.message);
-                }
-                clearInterval(interval);
-                interval = setInterval(getUpdated, 5000);
-            }
-        });
+        updateStudentInfo($(this));
+    });
+
+    $("input.update-std").keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  {
+            $(this).blur();
+        }
     });
     
 })(jQuery);
+
+function updateStudentInfo($this) {
+    var std_info = $this.attr('data-rel');
+    var value_info = $this.val();
+    clearInterval(interval);
+    $.ajax({
+        async: false,
+        dataType: 'json',
+        url: projectBaseUrl + 'students/ajax_std_update',
+        type: 'post',
+        data: {'std_info' : std_info, 'value_info' : value_info},
+        success: function (response)
+        {
+            if (response.success || response.success === "true")
+            {
+                $this.hide();
+                if (response.changetext == '') {
+                    $this.prev().show();
+                } else {
+                    $this.prev().html(response.changetext + ' <i class="glyphicon pencil-small"></i>').show();
+                }
+            } else {
+                alert(response.message);
+            }
+            clearInterval(interval);
+            interval = setInterval(getUpdated, 5000);
+        }
+    });
+}
 
 
 // javascript cookie functions

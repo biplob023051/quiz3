@@ -466,7 +466,25 @@ class StudentsController extends AppController
             $student_record->$field_name = $this->request->data['value_info'];
             if ($this->Students->save($student_record)) {
                 $response['success'] = true;
-                $response['changetext'] = $this->request->data['value_info'];
+                if (empty($this->request->data['value_info'])) {
+                    switch ($field_name) {
+                        case 'fname':
+                            $value_info = __('FIRST_NAME');
+                            break;
+                        case 'lname':
+                            $value_info = __('LAST_NAME');
+                            break;
+                        case 'class':
+                            $value_info = __('CLASS');
+                            break;
+                        default:
+                            $value_info = '';
+                            break;
+                    }
+                    $response['changetext'] = $value_info;
+                } else {
+                    $response['changetext'] = $this->request->data['value_info'];
+                }
             } else {
                 $response['message'] = __('SOMETHING_WENT_WRONG');
             }
