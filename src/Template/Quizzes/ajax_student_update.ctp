@@ -13,7 +13,7 @@
         <?php echo $value1->fname; ?> 
     </td>
 <?php endif; ?>
-<td class="timestamp"><?php echo $value1->submitted ?></td>
+<td class="timestamp"><?php echo !empty($value1->submitted) ? date('d/m/Y, H:m', $value1->submitted->timestamp) : ''; ?></td>
 <?php if (empty($quizDetails->anonymous)) : ?>
     <td class="class-th"><?php echo $value1->class; ?></td>
 <?php endif; ?>

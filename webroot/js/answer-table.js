@@ -102,24 +102,27 @@ function updateIndividulaStudent(student_id) {
 }
 
 $.tablesorter.addParser({ 
-        // set a unique id 
-        id: 'submitted', 
-        is: function(s) { 
-            // return false so this parser is not auto detected 
-            return false; 
-        }, 
-        format: function(s) { 
-            // format your data for normalization
-            var dateTimeParts = s.split(', '),
-            timeParts = dateTimeParts[1].split(':'),
-            dateParts = dateTimeParts[0].split('/'),
-            date;
-            date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
-            return date.getTime();
-        }, 
-        // set type, either numeric or text 
-        type: 'numeric' 
-    }); 
+    // set a unique id 
+    id: 'submitted', 
+    is: function(s) { 
+        // return false so this parser is not auto detected 
+        return false; 
+    }, 
+    format: function(s) { 
+        // format your data for normalization
+        if (!s) {
+            return 0;
+        }
+        var dateTimeParts = s.split(', '),
+        timeParts = dateTimeParts[1].split(':'),
+        dateParts = dateTimeParts[0].split('/'),
+        date;
+        date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+        return date.getTime();
+    }, 
+    // set type, either numeric or text 
+    type: 'numeric' 
+}); 
 
 $(document).ready(function(){ 
     var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190);
