@@ -54,9 +54,6 @@ $this->assign('title', __('CREATE_ACCOUNT'));
         echo $this->Form->input('email', [
             'label' => ['text' => __('EMAIL')],
             'placeholder' => __('ENTER_VALID_EMAIL'),
-            'data-toggle' => 'tooltip',
-            'data-placement' => 'bottom',
-            'data-original-title' => __('We\'ll send a confirmation email there')
         ]);
 
         echo $this->Form->input('password', [

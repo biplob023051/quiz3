@@ -13,7 +13,7 @@
                         <?php
                             echo $this->Form->input('old_password', array(
                                 'label' => __("CURRENT_PASSWORD"),
-                                'placeholders' => __("FILL_CURRENT_PASSWORD"),
+                                'placeholder' => __("FILL_CURRENT_PASSWORD"),
                                 'required' => false,
                                 'type' => 'password'
                             ));
@@ -25,8 +25,8 @@
                     <div class="col-md-12 col-xs-12 col-sm-12">
                         <?php
                             echo $this->Form->input('password1', array(
-                                'label' => __("PASSWORD"),
-                                'placeholders' => __("FILL_NEW_PASSWORD"),
+                                'label' => __("NEW_PASSWORD"),
+                                'placeholder' => __("FILL_NEW_PASSWORD"),
                                 'required' => false,
                                 'type' => 'password',
                             ));
@@ -39,7 +39,7 @@
                         <?php
                             echo $this->Form->input('password2', array(
                                 'label' => __("CONFIRM_PASSWORD"),
-                                'placeholders' => __("FILL_CONFIRM_PASSWORD"),
+                                'placeholder' => __("FILL_CONFIRM_PASSWORD"),
                                 'required' => false,
                                 'type' => 'password'
                             ));

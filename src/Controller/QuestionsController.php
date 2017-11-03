@@ -81,8 +81,10 @@ class QuestionsController extends AppController
             // reorder if order break
             $c_array = [];
             foreach ($this->request->data['Choice'] as $key => $choice) {
-                if (!empty($choice['text']) || (isset($choice['text']) && $choice['text'] == 0)) {
-                    $c_array[] = $choice; 
+                if (isset($choice['text'])) {
+                    if (!empty($choice['text']) || ($choice['text'] == 0)) {
+                        $c_array[] = $choice; 
+                    }
                 }
             }
             if (!empty($c_array))

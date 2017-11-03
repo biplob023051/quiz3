@@ -228,6 +228,7 @@ class UsersController extends AppController
 
     public function settings() {
         $user_id = $this->Auth->user('id');
+        $quiz_bank_access = $this->Auth->user('quiz_bank_access');
         $user = $this->Users->get($user_id, ['contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             // pr($this->request->data);
@@ -252,6 +253,7 @@ class UsersController extends AppController
             // pr($user);
             // exit;
             if ($this->Users->save($user)) {
+                $user->quiz_bank_access = $quiz_bank_access;
                 $this->Auth->setUser($user);
                 // $this->Session->write('Auth.User.language', $data['User']['language']);
                 // $this->Session->write('Auth.User.name', $data['User']['name']);

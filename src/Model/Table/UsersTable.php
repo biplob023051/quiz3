@@ -111,6 +111,10 @@ class UsersTable extends Table
                 ]
             ]);
 
+        $validator
+            ->requirePresence('passwordVerify', 'create')
+            ->notEmpty('passwordVerify');
+
 
         $validator
             ->allowEmpty('subjects');

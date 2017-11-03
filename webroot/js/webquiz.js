@@ -302,6 +302,13 @@ var webQuiz = {
                     if ((tmp.id != -1) && ((tmp.question_type_id != 6))) {
                         myChoices[tmp.id] = tmp.Choice;
                     }
+                    var re_index = 1;
+                    $("#questions > tbody  > tr:not('.others_type')").each(function() { 
+                        if ($(this).attr('id') != 'q-1') { // check if new question tr id
+                            $(this).find('.question_number').html(re_index);
+                            re_index++;
+                        }
+                    });
                 }
                 else
                 {

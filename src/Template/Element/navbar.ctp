@@ -42,9 +42,9 @@
                         </li>
                     <?php endif ?>
                     <li <?php if ($c_controller == 'helps' && $c_action == 'index') : ?>class="active"<?php endif; ?>><?php echo $this->Html->link(__('HELP'), '/helps'); ?></li>
-                    <li>
+                    <!-- <li>
                         <div class="user-image"></div>
-                    </li>
+                    </li> -->
                     <li><?= $this->Html->link(h($authUser['name']), array('controller' => 'users', 'action' => 'settings', 'prefix' => false)); ?></li>
                     <li><?php echo $this->Html->link(__('LOGOUT'), '/users/logout'); ?></li>
                     <!--/nocache-->
