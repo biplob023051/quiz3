@@ -462,9 +462,8 @@ var webQuiz = {
         // Youtube url validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                $('.alert-danger').remove();
                 validationError = true;
-                choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['youtube_url'] + '</div>');
+                this.showAlert(lang_strings['youtube_url']);
             }
             
         });
@@ -476,9 +475,8 @@ var webQuiz = {
         // Youtube url validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                $('.alert-danger').remove();
                 validationError = true;
-                choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['image_url'] + '</div>');
+                this.showAlert(lang_strings['image_url']);
             }
             
         });
@@ -491,9 +489,8 @@ var webQuiz = {
         // correct answer validation
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
-                $('.alert-danger').remove();
                 validationError = true;
-                choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['correct_answer'] + '</div>');
+                this.showAlert(lang_strings['correct_answer']);
             }
             
         });
@@ -556,8 +553,7 @@ var webQuiz = {
             minLength = $('#QuestionMaxAllowed').val();
         }
         if (choiceContainer.find(':input[type="text"]').length < minLength) {
-            $('.alert-danger').remove();
-            choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['no_choice_1'] + ' ' + minLength + ' ' + lang_strings['no_choice_2'] + '</div>');
+            this.showAlert(lang_strings['no_choice_1'] + ' ' + minLength + ' ' + lang_strings['no_choice_2']);
             return;   
         }
         var choiceArray = new Array();
@@ -565,16 +561,14 @@ var webQuiz = {
         choiceContainer.find(':input[type="text"]').each(function(){
             // same choice not permit
             if ($(this).val() == '') {
-                $('.alert-danger').remove();
                 validationError = true;
-                choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+                this.showAlert(lang_strings['same_choice']);
             } else {
                 if (jQuery.inArray($(this).val(),choiceArray) == -1){
                     choiceArray.push($(this).val());
                 } else {
-                    $('.alert-danger').remove();
                     validationError = true;
-                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['same_choice'] + '</div>');
+                    this.showAlert(lang_strings['same_choice']);
                 }
             }
             
@@ -816,5 +810,13 @@ var webQuiz = {
         // otherwise it will be hidden always
         (question_type_id == 3) ? $('#max_allowed').show() : $('#max_allowed').hide();
         (question_type_id == 8) ? $('#image-section').show() : $('#image-section').hide();
+    },
+    showAlert: function(string)
+    {
+        $('.alert-danger').remove();
+        $('#QuestionEditForm').prepend('<div class="alert alert-danger">' + string + '</div>');
+        setTimeout(function(){ 
+            $('#QuestionEditForm').find('.alert').fadeOut('show');
+        }, 3000);
     }
 };

@@ -275,13 +275,10 @@ var uploadObj;
             if ($('#QuestionText').val() == '') {       
                 var currentEditQid = $("#q" + webQuiz.currentEditQid),
                 choiceContainer = currentEditQid.find("div.choices");
-                if ($('.alert-danger').length){
-                    $('.alert-danger').remove();
-                }
                 if (questionTypeId == 6) {
-                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['empty_header'] + '</div>');      
+                    webQuiz.showAlert(lang_strings['empty_header']);      
                 } else {
-                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['empty_question'] + '</div>');
+                    webQuiz.showAlert(lang_strings['empty_question']);
                 }
                 
                 return;        
@@ -373,13 +370,10 @@ var uploadObj;
             if ($('#QuestionText').val() == '') {
                 var currentEditQid = $("#q" + webQuiz.currentEditQid),
                 choiceContainer = currentEditQid.find("div.choices");
-                if ($('.alert-danger').length){
-                    $('.alert-danger').remove();
-                }
                 if (questionTypeId == 6) {
-                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['empty_header'] + '</div>');      
+                    webQuiz.showAlert(lang_strings['empty_header']);    
                 } else {
-                    choiceContainer.prepend('<div class="alert alert-danger">' + lang_strings['empty_question'] + '</div>');
+                    webQuiz.showAlert(lang_strings['empty_question']);
                 }
                 return;
             }
@@ -491,6 +485,10 @@ var uploadObj;
 
     $(document).on('mouseleave', '.make-sortable', function(e){
         $(this).find(".choice-arrow").fadeOut("slow");
+    });
+
+    $(document).on('click', '.alert', function(){
+        $(this).fadeOut('show');
     });
 
 })(jQuery);
