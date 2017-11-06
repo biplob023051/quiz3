@@ -76,3 +76,15 @@
 </script>
 
 <?= $this->Html->script('buy', array('inline' => false)); ?>
+
+<style>
+    .ajax-file-upload-statusbar {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    .ajax-file-upload-filename {
+        width: 100% !important;
+    }
+</style>

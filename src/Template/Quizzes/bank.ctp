@@ -1,3 +1,43 @@
+<style type="text/css">
+    .subjects, .classes {
+        width: 33% !important;
+        float: left;
+        margin-top: 0px;
+    }   
+    .subjects input[type=checkbox], .classes input[type=checkbox] {
+        margin-right: 5px !important;
+    }
+    #show-settings {
+        text-align: left;
+    }
+    .caret-down, .settings-options {
+        display: none;
+    }
+    .caret {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #000000;
+        display: inline-block;
+        height: 0;
+        opacity: 0.3;
+        vertical-align: middle;
+        width: 0;
+    }
+    .caret-right {
+        border-bottom: 4px solid transparent;
+        border-top: 4px solid transparent;
+        border-left: 4px solid #000000;
+        display: inline-block;
+        height: 0;
+        opacity: 0.3;
+        vertical-align: middle;
+        width: 0;
+    }
+    .no-border {
+        float: left;
+        padding-right: 10px;
+    }
+</style>
 <?=
 $this->Html->script(array('quiz-bank'), array(
     'inline' => false
@@ -9,7 +49,16 @@ $this->assign('title', $title_for_layout);
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-xs-12 col-md-12 m-b-10">
+                    <a href="javascript:void(0)" class="btn btn-default btn-block" id="show-settings">
+                        <span class="caret-down caret-icon">
+                            <span class="caret"></span>
+                        </span>
+                        <span class="caret caret-right caret-icon"></span>
+                        <?php echo __('SUBJECT_N_CLASSES'); ?>
+                    </a>
+                </div>
+                <div class="col-md-12 settings-options">
                     <?php 
                         echo $this->Form->input('subjects', array(
                             'templates' => [ 
@@ -23,7 +72,8 @@ $this->assign('title', $title_for_layout);
                         ));
                     ?>
                 </div>
-                <div class="col-md-12">
+                <div class="col-xs-12 col-md-12 settings-options"><hr></div>
+                <div class="col-md-12 settings-options">
                     <?php 
                         echo $this->Form->input('classes', array(
                             'templates' => [ 
@@ -59,10 +109,3 @@ $this->assign('title', $title_for_layout);
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
-
-<style type="text/css">
-    .no-border {
-        float: left;
-        padding-right: 10px;
-    }
-</style>

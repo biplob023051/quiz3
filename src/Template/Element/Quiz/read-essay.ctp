@@ -7,7 +7,7 @@
                 <?php //endforeach; ?>
             </div>
             <div class="modal-body">
-                <?php echo $value4->text; ?>
+                <?php echo nl2br($value4->text); ?>
             </div>
             <div class="modal-footer">
                 <span class="all-button">

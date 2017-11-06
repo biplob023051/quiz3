@@ -36,8 +36,8 @@ class MaintenanceController extends AppController
             return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         }
         $this->importQuizzes($this->Auth->user('id'));
-        $first_quiz_create = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Demo quizzes loaded'), $this->Auth->user(), 'first_quiz_create');
-        $this->Flash->success(__('Imported successfully'));
+        $first_quiz_create = $this->Email->sendMail(Configure::read('AdminEmail'), __('DEMO_QUIZ_LOADED'), $this->Auth->user(), 'first_quiz_create');
+        $this->Flash->success(__('IMPORTED_SUCCESS'));
         return $this->redirect($this->referer());
     }
 

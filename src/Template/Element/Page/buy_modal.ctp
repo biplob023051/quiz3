@@ -60,14 +60,14 @@
             <div class="form-group password">
                 <label class="control-label col-sm-3 col-md-3" for="password"><?= __('PASSWORD'); ?></label>
                 <div class="col-sm-9 col-md-9">
-                    <input type="password" name="password" class="form-control" placeholder="<?= __('ENTER_PASSWORD'); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?= __('PASSWORD_MUST_BE_LONGER'); ?>" id="password">
+                    <input type="password" name="password" class="form-control" placeholder="<?= __('ENTER_PASSWORD'); ?>" id="password">
                     <label id="password-error" class="error" for="password" style="display: none;"></label>
                 </div>
             </div>
             <div class="form-group password">
                 <label class="control-label col-sm-3 col-md-3" for="passwordverify"><?= __('PASSWORD_VERIFY'); ?></label>
                 <div class="col-sm-9 col-md-9">
-                    <input type="password" name="passwordVerify" class="form-control" placeholder="<?= __('PASSWORD_VERIFY'); ?>" id="passwordverify">
+                    <input type="password" name="passwordVerify" class="form-control" placeholder="<?= __('ENTER_PASSWORD_AGAIN'); ?>" id="passwordverify">
                     <label id="passwordverify-error" class="error" for="passwordverify" style="display: none;"></label>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                                         type="tel" 
                                         class="form-control" 
                                         name="cardExpiry"
-                                        placeholder="MM / YY"
+                                        placeholder="<?= __('MM-YY'); ?>"
                                         autocomplete="cc-exp"
                                         required 
                                     />
@@ -150,7 +150,7 @@
                                         type="tel" 
                                         class="form-control"
                                         name="cardCVC"
-                                        placeholder="<?= __('CVC'); ?>"
+                                        placeholder="<?= __('CVC_GUIDE'); ?>"
                                         autocomplete="cc-csc"
                                         required
                                     />
@@ -183,7 +183,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="invoiceInfo"><?= __('INVOICE_INFO') ?></label>
+                                    <label for="invoiceInfo" class="bold-text"><strong><?= __('INVOICE_INFO') ?></strong></label>
                                     <textarea class="form-control" placeholder="<?= __('INVOICE_INFO_PLACEHOLDER'); ?>" name="invoice_info" id="invoiceInfo"></textarea>
                                 </div>                            
                             </div>
@@ -191,7 +191,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="cardNumber"><?= __('INVOICE_ATTACHMENT') ?></label>
+                                    <label for="cardNumber" class="bold-text"><strong><?= __('INVOICE_ATTACHMENT') ?></strong></label>
                                     <div id="fileuploader"><?= __('BROWSE_PHOTO'); ?></div>
                                     <?= $this->Form->input('temp_photo', ['type' => 'hidden', 'id' => 'temp_photo']); ?>
                                 </div>                            
@@ -272,5 +272,12 @@
     }
     .error {
         color: #a94442 !important;
+    }
+    .form-horizontal label {
+        text-transform: none !important;
+    }
+    .bold-text {
+        font-size: 14px !important;
+        color: #333 !important;
     }
 </style>

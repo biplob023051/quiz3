@@ -160,7 +160,8 @@
                 /* Visual feedback */
                 $('#create-user').html(lang_strings['validating'] + ' <i class="fa fa-spinner fa-pulse"></i>').attr('disabled', true);
 
-                var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1'; // Replace with your API publishable key
+                //var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1';
+                var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1';
                 Stripe.setPublishableKey(PublishableKey);
                 
                 /* Create token */

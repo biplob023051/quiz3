@@ -44,5 +44,5 @@ function startTimer() {
 }
 
 function auto_logout() {
-	window.location = projectBaseUrl + 'users/logout';
+	window.location = projectBaseUrl + 'users/logout?inactive=1';
 }

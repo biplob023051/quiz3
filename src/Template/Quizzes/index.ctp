@@ -49,6 +49,16 @@
     $lang_strings['upgrade_next_year_body'] = __('UPGRADE_AND_NEXT_YEAR_BODY');
     $lang_strings['downgrade_next_year_body'] = __('DOWNGRADE_AND_NEXT_YEAR_BODY');
 
+    $lang_strings['next_buy'] = __('CONTINUE_BUY_FOR_NEXT_YEAR');
+    $lang_strings['upgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
+    $lang_strings['downgrade_next_buy'] = __('DOWNGRADE_AND_BUY_FOR_NEXT_YEAR');
+
+    $lang_strings['invalid_card'] = __('INVALID_CARD');
+    $lang_strings['invalid_expire'] = __('INVALID_EXPIRE_DATE');
+    $lang_strings['invalid_cvc'] = __('INVALID_CVC');
+
+    $lang_strings['max_attachment'] = __('MAXIMUM_ATTACHMENT');
+
 ?>
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;

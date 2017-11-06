@@ -20,11 +20,11 @@ msgstr ""
 #: View/Elements/Invoice/invoice_success_dialog.ctp:7
 #: View/User/settings.ctp:55
 msgid "UPGRADE_ACCOUNT"
-msgstr "Upgrade Account"
+msgstr "Upgrade account"
 
 #: Controller/QuestionController.php:60
 msgid "NEW_QUESTION"
-msgstr "New Question"
+msgstr "New question"
 
 #: Controller/UserController.php:37
 msgid "REGISTRATION_SUCCESS"
@@ -37,11 +37,11 @@ msgstr "Name the quiz"
 
 #: View/Answer/table.ctp:10
 msgid "ANSWER_TABLE"
-msgstr "Answer Table"
+msgstr "Answer table"
 
 #: View/Answer/table.ctp:129
 msgid "NO_SUBMISSION"
-msgstr "No Submission"
+msgstr "No submission"
 
 #: View/Answer/table.ctp:139
 #: View/Elements/Invoice/invoice_error_dialog.ctp:13
@@ -59,7 +59,7 @@ msgstr "Logout"
 
 #: View/Elements/Invoice/invoice_error_dialog.ctp:10
 msgid "INVOICE_FAILED"
-msgstr "Send invoice failed, please try close this dialog and click Upgrade again."
+msgstr "Sorry! Sending invoice was failed. Please close this dialog and click Upgrade again."
 
 #: View/Elements/Invoice/invoice_send_dialog.ctp:10
 msgid "INVOICE_CONFIRM"
@@ -67,11 +67,11 @@ msgstr "An invoice will be sent to upgrade your account. Proceed?"
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "YOU_RECEIVE_INVOICE"
-msgstr "You will receive an invoice into your email shortly. By paying it you can upgrade your account."
+msgstr "Thank you for your order! Your account is now upgraded. An invoice will be sent according to your billing instructions."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
 msgid "SEPARATE_SEMICOLON"
-msgstr "Corect answers separated by semicolon"
+msgstr "Correct answers separated by semi-colon (;)"
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:26
 msgid "POINTS"
@@ -93,7 +93,7 @@ msgstr "Remove question"
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:10
 msgid "ENTER_QUESTION"
-msgstr "Enter the question"
+msgstr "Enter question"
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:42
 msgid "EXPLANATION_TEXT"
@@ -101,15 +101,15 @@ msgstr "Explanation text"
 
 #: View/Quiz/edit.ctp:17
 msgid "EDIT_QUIZ"
-msgstr "Edit Quiz"
+msgstr "Edit quiz"
 
 #: View/Quiz/edit.ctp:50
 msgid "DESCRIBE_QUIZ"
-msgstr "Describe the quiz to respondents"
+msgstr "Describe the quiz (visible to respondents)"
 
 #: View/Quiz/edit.ctp:86
 msgid "ADD_NEW_QUESTION"
-msgstr "Add New Question"
+msgstr "Add new question"
 
 #: View/Quiz/edit.ctp:92
 #: Settings - Finnish
@@ -123,27 +123,23 @@ msgstr "Thank you"
 
 #: View/Quiz/index.ctp:5
 msgid "MY_QUIZZES"
-msgstr "My Quizzes"
+msgstr "My quizzes"
 
 #: View/Quiz/index.ctp:16
 msgid "CREATE_NEW_QUIZ"
-msgstr "Create New Quiz"
+msgstr "Create new quiz"
 
 #: View/Quiz/index.ctp:20
 msgid "UPGRADE_CREATE_QUIZZ"
-msgstr "Upgrade to Create More Quiz"
+msgstr "Upgrade to create more quizzes"
 
 #: View/Quiz/index.ctp:39
 msgid "GIVE_TEST"
 msgstr "Give test!"
 
-#: View/Quiz/index.ctp:40
-msgid "Answers "
-msgstr "Katso tulokset "
-
 #: View/Quiz/index.ctp:50
 msgid "REMOVE_QUIZ"
-msgstr "Remove quiz"
+msgstr "Delete quiz"
 
 #: View/Quiz/index.ctp:54
 msgid "ARCHIVE_QUIZ"
@@ -159,11 +155,11 @@ msgstr " "
 
 #: View/Quiz/live.ctp:30
 msgid "FIRST_NAME"
-msgstr "First Name"
+msgstr "First name"
 
 #: View/Quiz/live.ctp:37
 msgid "LAST_NAME"
-msgstr "Last Name"
+msgstr "Last name"
 
 #: View/Quiz/live.ctp:44
 msgid "CLASS"
@@ -171,11 +167,11 @@ msgstr "Class"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Turn in your quiz?"
+msgstr "Send your answers"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
-msgstr "Read the QR code with your mobile service"
+msgstr "Read the QR code with your mobile device"
 
 #: View/Quiz/present.ctp:6
 msgid "OR"
@@ -183,7 +179,7 @@ msgstr "OR"
 
 #: View/Quiz/present.ctp:7
 msgid "SURF_WEB_ADDRESS"
-msgstr "Surf to this web address:"
+msgstr "Open the following web address:"
 
 #: View/Student/success.ctp:1
 msgid "SUCCESS"
@@ -191,7 +187,7 @@ msgstr "Success!"
 
 #: View/Student/success.ctp:4
 msgid "YOUR_ANSWERS_SUBMITTED"
-msgstr "Your answer(s) has been submitted successfully."
+msgstr "Your answers were sent!"
 
 #: View/User/create.ctp:5
 msgid "CREATE_ACCOUNT"
@@ -199,7 +195,7 @@ msgstr "Register now!"
 
 #: View/User/create.ctp:45
 msgid "CREATE_ACCOUNT_LOG_IN"
-msgstr "Create Account & Log In"
+msgstr "Create account & Log in"
 
 #: View/User/login.ctp:2;40
 msgid "LOGGIN"
@@ -221,7 +217,7 @@ msgstr "Register"
 
 #: View/User/login.ctp:59
 msgid "REGISTER_NOW"
-msgstr "Register Now!"
+msgstr "Register now!"
 
 #: View/User/settings.ctp:26
 msgid "NAME"
@@ -245,27 +241,27 @@ msgstr "Quiz name must be alphanumeric"
 
 #: Model/Quiz.php:construct
 msgid "ACTIVE_QUIZZES"
-msgstr "Active Quizzes"
+msgstr "Active quizzes"
 
 #: Model/Quiz.php:construct
 msgid "ARCHIVED_QUIZZES"
-msgstr "Archived Quizzes"
+msgstr "Archived quizzes"
 
 #: Model/Quiz.php:construct
 msgid "ALL_QUIZ"
-msgstr "All Quizzes"
+msgstr "All quizzes"
 
 #: Model/Student.php:validation for field fname;validation for field lname
 msgid "INVALID_NAME"
-msgstr "Invalid Name"
+msgstr "Invalid name"
 
 #: Model/User.php:validation for field name
 msgid "NAME_CONTAINS_INVALID_CHAR"
-msgstr "Name contains invalid character"
+msgstr "Name contains an invalid character"
 
 #: Model/User.php:validation for field email
 msgid "INVALID_EMAIL"
-msgstr "Invalid email"
+msgstr "Use a valid email address"
 
 #: Model/User.php:validation for field email
 msgid "EMAIL_REGISTERED"
@@ -306,7 +302,7 @@ msgstr "The requested address %s was not found on this server."
 
 #: View/Errors/error500.ctp:20
 msgid "INTERNAL_ERROR"
-msgstr "An Internal Error Has Occurred."
+msgstr "An Internal error has occurred"
 
 #: View/Layouts/error.ctp:17
 msgid "CakePHP: the rapid development php framework"
@@ -338,7 +334,7 @@ msgstr "Essay"
 
 #: Adding a new multiple choice
 msgid "ADD_CHOICE"
-msgstr "Add Choice"
+msgstr "Add choice"
 
 #: A placeholder for an empty choice textbox
 msgid "CHOICE"
@@ -354,11 +350,11 @@ msgstr "Delete"
 
 #: Answer table - no answer
 msgid "NOT_ANSWERED"
-msgstr "Not Answered"
+msgstr "Not answered"
 
 #: Answer table - TOTAL_POINTS
 msgid "TOTAL_POINTS"
-msgstr "Total Points"
+msgstr "Total points"
 
 #: Answer table - TIMESTAMP
 msgid "TIMESTAMP"
@@ -374,7 +370,7 @@ msgstr "Answers"
 
 #: Answer table - Back
 msgid "BACK"
-msgstr "BACK"
+msgstr "Back"
 
 #: Answer table - Back
 msgid "ALL"
@@ -386,15 +382,15 @@ msgstr "Today"
 
 #: Answer table - Back
 msgid "THIS_YEAR"
-msgstr "This Year"
+msgstr "Past 365 days"
 
 #: Answer table - Back
 msgid "THIS_MONTH"
-msgstr "This Month"
+msgstr "Past 30 days"
 
 #: Answer table - Back
 msgid "THIS_WEEK"
-msgstr "This Week"
+msgstr "Past 7 days"
 
 #: Answer table - Back
 msgid "RATE"
@@ -406,7 +402,7 @@ msgstr "Language"
 
 #: My Quizzes - Settings notification
 msgid "SETTINGS_SAVED"
-msgstr "Settings has been saved"
+msgstr "Your settings are saved"
 
 #: Remove choice
 msgid "REMOVE_CHOICE"
@@ -418,31 +414,27 @@ msgstr "Remove answer"
 
 #: Controller/QuizController.php:127
 msgid "NO_EMPTY_QUESTION"
-msgstr "Empty Question Is Not Permit"
+msgstr "The question can not be empty"
 
 #: Controller/QuizController.php:128
 msgid "EMPTY_OR_SAME_NOT_ALLOWED"
-msgstr "Empty or Same Choices Are Not Permit"
+msgstr "Use unique and not empty answer choices"
 
 #: Controller/QuizController.php:129
 msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "At least a point should be greater than 0"
+msgstr "At least one choice must have more than 0 points"
 
 #: Controller/QuizController.php:130
 msgid "ENTER_CORRECT_ANSWERS"
-msgstr "Enter correct answers, if multiple answers semicolon separated"
-
-#: Controller/QuizController.php:131
-msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "At least point should be greater than 0"
+msgstr "Enter correct answers. Separate multiple answers by semi-colon (;)"
 
 #: Controller/QuizController.php:132
 msgid "TWO_CHOICES_GREATER_THAN_ZERO"
-msgstr "At least 2 points should be greater than 0"
+msgstr "At least two choices must have more than 0 points"
 
 #: Controller/QuizController.php:133
 msgid "CHOOSE_ANOTHER_CHOOSE"
-msgstr "You put only one correct answers, please choose another point greater than 0"
+msgstr "Insert another choice with more than 0 points"
 
 #: Controller/QuizController.php:251
 msgid "SURELY_REMOVE"
@@ -454,15 +446,15 @@ msgstr ") answer with points "
 
 #: Controller/QuizController.php:253
 msgid "GIVE_POSITIVE_NUMBER"
-msgstr "Please Give a postive number."
+msgstr "Insert a postive number."
 
 #: Controller/QuizController.php:254
 msgid "SCORE_NOT_UPDATED"
-msgstr "You have not updated score yet."
+msgstr "You have not updated the points yet."
 
 #: Controller/QuizController.php:255
 msgid "POINTS_NOT_ALLOWED"
-msgstr "Points not allowed more than "
+msgstr "Use at most the number "
 
 #: Controller/QuizController.php:256
 msgid "VALUE"
@@ -498,19 +490,19 @@ msgstr "Use scenarios"
 
 #: View/Helps/admin_titles.ctp:5
 msgid "MAIN_TITLE_LIST"
-msgstr "Main Title List"
+msgstr "Main title list"
 
 #: View/Helps/admin_titles.ctp:6
 msgid "NEW_MAIN_TITLE"
-msgstr "New Main Title"
+msgstr "New main title"
 
 #: View/Helps/admin_titles.ctp:7
 msgid "HELPS_LIST"
-msgstr "Helps List"
+msgstr "Help list"
 
 #: View/Helps/admin_titles.ctp:8
 msgid "NEW_HELP"
-msgstr "New Help"
+msgstr "New help"
 
 #: View/Helps/admin_titles.ctp:21
 msgid "id"
@@ -518,7 +510,7 @@ msgstr "id"
 
 #: View/Helps/admin_titles.ctp:22
 msgid "MAIN_TITLE"
-msgstr "Main Title"
+msgstr "Main title"
 
 #: View/Helps/admin_titles.ctp:23
 msgid "CREATED"
@@ -540,17 +532,9 @@ msgstr "Action"
 msgid "On"
 msgstr "On"
 
-#: View/Helps/admin_titles.ctp:41
-msgid "Confirm inactive title %s?"
-msgstr "Vahvista otsikon arkistointi: %s?"
-
 #: View/Helps/admin_titles.ctp:43
 msgid "Off"
 msgstr "Off"
-
-#: View/Helps/admin_titles.ctp:43
-msgid "Confirm active title %s?"
-msgstr "Vahvista otsikon aktivointi: %s?"
 
 #: View/Helps/admin_titles.ctp:47
 msgid "EDIT"
@@ -562,7 +546,7 @@ msgstr "Title"
 
 #: View/Helps/admin_index.ctp:28
 msgid "SUB_TITLE"
-msgstr "Sub Title"
+msgstr "Subtitle"
 
 #: View/Helps/admin_index.ctp:30
 msgid "Url"
@@ -570,11 +554,11 @@ msgstr "Url"
 
 #: View/Helps/admin_add.ctp:31
 msgid "INSERT_MAIN_TITLE"
-msgstr "Please insert main title"
+msgstr "Insert main title"
 
 #: View/Helps/admin_add.ctp:37
 msgid "BACK"
-msgstr "BACK"
+msgstr "Back"
 
 #: View/Helps/admin_insert.ctp:31
 msgid "SELECT_ONE"
@@ -582,11 +566,11 @@ msgstr "Select One"
 
 #: View/Helps/admin_insert.ctp:32
 msgid "INSERT_HELP_TITLE"
-msgstr "Please insert help title"
+msgstr "Insert help title"
 
 #: View/Helps/admin_insert.ctp:33
 msgid "INSERT_HELP_SUB_TITLE"
-msgstr "Please insert help sub title"
+msgstr "Insert help subtitle"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "YOUTUBE_URL"
@@ -594,23 +578,23 @@ msgstr "Youtube url"
 
 #: View/Helps/admin_insert.ctp:34
 msgid "INSERT_YOUTUBE_URL_HERE"
-msgstr "Please insert youtube video url here"
+msgstr "Insert Youtube video url"
 
 #: Controller/HelpsController.php:117
 msgid "EDIT_MAIN_TITLE"
-msgstr "Edit Main Title"
+msgstr "Edit main title"
 
 #: Controller/HelpsController.php:125
 msgid "TITLE_SAVED"
-msgstr "Title saved successfully"
+msgstr "Title saved"
 
 #: Controller/HelpsController.php:132
 msgid "TITLE_FAILED"
-msgstr "Title saved failed"
+msgstr "Title saving failed"
 
 #: Controller/HelpsController.php:146
 msgid "TITLE_NOT_FOUND"
-msgstr "Title has not found"
+msgstr "Title was not found"
 
 #: Controller/HelpsController.php:170
 msgid "CAN_NOT_DELETE"
@@ -618,23 +602,23 @@ msgstr "Can not delete"
 
 #: Controller/HelpsController.php:38
 msgid "EDIT_HELP"
-msgstr "Edit Help"
+msgstr "Edit help"
 
 #: Controller/HelpsController.php:59
 msgid "HELP_SAVED"
-msgstr "Help saved Successfully"
+msgstr "Help saved"
 
 #: Controller/HelpsController.php:66
 msgid "HELP_SAVE_FAIL"
-msgstr "Help saved failed"
+msgstr "Help saving was failed"
 
 #: Controller/HelpsController.php:80
 msgid "HELP_NOT_FOUND"
-msgstr "Help has not found"
+msgstr "Help was not found"
 
 #: Controller/HelpsController.php:80
 msgid "SORT_FAILED"
-msgstr "Sort failed"
+msgstr "Sort was failed"
 
 #: Model/Help.php:validation for field title
 msgid "TITLE_REQUIRED"
@@ -654,11 +638,11 @@ msgstr "Valid youtube video url is required"
 
 #: Controller/QuizController.php:196
 msgid "CONNECTION_LOST"
-msgstr "Internet connection has been lost, please try again later."
+msgstr "Web connection is lost! Please try again later."
 
 #: Controller/QuizController.php:197
 msgid "ALL_QUESTIONS_ANSWERED"
-msgstr "All questions answered. Turn in your quiz?"
+msgstr "You answered all the questions. Click Confirm to send your answers."
 
 #: Controller/QuizController.php:198
 msgid "QUESTIONS"
@@ -670,27 +654,27 @@ msgstr " unanswered."
 
 #: Controller/QuizController.php:201
 msgid "FIRST_NAME_REQUIRED"
-msgstr "First Name is Required"
+msgstr "First name is required"
 
 #: Controller/QuizController.php:202
 msgid "LAST_NAME_REQUIRED"
-msgstr "Last Name is Required"
+msgstr "Last name is required"
 
 #: Controller/QuizController.php:203
 msgid "CLASS_REQUIRED"
-msgstr "Class is Required"
+msgstr "Class is required"
 
 #: Controller/QuizController.php:204
 msgid "INVALID_LAST_NAME"
-msgstr "Invalid Last Name"
+msgstr "Invalid last name"
 
 #: Controller/QuizController.php:205
 msgid "INVALID_FIRST_NAME"
-msgstr "Invalid First Name"
+msgstr "Invalid first name"
 
 #: Controller/QuizController.php:206
 msgid "INVALID_CLASS"
-msgstr "Invalid Class"
+msgstr "Invalid class"
 
 #: added - 
 msgid "LOGGED_OUT"
@@ -706,7 +690,7 @@ msgstr "No direct access to this page!"
 
 #: added - 
 msgid "ALL_TIME"
-msgstr "All Time"
+msgstr "All time"
 
 #: View/Elements/page-navbar.ctp:9
 msgid "NAVIGATION"
@@ -720,15 +704,15 @@ msgstr "Prices"
 #: View/Elements/page-navbar.ctp:20
 #: View/Pages/contact.ctp:6
 msgid "CONTACT"
-msgstr "Contact Us"
+msgstr "Contact us"
 
 #: View/Pages/contact.ctp:12
 msgid "GET_TOUCH"
-msgstr "Get in Touch"
+msgstr "Get in touch"
 
 #: View/Pages/contact.ctp:16
 msgid "YOUR_EMAIL"
-msgstr "Your Email"
+msgstr "Your email"
 
 #: View/Pages/contact.ctp:22
 #: View/Emails/html/inquary.ctp:3
@@ -737,7 +721,11 @@ msgstr "Message"
 
 #: View/Pages/contact.ctp:29
 msgid "SEND_MESSAGE"
-msgstr "Send Message"
+msgstr "Send message"
+
+#: View/Pages/contact.ctp:29
+msgid "CAPTCHA_EXPIRED"
+msgstr "Verification expired. Check the checkbox again."
 
 #: Controller/PagesController.php:104
 msgid "WELCOME_VERKKOTESTI"
@@ -747,15 +735,15 @@ msgstr "Welcome to Verkkotesti"
 #: Controller/PagesController.php:81
 #: Controller/UserController.php:160
 msgid "REQUIRE_EMAIL"
-msgstr "Require Email Address"
+msgstr "Require email address"
 
 #: Controller/PagesController.php:74
 msgid "REQUIRE_MESSAGE"
-msgstr "Require Message"
+msgstr "Require message"
 
 #: View/Pages/prices.ctp:7
 msgid "SELECT_PACKAGE"
-msgstr "Select your favorite package to continue."
+msgstr "Select your package to continue."
 
 #: View/Pages/prices.ctp:14
 msgid "FREE"
@@ -787,37 +775,37 @@ msgstr "Buy"
 
 #: View/Elements/Page/buy_modal.ctp:5
 msgid "CREATE_ACCOUNT_BUY"
-msgstr "Create Account And Buy"
+msgstr "Create account and buy"
 
 #: View/Elements/Page/buy_modal.ctp:10
 msgid "ALREADY_REGISTERED"
-msgstr "Already Registered?"
+msgstr "Already registered?"
 
 #: View/Elements/Page/buy_modal.ctp:12
 msgid "LOG_IN_BUY"
-msgstr "Login and Buy"
+msgstr "Login and buy"
 
 #: View/Elements/Page/buy_modal.ctp:15
 #: View/User/login.ctp:63
 msgid "RECOVER_PASSWORD"
-msgstr "Password Recover"
+msgstr "Reset password"
 
 #: View/Elements/Page/buy_modal.ctp:34
 msgid "ENTER_YOUR_NAME"
-msgstr "Enter Your Name"
+msgstr "Enter your name (First and Last)"
 
 #: View/Elements/Page/buy_modal.ctp:38
 msgid "ENTER_VALID_EMAIL"
-msgstr "Enter Valid Email"
+msgstr "Enter your email (this is your login)"
 
 #: View/Elements/Page/buy_modal.ctp:43
 msgid "ENTER_PASSWORD"
-msgstr "Enter Password"
+msgstr "Enter password (at least 8 characters)"
 
 #: View/Elements/Page/buy_modal.ctp:51
 #: View/User/create.ctp:43
 msgid "PASSWORD_VERIFY"
-msgstr "Password Verify"
+msgstr "Password again"
 
 #: View/Elements/Page/buy_modal.ctp:59
 msgid "SUBMIT"
@@ -825,11 +813,11 @@ msgstr "Submit"
 
 #: Controller/PagesController.php:79
 msgid "REQUIRE_NAME"
-msgstr "Require Name"
+msgstr "Please enter your name"
 
 #: Controller/PagesController.php:84
 msgid "REQUIRE_PASSWORD"
-msgstr "Require Password"
+msgstr "Please enter your password"
 
 #: Controller/PagesController.php:83
 msgid "EMAIL_REGISTERED"
@@ -837,15 +825,15 @@ msgstr "Email already registered"
 
 #: Controller/PagesController.php:85
 msgid "PASSWORD_NOT_MATCH"
-msgstr "Password did not match, please try again"
+msgstr "Passwords did not match, please try again"
 
 #: Controller/UserController.php:250
 msgid "REGISTRATION_SUCCESS_WILL_CONTACT"
-msgstr "Registration success and we will contact you soon to upgrade your account"
+msgstr "Registration successed! We will contact you to upgrade your account."
 
 #: View/User/login.ctp:62
 msgid "FORGOT_PASSWORD"
-msgstr "If you forgot password?"
+msgstr "Did you forget your password?"
 
 #: View/User/password_recover.ctp:23
 msgid "ENTER_YOUR_EMAIL"
@@ -853,19 +841,19 @@ msgstr "Enter your email"
 
 #: View/User/password_recover.ctp:27
 msgid "SEND_REQUEST"
-msgstr "Send Request"
+msgstr "Send request"
 
 #: Controller/UserController.php:162
 msgid "EMAIL_NOT_REGISTERED"
-msgstr "This email has not registered yet!"
+msgstr "This email has not been registered yet!"
 
 #: Controller/UserController.php:148
 msgid "RESET_PASSWORD"
-msgstr "Reset password for your account on Verkkotesti"
+msgstr "Reset your password"
 
 #: Controller/UserController.php:150
 msgid "REQUEST_RECEIVED_CHECK_EMAIL"
-msgstr "Your request has been received, please check you email."
+msgstr "Your password request was sent! Please check you email (also the spam folder)."
 
 #: Controller/UserController.php:152
 msgid "SOMETHING_WENT_WRONG"
@@ -873,7 +861,7 @@ msgstr "Something went wrong, please try again later"
 
 #: View/Emails/html/inquary.ctp:1
 msgid "GENERAL_INQUERY"
-msgstr "General Inquary"
+msgstr "General inquery"
 
 #: View/Emails/html/inquary.ctp:2
 msgid "SENDER_EMAIL"
@@ -881,7 +869,7 @@ msgstr "Sender email address"
 
 #: Controller/UserController.php:120
 msgid "EMAIL_SENT"
-msgstr "Your email sent successfully."
+msgstr "Thank you for your message. We'll be in touch with you!"
 
 #: View/Emails/html/invoice.ctp:1
 msgid "INVOICE"
@@ -889,23 +877,23 @@ msgstr "Invoice"
 
 #: View/Emails/html/reset_password.ctp:1
 msgid "PASSWORD_RESET"
-msgstr "Password Reset"
+msgstr "Password reset"
 
 #: View/Emails/html/reset_password.ctp:2
 msgid "RESET_PASSWORD_CLICK"
-msgstr "To reset your password click on the bellow link or paste on your browser."
+msgstr "To reset your password click on the link below or copy-paste it on your browser's address bar."
 
 #: View/Emails/html/reset_password.ctp:4
 msgid "IF_NOT_SENT_IGNORE"
-msgstr "If you have not sent this request, just ignore this mail."
+msgstr "If you didn't request for a password change, just ignore this mail."
 
 #: View/Pages/index.ctp:3
 msgid "WEB_TEST_ENABLES_TEACHER"
-msgstr "Web test enables a teacher"
+msgstr "Verkkotesti enables teachers"
 
 #: View/Pages/index.ctp:4
 msgid "GIVE_QUIZ_QUICKLY_EASILY"
-msgstr "to give a quiz to students quickly and easily"
+msgstr "to test students quickly and easily"
 
 #: View/Pages/index.ctp:4
 msgid "WITH_THEIR"
@@ -921,31 +909,31 @@ msgstr "This is how it works!"
 
 #: View/Pages/index.ctp:16
 msgid "1_CREATE_TEST"
-msgstr "Create a Test"
+msgstr "1. Create a quiz"
 
 #: View/Pages/index.ctp:17
 msgid "CREATE_TEST_WITH_QUESTIONS"
-msgstr "Create a test with one or more questions."
+msgstr "A quiz can have many types of questions such as multiple choices and short text answers."
 
 #: View/Pages/index.ctp:20
 msgid "2_GIVE_TEST"
-msgstr "Give a Test"
+msgstr "2. Give a quiz"
 
 #: View/Pages/index.ctp:21
 msgid "LET_STUDENT_ATTEND"
-msgstr "Let the students attend the test in the classroom or at home."
+msgstr "Students can participate with a mobile phone, pad, laptop or desktop computer in the classroom or at home."
 
 #: View/Pages/index.ctp:24
 msgid "3_CHECK_RESULT"
-msgstr "Check the Result"
+msgstr "3. Check the Result"
 
 #: View/Pages/index.ctp:24
 msgid "CHECK_RESULTS_SOON_ATTENDED"
-msgstr "Check the results as soon as the stundents have attended."
+msgstr "The app rates many of the students' answers automatically."
 
 #: Controller/QuizController.php:392
 msgid "QUIZ_DELETED"
-msgstr "You have Successfuly deleted quiz."
+msgstr "The quiz was deleted."
 
 #: Controller/UserController.php:67
 msgid "REQUIRE_CAPTCHA"
@@ -965,7 +953,7 @@ msgstr " students, and "
 
 #: Controller/QuizController.php:62
 msgid "SURELY_DELETE"
-msgstr " number of questions. This can not be undone. Are you sure want to delete?"
+msgstr " number of questions in this quiz. This can not be undone. Are you sure want to delete?"
 
 #: Controller/QuizController.php:63
 msgid "DELETE_QUIZ"
@@ -973,7 +961,7 @@ msgstr "Delete quiz "
 
 #: Menu item Site Videos
 msgid "SITE_VIDEOS"
-msgstr "Site Videos"
+msgstr "Site videos"
 
 #: View/User/create.ctp:69
 msgid "ENTER_RESULT"
@@ -981,23 +969,23 @@ msgstr "Enter result"
 
 #: Controller/UserController.php:51
 msgid "INCORRECT_CALCULATION"
-msgstr "The result of the calculation was incorrect. Please try again."
+msgstr "The result of the calculation were incorrect. Please try again."
 
 #: Controller/HelpsController.php:160
 msgid "CREATE_SITE_VIDEO"
-msgstr "New Site Video"
+msgstr "New site video"
 
 #: Controller/HelpsController.php:162
 msgid "EDIT_SITE_VIDEO"
-msgstr "Edit Site Video"
+msgstr "Edit site video"
 
 #: Controller/HelpsController.php:183
 msgid "VIDEOS_SAVED"
-msgstr "Site videos saved successfully."
+msgstr "Site videos were saved."
 
 #: Controller/HelpsController.php:183
 msgid "VIDEO_SAVE_FAIL"
-msgstr "Site videos saved failed!"
+msgstr "Site videos saving was failed!"
 
 #: Model/Help.php:validation for field type
 msgid "DISPLAY_PAGE_REQUIRED"
@@ -1005,32 +993,32 @@ msgstr "Display page is required"
 
 #: Model/Help.php:9
 msgid "HOME_PAGE"
-msgstr "Home Page"
+msgstr "Home page"
 
 #: Model/Help.php:9
 msgid "USER_CREATE_PAGE"
-msgstr "User Create Page"
+msgstr "User create page"
 
 #: Controller/HelpsController.php:231
 msgid "VIDEO_LIST"
-msgstr "Site Videos List"
+msgstr "Site videos list"
 
 #: View/Helps/admin_create.ctp:13
 #: View/Helps/admin_videos.ctp:11
 msgid "CREATE_VIDEOS"
-msgstr "Create Videos"
+msgstr "Create videos"
 
 #: View/Helps/admin_videos.ctp:27
 msgid "DISPLAY_PAGE"
-msgstr "Display Page"
+msgstr "Display page"
 
 #: View/Helps/admin_create.ctp:39
 msgid "INSERT_VIDEO_TITLE"
-msgstr "Please insert video title"
+msgstr "Insert the video title"
 
 #: View/Helps/admin_create.ctp:40
 msgid "INSERT_VIDEO_SUB_TITLE"
-msgstr "Please insert video sub title"
+msgstr "Insert the video subtitle"
 
 #: View/Helps/admin_create.ctp:42
 msgid "DESCRIPTION"
@@ -1042,11 +1030,11 @@ msgstr "Photo"
 
 #: Controller/HelpsController.php:224
 msgid "UPLOAD_PICTURE"
-msgstr "Upload a Picture"
+msgstr "Upload a picture"
 
 #: Controller/QuizController.php:210
 msgid "ONLY_FOURTY_STUDENTS"
-msgstr "Sorry, only allow 40 students to take this quiz."
+msgstr "Sorry, only 40 students can attend this quiz."
 
 #: Controller/PagesController.php:70
 msgid "NO_PERMISSION"
@@ -1058,7 +1046,7 @@ msgstr "Limit exceeds"
 
 #: View/Pages/no-permission.ctp:7
 msgid "MAX_STUDENTS_REACHED"
-msgstr "This quiz has reached maximum allowed of students to take test."
+msgstr "This quiz has reached it's maximum number of answers."
 
 #: View/Elements/Quiz/edit/Handlebars/question.preview.ctp:12
 msgid "NOTICE"
@@ -1082,7 +1070,7 @@ msgstr "Quiz taken: "
 
 #: View/Elements/Quiz/edit/Handlebars/question.edit.ctp:59
 msgid "SAVE_QUESTION"
-msgstr "Save Question"
+msgstr "Save question"
 
 #: View/Quiz/table.ctp:22
 msgid "PRINT"
@@ -1090,31 +1078,31 @@ msgstr "Print"
 
 #: View/Quiz/index.ctp:23
 msgid "UPGRADE_PENDING"
-msgstr "Upgrade Pending"
+msgstr "Upgrade pending"
 
 #: 
 msgid "READ"
-msgstr "READ"
+msgstr "Read"
 
 #: Controller/QuizController.php:238
 msgid "RIGHT_CLICK_DISABLED"
-msgstr "Sorry, right click disabled"
+msgstr "Mouse right click is disabled during the test"
 
 #: Controller/QuizController.php:239
 msgid "CANT_SWITCH_TAB"
-msgstr "Sorry, you are not allowed to switch browser tab."
+msgstr "Browser tab switching is disabled during the test´"
 
 #: Controller/QuizController.php:240
 msgid "SURELY_LEAVE_QUIZ"
-msgstr "Are you sure that you want to leave this quiz?"
+msgstr "Do you want to leave the quiz?"
 
 #: View/Quiz/edit.ctp:37
 msgid "QUIZ_SETTINGS"
-msgstr "Quiz Settings"
+msgstr "Quiz settings"
 
 #: View/Quiz/edit.ctp:37
 msgid "SHOW_RESULTS_AFTER_QUIZ"
-msgstr "Show results to the student after finishing the quiz."
+msgstr "Show results to the student after the quiz."
 
 #: View/Student/success.ctp:25
 msgid "ON_HOLD"
@@ -1130,15 +1118,15 @@ msgstr "Total"
 
 #: View/Student/success.ctp:40
 msgid "YOUR_ANSWER_WAITING_RATING"
-msgstr "YOUR answer waiting for rating"
+msgstr "question waiting for rating"
 
 #: View/Student/success.ctp:40
 msgid "REMOVED"
-msgstr "Successfully removed"
+msgstr "Removed"
 
 #: View/Quiz/not_found.ctp:1
 msgid "QUIZ_IS_CLOSED"
-msgstr "The quiz is closed at this time."
+msgstr "The quiz is closed at the moment."
 
 #: Controller/QuizController.php:230
 msgid "CLOSED"
@@ -1146,7 +1134,7 @@ msgstr "Closed"
 
 #: View/Quiz/index.ctp:17
 msgid "ACCOUNT_WILL_EXPIRE"
-msgstr "Your account will be expired in"
+msgstr "Your account will expire in"
 
 #: View/Quiz/index.ctp:43
 msgid "IN_DAYS"
@@ -1174,11 +1162,11 @@ msgstr "Web image"
 
 #
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Lägg till videons webbadress (Url)"
+msgstr "Enter Youtube web address"
 
 #
 msgid "ENTER_IMAGE_URL"
-msgstr "Enter Image Url"
+msgstr "Enter image web address"
 
 #: Controller/QuizController.php:145
 msgid "ENTER_HEADER"
@@ -1190,15 +1178,15 @@ msgstr "Video explanation text"
 
 #: Controller/QuizController.php:143
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Please enter Youtube url"
+msgstr "Enter Youtube url"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_IMAGE_URL"
-msgstr "Please enter image url"
+msgstr "Enter image url"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_HEADER_TEXT"
-msgstr "Please enter Header text"
+msgstr "Enter Header text"
 
 #: Controller/QuizController.php:149
 msgid "IMAGE_EXPLANATION_TEXT"
@@ -1210,7 +1198,7 @@ msgstr "Progress"
 
 #
 msgid "MAX_ALLOWED"
-msgstr "Max allowed to check"
+msgstr "How many answers can be chosen"
 
 #
 msgid "CHOOSE_MOST"
@@ -1222,7 +1210,7 @@ msgstr "Pardon for the dust!"
 
 #: View/Elements/Maintenance/notice.ctp:11
 msgid "WELL_BE_BACK"
-msgstr "We are currently making the app even better. We will be back online tonight at 22:00."
+msgstr "We are currently making the app even better. We will be back online as soon as possible."
 
 #: View/Quiz/index.ctp:150
 msgid "LOAD_DEMO_QUIZZES"
@@ -1238,7 +1226,7 @@ msgstr "If you want to start by looking at demo quizzes, click the gray button "
 
 #: View/Quiz/index.ctp:147
 msgid "DELETE_DEMO_QUIZZES"
-msgstr "(You can delete demo quizzes when you don't need them anymore.)"
+msgstr "(You can delete them when you don't need them anymore.)"
 
 #: View/Quiz/index.ctp:147
 msgid "IF_WANT_START_CLICK"
@@ -1246,39 +1234,39 @@ msgstr "If you want to dive straight in, click the blue button"
 
 #: View/Elements/Invoice/demo_dialog.ctp:7
 msgid "DO_YOU_LOAD_DEMO_QUIZ"
-msgstr "Would you like to load the demo quizzes?"
+msgstr "Load the demo quizzes?"
 
 #: View/Elements/Invoice/demo_dialog.ctp:7
 msgid "CHOOSE_OK_LOAD_QUIZZES"
-msgstr "Choose Ok if you want to load a couple of demo quizzes to take a look at Verkkotesti features."
+msgstr "Choose Ok if you want to load three demo quizzes to get familiar with the app. You can delete them when you don't need them anymore."
 
 #: Controller/MaintenanceController.php:29
 msgid "IMPORTED_SUCCESS"
-msgstr "Imported successfully"
+msgstr "Demo quizzes imported"
 
 #: Controller/MaintenanceController.php:24
 msgid "ENTER_USER_ID"
-msgstr "Please enter an user id"
+msgstr "Enter an user id"
 
 #: Controller/MaintenanceController.php:24
 msgid "ENTER_NUMERIC_ID"
-msgstr "Please enter a numeric id"
+msgstr "Enter a numeric id"
 
 #: Controller/MaintenanceController.php:20
 msgid "IMPORT_DEMO_QUIZZES"
-msgstr "Import Demo Quiz"
+msgstr "Import demo quiz"
 
 #: Controller/MaintenanceController.php:40
 msgid "NO_DIRECT_ACCESS_LOCATION"
-msgstr "No direct access on this location"
+msgstr "No direct access on this page"
 
 #:
 msgid "USER_ID"
-msgstr "User Id"
+msgstr "User id"
 
 #:
 msgid "INSERT_USER_ID"
-msgstr "Please insert user id"
+msgstr "Insert User id"
 
 #:
 msgid "IMPORT"
@@ -1290,11 +1278,11 @@ msgstr "Copy of:"
 
 #: Controller/QuizController.php:641
 msgid "INVALID_QUIZ"
-msgstr "Invalid Quiz!"
+msgstr "Invalid quiz!"
 
 #: Controller/QuizController.php:634
 msgid "QUIZ_DUPLICATED"
-msgstr "Duplicated Successfully"
+msgstr "Quiz duplicated"
 
 #: View/Quiz/index.ctp:141
 msgid "DUPLICATE_QUIZ"
@@ -1302,15 +1290,15 @@ msgstr "Duplicate quiz"
 
 #: Controller/QuizController.php:641
 msgid "STUDENT_ONLINE_AND_GIVING_TEST"
-msgstr "Student is online and giving test! "
+msgstr "Student is currently online and giving test! "
 
 #: 
 msgid "DEMAND_UPPER_LOWERCASE"
-msgstr "Demand exact upper- and lowercase letters"
+msgstr "Demand correct upper- and lowercase letters"
 
 #: View/User/success.ctp:5
 msgid "THANK_YOU_REGISTERING_CONFIRMATION_SENT"
-msgstr "Thank you for creating a user account! We've sent a confirmation email to your given email address. Check your email and click the link in it to activate your account. If you need help, take contact"
+msgstr "Thank you for creating a user account! We've sent a confirmation email to your given email address. Check your email and click the link in it to activate your account. If you need help, please contact us"
 
 #: View/User/success.ctp:5
 msgid "THANK_YOU_REGISTERING"
@@ -1318,15 +1306,15 @@ msgstr "Thank you for creating a user account!"
 
 #: View/User/success.ctp:5
 msgid "CONFIRMATION_SENT"
-msgstr "We've sent a confirmation email to your given email address. Check your email and click the link to activate your account. If you can't find the email, please check your spam folder."
+msgstr "We've sent a confirmation email to your email. Check your email and click the link to activate your account. If you can't find the email, please check your spam folder."
 
 #: View/User/success.ctp:5
 msgid "IF_NEED_HELP_CONTACT"
-msgstr "If you need help, take contact"
+msgstr "If you need help, please contact us."
 
 #: View/Emails/html/user_email.ctp:3
 msgid "CLICK_LINK_ACTIVATE"
-msgstr "Thanks for registering with us. To activate your account, please click the link below or simply copy paste the url to your browser."
+msgstr "Thanks for creating an account! To activate your account, please click the link below or simply copy-paste the url to your browser's address bar."
 
 #: View/Emails/html/user_email.ctp:5
 msgid "IF_NOT_REGISTER_IGNORE"
@@ -1334,11 +1322,11 @@ msgstr "If you didn't intend to register, simply ignore this email."
 
 #: Controller/UserController.php:105
 msgid "REGISTRATION_SUCCESS"
-msgstr "Registration Success"
+msgstr "Registration success"
 
 #: Controller/UserController.php:60
 msgid "CONFIRM_EMAIL"
-msgstr "[Verkkotesti Signup] Please confirm your email address!"
+msgstr "[Verkkotesti Signup] Confirm your email address!"
 
 #: View/User/success.ctp:6
 msgid "HERE"
@@ -1350,15 +1338,15 @@ msgstr "Hi"
 
 #: View/Quiz/edit.ctp:64
 msgid "ANONYMOUS_PARTICIPATION"
-msgstr "Anonymous participation?"
+msgstr "Allow anonymous participation"
 
 #: Controller/QuizController.php:258
 msgid "ALL_SUBJECT"
-msgstr "All Subjects"
+msgstr "All subjects"
 
 #: Controller/QuizController.php:262
 msgid "ALL_CLASS"
-msgstr "All Classes"
+msgstr "All classes"
 
 #: Controller/QuizController.php:127
 msgid "CANCEL_SHARE"
@@ -1370,7 +1358,7 @@ msgstr "Publicly shared"
 
 #: Controller/QuizController.php:885
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have successfully shared the quiz. Please hold for admin approval."
+msgstr "You have shared a quiz. Please hold for admin approval."
 
 #: View/Quiz/edit.ctp:129
 msgid "SHARE_PENDING"
@@ -1398,11 +1386,11 @@ msgstr "seconds."
 
 #: View/Quiz/index.ctp:210
 msgid "QUIZ_BANK"
-msgstr "Quiz Bank"
+msgstr "Quiz bank"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "IMPORT_SELECTED"
-msgstr "Import Selected"
+msgstr "Import selected"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:59
 msgid "UNDEFINED"
@@ -1410,7 +1398,7 @@ msgstr "Undefined"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:73
 msgid "PREVIEW_QUIZ"
-msgstr "Preview Quiz"
+msgstr "Preview quiz"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:73
 msgid "ACTIONS"
@@ -1426,19 +1414,19 @@ msgstr "QUIZ SHARING"
 
 #: Model/Quiz.php:construct
 msgid "SHARED_QUIZZES"
-msgstr "Shared Quizzes"
+msgstr "Shared quizzes"
 
 #: Model/Quiz.php:construct
 msgid "PENDING_QUIZZES"
-msgstr "Pending Quizzes"
+msgstr "Pending quizzes"
 
 #: Model/Quiz.php:construct
 msgid "DECLINED_QUIZZES"
-msgstr "Decline Quizzes"
+msgstr "Declined quizzes"
 
 #: Model/Quiz.php:construct
 msgid "PRIVATE_QUIZZES"
-msgstr "Private Quizzes"
+msgstr "Private quizzes"
 
 #: 
 msgid "SUBJECTS"
@@ -1450,7 +1438,7 @@ msgstr "Classes"
 
 #: 
 msgid "QUIZ_IMPORTED"
-msgstr "Quiz imported successfully"
+msgstr "Quiz imported"
 
 #: 
 msgid "PREVIOUS"
@@ -1462,19 +1450,19 @@ msgstr "Next"
 
 #: View/Elements/logut-warning.ctp:5
 msgid "YOU_ARE_GOING_LOGOUT"
-msgstr "You are going to be logout...?"
+msgstr "You are going to be logged out...?"
 
 #: View/Quiz/index.ctp:230
 msgid "EXPLORE_QUIZ_BANK"
-msgstr "Explore Quiz Bank"
+msgstr "Explore quiz bank"
 
 #: View/Quiz/admin_shared.ctp:21
 msgid "APPROVED_QUIZZES"
-msgstr "Approved Quizzes"
+msgstr "Approved quizzes"
 
 #: Controller/QuizController.php:1192
 msgid "SHARED_QUIZ_LIST"
-msgstr "Shared Quiz List"
+msgstr "Shared quiz list"
 
 #: Controller/QuizController.php:1246
 msgid "DECLINE_QUIZ"
@@ -1482,7 +1470,7 @@ msgstr "Decline the quiz"
 
 #: Controller/QuizController.php:1249
 msgid "ENTER_DECLINE_REASON"
-msgstr "Enter decline reason if any!"
+msgstr "Decline reason (if any)"
 
 #: Controller/QuizController.php:1249
 msgid "APPROVE_QUIZ"
@@ -1490,35 +1478,35 @@ msgstr "Approve the quiz"
 
 #: Controller/QuizController.php:1251
 msgid "IF_APPROVE_CAN_DECLINE"
-msgstr "If you approve the quiz, you have always option to decline sharing!"
+msgstr "If you approve the quiz now, you can cancel the share later."
 
 #: View/Quiz/ajax_bank.ctp:4
 msgid "PUBLIC_QUIZZES"
-msgstr "Public Quizzes"
+msgstr "Quiz bank"
 
 #: Controller/StandardsController.php:96
 msgid "NEW_CLASS"
-msgstr "New Class"
+msgstr "New class"
 
 #: View/Standards/admin_insert.ctp:31
 msgid "ENTER_CLASS_NAME"
-msgstr "Please enter class name"
+msgstr "Enter Class name"
 
 #: Controller/SubjectsController.php:96
 msgid "NEW_SUBJECT"
-msgstr "New Subject"
+msgstr "New subject"
 
 #: View/Subjeects/admin_insert.ctp:31
 msgid "ENTER_SUBJECT_NAME"
-msgstr "Please enter subject name"
+msgstr "Enter Subject name"
 
 #: Controller/QuizController.php:126
 msgid "CANCEL_SHARE_QUIZ"
-msgstr "Cancel share quiz"
+msgstr "Cancel quiz sharing"
 
 #: Controller/QuizController.php:127
 msgid "DO_YOU_REMOVE_SHARING"
-msgstr "Do you want to remove sharing the quiz?"
+msgstr "Do you want to cancel sharing the quiz?"
 
 #: Controller/QuizController.php:124
 msgid "SHARE_QUIZ"
@@ -1538,7 +1526,7 @@ msgstr "Shared quizzes not found. Filter the list by choosing subjects and class
 
 #: View/Elements/navbar.ctp:24
 msgid "ADMIN_SETTINGS"
-msgstr "Admin Settings"
+msgstr "Admin settings"
 
 #: View/Elements/navbar.ctp:32
 msgid "MAINTENANCE"
@@ -1562,11 +1550,11 @@ msgstr "Subject already created"
 
 #: Controller/QuizController.php:1097
 msgid "YOU_HAVE_EXCEEDED_MAX_IMPORT"
-msgstr "Sorry, you have exceeded maximum limit of import quiz. Please upgrade your account to get unlimited access on quiz bank!"
+msgstr "You have reached the maximum limit of imported quizzes. Please upgrade your account to get unlimited access to the Quiz bank."
 
 #: Controller/QuizController.php:1100
 msgid "CANT_PROCESS_REQUEST"
-msgstr "Sorry, we can't process your request! You have left only import"
+msgstr "Quiz bank imports are limited on a trial account. Imports left:"
 
 #: View/Pages/prices.ctp:38
 msgid "DAYS_TO_USE"
@@ -1574,19 +1562,19 @@ msgstr "Days to use"
 
 #: View/Pages/prices.ctp:34
 msgid "DAYS"
-msgstr "Days"
+msgstr "days"
 
 #: View/Pages/prices.ctp:40
 msgid "LIMITED_ACCESS"
-msgstr "Limited Access"
+msgstr "Limited access"
 
 #: View/Pages/prices.ctp:15
 msgid "29_EUR"
-msgstr "29 €/Y"
+msgstr "29 €/year"
 
 #: View/Pages/prices.ctp:16
 msgid "49_EUR"
-msgstr "49 €/Y"
+msgstr "49 €/year"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
@@ -1602,7 +1590,7 @@ msgstr "Thanks for your registration!"
 
 #: 
 msgid "IMPORT_QUIZ"
-msgstr "Import Quiz"
+msgstr "Import quiz"
 
 #: View/User/success.ctp:14
 msgid "LOG_IN"
@@ -1610,11 +1598,15 @@ msgstr "Log in"
 
 #: Elements/Invoice/invoice.ctp:10
 msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
-msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your account’s emaill address."
+msgstr "Upgrade your account. You’ll get access to your upgraded account immediately. You’ll shortly receive an invoice of your purchase in your email."
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "BASIC"
 msgstr "Basic:"
+
+#: Elements/Invoice/invoice.ctp:14
+msgid "QUIZ_BANK_PACKAGE"
+msgstr "Quiz bank:"
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "CREATE_AND_USE_QUIZZES_FREELY"
@@ -1622,15 +1614,27 @@ msgstr "Create and use quizzes freely without limits."
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
-msgstr "Quiz Bank"
+msgstr "Quiz bank"
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz Bank."
+msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz bank."
+
+#: 
+msgid "CANCEL_SUBSCRIPTION"
+msgstr "Cancel subscription"
+
+#: 
+msgid "SUBSCRITION_CANCEL_TEXT"
+msgstr "You can use your paid account until your current expiration date. No new payments are charged after that."
+
+#: 
+msgid "CONFIRM_CANCEL"
+msgstr "Cancel subscription"
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have successfully shared the quiz. Please hold for admin approval."
+msgstr "You have shared a quiz. Please hold for admin approval."
 
 #: Controller/QuizController.php:104
 msgid "ANSWERS_SAVING"
@@ -1642,11 +1646,11 @@ msgstr "Sorry, you lost your internet connection."
 
 #: Controller/PagesController.php:104
 msgid "PROVE_NOT_ROBOT"
-msgstr "Please prove you are not robot."
+msgstr "Please prove that you are not a robot."
 
 #: 
 msgid "QUIZ_SAVED"
-msgstr "Successfully saved."
+msgstr "Quiz is saved"
 
 #: Controller/UsersController.php:117
 msgid "ACCOUNT_ENABLED"
@@ -1662,7 +1666,7 @@ msgstr "An empty quiz can't be shown."
 
 #: Controller/QuizController.php:237
 msgid "MINIMUM"
-msgstr "Minimum"
+msgstr "At least"
 
 #: Controller/QuizController.php:238
 msgid "CHOICES_REQUIRED"
@@ -1670,15 +1674,15 @@ msgstr "choices are required!"
 
 #: Controller/UsersController.php:326
 msgid "PASSWORD_CHANGED"
-msgstr "Your password has been successfully changed."
+msgstr "Your password is changed"
 
 #: View/Users/reset_password.ctp:29
 msgid "ENTER_NEW_PASSWORD"
-msgstr "Enter New Password"
+msgstr "Enter new password"
 
 #: View/Users/reset_password.ctp:35
 msgid "VERIFY_PASSWORD"
-msgstr "New Password Verify"
+msgstr "Verify new password"
 
 #: View/Users/reset_password.ctp:45
 msgid "RESET"
@@ -1690,7 +1694,7 @@ msgstr "Choice %d"
 
 #: View/User/settings.ctp:46
 msgid "CHANGE_PASSWORD"
-msgstr "Change Password"
+msgstr "Change password"
 
 #: Coming from db
 msgid "IMAGE"
@@ -1702,43 +1706,43 @@ msgstr "Header"
 
 #: Coming from db
 msgid "TUBE_VIDEO"
-msgstr "Youtube Video"
+msgstr "Youtube video"
 
 #:
 msgid "MANAGE_USER"
-msgstr "Manage Users"
+msgstr "Manage users"
 
 #:
 msgid "LAST_LOGIN"
-msgstr "Last Login"
+msgstr "Last login"
 
 #:
 msgid "LOGIN_COUNT"
-msgstr "Login Count"
+msgstr "30d logins"
 
 #:
 msgid "QUIZ_COUNT"
-msgstr "Quiz Count"
+msgstr "Quiz count"
 
 #:
 msgid "ACC_TYPE"
-msgstr "Account Type"
+msgstr "Account type"
 
 #:
 msgid "EXP_DATE"
-msgstr "Expire Date"
+msgstr "Expire date"
 
 #:
 msgid "CHANGE_USER_STATUS"
-msgstr "Change User Status"
+msgstr "Change user status"
 
 #:
 msgid "ACTIVATE_USER"
-msgstr "Do you really want to activate the selected user?"
+msgstr "Activate the selected user?"
 
 #:
 msgid "DEACTIVATE_USER"
-msgstr "Do you really want to deactivate the selected user?"
+msgstr "Deactivate the selected user?"
 
 #:
 msgid "INVALID_INPUT"
@@ -1746,7 +1750,7 @@ msgstr "Invalid input data"
 
 #:
 msgid "USER_UPDATE_SUCCESS"
-msgstr "User updated successfully"
+msgstr "User updated"
 
 #:
 msgid "FAILED"
@@ -1754,23 +1758,19 @@ msgstr "Failed!"
 
 #:
 msgid "TRIAL_LIMIT"
-msgstr "Trial Limit"
+msgstr "Trial 1 quiz"
 
 #:
 msgid "PAID_29"
-msgstr "$29 Paid"
+msgstr "29 €/Year"
 
 #:
 msgid "PAID_49"
-msgstr "$49 Paid"
+msgstr "49 €/Year"
 
 #:
 msgid "TRIAL_DAYS"
-msgstr "Trial Days"
-
-#:
-msgid "TRIAL_DAYS"
-msgstr "Trial Days"
+msgstr "Trial 30 days"
 
 #:
 msgid "ADMIN"
@@ -1787,10 +1787,6 @@ msgstr "Inactive"
 #:
 msgid "EXPIRED"
 msgstr "Expired"
-
-#:
-msgid "PAID"
-msgstr "Paid"
 
 #:
 msgid "PAID"
@@ -1834,11 +1830,11 @@ msgstr "Choose file"
 
 #: 
 msgid "DRAG_DROP"
-msgstr "Drag image file here"
+msgstr "Drag your file here"
 
 #:
 msgid "CREATE_MSG_TEACHER"
-msgstr "Dear teacher! Welcome to try Verkkotesti 30 days for free. You're only one page away for your free trial. Please fill the form below to create your account."
+msgstr "Dear teacher! Welcome to try Verkkotesti free for 30 days. Please fill the form to create your account."
 
 #:
 msgid "CREATE_MSG_STUDENT"
@@ -1848,211 +1844,232 @@ msgstr "Students don't need an account. The teacher will provide the quiz link."
 
 #:
 msgid "1_CHOOSE_PACKAGE"
-msgstr "1_CHOOSE_PACKAGE"
+msgstr "1. Choose your package:"
 
 #:
 msgid "INCL_TAX"
-msgstr "INCL_TAX"
+msgstr "Including 24% value added tax"
 
 #:
 msgid "EXCL_TAX"
-msgstr "EXCL_TAX"
+msgstr "Excluding 24% value added tax"
 
 #:
 msgid "2_CHOOSE_PAYMENT_METHOD"
-msgstr "2_CHOOSE_PAYMENT_METHOD"
+msgstr "2. Choose your payment method:"
 
 #:
 msgid "INVOICE_INSTITUTION"
-msgstr "INVOICE_INSTITUTION"
+msgstr "Invoice (institutions only)"
 
 #:
 msgid "INVOICE_INFO"
-msgstr "INVOICE_INFO"
+msgstr "3. Copy-paste your billing information below:"
 
 #:
 msgid "INVOICE_INFO_PLACEHOLDER"
-msgstr "INVOICE_INFO_PLACEHOLDER"
+msgstr "Copy-paste billing information here"
 
 #:
 msgid "INVOICE_ATTACHMENT"
-msgstr "INVOICE_ATTACHMENT"
+msgstr "OR attach billing information in a file:"
 
 #:
 msgid "CARD_NUMBER"
-msgstr "CARD_NUMBER"
+msgstr "Card number:"
 
 #:
 msgid "VALID_CARD_REQUIRED"
-msgstr "VALID_CARD_REQUIRED"
+msgstr "Insert your credit card number here"
 
 #:
 msgid "EXPIRATION"
-msgstr "EXPIRATION"
+msgstr "Card expiration"
 
 #:
 msgid "DATE"
-msgstr "DATE"
+msgstr ":"
 
 #:
 msgid "CVC"
-msgstr "CVC"
+msgstr "Card security code:"
+
+#:
+msgid "CVC_GUIDE"
+msgstr "Insert your card security code here"
+
+#:
+msgid "MAXIMUM_ATTACHMENT"
+msgstr "can not be attached. You can attach only one file."
 
 #:
 msgid "3_PURCHASE"
-msgstr "3_PURCHASE"
+msgstr "3. Purchase:"
 
 #:
 msgid "AUTO_CHARGE_PER_YEAR"
-msgstr "AUTO_CHARGE_PER_YEAR"
+msgstr "- You'll be automatically charged once a year accordingly your order."
 
 #:
 msgid "CANCEL_ANYTIME_FROM_SETTINGS"
-msgstr "CANCEL_ANYTIME_FROM_SETTINGS"
+msgstr "- You can cancel your order anytime on your Settings page."
 
 #:
 msgid "NO_PAYMENT_AFTER_CANCEL"
-msgstr "NO_PAYMENT_AFTER_CANCEL"
+msgstr "- No new payments are charged after canceling."
 
 #:
 msgid "AFTER_CANCEL_STILL_BENEFIT_TILL_END"
-msgstr "AFTER_CANCEL_STILL_BENEFIT_TILL_END"
+msgstr "- You can use the remaining days of your paid period after canceling."
 
 #:
 msgid "REOPEN_ACCOUNT_ANYTIME"
-msgstr "REOPEN_ACCOUNT_ANYTIME"
+msgstr "- You can re-open your closed account anytime and get back to your previous content."
 
 #:
 msgid "IMMEDIATE_ACCESS_AFTER_PURCHASE"
-msgstr "IMMEDIATE_ACCESS_AFTER_PURCHASE"
+msgstr "Click below to confirm your yearly payment. You'll access your upgrade immediately after purchasing."
 
 #:
 msgid "29_YEARLY_BTN_TEXT"
-msgstr "29_YEARLY_BTN_TEXT"
+msgstr "Confirm order (29 €/year)"
 
 #:
 msgid "49_YEARLY_BTN_TEXT"
-msgstr "49_YEARLY_BTN_TEXT"
+msgstr "Confirm order (49 €/year)"
 
 #:
 msgid "PURCHASE_YEARLY_LICENCE"
-msgstr "PURCHASE_YEARLY_LICENCE"
+msgstr "Purchase yearly licence: 1-2-3"
 
 #:
 msgid "VALIDATING"
-msgstr "VALIDATING"
+msgstr "Validating your card..."
 
 #:
 msgid "RETRY"
-msgstr "RETRY"
+msgstr "Retry"
 
 #:
 msgid "PROCESSING"
-msgstr "PROCESSING"
+msgstr "Processing"
 
 #:
 msgid "PAY_SUCCESS"
-msgstr "PAY_SUCCESS"
+msgstr "Payment successful"
 
 #:
 msgid "PAY_FAILED"
-msgstr "PAY_FAILED"
+msgstr "Payment FAILED!"
 
 #:
 msgid "TRY_REFRESH"
-msgstr "TRY_REFRESH"
+msgstr "Please refresh the browser and try again"
 
 #:
 msgid "DOWNGRADE_PLAN"
-msgstr "DOWNGRADE_PLAN"
+msgstr "Downgrade your plan"
 
 #:
 msgid "UPGRADE_PLAN"
-msgstr "UPGRADE_PLAN"
+msgstr "Upgrade plan"
 
 #:
 msgid "CURRENT_PLAN"
-msgstr "CURRENT_PLAN"
+msgstr "Current plan"
+
+#: Settings-page
+msgid "REACTIVATE_BUTTON"
+msgstr "Re-activate"
 
 #:
 msgid "REACTIVATE_SUBSCRIPTION"
-msgstr "REACTIVATE_SUBSCRIPTION"
+msgstr "Re-activate subscription"
 
 #:
+msgid "REACTIVATE_SUBSCRIPTION_TITLE"
+msgstr "Choose your plan for re-activating your subscription:"
+
+
+#: Button
 msgid "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
-msgstr "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
+msgstr "Re-activate subscription and downgrade"
 
-#:
+#: Button
 msgid "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
-msgstr "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
+msgstr "Re-activate subscription and upgrade"
 
-#:
+#: Prices page purchase dialog success
 msgid "STRIPE_PAY_SUC_TITLE"
-msgstr "STRIPE_PAY_SUC_TITLE"
+msgstr "Thank you for your purchase!"
 
 #:
 msgid "STRIPE_PAY_SUC_BODY"
-msgstr "STRIPE_PAY_SUC_BODY"
+msgstr "Your payment was received, thank you! You can begin to use your paid account immediately."
 
 #:
 msgid "CANCEL_PLAN_TITLE"
-msgstr "CANCEL_PLAN_TITLE"
+msgstr "Subscription cancelled"
 
 #:
 msgid "CANCEL_PLAN_BODY"
-msgstr "CANCEL_PLAN_BODY"
+msgstr "Your subscription is now cancelled. You can use your paid account until your current expiration date. No new payments are charged after that."
 
 #:
 msgid "UPGRADE_PLAN_TITLE"
-msgstr "UPGRADE_PLAN_TITLE"
+msgstr "Upgrade plan"
 
 #:
 msgid "UPGRADE_PLAN_BODY"
-msgstr "UPGRADE_PLAN_BODY"
+msgstr "Your plan has been upgraded! You can now use your brand new features."
 
 #:
 msgid "DOWNGRADE_PLAN_TITLE"
-msgstr "DOWNGRADE_PLAN_TITLE"
+msgstr "Downgrade plan"
 
 #:
 msgid "DOWNGRADE_PLAN_BODY"
-msgstr "DOWNGRADE_PLAN_BODY"
+msgstr "Your plan has been downgraded. Your subscription charge has been reduced accordingly."
 
 #:
 msgid "REACTIVATE_TITLE"
-msgstr "REACTIVATE_TITLE"
+msgstr "Subscription re-activated"
 
 #:
 msgid "REACTIVATE_BODY"
-msgstr "REACTIVATE_BODY"
+msgstr "Thank you for re-activating your account! Your credit card was charged according to your order."
 
 #:
 msgid "REACTIVATE_UPGRADED_BODY"
-msgstr "REACTIVATE_UPGRADED_BODY"
+msgstr "Thank you for re-activating and upgrading your account! Your credit card was charged according to your order."
 
 #:
 msgid "REACTIVATE_DOWNGRADED_BODY"
-msgstr "REACTIVATE_DOWNGRADED_BODY"
+msgstr "Thank you for re-activating your account! You also chose to downgrade your plan. Your credit card was charged according to reduced charge."
 
-#:
+#: KORJAA
 msgid "NEXT_YEAR_TITLE"
 msgstr "NEXT_YEAR_TITLE"
 
-#:
+#: KORJAA
 msgid "NEXT_YEAR_BODY"
 msgstr "NEXT_YEAR_BODY"
 
-#:
+#: KORJAA
 msgid "UPGRADE_AND_NEXT_YEAR_BODY"
 msgstr "UPGRADE_AND_NEXT_YEAR_BODY"
 
-#:
+#: KORJAA
 msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
 msgstr "DOWNGRADE_AND_NEXT_YEAR_BODY"
 
 #:
 msgid "THANKS_FOR_PURCHASING"
-msgstr "THANKS_FOR_PURCHASING"
+msgstr "Thank you for your purchase!"
+
+#:
+msgid "BUY_CRETE_SUCCESS"
+msgstr "Thank you for your purchase and welcome to your account!"
 
 #:
 msgid "INVOICE_UPGRADE_PLAN_SUCCESS"
@@ -2072,7 +2089,7 @@ msgstr "INVOICE_DOWNGRADE_PLAN"
 
 #:
 msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
-msgstr "SUBSCRIPTION_CANCELLED_SUCCESS"
+msgstr "Your subscribtion was cancelled"
 
 #:
 msgid "UPGRADE_PLAN_SUCCESS"
@@ -2092,7 +2109,7 @@ msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
 
 #:
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS"
-msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS"
+msgstr "Your subscribtion is now re-activated"
 
 #:
 msgid "UPGRADED_AND_NEXT_YEAR_PURCHASE"
@@ -2116,7 +2133,7 @@ msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
 
 #:
 msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
-msgstr "THANKS_FOR_CONTINUE_SUBSCRIPTION"
+msgstr "Thank you for staying with us! Your subscription is confirmed."
 
 #:
 msgid "REQUIRED_FIELD"
@@ -2124,29 +2141,136 @@ msgstr "REQUIRED_FIELD"
 
 #:
 msgid "INVALID_CARD"
-msgstr "INVALID_CARD"
+msgstr "Please check your credit card number"
 
 #:
 msgid "INVALID_EXPIRE_DATE"
-msgstr "INVALID_EXPIRE_DATE"
+msgstr "Please check your credit card's expiration date"
 
 #:
 msgid "INVALID_CVC"
-msgstr "INVALID_CVC"
+msgstr "Please check your card's verification code (it's behind the card)"
 
 #:
 msgid "ENTER_LAST_NAME"
 msgstr "ENTER_LAST_NAME"
 
-#:
+#: 
 msgid "ENTER_FIRST_NAME"
 msgstr "ENTER_FIRST_NAME"
 
-#:
+#: /quizzes/table/number 
 msgid "ENTER_CLASS"
-msgstr "ENTER_CLASS"
+msgstr "Class"
 
 #:
 msgid "SORRY_YOUR_ACCOUNT_DISABLED"
-msgstr "SORRY_YOUR_ACCOUNT_DISABLED"
+msgstr "Unfortunately your account is currently disabled! Please contact us for re-opeing your account."
 
+#: 
+msgid "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+
+#: 
+msgid "EDIT_PLAN"
+msgstr "Edit plan"
+
+#: 
+msgid "ACCOUNT_EXPIRE"
+msgstr "Expiration date"
+
+#: 
+msgid "CURRENT_PLAN"
+msgstr "Current plan"
+
+#: 
+msgid "EDIT_PACKAGE"
+msgstr "Choose your plan:"
+
+#: 
+msgid "ENTER_PASSWORD_AGAIN"
+msgstr "Enter password again (to recognize typos)"
+
+#: 
+msgid "CURRENT_PASSWORD"
+msgstr "Current password"
+
+#: 
+msgid "NEW_PASSWORD"
+msgstr "New password"
+
+#: 
+msgid "CONFIRM_PASSWORD"
+msgstr "New password again"
+
+#: 
+msgid "FILL_CURRENT_PASSWORD"
+msgstr "Enter current password"
+
+#: 
+msgid "FILL_NEW_PASSWORD"
+msgstr "Enter new password (at least 8 characters)"
+
+#: 
+msgid "FILL_CONFIRM_PASSWORD"
+msgstr "Enter new password again (to recognize typos)"
+
+#: 
+msgid "FINISH_EDIT"
+msgstr "Finish"
+
+#:
+msgid "INACTIVE_LOGOUT"
+msgstr "You were automatically logged out after not using app for 15 minutes."
+
+#:
+msgid "PASSWORD_MUST_BE_LONGER"
+msgstr "Your password needs to be at least 8 characters long"
+
+#:
+msgid "SUBJECT_N_CLASSES"
+msgstr "Subjects and classes"
+
+#:
+msgid "ONE_QUIZ_MANDATORY"
+msgstr "Please choose at least one quiz to import"
+
+#:
+msgid "DEMO_QUIZ_LOADED"
+msgstr "[Verkkotesti] Demo quizzes loaded"
+
+#:
+msgid "IMPORTED_SUCCESS"
+msgstr "Demo quizzes imported"
+
+#:
+msgid "APPROVED_SUCCESS"
+msgstr "Quiz sharing approved"
+
+#:
+msgid "DECLINED_SUCCESS"
+msgstr "Quiz sharing declined"
+
+#:
+msgid "QUIZ_SAVE_FAILED"
+msgstr "Unfortunately the quiz saving was FAILED!"
+
+#:
+msgid "YOU_ARE_GOING_CHANGE_USER_LEVEL"
+msgstr "User account type change"
+
+#:
+msgid "ACCOUNT_LEVEL_CHANGE_TEXT"
+msgstr "Do you want to change the user's account type?"
+
+#:
+msgid "MM-YY"
+msgstr "MM/YY (For ex. 12/18)"
+
+#:
+msgid "RENEW_YEARLY"
+msgstr "Re-newed yearly"
+
+#:
+msgid "SUBSCRIPTION_ENDING"
+msgstr "Subscription ending"

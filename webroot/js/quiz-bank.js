@@ -5,6 +5,13 @@
     var class_list = [];
     var page_no = 1;
 
+    // settings show hide
+    $(document).on('click', '#show-settings', function () {
+        $('.caret-down').toggle();
+        $('.caret-right').toggle();
+        $('.settings-options').toggle();
+    });
+
     // Subjects
     $(document).on('change', '#subjects-0', function() { 
         $(".subjects").find('input').prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status

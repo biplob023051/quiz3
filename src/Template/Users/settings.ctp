@@ -29,7 +29,7 @@ $lang_strings['reactivate_downgrade'] = __('REACTIVATE_AND_DOWNGRADE_SUBSCRIPTIO
 $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
 $lang_strings['next_buy'] = __('CONTINUE_BUY_FOR_NEXT_YEAR');
 $lang_strings['upgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
-$lang_strings['downgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
+$lang_strings['downgrade_next_buy'] = __('DOWNGRADE_AND_BUY_FOR_NEXT_YEAR');
 
 $lang_strings['incl_tax'] = __('INCL_TAX');
 $lang_strings['excl_tax'] = __('EXCL_TAX');
@@ -53,6 +53,12 @@ $lang_strings['next_year_title'] = __('NEXT_YEAR_TITLE');
 $lang_strings['next_year_body'] = __('NEXT_YEAR_BODY');
 $lang_strings['upgrade_next_year_body'] = __('UPGRADE_AND_NEXT_YEAR_BODY');
 $lang_strings['downgrade_next_year_body'] = __('DOWNGRADE_AND_NEXT_YEAR_BODY');
+
+$lang_strings['invalid_card'] = __('INVALID_CARD');
+$lang_strings['invalid_expire'] = __('INVALID_EXPIRE_DATE');
+$lang_strings['invalid_cvc'] = __('INVALID_CVC');
+
+$lang_strings['max_attachment'] = __('MAXIMUM_ATTACHMENT');
 ?>
 <script type="text/javascript">
     var lang_strings = <?= json_encode($lang_strings) ?>;
@@ -117,9 +123,18 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 </div>
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-3">
+        <?php 
+            if (!empty($user->expired) && !empty($user->customer_id) && empty($user->plan_switched)) {
+                $expire_info = 'RENEW_YEARLY';
+            } else if (!empty($user->expired) && !empty($user->customer_id) && in_array($user->plan_switched, ['DOWNGRADE', 'UPGRADE'])) {
+                $expire_info = 'RENEW_YEARLY';
+            } else {
+                $expire_info = 'SUBSCRIPTION_ENDING';
+            }
+        ?>
         <?= $this->Form->input('expire_date', [
                 'label' => __("ACCOUNT_EXPIRE"),
-                'value' => !empty($user->expired) ? $user->expired->todatestring() : '',
+                'value' => !empty($user->expired) ? date('d.m.Y', $user->expired->timestamp) . ' ' . $expire_info : '',
                 'type' => 'text',
                 'disabled' => true
             ]);
@@ -135,7 +150,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
                 '51' => __('ADMIN')
             ];
             echo $this->Form->input('account_type', [
-                'label' => __("CURRENT_PLAN"),
+                'label' => __("CURRENT_PLAN_LABEL"),
                 'value' => $allAccOptions[$user->account_level],
                 'disabled' => true
             ]);
@@ -146,7 +161,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
             <div class="form-group text" style="margin-top: 22px;">
                 <a href="javascript:void(0)" class="btn btn-green form-control" data-toggle="modal" data-target="#invoice-payment"><i class="glyphicon glyphicon-edit"></i> 
                     <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
-                        <?= __('REACTIVATE'); ?>
+                        <?= __('REACTIVATE_BUTTON'); ?>
                     <?php else : ?>
                         <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
                     <?php endif; ?>

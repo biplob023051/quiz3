@@ -41,14 +41,14 @@
 				                $result_html = $result_html . '<p class="text-danger">' . __('NOT_ANSWERED') .'</p>';
 				            } else { 
 				                if ($answer->score > 0) {
-				                    $result_html = $result_html . '<p class="text-success">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
+				                    $result_html = $result_html . '<p class="text-success">' . nl2br($answer->text) . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                } elseif (is_null($answer->score)) {
 				                	$pending++;
-				                    $result_html = $result_html . '<p>' . $answer->text . ' <span class="score">' . __('ON_HOLD') . '</span><br/>';
+				                    $result_html = $result_html . '<p>' . nl2br($answer->text) . ' <span class="score">' . __('ON_HOLD') . '</span><br/>';
 				                } elseif ($answer->score === 0) {
-				                    $result_html = $result_html . '<p class="text-warning">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
+				                    $result_html = $result_html . '<p class="text-warning">' . nl2br($answer->text) . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                } else {
-				                    $result_html = $result_html . '<p class="text-danger">' . $answer->text . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
+				                    $result_html = $result_html . '<p class="text-danger">' . nl2br($answer->text) . ' <span class="score">' . ($answer->score+0) . '</span><br/>';
 				                }    
 				            } 
 				        } 

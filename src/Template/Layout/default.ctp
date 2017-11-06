@@ -91,6 +91,9 @@ use Cake\Routing\Router;
         echo $this->element('logout-warning'); 
     endif;
     ?>
+    <script type="text/javascript">
+        var lang_seconds = '<?= __('SECONDS'); ?>';
+    </script>
     <?php
     if ($authUser): // Add these script if logged in user
         echo $this->Html->script(array(

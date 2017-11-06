@@ -101,7 +101,7 @@ class PagesController extends AppController
             $lang_strings['reactivate_upgrade'] = __('REACTIVATE_AND_UPGRADE_SUBSCRIPTION');
             $lang_strings['next_buy'] = __('CONTINUE_BUY_FOR_NEXT_YEAR');
             $lang_strings['upgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
-            $lang_strings['downgrade_next_buy'] = __('UPGRADE_AND_BUY_FOR_NEXT_YEAR');
+            $lang_strings['downgrade_next_buy'] = __('DOWNGRADE_AND_BUY_FOR_NEXT_YEAR');
 
             $lang_strings['incl_tax'] = __('INCL_TAX');
             $lang_strings['excl_tax'] = __('EXCL_TAX');
@@ -129,6 +129,7 @@ class PagesController extends AppController
             $lang_strings['invalid_card'] = __('INVALID_CARD');
             $lang_strings['invalid_expire'] = __('INVALID_EXPIRE_DATE');
             $lang_strings['invalid_cvc'] = __('INVALID_CVC');
+            $lang_strings['max_attachment'] = __('MAXIMUM_ATTACHMENT');
 
             $this->set(compact('lang_strings'));
         }

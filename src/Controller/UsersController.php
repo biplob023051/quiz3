@@ -222,7 +222,8 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Session->destroy();
-        $this->Flash->success(__('LOGGED_OUT'));
+        $message = (!empty($this->request->query['inactive'])) ? __('INACTIVE_LOGOUT') : __('LOGGED_OUT');
+        $this->Flash->success($message);
         return $this->redirect($this->Auth->logout());
     }
 
@@ -434,7 +435,8 @@ class UsersController extends AppController
 
                 if ($this->request->data['payment_type'] == 'card') {
                     $plan = ($package == 49) ? 'bank-yearly' : 'basic-yearly';
-                    \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");  
+                    //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");  
+                    \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
 
                     $customer = \Stripe\Customer::create(array(
                         "card" => $this->request->data['token'],
@@ -539,6 +541,7 @@ class UsersController extends AppController
             $account_level = 1;
         }
         $plan = ($this->request->data['amount'] == 49) ? 'bank-yearly' : 'basic-yearly';
+        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         $customer_id = $this->Auth->user('customer_id');
         if (!$customer_id) {
@@ -621,6 +624,7 @@ class UsersController extends AppController
             echo json_encode($output);
             exit;
         }
+        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
@@ -690,6 +694,7 @@ class UsersController extends AppController
     public function reactivatePlan() {
         $this->autoRender = false;
         $output['success'] = false;
+        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         $customer_id = $this->Auth->user('customer_id');
         $customer = \Stripe\Customer::retrieve($customer_id);
@@ -749,6 +754,7 @@ class UsersController extends AppController
 
     // Webhook after successful payment charge
     public function paymentSuccess() {
+        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
         \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
 
         // You can find your endpoint's secret in your webhook settings

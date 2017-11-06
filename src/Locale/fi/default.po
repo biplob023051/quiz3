@@ -137,10 +137,6 @@ msgstr "Tilaa vuosilisenssi (29 €)"
 msgid "GIVE_TEST"
 msgstr "Pidä testi!"
 
-#: View/Quiz/index.ctp:40
-msgid "Answers "
-msgstr "Katso tulokset "
-
 #: View/Quiz/index.ctp:50
 msgid "REMOVE_QUIZ"
 msgstr "Poista testi"
@@ -183,7 +179,7 @@ msgstr "TAI"
 
 #: View/Quiz/present.ctp:7
 msgid "SURF_WEB_ADDRESS"
-msgstr "surffaa osoitteeseen:"
+msgstr "siirry osoitteeseen:"
 
 #: View/Student/success.ctp:1
 msgid "SUCCESS"
@@ -216,7 +212,7 @@ msgid "PASSWORD"
 msgstr "Salasana"
 
 #: View/User/login.ctp:46
-msgid "Register"
+msgid "REGISTER"
 msgstr "Luo ilmainen käyttäjätili"
 
 #: View/User/login.ctp:59
@@ -568,10 +564,6 @@ msgstr "Url"
 msgid "INSERT_MAIN_TITLE"
 msgstr "Kirjoita pääotsikko"
 
-#: View/Helps/admin_add.ctp:37
-msgid "BACK"
-msgstr "Takaisin"
-
 #: View/Helps/admin_insert.ctp:31
 msgid "SELECT_ONE"
 msgstr "Valitse yksi"
@@ -827,10 +819,6 @@ msgstr "Nimi vaaditaan"
 msgid "REQUIRE_PASSWORD"
 msgstr "Salasana vaaditaan"
 
-#: Controller/PagesController.php:83
-msgid "EMAIL_REGISTERED"
-msgstr "Email-osoite on jo rekisteröity"
-
 #: Controller/PagesController.php:85
 msgid "PASSWORD_NOT_MATCH"
 msgstr "Salasanat ovat erilaiset. Kirjoita uudestaan, kiitos!"
@@ -949,7 +937,7 @@ msgstr "Captcha vaaditaan"
 
 #: Controller/QuizController.php:59
 msgid "THERE_ARE"
-msgstr "Testiin on saapunut"
+msgstr "Testissä on "
 
 #: Controller/QuizController.php:60
 msgid "ANSWERS_COMMA"
@@ -1168,14 +1156,6 @@ msgstr "Otsikko"
 msgid "WEB_IMAGE"
 msgstr "Kuva verkosta"
 
-#
-msgid "ENTER_YOUTUBE_URL"
-msgstr "Kirjoita Youtube-videon www-osoite"
-
-#
-msgid "ENTER_IMAGE_URL"
-msgstr "Kirjoita kuvan www-osoite"
-
 #: Controller/QuizController.php:145
 msgid "ENTER_HEADER"
 msgstr "Kirjoita otsikko"
@@ -1328,10 +1308,6 @@ msgstr "kiitos rekisteröitymisestäsi Verkkotestiin. Ota tilisi käyttöön kli
 msgid "IF_NOT_REGISTER_IGNORE"
 msgstr "Jos et halua luoda tunnuksia Verkkotestiin, voit unohtaa tämän viestin."
 
-#: Controller/UserController.php:105
-msgid "REGISTRATION_SUCCESS"
-msgstr "Tunnusten luonti onnistui"
-
 #: Controller/UserController.php:60
 msgid "CONFIRM_EMAIL"
 msgstr "[Verkkotesti-tunnukset] Sähköpostiosoitteen vahvistaminen"
@@ -1346,7 +1322,7 @@ msgstr "Hei"
 
 #: View/Quiz/edit.ctp:64
 msgid "ANONYMOUS_PARTICIPATION"
-msgstr "Osallistu nimettömästi."
+msgstr "Osallistu nimettömästi"
 
 #: Controller/QuizController.php:258
 msgid "ALL_SUBJECT"
@@ -1363,10 +1339,6 @@ msgstr "Peruuta jako"
 #: View/Quiz/edit.ctp:127
 msgid "QUIZ_SHARED"
 msgstr "Testi jaettu julkisesti"
-
-#: Controller/QuizController.php:885
-msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "Testi on jaettu. Testi odottaa ylläpitäjän tarkastusta."
 
 #: View/Quiz/edit.ctp:129
 msgid "SHARE_PENDING"
@@ -1398,7 +1370,7 @@ msgstr "Testipankki"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:84
 msgid "IMPORT_SELECTED"
-msgstr "Ota valitut käyttöön"
+msgstr "Lataa valitut testit"
 
 #: View/Elements/Quiz/quiz_bank_pagination.ctp:59
 msgid "UNDEFINED"
@@ -1582,7 +1554,7 @@ msgstr "PERUSPAKETTI <br/>29 €/v"
 
 #: View/Pages/prices.ctp:16
 msgid "49_EUR"
-msgstr "TEHOPAKETTI <br/>49 €/v"
+msgstr "TESTIPANKKI <br/>49 €/v"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
@@ -1691,10 +1663,6 @@ msgid "IMAGE"
 msgstr "Kuva"
 
 #: Coming from db
-msgid "HEADER"
-msgstr "Otsikko"
-
-#: Coming from db
 msgid "TUBE_VIDEO"
 msgstr "Youtube video"
 
@@ -1752,11 +1720,11 @@ msgstr "Kokeilu - 1 testi"
 
 #:
 msgid "PAID_29"
-msgstr "Maksullinen - 29 €"
+msgstr "Maksullinen - 29 €/v"
 
 #:
 msgid "PAID_49"
-msgstr "Maksullinen - 49 €"
+msgstr "Maksullinen - 49 €/v"
 
 #:
 msgid "TRIAL_DAYS"
@@ -1820,7 +1788,7 @@ msgstr "Valitse tiedosto"
 
 #: 
 msgid "DRAG_DROP"
-msgstr "Raahaa kuva tähän"
+msgstr "Raahaa tiedosto tähän"
 
 #:
 msgid "CREATE_MSG_TEACHER"
@@ -1829,3 +1797,435 @@ msgstr "Hyvä opettaja! Tervetuloa kokeilemaan Verkkotestiä 30 päivää ilmais
 #:
 msgid "CREATE_MSG_STUDENT"
 msgstr "Oppilaat eivät tarvitse lainkaan käyttäjätunnuksia. Opettaja antaa oppilaille linkin Verkkotestiin."
+
+#:
+msgid "1_CHOOSE_PACKAGE"
+msgstr "1. Valitse haluamasi paketti:"
+
+#:
+msgid "2_CHOOSE_PAYMENT_METHOD"
+msgstr "2. Valitse maksutapasi:"
+
+#:
+msgid "29_YEARLY_BTN_TEXT"
+msgstr "Vahvista tilaus (29 €/vuosi)"
+
+#:
+msgid "3_PURCHASE"
+msgstr "3. Tilaa:"
+
+#:
+msgid "49_YEARLY_BTN_TEXT"
+msgstr "Vahvista tilaus (49 €/vuosi)"
+
+#:
+msgid "ACCOUNT_EXPIRE"
+msgstr "Päättymispäivä"
+
+#:
+msgid "ACCOUNT_LEVEL_CHANGE_TEXT"
+msgstr "Haluatko vaihtaa käyttäjätilin tyyppiä?"
+
+#:
+msgid "AFTER_CANCEL_STILL_BENEFIT_TILL_END"
+msgstr "- Saat käyttää tilausjaksosi jäljellä olevat päivät peruutuksestasi huolimatta."
+
+#:
+msgid "APPROVED_SUCCESS"
+msgstr "Testi on jaettu"
+
+#:
+msgid "AUTO_CHARGE_PER_YEAR"
+msgstr "- Tilauksesi uusiutuu automaattisesti kerran vuodessa."
+
+#:
+msgid "BUY_CRETE_SUCCESS"
+msgstr "Kiitos tilauksestasi ja tervetuloa käyttämään Verkkotestiä!"
+
+#:
+msgid "CANCEL_ANYTIME_FROM_SETTINGS"
+msgstr "- Voit peruuttaa tilauksesi milloin tahansa Asetukset-sivultasi."
+
+#:
+msgid "CANCEL_PLAN_BODY"
+msgstr "Tilauksesi on peruutettu. Voit käyttää tiliäsi käyttöaikasi loppuun. Sinulle ei tule enää uusia kuluja."
+
+#:
+msgid "CANCEL_PLAN_TITLE"
+msgstr "Tilaus peruttu"
+
+#:
+msgid "CANCEL_SUBSCRIPTION"
+msgstr "Peru tilaus"
+
+#:
+msgid "CARD_NUMBER"
+msgstr "Luottokortin numero:"
+
+#:
+msgid "CONFIRM_CANCEL"
+msgstr "Peru tilaus"
+
+#:
+msgid "CONFIRM_PASSWORD"
+msgstr "Vahvista uusi salasana"
+
+#:
+msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+
+#:
+msgid "CURRENT_PASSWORD"
+msgstr "Nykyinen paketti"
+
+#:
+msgid "CURRENT_PLAN"
+msgstr "Nykyinen tilauksesi"
+
+#:
+msgid "CVC"
+msgstr "Kortin turvakoodi"
+
+#:
+msgid "CVC_GUIDE"
+msgstr "Kirjoita luottokorttisi turvakoodi"
+
+#:
+msgid ":"
+msgstr "Kirjoita luottokorttisi turvakoodi"
+
+#:
+msgid "DECLINED_SUCCESS"
+msgstr "Testiä EI julkaistu"
+
+#:
+msgid "DEMO_QUIZ_LOADED"
+msgstr "[Verkkotesti] Mallitestit ladattu"
+
+#:
+msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
+msgstr "[DOWNGRADE_AND_NEXT_YEAR_BODY"
+
+#:
+msgid "DOWNGRADE_PLAN"
+msgstr "Alenna pakettiasi"
+
+#:
+msgid "DOWNGRADE_PLAN_BODY"
+msgstr "Alensit pakettiasi edullisemmaksi ja vähemmille ominaisuuksille. Vuosiveloituksesi muuttui edullisemmaksi."
+
+#:
+msgid "DOWNGRADE_PLAN_SUCCESS"
+msgstr "DOWNGRADE_PLAN_SUCCESS"
+
+#:
+msgid "DOWNGRADE_PLAN_TITLE"
+msgstr "Alenna pakettiasi"
+
+#:
+msgid "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+
+#:
+msgid "EDIT_PACKAGE"
+msgstr "Valitse paketti:"
+
+#:
+msgid "EDIT_PLAN"
+msgstr "Muuta tilaus"
+
+#:
+msgid "ENTER_CLASS"
+msgstr "Luokka"
+
+#:
+msgid "ENTER_FIRST_NAME"
+msgstr "Etunimi"
+
+#:
+msgid "ENTER_LAST_NAME"
+msgstr "Sukunimi"
+
+#:
+msgid "ENTER_PASSWORD_AGAIN"
+msgstr "Salasana uudestaan (virheiden varalta)"
+
+#:
+msgid "EXCL_TAX"
+msgstr "Hintaan lisätään alv 24%"
+
+#:
+msgid "EXPIRATION"
+msgstr "Kortin"
+
+#:
+msgid "DATE"
+msgstr "voimassaoloaika:"
+
+#:
+msgid "FILL_CONFIRM_PASSWORD"
+msgstr "Salasana uudestaan (virheiden varalta)"
+
+#:
+msgid "FILL_CURRENT_PASSWORD"
+msgstr "Kirjoita nykyinen salasana"
+
+#:
+msgid "FILL_NEW_PASSWORD"
+msgstr "Kirjoita uusi salasana (vähintään 8 merkkiä)"
+
+#:
+msgid "FINISH_EDIT"
+msgstr "Tallenna"
+
+#:
+msgid "IMMEDIATE_ACCESS_AFTER_PURCHASE"
+msgstr "Klikkaa alla olevaa nappia vahvistaaksesi vuositilauksesi. Sen jälkeen siirryt automaattisesti päivitetylle käyttäjätilillesi."
+
+#:
+msgid "INACTIVE_LOGOUT"
+msgstr "Kirjauduit automaattisesti ulos, kun tilisi oli käyttämättä 15 minuuttia."
+
+#:
+msgid "INCL_TAX"
+msgstr "Sis. alv. 24%"
+
+#:
+msgid "INVALID_CARD"
+msgstr "Tarkista luottokorttisi numero"
+
+#:
+msgid "INVALID_CVC"
+msgstr "Tarkista luottokorttisi turvanumero (kortin takana)"
+
+#:
+msgid "INVALID_EXPIRE_DATE"
+msgstr "Tarkista luottokorttisi voimassaoloaika"
+
+#:
+msgid "INVOICE_ATTACHMENT"
+msgstr "TAI anna laskutustiedot liitetiedostolla:"
+
+#:
+msgid "INVOICE_ATTACHMENT"
+msgstr "TAI anna laskutustiedot liitetiedostolla:"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN"
+msgstr "Paketin alentaminen"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
+msgstr "Alensit pakettiasi edullisemmaksi ja vähemmille ominaisuuksille. Seuraava laskusi on pienempi tilauksesi mukaisesti."
+
+#:
+msgid "INVOICE_INFO"
+msgstr "3. Kirjoita laskutustiedot oheiseen tekstiruutuun"
+
+#:
+msgid "INVOICE_INFO_PLACEHOLDER"
+msgstr "Kirjoita laskutustiedot tähän"
+
+#:
+msgid "INVOICE_INSTITUTION"
+msgstr "Laskutus (vain yritykset ja yhteisöt)"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN"
+msgstr "Paketin päivittäminen"
+
+#:
+msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
+msgstr "Päivitit pakettiasi monipuolisemmaksi. Seuraava laskunne on uuden tilauksesi mukainen."
+
+#:
+msgid "MM-YY"
+msgstr "KK/VV (Esim. 12/18)"
+
+#:
+msgid "MAXIMUM_ATTACHMENT"
+msgstr "ei voida liittää. Voit liittää vain yhden liitetiedoston."
+
+#:
+msgid "NEW_PASSWORD"
+msgstr "Uusi salasana"
+
+#:
+msgid "NEXT_YEAR_BODY"
+msgstr "NEXT_YEAR_BODY"
+
+#:
+msgid "NEXT_YEAR_TITLE"
+msgstr "NEXT_YEAR_TITLE"
+
+#:
+msgid "NO_PAYMENT_AFTER_CANCEL"
+msgstr "- Sinua ei veloiteta peruutuksesi jälkeen."
+
+#:
+msgid "ONE_QUIZ_MANDATORY"
+msgstr "Valitse ainakin yksi testi"
+
+#:
+msgid "PAY_FAILED"
+msgstr "Maksu epäonnistui! Korttiasi ei veloitettu."
+
+#:
+msgid "PAY_SUCCESS"
+msgstr "Maksu veloitettiin kortiltasi"
+
+#:
+msgid "PURCHASE_YEARLY_LICENCE"
+msgstr "Tilaa vuosilisenssi: 1-2-3"
+
+#:
+msgid "QUIZ_BANK_PACKAGE"
+msgstr "Testipankki:"
+
+#:
+msgid "QUIZ_SAVE_FAILED"
+msgstr "Testin tallentaminen epäonnistui!"
+
+#:
+msgid "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
+msgstr "Aktivoi tilaus ja alenna pakettia"
+
+#:
+msgid "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
+msgstr "Aktivoi tilaus ja päivitä pakettia"
+
+#:
+msgid "REACTIVATE_BODY"
+msgstr "Kiitos tilauksesi aktivoinnista! Luottokorttiasi veloitettiin tilauksesi mukaisesti."
+
+#:
+msgid "REACTIVATE_BUTTON"
+msgstr "Aktivoi tilaus"
+
+#:
+msgid "REACTIVATE_DOWNGRADED_BODY"
+msgstr "Kiitos tilauksesi aktivoinnista! Pakettiasi alennettiin valintasi mukaan ja luottokortiltasi veloitettiin edullisempi maksu."
+
+#:
+msgid "REACTIVATE_SUBSCRIPTION"
+msgstr "Aktivoi tilaus"
+
+#:
+msgid "REACTIVATE_SUBSCRIPTION_TITLE"
+msgstr "Valitse paketti tilauksesi aktivoimiseksi:"
+
+#:
+msgid "REACTIVATE_TITLE"
+msgstr "Tilaus aktivoitu"
+
+#:
+msgid "REACTIVATE_UPGRADED_BODY"
+msgstr "Kiitos tilauksesi aktivoinnista ja pakettisi päivittämisestä! Luottokorttiasi veloitettiin tilauksesi mukaisesti."
+
+#:
+msgid "REOPEN_ACCOUNT_ANYTIME"
+msgstr "- Voit avata peruuttamasi tilin uudestaan milloin tahansa. Aiemmat testisi ja tulokset ovat odottamassa tililläsi."
+
+#:
+msgid "REQUIRED_FIELD"
+msgstr "Pakollinen tieto"
+
+#:
+msgid "RETRY"
+msgstr "Yritä uudelleen"
+
+#:
+msgid "SORRY_YOUR_ACCOUNT_DISABLED"
+msgstr "Käyttäjätilisi on tällä hetkellä suljettu! Ota yhteyttä tilisi avaamiseksi."
+
+#:
+msgid "STRIPE_PAY_SUC_BODY"
+msgstr "Tilauksesi tuli perille, kiitoksia! Voit aloittaa päivitetyn tilisi käytön saman tien."
+
+#:
+msgid "STRIPE_PAY_SUC_TITLE"
+msgstr "Kiitos tilauksestasi!"
+
+#:
+msgid "SUBJECT_N_CLASSES"
+msgstr "Oppiaineet ja luokka-asteet"
+
+#:
+msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
+msgstr "Tilauksesi on peruutettu"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS"
+msgstr "Tilauksesi aktivoitiin"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+
+#:
+msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+
+#:
+msgid "SUBSCRITION_CANCEL_TEXT"
+msgstr "Voit käyttää tiliäsi tilausjakson loppuun asti. Sinulle ei tule enää uusia veloituksia."
+
+#:
+msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
+msgstr "Kiitos tilauksesi jatkumisesta! Tilauksesi on vahvistettu."
+
+#:
+msgid "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "Pakettisi alentamispyyntö on vastaanotettu"
+
+#:
+msgid "THANKS_FOR_PURCHASING"
+msgstr "Kiitos tilauksestasi!"
+
+#:
+msgid "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "Kiitos pakettisi päivittämisestä ja tilauksen jatkamisesta!"
+
+#:
+msgid "TRY_REFRESH"
+msgstr "Päivitä sivu selaimestasi ja yritä uudelleen."
+
+#:
+msgid "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+
+#:
+msgid "UPGRADE_AND_NEXT_YEAR_BODY"
+msgstr "UPGRADE_AND_NEXT_YEAR_BODY"
+
+#:
+msgid "UPGRADE_PLAN"
+msgstr "Paketin päivitys"
+
+#:
+msgid "UPGRADE_PLAN_BODY"
+msgstr "Pakettisi on päivitetty! Voit nyt käyttää uusia ominaisuuksia."
+
+#:
+msgid "UPGRADE_PLAN_SUCCESS"
+msgstr "UPGRADE_PLAN_SUCCESS"
+
+#:
+msgid "UPGRADE_PLAN_TITLE"
+msgstr "Päivitä paketti"
+
+#:
+msgid "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+
+#:
+msgid "VALID_CARD_REQUIRED"
+msgstr "Syötä luottokorttisi numero tähän"
+
+#:
+msgid "VALIDATING"
+msgstr "Tarkistetaan luottokorttiasi..."
+
+#:
+msgid "YOU_ARE_GOING_CHANGE_USER_LEVEL"
+msgstr "Käyttäjätilin muutos"

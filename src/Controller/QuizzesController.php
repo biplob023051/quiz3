@@ -160,7 +160,7 @@ class QuizzesController extends AppController
                 $this->Flash->success(__('QUIZ_SAVED'));
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Flash->error(__('Quiz Save Failed'));
+                $this->Flash->error(__('QUIZ_SAVE_FAILED'));
             }
         }
 
@@ -1101,7 +1101,7 @@ class QuizzesController extends AppController
             $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
-        $lang_strings['check_select'] = __('Please choose at least one quiz to import');
+        $lang_strings['check_select'] = __('ONE_QUIZ_MANDATORY');
         $lang_strings['import_success'] = __('QUIZ_IMPORTED');
 
         $this->set(compact('subjectOptions', 'classOptions', 'selectedSubjects', 'quizzes', 'lang_strings'));
@@ -1465,7 +1465,7 @@ class QuizzesController extends AppController
             } else {
                 unset($this->request->data['Quiz']['random_id']);
                 $this->request->data['Quiz']['id'] = $quiz['Quiz']['id'];
-                $message = ($this->request->data['Quiz']['is_approve'] == 1) ? __('You have successfully approved!') : __('You have successfully declined!');
+                $message = ($this->request->data['Quiz']['is_approve'] == 1) ? __('APPROVED_SUCCESS') : __('DECLINED_SUCCESS');
                 // pr($this->request->data);
                 // exit;
                 $this->Quizzes->validator()->remove('name');

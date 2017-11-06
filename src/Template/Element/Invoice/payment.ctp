@@ -52,7 +52,7 @@
                 <div class="row m-b-10">
                     <div class="col-md-9">
                         <input name="<?= $input_name; ?>" id="49_package_input<?= $id_modifier; ?>" value="2" type="radio"<?php if ($authUser['account_level'] == 2) echo ' checked'; ?> class="package-btn" />
-                        <strong><?= __('QUIZ_BANK'); ?></strong> <?= __('SHARE_OWN_QUIZZES'); ?>
+                        <strong><?= __('QUIZ_BANK_PACKAGE'); ?></strong> <?= __('SHARE_OWN_QUIZZES'); ?>
                     </div>
                     <div class="col-md-3">
                         <button type="button" class="btn <?= ($authUser['account_level'] == 2) ? 'btn-green' : 'btn-yellow'; ?> btn-sm btn-40" id="49_package<?= $id_modifier; ?>"><span><?= __('49_EUR'); ?></span></button>
@@ -118,7 +118,7 @@
                                                     type="tel" 
                                                     class="form-control" 
                                                     name="cardExpiry"
-                                                    placeholder="MM / YY"
+                                                    placeholder="<?= __('MM-YY'); ?>"
                                                     autocomplete="cc-exp"
                                                     required 
                                                 />
@@ -131,7 +131,7 @@
                                                     type="tel" 
                                                     class="form-control"
                                                     name="cardCVC"
-                                                    placeholder="<?= __('CVC'); ?>"
+                                                    placeholder="<?= __('CVC_GUIDE'); ?>"
                                                     autocomplete="cc-csc"
                                                     required
                                                 />
@@ -271,6 +271,10 @@
         border: none !important;
         margin: 0 !important;
         padding: 0 !important;
+        width: 100% !important;
+    }
+    .ajax-file-upload-filename {
+        width: 100% !important;
     }
     .package-btn {
         height: 1.1em;
@@ -278,6 +282,10 @@
     }
     .btn-40 {
         padding: 7px 14px;
+    }
+    .error {
+        color: #a94442 !important;
+        font-weight: normal;
     }
 </style>
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
@@ -356,7 +364,8 @@
             /* Visual feedback */
             $form.find('.subscribe').html(lang_strings['validating'] + ' <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true);
 
-            var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1'; // Replace with your API publishable key
+            //var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1'; 
+            var PublishableKey = 'pk_test_CIZJK6xZRvtKf2umj9w5sbZ1'; 
             Stripe.setPublishableKey(PublishableKey);
             
             /* Create token */
@@ -421,17 +430,17 @@
         /* Form validation using Stripe client-side validation helpers */
         jQuery.validator.addMethod("cardNumber", function(value, element) {
             return this.optional(element) || Stripe.card.validateCardNumber(value);
-        }, "Please specify a valid credit card number.");
+        }, lang_strings['invalid_card']);
 
         jQuery.validator.addMethod("cardExpiry", function(value, element) {    
             /* Parsing month/year uses jQuery.payment library */
             value = $.payment.cardExpiryVal(value);
             return this.optional(element) || Stripe.card.validateExpiry(value.month, value.year);
-        }, "Invalid expiration date.");
+        }, lang_strings['invalid_expire']);
 
         jQuery.validator.addMethod("cardCVC", function(value, element) {
             return this.optional(element) || Stripe.card.validateCVC(value);
-        }, "Invalid CVC.");
+        }, lang_strings['invalid_cvc']);
 
         validator = $form.validate({
             rules: {

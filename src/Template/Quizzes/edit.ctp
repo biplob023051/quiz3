@@ -1,3 +1,127 @@
+<style type="text/css">
+    .subjects, .classes {
+        width: 33% !important;
+        float: left;
+        margin-top: 0px;
+    }   
+    .subjects input[type=checkbox], .classes input[type=checkbox] {
+        margin-right: 5px !important;
+    }
+    .placeholder {
+        border: 1px solid green;
+        background-color: white;
+        -webkit-box-shadow: 0px 0px 10px #888;
+        -moz-box-shadow: 0px 0px 10px #888;
+        box-shadow: 0px 0px 10px #888;
+        width: 50%;
+    }
+    .tile {
+        height: 70px;
+    }
+    .grid {
+        margin-top: 1em;
+    }
+    #settings {
+        margin: 5px 0px;
+    }
+    #show-settings {
+        text-align: left;
+    }
+    #settings .col-md-12 {
+        padding: 0;
+        margin: 0;
+    } 
+    .settings-options {
+        padding: 0px 50px !important;
+    }
+    .settings-options label {
+        padding: 0 5px !important;
+    }
+    .settings-options .form-group {
+        margin-bottom: 0px;
+    }
+    .no-border {
+        float: left;
+        padding-right: 10px;
+    }
+    .caret-down {
+        display: none;
+    }
+
+    .caret {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #000000;
+        display: inline-block;
+        height: 0;
+        opacity: 0.3;
+        vertical-align: middle;
+        width: 0;
+    }
+
+    .caret-right {
+        border-bottom: 4px solid transparent;
+        border-top: 4px solid transparent;
+        border-left: 4px solid #000000;
+        display: inline-block;
+        height: 0;
+        opacity: 0.3;
+        vertical-align: middle;
+        width: 0;
+    }
+
+    .settings-options label {
+        font-weight: normal !important;
+    }
+
+    .ajax-file-upload, .ajax-file-upload:hover {
+        font-weight: normal;
+        color: #fff;
+        background-color: #449d44;
+        border-color: #398439;
+        border: none;
+        -moz-box-shadow: 0 0px 0 0 #398439;
+        -webkit-box-shadow: 0 2px 0 0 #398439;
+         box-shadow: 0 2px 0 0 #398439; 
+        line-height: 16px;
+    }
+
+    .ajax-file-upload .upload-text {
+        vertical-align: top;  
+    }
+
+    .ajax-upload-dragdrop {
+        padding: 40px 0 40px 0px;
+        width: 100% !important;
+        text-align: center;
+    }
+
+    .ajax-file-upload-container {
+        margin: 0px;
+    }
+
+    .ajax-file-upload-statusbar {
+        width: 100% !important;
+        text-align: center;
+        margin: 5px 0px;
+    }
+
+    .ajax-file-upload-filename, .ajax-file-upload-abort {
+        display: none !important;
+    }
+
+    #file-delete-button {
+        position: absolute;
+        right: 26px;
+        margin-top: -5px;
+    }
+
+    #file-delete-existing {
+        position: absolute;
+        right: 26px;
+        margin-top: -5px;
+    }
+</style>
 <script type="text/javascript">
     var myChoices = {}, editing_q_type;
 </script>
@@ -214,7 +338,7 @@ if (!empty($data['Quiz']['classes'])) {
     </div>
     <div class="col-xs-12 col-md-3">
         <div class="form-group">
-            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('SUBMIT'); ?>" />
+            <input type="submit" class="btn btn-default btn-lg btn-block" id="submit-quiz" value="<?php echo __('FINISH_EDIT'); ?>" />
         </div>
     </div>
 </div>
@@ -288,120 +412,3 @@ echo json_encode(array(
             ), array('inline' => false)
     );
 ?>
-
-<style type="text/css">
-.placeholder {
-    border: 1px solid green;
-    background-color: white;
-    -webkit-box-shadow: 0px 0px 10px #888;
-    -moz-box-shadow: 0px 0px 10px #888;
-    box-shadow: 0px 0px 10px #888;
-    width: 50%;
-}
-.tile {
-    height: 70px;
-}
-.grid {
-    margin-top: 1em;
-}
-#settings {
-    margin: 5px 0px;
-}
-#show-settings {
-    text-align: left;
-}
-#settings .col-md-12 {
-    padding: 0;
-    margin: 0;
-} 
-.settings-options {
-    padding: 0px 50px !important;
-}
-.settings-options label {
-    padding: 0 5px !important;
-}
-.settings-options .form-group {
-    margin-bottom: 0px;
-}
-.no-border {
-    float: left;
-    padding-right: 10px;
-}
-.caret-down {
-    display: none;
-}
-
-.caret {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid #000000;
-    display: inline-block;
-    height: 0;
-    opacity: 0.3;
-    vertical-align: middle;
-    width: 0;
-}
-
-.caret-right {
-    border-bottom: 4px solid transparent;
-    border-top: 4px solid transparent;
-    border-left: 4px solid #000000;
-    display: inline-block;
-    height: 0;
-    opacity: 0.3;
-    vertical-align: middle;
-    width: 0;
-}
-
-.settings-options label {
-    font-weight: normal !important;
-}
-
-.ajax-file-upload, .ajax-file-upload:hover {
-    font-weight: normal;
-    color: #fff;
-    background-color: #449d44;
-    border-color: #398439;
-    border: none;
-    -moz-box-shadow: 0 0px 0 0 #398439;
-    -webkit-box-shadow: 0 2px 0 0 #398439;
-     box-shadow: 0 2px 0 0 #398439; 
-    line-height: 16px;
-}
-
-.ajax-file-upload .upload-text {
-    vertical-align: top;  
-}
-
-.ajax-upload-dragdrop {
-    padding: 40px 0 40px 0px;
-    width: 100% !important;
-    text-align: center;
-}
-
-.ajax-file-upload-container {
-    margin: 0px;
-}
-
-.ajax-file-upload-statusbar {
-    width: 100% !important;
-    text-align: center;
-    margin: 5px 0px;
-}
-
-.ajax-file-upload-filename, .ajax-file-upload-abort {
-    display: none !important;
-}
-
-#file-delete-button {
-    position: absolute;
-    right: 26px;
-    margin-top: -5px;
-}
-
-#file-delete-existing {
-    position: absolute;
-    right: 26px;
-    margin-top: -5px;
-}
-</style>

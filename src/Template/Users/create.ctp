@@ -60,15 +60,12 @@ $this->assign('title', __('CREATE_ACCOUNT'));
             'label' => ['text' => __('PASSWORD')],
             'type' => 'password',
             'placeholder' => __('ENTER_PASSWORD'),
-            'data-toggle' => 'tooltip',
-            'data-placement' => 'bottom',
-            'data-original-title' => __('PASSWORD_MUST_BE_LONGER')
         ]);
 
         echo $this->Form->input('passwordVerify', [
             'label' => ['text' => __('PASSWORD_VERIFY')],
             'type' => 'password',
-            'placeholder' => __('PASSWORD_VERIFY')
+            'placeholder' => __('ENTER_PASSWORD_AGAIN')
         ]);
         ?>
 
