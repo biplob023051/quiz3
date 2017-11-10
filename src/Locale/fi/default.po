@@ -67,7 +67,7 @@ msgstr "Lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat Verkkot
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "YOU_RECEIVE_INVOICE"
-msgstr "Kiitos tilauksesta, käyttäjätilisi on nyt päivitetty! Tilaamasi vuosilisenssin lasku lähetetään sähköpostiisi lähiaikoina."
+msgstr "Kiitos tilauksesta, käyttäjätilisi on nyt päivitetty! Tilaamasi vuosilisenssin lasku lähetetään lähiaikoina antamiesi laskutusohjeiden mukaisesti."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
 msgid "SEPARATE_SEMICOLON"
@@ -167,7 +167,7 @@ msgstr "Luokka"
 
 #: View/Quiz/live.ctp:76
 msgid "WANT_TURN_IN_QUIZ"
-msgstr "Lähetä vastauksesi?"
+msgstr "Lähetä vastauksesi"
 
 #: View/Quiz/present.ctp:5
 msgid "READ_QR_CODE"
@@ -1098,7 +1098,7 @@ msgstr "Testin asetukset"
 
 #: View/Quiz/edit.ctp:37
 msgid "SHOW_RESULTS_AFTER_QUIZ"
-msgstr "Näytä tulokset vastaajalle testin jälkeen."
+msgstr "Näytä tulokset vastaajalle testin jälkeen"
 
 #: View/Student/success.ctp:25
 msgid "ON_HOLD"
@@ -1114,7 +1114,7 @@ msgstr "Yhteispisteet"
 
 #: View/Student/success.ctp:40
 msgid "YOUR_ANSWER_WAITING_RATING"
-msgstr "Vastauksesi odottaa arviointia"
+msgstr "vastauksesi odottaa arviointia"
 
 #: View/Student/success.ctp:40
 msgid "REMOVED"
@@ -1462,7 +1462,7 @@ msgstr "Jos hyväksyt testin, voit hylätä sen myös myöhemmin."
 
 #: View/Quiz/ajax_bank.ctp:4
 msgid "PUBLIC_QUIZZES"
-msgstr "Jaetut testit"
+msgstr "Testipankki"
 
 #: Controller/StandardsController.php:96
 msgid "NEW_CLASS"
@@ -1550,11 +1550,11 @@ msgstr "Rajoitettu"
 
 #: View/Pages/prices.ctp:15
 msgid "29_EUR"
-msgstr "PERUSPAKETTI <br/>29 €/v"
+msgstr "29 €/v"
 
 #: View/Pages/prices.ctp:16
 msgid "49_EUR"
-msgstr "TESTIPANKKI <br/>49 €/v"
+msgstr "49 €/v"
 
 #: Controller/PagesController.php:89
 msgid "CREATE_ACCOUNT_BUY_29"
@@ -1578,7 +1578,7 @@ msgstr "Kirjaudu sisään"
 
 #: Elements/Invoice/invoice.ctp:10
 msgid "UPGRADE_ACCOUNT_WILL_GET_INVOICE"
-msgstr "Päivitä käyttäjätilisi. Saat uuden tilisi ominaisuudet käyttöön välittömästi ja laskun sähköpostiisi lähiaikoina."
+msgstr "Kasvata pakettia. Saat uuden tilisi ominaisuudet käyttöön välittömästi ja laskun sähköpostiisi lähiaikoina."
 
 #: Elements/Invoice/invoice.ctp:14
 msgid "BASIC"
@@ -1792,11 +1792,11 @@ msgstr "Raahaa tiedosto tähän"
 
 #:
 msgid "CREATE_MSG_TEACHER"
-msgstr "Hyvä opettaja! Tervetuloa kokeilemaan Verkkotestiä 30 päivää ilmaiseksi. Täytä oheinen lomake luodaksesi ilmaisen kokeilutilisi."
+msgstr "Hyvä opettaja! Tervetuloa kokeilemaan Verkkotestiä 30 päivää ilmaiseksi. Luo ilmainen kokeilutilisi täyttämällä oheinen lomake."
 
 #:
 msgid "CREATE_MSG_STUDENT"
-msgstr "Oppilaat eivät tarvitse lainkaan käyttäjätunnuksia. Opettaja antaa oppilaille linkin Verkkotestiin."
+msgstr "Oppilaat eivät tarvitse lainkaan käyttäjätunnuksia. Opettaja antaa oppilaille linkin tehtävään Verkkotestiin."
 
 #:
 msgid "1_CHOOSE_PACKAGE"
@@ -1848,7 +1848,7 @@ msgstr "- Voit peruuttaa tilauksesi milloin tahansa Asetukset-sivultasi."
 
 #:
 msgid "CANCEL_PLAN_BODY"
-msgstr "Tilauksesi on peruutettu. Voit käyttää tiliäsi käyttöaikasi loppuun. Sinulle ei tule enää uusia kuluja."
+msgstr "Tilauksesi on peruutettu. Voit käyttää tiliäsi käyttöaikasi loppuun. Sinulle ei tule enää uusia veloituksia."
 
 #:
 msgid "CANCEL_PLAN_TITLE"
@@ -1870,9 +1870,9 @@ msgstr "Peru tilaus"
 msgid "CONFIRM_PASSWORD"
 msgstr "Vahvista uusi salasana"
 
-#:
+#: Email header
 msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
-msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+msgstr "Order year licence (continue)"
 
 #:
 msgid "CURRENT_PASSWORD"
@@ -1880,19 +1880,23 @@ msgstr "Nykyinen paketti"
 
 #:
 msgid "CURRENT_PLAN"
-msgstr "Nykyinen tilauksesi"
+msgstr "Tilauksesi"
 
 #:
 msgid "CVC"
-msgstr "Kortin turvakoodi"
+msgstr "Kortin tarkistusnumero"
 
 #:
 msgid "CVC_GUIDE"
-msgstr "Kirjoita luottokorttisi turvakoodi"
+msgstr "Syötä tarkistusnumero (korttisi takaa)"
 
 #:
 msgid ":"
-msgstr "Kirjoita luottokorttisi turvakoodi"
+msgstr "Syötä luottokorttisi tarkistusnumero"
+
+#:
+msgid "CURRENT_PLAN_LABEL"
+msgstr "Tilauksesi"
 
 #:
 msgid "DECLINED_SUCCESS"
@@ -1904,15 +1908,15 @@ msgstr "[Verkkotesti] Mallitestit ladattu"
 
 #:
 msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
-msgstr "[DOWNGRADE_AND_NEXT_YEAR_BODY"
+msgstr "DOWNGRADE_AND_NEXT_YEAR_BODY"
 
 #:
 msgid "DOWNGRADE_PLAN"
-msgstr "Alenna pakettiasi"
+msgstr "Pienennä pakettia"
 
 #:
 msgid "DOWNGRADE_PLAN_BODY"
-msgstr "Alensit pakettiasi edullisemmaksi ja vähemmille ominaisuuksille. Vuosiveloituksesi muuttui edullisemmaksi."
+msgstr "Pakettiasi pienennettiin valintasi mukaisesti. Vuosiveloituksesi muuttui edullisemmaksi."
 
 #:
 msgid "DOWNGRADE_PLAN_SUCCESS"
@@ -1920,7 +1924,7 @@ msgstr "DOWNGRADE_PLAN_SUCCESS"
 
 #:
 msgid "DOWNGRADE_PLAN_TITLE"
-msgstr "Alenna pakettiasi"
+msgstr "Pienennä pakettia"
 
 #:
 msgid "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
@@ -1980,7 +1984,7 @@ msgstr "Tallenna"
 
 #:
 msgid "IMMEDIATE_ACCESS_AFTER_PURCHASE"
-msgstr "Klikkaa alla olevaa nappia vahvistaaksesi vuositilauksesi. Sen jälkeen siirryt automaattisesti päivitetylle käyttäjätilillesi."
+msgstr "Klikkaa alla olevaa nappia vahvistaaksesi vuositilauksesi. Päivitetty käyttäjätilisi avautuu automaattisesti."
 
 #:
 msgid "INACTIVE_LOGOUT"
@@ -1996,7 +2000,7 @@ msgstr "Tarkista luottokorttisi numero"
 
 #:
 msgid "INVALID_CVC"
-msgstr "Tarkista luottokorttisi turvanumero (kortin takana)"
+msgstr "Tarkista luottokorttisi tarkistusnumero (kortin takana)"
 
 #:
 msgid "INVALID_EXPIRE_DATE"
@@ -2016,7 +2020,7 @@ msgstr "Paketin alentaminen"
 
 #:
 msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
-msgstr "Alensit pakettiasi edullisemmaksi ja vähemmille ominaisuuksille. Seuraava laskusi on pienempi tilauksesi mukaisesti."
+msgstr "Pakettiasi pienennettiin valintasi mukaisesti. Seuraava laskusi on pienempi tilauksesi mukaisesti."
 
 #:
 msgid "INVOICE_INFO"
@@ -2031,16 +2035,12 @@ msgid "INVOICE_INSTITUTION"
 msgstr "Laskutus (vain yritykset ja yhteisöt)"
 
 #:
-msgid "INVOICE_DOWNGRADE_PLAN"
-msgstr "Paketin päivittäminen"
-
-#:
-msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
-msgstr "Päivitit pakettiasi monipuolisemmaksi. Seuraava laskunne on uuden tilauksesi mukainen."
+msgid "INVOICE_UPGRADE_PLANGRADE_PLAN_SUCCESS"
+msgstr "Pakettiasi kasvatettiin valintasi mukaisesti. Seuraava laskunne on uuden tilauksesi mukainen."
 
 #:
 msgid "MM-YY"
-msgstr "KK/VV (Esim. 12/18)"
+msgstr "kk/vv (Esim. 12/18)"
 
 #:
 msgid "MAXIMUM_ATTACHMENT"
@@ -2050,13 +2050,13 @@ msgstr "ei voida liittää. Voit liittää vain yhden liitetiedoston."
 msgid "NEW_PASSWORD"
 msgstr "Uusi salasana"
 
-#:
+#: Dialog text
 msgid "NEXT_YEAR_BODY"
-msgstr "NEXT_YEAR_BODY"
+msgstr "Tilauksesi saapui perille. Lähetämme laskun antamillasi laskutustiedoilla. Kiitos!"
 
-#:
+#: Dialog header
 msgid "NEXT_YEAR_TITLE"
-msgstr "NEXT_YEAR_TITLE"
+msgstr "Kiitos tilauksestasi!"
 
 #:
 msgid "NO_PAYMENT_AFTER_CANCEL"
@@ -2088,15 +2088,15 @@ msgstr "Testin tallentaminen epäonnistui!"
 
 #:
 msgid "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
-msgstr "Aktivoi tilaus ja alenna pakettia"
+msgstr "Aktivoi tilaus ja pienennä pakettia"
 
 #:
 msgid "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
-msgstr "Aktivoi tilaus ja päivitä pakettia"
+msgstr "Aktivoi tilaus ja kasvata pakettia"
 
 #:
 msgid "REACTIVATE_BODY"
-msgstr "Kiitos tilauksesi aktivoinnista! Luottokorttiasi veloitettiin tilauksesi mukaisesti."
+msgstr "Kiitos tilauksesi aktivoinnista! Luottokorttiasi veloitetaan automaattisesti sitten kun tilausjaksosi uusiutuu."
 
 #:
 msgid "REACTIVATE_BUTTON"
@@ -2104,7 +2104,7 @@ msgstr "Aktivoi tilaus"
 
 #:
 msgid "REACTIVATE_DOWNGRADED_BODY"
-msgstr "Kiitos tilauksesi aktivoinnista! Pakettiasi alennettiin valintasi mukaan ja luottokortiltasi veloitettiin edullisempi maksu."
+msgstr "Kiitos tilauksesi aktivoinnista! Pakettiasi pienennettiin valintasi mukaan ja luottokortiltasi veloitettiin edullisempi maksu."
 
 #:
 msgid "REACTIVATE_SUBSCRIPTION"
@@ -2120,11 +2120,11 @@ msgstr "Tilaus aktivoitu"
 
 #:
 msgid "REACTIVATE_UPGRADED_BODY"
-msgstr "Kiitos tilauksesi aktivoinnista ja pakettisi päivittämisestä! Luottokorttiasi veloitettiin tilauksesi mukaisesti."
+msgstr "Kiitos tilauksesi aktivoinnista ja pakettisi kasvattamisesta! Luottokorttiasi veloitettiin tilauksesi mukaisesti."
 
 #:
 msgid "REOPEN_ACCOUNT_ANYTIME"
-msgstr "- Voit avata peruuttamasi tilin uudestaan milloin tahansa. Aiemmat testisi ja tulokset ovat odottamassa tililläsi."
+msgstr "- Voit avata peruuttamasi tilin uudestaan milloin tahansa. Aiemmat testisi ja tulokset säilyvät tililläsi."
 
 #:
 msgid "REQUIRED_FIELD"
@@ -2152,19 +2152,19 @@ msgstr "Oppiaineet ja luokka-asteet"
 
 #:
 msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
-msgstr "Tilauksesi on peruutettu"
+msgstr "Tilauksesi on peruutettu. Voit käyttää tiliäsi käyttöaikasi loppuun. Sinulle ei tule enää uusia veloituksia."
 
 #:
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS"
 msgstr "Tilauksesi aktivoitiin"
 
-#:
+#: Banner: Credit card re-activate and downgrade
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
-msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+msgstr "Tilisi aktivoitiin ja pakettiasi pienennettiin valintasi mukaisesti. Kiitos tilauksestasi!"
 
-#:
+#: Banner: Credit card re-activate and upgrade
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
-msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+msgstr "Tilisi aktivoitiin ja pakettiasi kasvatettiin valintasi mukaisesti. Kiitos tilauksestasi!"
 
 #:
 msgid "SUBSCRITION_CANCEL_TEXT"
@@ -2172,11 +2172,11 @@ msgstr "Voit käyttää tiliäsi tilausjakson loppuun asti. Sinulle ei tule enä
 
 #:
 msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
-msgstr "Kiitos tilauksesi jatkumisesta! Tilauksesi on vahvistettu."
+msgstr "Kiitos jatkotilauksestasi! Tilauksesi on vahvistettu."
 
 #:
 msgid "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
-msgstr "Pakettisi alentamispyyntö on vastaanotettu"
+msgstr "Pakettiasi pienennettiin valintasi mukaisesti. Kiitos tilauksestasi!"
 
 #:
 msgid "THANKS_FOR_PURCHASING"
@@ -2184,43 +2184,43 @@ msgstr "Kiitos tilauksestasi!"
 
 #:
 msgid "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
-msgstr "Kiitos pakettisi päivittämisestä ja tilauksen jatkamisesta!"
+msgstr "Pakettisi kasvatettiin ja tilaustasi jatkettiin valintasi mukaisesti. Kiitos tilauksestasi!"
 
 #:
 msgid "TRY_REFRESH"
 msgstr "Päivitä sivu selaimestasi ja yritä uudelleen."
 
-#:
+#: Button
 msgid "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
-msgstr "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "Kasvata pakettia ja tilaa +1 vuosi"
 
-#:
+#: Dialog text
 msgid "UPGRADE_AND_NEXT_YEAR_BODY"
-msgstr "UPGRADE_AND_NEXT_YEAR_BODY"
+msgstr "Tilauksesi on vahvistettu. Lähetämme laskun lähiaikoina. Kiitos tilauksestasi!"
 
-#:
+#: Button
 msgid "UPGRADE_PLAN"
-msgstr "Paketin päivitys"
+msgstr "Kasvata pakettia"
 
 #:
 msgid "UPGRADE_PLAN_BODY"
 msgstr "Pakettisi on päivitetty! Voit nyt käyttää uusia ominaisuuksia."
 
-#:
+#: Banner: Credit card upgrade
 msgid "UPGRADE_PLAN_SUCCESS"
-msgstr "UPGRADE_PLAN_SUCCESS"
+msgstr "Pakettiasi kasvatettiin valintasi mukaisesti. Kiitos tilauksestasi!"
 
 #:
 msgid "UPGRADE_PLAN_TITLE"
-msgstr "Päivitä paketti"
+msgstr "Kasvata pakettia"
 
-#:
+#: Email header
 msgid "UPGRADED_AND_NEXT_YEAR_PURCHASE"
-msgstr "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "Order year licence (upgrade and continue)"
 
 #:
 msgid "VALID_CARD_REQUIRED"
-msgstr "Syötä luottokorttisi numero tähän"
+msgstr "Syötä luottokorttisi numero"
 
 #:
 msgid "VALIDATING"
@@ -2229,3 +2229,67 @@ msgstr "Tarkistetaan luottokorttiasi..."
 #:
 msgid "YOU_ARE_GOING_CHANGE_USER_LEVEL"
 msgstr "Käyttäjätilin muutos"
+
+#:
+msgid "RENEW_YEARLY"
+msgstr "Uusitaan"
+
+#:
+msgid "SUBSCRIPTION_ENDING"
+msgstr "Ei uusita"
+
+#: Email header
+msgid "INVOICE_UPGRADE_PLAN"
+msgstr "Order year licence (continue and upgrade)"
+
+#: Banner
+msgid "INVOICE_UPGRADE_PLAN_SUCCESS"
+msgstr "Pakettiasi kasvatettiin valintasi mukaisesti. Kiitos tilauksestasi!"
+
+#: Email text
+msgid "INOVICE_FOR_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (continue)"
+
+#: Email text
+msgid "USER_NAME"
+msgstr "User name:"
+
+#: Email text
+msgid "USER_EMAIL"
+msgstr "Email:"
+
+#: Email text
+msgid "USER_PACKAGE"
+msgstr "Tuote:"
+
+#: Email text
+msgid "CHARGED_AMOUNT"
+msgstr "Summa:"
+
+#: Warning banner
+msgid "EMAIL_EXIST"
+msgstr "Email on jo rekisteröity"
+
+#: Button: Invoice customer re-purchase
+msgid "CONTINUE_BUY_FOR_NEXT_YEAR"
+msgstr "Tilaa +1 vuosi"
+
+#: Email body
+msgid "INVOICE_FOR_ACCOUNT_DOWNGRADED_AND_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (downgrade and continue)"
+
+#: Email body
+msgid "INVOICE_FOR_ACCOUNT_UPGRADED_AND_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (upgrade and continue)"
+
+#: Banner
+msgid "DOWNGRADE_PLAN_SUCCESS"
+msgstr "Pakettiasi pienennettiin valintasi mukaisesti"
+
+#: Email header
+msgid "INVOICE_FOR_ACCOUNT_UPGRADE"
+msgstr "Order year licence (upgrade mid-term)"
+
+#: Button
+msgid "DOWNGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "Pienennä pakettia ja tilaa +1 vuosi"

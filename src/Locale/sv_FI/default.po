@@ -369,10 +369,6 @@ msgid "ANSWERS"
 msgstr "Svar"
 
 #: Answer table - Back
-msgid "BACK"
-msgstr "Tillbaka"
-
-#: Answer table - Back
 msgid "ALL"
 msgstr "Alla"
 
@@ -427,10 +423,6 @@ msgstr "Åtminstone ett alternativs poängsättning måste vara större än 0."
 #: Controller/QuizController.php:130
 msgid "ENTER_CORRECT_ANSWERS"
 msgstr "Skriv in rätta svar, skilj åt flera svarsalternativ med kommatecken"
-
-#: Controller/QuizController.php:131
-msgid "ONE_CHOICE_GREATER_THAN_ZERO"
-msgstr "Åtminstone ett alternativs poängsättning måste vara större än 0."
 
 #: Controller/QuizController.php:132
 msgid "TWO_CHOICES_GREATER_THAN_ZERO"
@@ -1129,20 +1121,8 @@ msgid "OTHERS"
 msgstr "Andra"
 
 #
-msgid "HEADER"
-msgstr "Rubrik"
-
-#
 msgid "WEB_IMAGE"
 msgstr "Bild från webben"
-
-#
-msgid "ENTER_YOUTUBE_URL"
-msgstr "Kirjoita videon www-osoite"
-
-#
-msgid "ENTER_IMAGE_URL"
-msgstr "Lägg till bildens webbadress (url)"
 
 #: Controller/QuizController.php:145
 msgid "ENTER_HEADER"
@@ -1296,10 +1276,6 @@ msgstr "Tack för din Verkkotesti-registrering. Ta i bruk ditt konto genom att k
 msgid "IF_NOT_REGISTER_IGNORE"
 msgstr "Om du inte vill skapa ett Verkkotesti-konto kan du ignorera detta meddelande."
 
-#: Controller/UserController.php:105
-msgid "REGISTRATION_SUCCESS"
-msgstr "Du har skapat ett nytt användarkonto."
-
 #: Controller/UserController.php:60
 msgid "CONFIRM_EMAIL"
 msgstr "[Verkkotesti registrering] Bekräfta e-postadressen!"
@@ -1331,10 +1307,6 @@ msgstr "Avbryt delning"
 #: View/Quiz/edit.ctp:127
 msgid "QUIZ_SHARED"
 msgstr "Testet är nu offentligt delat"
-
-#: Controller/QuizController.php:885
-msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "Du har delat testet. Vänta på administratörens godkännande."
 
 #: View/Quiz/edit.ctp:129
 msgid "SHARE_PENDING"

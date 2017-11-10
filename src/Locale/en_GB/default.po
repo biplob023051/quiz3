@@ -26,10 +26,6 @@ msgstr "Upgrade account"
 msgid "NEW_QUESTION"
 msgstr "New question"
 
-#: Controller/UserController.php:37
-msgid "REGISTRATION_SUCCESS"
-msgstr "Registration success."
-
 #: Controller/QuizController.php:104
 #: View/Quiz/edit.ctp:41
 msgid "NAME_QUIZ"
@@ -263,14 +259,6 @@ msgstr "Name contains an invalid character"
 msgid "INVALID_EMAIL"
 msgstr "Use a valid email address"
 
-#: Model/User.php:validation for field email
-msgid "EMAIL_REGISTERED"
-msgstr "Email already registered"
-
-#: Model/User.php:validation for field password
-msgid "PASSWORD_MUST_BE_LONGER"
-msgstr "Password must be 8 characters long"
-
 #: Plugin/Recaptcha/Controller/Component/RecaptchaComponent.php:111
 msgid "You must set your private Recaptcha key using Configure::write('Recaptcha.privateKey', 'your-key');!"
 msgstr ""
@@ -369,6 +357,7 @@ msgid "ANSWERS"
 msgstr "Answers"
 
 #: Answer table - Back
+#: View/Helps/admin_add.ctp:37
 msgid "BACK"
 msgstr "Back"
 
@@ -555,10 +544,6 @@ msgstr "Url"
 #: View/Helps/admin_add.ctp:31
 msgid "INSERT_MAIN_TITLE"
 msgstr "Insert main title"
-
-#: View/Helps/admin_add.ctp:37
-msgid "BACK"
-msgstr "Back"
 
 #: View/Helps/admin_insert.ctp:31
 msgid "SELECT_ONE"
@@ -824,6 +809,7 @@ msgid "EMAIL_REGISTERED"
 msgstr "Email already registered"
 
 #: Controller/PagesController.php:85
+#: Model/User.php:validation for field email
 msgid "PASSWORD_NOT_MATCH"
 msgstr "Passwords did not match, please try again"
 
@@ -1160,14 +1146,6 @@ msgstr "Header"
 msgid "WEB_IMAGE"
 msgstr "Web image"
 
-#
-msgid "ENTER_YOUTUBE_URL"
-msgstr "Enter Youtube web address"
-
-#
-msgid "ENTER_IMAGE_URL"
-msgstr "Enter image web address"
-
 #: Controller/QuizController.php:145
 msgid "ENTER_HEADER"
 msgstr "Enter the header"
@@ -1178,11 +1156,11 @@ msgstr "Video explanation text"
 
 #: Controller/QuizController.php:143
 msgid "ENTER_YOUTUBE_URL"
-msgstr "Enter Youtube url"
+msgstr "Enter Youtube web address"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_IMAGE_URL"
-msgstr "Enter image url"
+msgstr "Enter image web address"
 
 #: Controller/QuizController.php:144
 msgid "ENTER_HEADER_TEXT"
@@ -1321,6 +1299,7 @@ msgid "IF_NOT_REGISTER_IGNORE"
 msgstr "If you didn't intend to register, simply ignore this email."
 
 #: Controller/UserController.php:105
+#: Controller/UserController.php:37
 msgid "REGISTRATION_SUCCESS"
 msgstr "Registration success"
 
@@ -1385,6 +1364,7 @@ msgid "SECONDS"
 msgstr "seconds."
 
 #: View/Quiz/index.ctp:210
+#: Elements/Invoice/invoice.ctp:23
 msgid "QUIZ_BANK"
 msgstr "Quiz bank"
 
@@ -1450,7 +1430,7 @@ msgstr "Next"
 
 #: View/Elements/logut-warning.ctp:5
 msgid "YOU_ARE_GOING_LOGOUT"
-msgstr "You are going to be logged out...?"
+msgstr "You are going to be logged out..."
 
 #: View/Quiz/index.ctp:230
 msgid "EXPLORE_QUIZ_BANK"
@@ -1613,10 +1593,6 @@ msgid "CREATE_AND_USE_QUIZZES_FREELY"
 msgstr "Create and use quizzes freely without limits."
 
 #: Elements/Invoice/invoice.ctp:23
-msgid "QUIZ_BANK"
-msgstr "Quiz bank"
-
-#: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
 msgstr "In addition to previous, share you own quizzes with other users and save time by using ready-made quizzes in the Quiz bank."
 
@@ -1631,10 +1607,6 @@ msgstr "You can use your paid account until your current expiration date. No new
 #: 
 msgid "CONFIRM_CANCEL"
 msgstr "Cancel subscription"
-
-#: 
-msgid "QUIZ_SHARED_HOLD_APPROVAL"
-msgstr "You have shared a quiz. Please hold for admin approval."
 
 #: Controller/QuizController.php:104
 msgid "ANSWERS_SAVING"
@@ -1699,10 +1671,6 @@ msgstr "Change password"
 #: Coming from db
 msgid "IMAGE"
 msgstr "Image"
-
-#: Coming from db
-msgid "HEADER"
-msgstr "Header"
 
 #: Coming from db
 msgid "TUBE_VIDEO"
@@ -1951,10 +1919,6 @@ msgid "RETRY"
 msgstr "Retry"
 
 #:
-msgid "PROCESSING"
-msgstr "Processing"
-
-#:
 msgid "PAY_SUCCESS"
 msgstr "Payment successful"
 
@@ -1982,22 +1946,22 @@ msgstr "Current plan"
 msgid "REACTIVATE_BUTTON"
 msgstr "Re-activate"
 
-#:
+#: Dialog button
 msgid "REACTIVATE_SUBSCRIPTION"
-msgstr "Re-activate subscription"
+msgstr "Re-activate"
 
 #:
 msgid "REACTIVATE_SUBSCRIPTION_TITLE"
-msgstr "Choose your plan for re-activating your subscription:"
+msgstr "Choose your plan:"
 
 
-#: Button
+#: Dialog button
 msgid "REACTIVATE_AND_DOWNGRADE_SUBSCRIPTION"
-msgstr "Re-activate subscription and downgrade"
+msgstr "Re-activate and downgrade"
 
-#: Button
+#: Dialog button
 msgid "REACTIVATE_AND_UPGRADE_SUBSCRIPTION"
-msgstr "Re-activate subscription and upgrade"
+msgstr "Re-activate and upgrade"
 
 #: Prices page purchase dialog success
 msgid "STRIPE_PAY_SUC_TITLE"
@@ -2031,7 +1995,7 @@ msgstr "Downgrade plan"
 msgid "DOWNGRADE_PLAN_BODY"
 msgstr "Your plan has been downgraded. Your subscription charge has been reduced accordingly."
 
-#:
+#: Dialog header
 msgid "REACTIVATE_TITLE"
 msgstr "Subscription re-activated"
 
@@ -2039,7 +2003,7 @@ msgstr "Subscription re-activated"
 msgid "REACTIVATE_BODY"
 msgstr "Thank you for re-activating your account! Your credit card was charged according to your order."
 
-#:
+#: Dialog body
 msgid "REACTIVATE_UPGRADED_BODY"
 msgstr "Thank you for re-activating and upgrading your account! Your credit card was charged according to your order."
 
@@ -2047,21 +2011,21 @@ msgstr "Thank you for re-activating and upgrading your account! Your credit card
 msgid "REACTIVATE_DOWNGRADED_BODY"
 msgstr "Thank you for re-activating your account! You also chose to downgrade your plan. Your credit card was charged according to reduced charge."
 
-#: KORJAA
+#: Dialog header
 msgid "NEXT_YEAR_TITLE"
-msgstr "NEXT_YEAR_TITLE"
+msgstr "Thank you for your purchase!"
 
-#: KORJAA
+#: Dialog text
 msgid "NEXT_YEAR_BODY"
-msgstr "NEXT_YEAR_BODY"
+msgstr "Your order for a year is confirmed. Your organization will receive an invoice for your re-oder. Thank you for staying with us!"
 
-#: KORJAA
+#: Dialog text
 msgid "UPGRADE_AND_NEXT_YEAR_BODY"
-msgstr "UPGRADE_AND_NEXT_YEAR_BODY"
+msgstr "Your re-order and package upgrade is confirmed. Your organization will receive an invoice for your order. Thank you for staying with us!"
 
-#: KORJAA
+#: Dialog text
 msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
-msgstr "DOWNGRADE_AND_NEXT_YEAR_BODY"
+msgstr "Your re-order and package downgrade is confirmed. Your organization will receive an invoice for your order. Thank you for staying with us!"
 
 #:
 msgid "THANKS_FOR_PURCHASING"
@@ -2071,61 +2035,85 @@ msgstr "Thank you for your purchase!"
 msgid "BUY_CRETE_SUCCESS"
 msgstr "Thank you for your purchase and welcome to your account!"
 
-#:
+#: Banner
 msgid "INVOICE_UPGRADE_PLAN_SUCCESS"
-msgstr "INVOICE_UPGRADE_PLAN_SUCCESS"
+msgstr "Your plan was upgraded. Thank you for your purchase!"
 
-#:
+#: Email header
 msgid "INVOICE_UPGRADE_PLAN"
-msgstr "INVOICE_UPGRADE_PLAN"
+msgstr "Order year licence (continue and upgrade)"
 
-#:
+#: Email body
+msgid "INVOICE_UPGRADE_PLAN"
+msgstr "Invoice (continue and upgrade)"
+
+#: Dialog body
 msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
-msgstr "INVOICE_DOWNGRADE_PLAN_SUCCESS"
+msgstr "Your plan was downgraded as you requested. Thank you for your purchase!"
 
-#:
+#: Email header
 msgid "INVOICE_DOWNGRADE_PLAN"
-msgstr "INVOICE_DOWNGRADE_PLAN"
+msgstr "Order year licence (continue and downgrade)"
+
+#: Email body
+msgid "ACCOUNT_DOWNGRADE_NOTIFICATION"
+msgstr "Account downgraded mid-term"
+
+
+
+
 
 #:
 msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
-msgstr "Your subscribtion was cancelled"
+msgstr "Your subscription was cancelled"
 
-#:
+#: Banner: Credit card upgrade
 msgid "UPGRADE_PLAN_SUCCESS"
-msgstr "UPGRADE_PLAN_SUCCESS"
+msgstr "Your plan is upgraded. Thank you for your order!"
 
 #:
 msgid "DOWNGRADE_PLAN_SUCCESS"
 msgstr "DOWNGRADE_PLAN_SUCCESS"
 
-#:
+#: Banner: Credit card re-activate and downgrade
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
-msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_DOWNGRADED"
+msgstr "Your account is re-activated and downgraded as you requested. Thank you for your order!"
 
-#:
+#: Banner: Credit card re-activate and upgrade
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
-msgstr "SUBSCRIPTION_REACTIVATION_SUCCESS_AND_UPGRADED"
+msgstr "Your account is re-activated and upgraded. Thank you for your order!"
 
 #:
 msgid "SUBSCRIPTION_REACTIVATION_SUCCESS"
-msgstr "Your subscribtion is now re-activated"
+msgstr "Your subscription is now re-activated"
 
-#:
+#: Email header
 msgid "UPGRADED_AND_NEXT_YEAR_PURCHASE"
-msgstr "UPGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "Order year licence (upgrade and continue)"
 
-#:
+#: Email body
+msgid "INVOICE_FOR_ACCOUNT_UPGRADED_AND_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (upgrade and continue)"
+
+#: Email header
+msgid "INVOICE_FOR_ACCOUNT_UPGRADE"
+msgstr "Order year licence (upgrade mid-term)"
+
+#: Banner:
 msgid "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
-msgstr "THANKS_FOR_UPGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "Your plan was upgraded. Thanks for your purchase!"
 
-#:
+#: Email header
 msgid "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
-msgstr "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "Order year licence (downgrade and continue)"
+
+#: Email body
+msgid "INVOICE_FOR_ACCOUNT_DOWNGRADED_AND_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (downgrade and continue)"
 
 #:
 msgid "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
-msgstr "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
+msgstr "Your plan was downgraded as you requested. Thanks for your purchase!"
 
 #:
 msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
@@ -2133,7 +2121,7 @@ msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
 
 #:
 msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
-msgstr "Thank you for staying with us! Your subscription is confirmed."
+msgstr "Thank you for staying with us! Your re-order is confirmed."
 
 #:
 msgid "REQUIRED_FIELD"
@@ -2153,11 +2141,11 @@ msgstr "Please check your card's verification code (it's behind the card)"
 
 #:
 msgid "ENTER_LAST_NAME"
-msgstr "ENTER_LAST_NAME"
+msgstr "Last name"
 
 #: 
 msgid "ENTER_FIRST_NAME"
-msgstr "ENTER_FIRST_NAME"
+msgstr "First name"
 
 #: /quizzes/table/number 
 msgid "ENTER_CLASS"
@@ -2167,9 +2155,15 @@ msgstr "Class"
 msgid "SORRY_YOUR_ACCOUNT_DISABLED"
 msgstr "Unfortunately your account is currently disabled! Please contact us for re-opeing your account."
 
-#: 
+#: Button
 msgid "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
-msgstr "UPGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "Upgrade and re-order"
+
+#: Button
+msgid "DOWNGRADE_AND_BUY_FOR_NEXT_YEAR"
+msgstr "Downgrade and re-order"
+
+
 
 #: 
 msgid "EDIT_PLAN"
@@ -2180,8 +2174,8 @@ msgid "ACCOUNT_EXPIRE"
 msgstr "Expiration date"
 
 #: 
-msgid "CURRENT_PLAN"
-msgstr "Current plan"
+msgid "CURRENT_PLAN_LABEL"
+msgstr "Plan"
 
 #: 
 msgid "EDIT_PACKAGE"
@@ -2221,9 +2215,9 @@ msgstr "Finish"
 
 #:
 msgid "INACTIVE_LOGOUT"
-msgstr "You were automatically logged out after not using app for 15 minutes."
+msgstr "You were logged out after being idle for 15 minutes."
 
-#:
+#: Model/User.php:validation for field password
 msgid "PASSWORD_MUST_BE_LONGER"
 msgstr "Your password needs to be at least 8 characters long"
 
@@ -2238,10 +2232,6 @@ msgstr "Please choose at least one quiz to import"
 #:
 msgid "DEMO_QUIZ_LOADED"
 msgstr "[Verkkotesti] Demo quizzes loaded"
-
-#:
-msgid "IMPORTED_SUCCESS"
-msgstr "Demo quizzes imported"
 
 #:
 msgid "APPROVED_SUCCESS"
@@ -2263,14 +2253,50 @@ msgstr "User account type change"
 msgid "ACCOUNT_LEVEL_CHANGE_TEXT"
 msgstr "Do you want to change the user's account type?"
 
+#: Button: Invoice customer re-purchase
+msgid "CONTINUE_BUY_FOR_NEXT_YEAR"
+msgstr "Re-order for next year"
+
 #:
 msgid "MM-YY"
 msgstr "MM/YY (For ex. 12/18)"
 
 #:
 msgid "RENEW_YEARLY"
-msgstr "Re-newed yearly"
+msgstr "Re-newing"
 
 #:
 msgid "SUBSCRIPTION_ENDING"
-msgstr "Subscription ending"
+msgstr "Ending"
+
+#: ADD BELOW TO FI
+
+#: Email header
+msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
+msgstr "Order year licence (continue)"
+
+#: Email text
+msgid "INOVICE_FOR_CONTINUE_NEXT_YEAR"
+msgstr "Invoice (continue)"
+
+#: Email text
+msgid "USER_NAME"
+msgstr "User name:"
+
+#: Email text
+msgid "USER_EMAIL"
+msgstr "Email:"
+
+#: Email text
+msgid "USER_PACKAGE"
+msgstr "Package:"
+
+#: Email text
+msgid "CHARGED_AMOUNT"
+msgstr "Invoice amount:"
+
+#: Warning banner
+msgid "EMAIL_EXIST"
+msgstr "Email already exist"
+
+

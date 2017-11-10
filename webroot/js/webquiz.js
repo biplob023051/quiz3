@@ -463,7 +463,7 @@ var webQuiz = {
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
                 validationError = true;
-                this.showAlert(lang_strings['youtube_url']);
+                webQuiz.showAlert(lang_strings['youtube_url']);
             }
             
         });
@@ -476,7 +476,7 @@ var webQuiz = {
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
                 validationError = true;
-                this.showAlert(lang_strings['image_url']);
+                webQuiz.showAlert(lang_strings['image_url']);
             }
             
         });
@@ -490,7 +490,7 @@ var webQuiz = {
         choiceContainer.find(':input[type="text"]').each(function(){
             if ($(this).val() == '') {
                 validationError = true;
-                this.showAlert(lang_strings['correct_answer']);
+                webQuiz.showAlert(lang_strings['correct_answer']);
             }
             
         });
@@ -553,7 +553,7 @@ var webQuiz = {
             minLength = $('#QuestionMaxAllowed').val();
         }
         if (choiceContainer.find(':input[type="text"]').length < minLength) {
-            this.showAlert(lang_strings['no_choice_1'] + ' ' + minLength + ' ' + lang_strings['no_choice_2']);
+            webQuiz.showAlert(lang_strings['no_choice_1'] + ' ' + minLength + ' ' + lang_strings['no_choice_2']);
             return;   
         }
         var choiceArray = new Array();
@@ -562,13 +562,13 @@ var webQuiz = {
             // same choice not permit
             if ($(this).val() == '') {
                 validationError = true;
-                this.showAlert(lang_strings['same_choice']);
+                webQuiz.showAlert(lang_strings['same_choice']);
             } else {
                 if (jQuery.inArray($(this).val(),choiceArray) == -1){
                     choiceArray.push($(this).val());
                 } else {
                     validationError = true;
-                    this.showAlert(lang_strings['same_choice']);
+                    webQuiz.showAlert(lang_strings['same_choice']);
                 }
             }
             

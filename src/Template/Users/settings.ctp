@@ -9,6 +9,9 @@
         float: left;
         margin-top: 0px;
     }
+    .form-control {
+        font-size: 13px !important;
+    }
 </style>
 <?php 
 $lang_strings['request_sent'] = __('UPGRADE_PENDING');
@@ -125,16 +128,16 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-xs-12 col-md-2 col-md-offset-3">
         <?php 
             if (!empty($user->expired) && !empty($user->customer_id) && empty($user->plan_switched)) {
-                $expire_info = 'RENEW_YEARLY';
+                $expire_info = __('RENEW_YEARLY');
             } else if (!empty($user->expired) && !empty($user->customer_id) && in_array($user->plan_switched, ['DOWNGRADE', 'UPGRADE'])) {
-                $expire_info = 'RENEW_YEARLY';
+                $expire_info = __('RENEW_YEARLY');
             } else {
-                $expire_info = 'SUBSCRIPTION_ENDING';
+                $expire_info = __('SUBSCRIPTION_ENDING');
             }
         ?>
         <?= $this->Form->input('expire_date', [
                 'label' => __("ACCOUNT_EXPIRE"),
-                'value' => !empty($user->expired) ? date('d.m.Y', $user->expired->timestamp) . ' ' . $expire_info : '',
+                'value' => !empty($user->expired) ? date('d.m.Y', $user->expired->timestamp) . ' (' . $expire_info . ')' : '',
                 'type' => 'text',
                 'disabled' => true
             ]);
