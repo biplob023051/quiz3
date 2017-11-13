@@ -2297,3 +2297,16 @@ msgstr "Password change was failed! Please try again."
 #: Banner
 msgid "BUY_CREATE_SUCCESS"
 msgstr "Thank you for your order!"
+
+# Sprint 11/2017
+#: 
+msgid "DECLINE_REASON_TITLE"
+msgstr "Decline Reason for this sharing"
+
+#: 
+msgid "NO_REASON_BODY"
+msgstr "No reason has been provided!"
+
+#: 
+msgid "SHARING_REMOVE_SUCCESS"
+msgstr "You have successfully remove sharing"

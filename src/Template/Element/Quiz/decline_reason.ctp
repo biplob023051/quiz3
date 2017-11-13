@@ -2,10 +2,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <?php echo __('Decline Reason for this sharing'); ?>
+                <?php echo __('DECLINE_REASON_TITLE'); ?>
             </div>
             <div class="modal-body">
-                <?php echo !empty($quiz->comment) ? h($quiz->comment) : __('No reason has been provided!'); ?>
+                <?php echo !empty($quiz->comment) ? h($quiz->comment) : __('NO_REASON_BODY'); ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('CLOSE'); ?></button>

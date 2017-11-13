@@ -1038,7 +1038,7 @@ class QuizzesController extends AppController
             } else {
                 $subject = __('Sharing removed!');
                 $template = 'remove_sharing';
-                $message = __('You have successfully remove sharing');
+                $message = __('SHARING_REMOVE_SUCCESS');
             }
             $this->Flash->success($message);
         } else {
