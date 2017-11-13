@@ -725,11 +725,15 @@ var webQuiz = {
         if (questionTypeId == 7) { 
             // Change placeholder for explanation text if youtube
             $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
-            $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+            if ($(window).width() > 767) {
+                $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+            }
         } else if (questionTypeId == 8) { 
             // Change placeholder for explanation text if image
             $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
-            $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+            if ($(window).width() > 767) {
+                $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+            }
         } else {
             $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
         }

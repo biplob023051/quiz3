@@ -1,5 +1,6 @@
 var debugVar;
 var uploadObj;
+var window_width = $(window).width();
 (function ($) {
     $(document).on('click', '#upload', function(){
         $(this).addClass('active');
@@ -184,11 +185,17 @@ var uploadObj;
                                 if (question.value.QuestionType.id == 7) { 
                                     // Change placeholder for explanation text if youtube
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
-                                    $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    alert('7no', window_width);
+                                    if (window_width > 767) {
+                                        $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    }
                                 } else if (question.value.QuestionType.id == 8) { 
                                     // Change placeholder for explanation text if image
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
-                                    $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    alert('8no', window_width);
+                                    if (window_width > 767) {
+                                        $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    }
                                     $('#from-web').hide();
                                     $('#upload').hide();
                                 } else {
