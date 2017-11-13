@@ -128,16 +128,18 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="col-xs-12 col-md-2 col-md-offset-3">
         <?php 
             if (!empty($user->expired) && !empty($user->customer_id) && empty($user->plan_switched)) {
-                $expire_info = __('RENEW_YEARLY');
+                $expire_info = date('d.m.Y', $user->expired->timestamp) . ' (' . __('RENEW_YEARLY') . ')';
             } else if (!empty($user->expired) && !empty($user->customer_id) && in_array($user->plan_switched, ['DOWNGRADE', 'UPGRADE'])) {
-                $expire_info = __('RENEW_YEARLY');
+                $expire_info = date('d.m.Y', $user->expired->timestamp) . ' (' . __('RENEW_YEARLY') . ')';
+            } else if (($user->expired->timestamp < strtotime("now")) && ($user->account_level == 22) ) {
+                $expire_info = __('EXPIRED_ON') . ' ' . date('d.m.Y', $user->expired->timestamp);
             } else {
-                $expire_info = __('SUBSCRIPTION_ENDING');
+                $expire_info = date('d.m.Y', $user->expired->timestamp) . ' (' . __('SUBSCRIPTION_ENDING') . ')';
             }
         ?>
         <?= $this->Form->input('expire_date', [
                 'label' => __("ACCOUNT_EXPIRE"),
-                'value' => !empty($user->expired) ? date('d.m.Y', $user->expired->timestamp) . ' (' . $expire_info . ')' : '',
+                'value' => !empty($user->expired) ? $expire_info : '',
                 'type' => 'text',
                 'disabled' => true
             ]);

@@ -43,7 +43,7 @@ class UsersController extends AppController
             );
             if ($this->Users->save($user)) {
                 $response['success'] = true;
-                $response['message'] = __('PASSWORD_CHANGED_SUCCESS');
+                $response['message'] = __('PASSWORD_CHANGED');
             } else {
                 $response['errors'] = $user->errors();
                 $response['message'] = __('PASSWORD_CHANGED_FAILED');
@@ -436,7 +436,7 @@ class UsersController extends AppController
                 if ($this->request->data['payment_type'] == 'card') {
                     $plan = ($package == 49) ? 'bank-yearly' : 'basic-yearly';
                     //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");  
-                    \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+                    \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
 
                     $customer = \Stripe\Customer::create(array(
                         "card" => $this->request->data['token'],
@@ -542,7 +542,7 @@ class UsersController extends AppController
         }
         $plan = ($this->request->data['amount'] == 49) ? 'bank-yearly' : 'basic-yearly';
         //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
         $customer_id = $this->Auth->user('customer_id');
         if (!$customer_id) {
             $customer = \Stripe\Customer::create(array(
@@ -625,7 +625,7 @@ class UsersController extends AppController
             exit;
         }
         //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
         $subscription_id = $customer->subscriptions->data[0]->id;
@@ -695,7 +695,7 @@ class UsersController extends AppController
         $this->autoRender = false;
         $output['success'] = false;
         //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
         $customer_id = $this->Auth->user('customer_id');
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
@@ -755,7 +755,7 @@ class UsersController extends AppController
     // Webhook after successful payment charge
     public function paymentSuccess() {
         //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
+        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
 
         // You can find your endpoint's secret in your webhook settings
         $endpoint_secret = "whsec_glUxw47WE7duw2aaeIRR8AY5YWP8JqR8";

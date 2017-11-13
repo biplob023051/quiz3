@@ -2039,13 +2039,9 @@ msgstr "Thank you for your purchase and welcome to your account!"
 msgid "INVOICE_UPGRADE_PLAN_SUCCESS"
 msgstr "Your plan was upgraded. Thank you for your purchase!"
 
-#: Email header
+#: Email header and body
 msgid "INVOICE_UPGRADE_PLAN"
 msgstr "Order year licence (continue and upgrade)"
-
-#: Email body
-msgid "INVOICE_UPGRADE_PLAN"
-msgstr "Invoice (continue and upgrade)"
 
 #: Dialog body
 msgid "INVOICE_DOWNGRADE_PLAN_SUCCESS"
@@ -2059,10 +2055,6 @@ msgstr "Order year licence (continue and downgrade)"
 msgid "ACCOUNT_DOWNGRADE_NOTIFICATION"
 msgstr "Account downgraded mid-term"
 
-
-
-
-
 #:
 msgid "SUBSCRIPTION_CANCELLED_SUCCESS"
 msgstr "Your subscription was cancelled"
@@ -2071,7 +2063,7 @@ msgstr "Your subscription was cancelled"
 msgid "UPGRADE_PLAN_SUCCESS"
 msgstr "Your plan is upgraded. Thank you for your order!"
 
-#:
+#: Not something urgent thing, its just ajax response
 msgid "DOWNGRADE_PLAN_SUCCESS"
 msgstr "DOWNGRADE_PLAN_SUCCESS"
 
@@ -2114,10 +2106,6 @@ msgstr "Invoice (downgrade and continue)"
 #:
 msgid "THANKS_FOR_DOWNGRADE_AND_CONTINUE_SUBSCRIPTION"
 msgstr "Your plan was downgraded as you requested. Thanks for your purchase!"
-
-#:
-msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
-msgstr "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
 
 #:
 msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
@@ -2269,8 +2257,6 @@ msgstr "Re-newing"
 msgid "SUBSCRIPTION_ENDING"
 msgstr "Ending"
 
-#: ADD BELOW TO FI
-
 #: Email header
 msgid "CONTINUE_NEXT_YEAR_SUBSCRIPTION"
 msgstr "Order year licence (continue)"
@@ -2300,3 +2286,14 @@ msgid "EMAIL_EXIST"
 msgstr "Email already exist"
 
 
+#: Expire date add
+msgid "EXPIRED_ON"
+msgstr "Expired"
+
+#: Banner
+msgid "PASSWORD_CHANGED_FAILED"
+msgstr "Password change was failed! Please try again."
+
+#: Banner
+msgid "BUY_CREATE_SUCCESS"
+msgstr "Thank you for your order!"

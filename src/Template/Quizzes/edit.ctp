@@ -388,17 +388,14 @@ echo json_encode(array(
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
 
-<link href="https://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
-<script src="https://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
-
 <?php 
     echo $this->Html->script(array(
+        'jquery.uploadfile.min',
         'jquery-ui',
         /* production */
         //'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
         'handlebars.min',
         'jquery.serializejson.min',
-        'fine-uploader.min',
         'webquiz',
         'edit',
         //'qunit-1.17.1',
@@ -406,8 +403,7 @@ echo json_encode(array(
             ), array('inline' => false)
     );
     echo $this->Html->css(array(
-        //'qunit-1.17.1'
-        'fine-uploader.min',
+        'uploadfile',
         'jquery-ui'
             ), array('inline' => false)
     );

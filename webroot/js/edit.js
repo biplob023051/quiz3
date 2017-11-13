@@ -453,7 +453,7 @@ var uploadObj;
     $("#questions tbody").sortable({
         items: 'tr:not(#q-1)',
         tolerance: 'pointer',
-        revert: 'invalid',
+        //revert: 'invalid',
         placeholder: 'well tile',
         forceHelperSize: true,
         helper: fixHelper,

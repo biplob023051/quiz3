@@ -57,7 +57,7 @@
                                 }
                             }
                         ?>
-                        <td class="text-center"><?php echo !empty($related_subjects) ? rtrim($related_subjects, ', ') : __('Undefined'); ?></td>
+                        <td class="text-center"><?php echo !empty($related_subjects) ? rtrim($related_subjects, ', ') : __('UNDEFINED'); ?></td>
                         <?php
                             $related_classes = '';
                             if ($quiz->classes) {
@@ -72,7 +72,7 @@
                                 }
                             }
                         ?>
-                        <td class="text-center"><?php echo !empty($related_classes) ? rtrim($related_classes, ', ') : __('Undefined'); ?></td>
+                        <td class="text-center"><?php echo !empty($related_classes) ? rtrim($related_classes, ', ') : __('UNDEFINED'); ?></td>
                         <td class="text-center"><?php echo $quiz->created; ?></td>
                         <td class="text-center action-box">
                             <button type="button" class="btn btn-success btn-sm import-quiz"<?php echo !empty($no_access) ? '  disabled' : ''; ?> random-id="<?php echo $quiz->random_id; ?>" title="<?php echo __('IMPORT_QUIZ'); ?>"><i class="glyphicon glyphicon-save"></i></button>

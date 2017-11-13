@@ -67,7 +67,7 @@ msgstr "Lasku lähetetään sähköpostiisi. <br/>Laskun maksamalla saat Verkkot
 
 #: View/Elements/Invoice/invoice_success_dialog.ctp:10
 msgid "YOU_RECEIVE_INVOICE"
-msgstr "Kiitos tilauksesta, käyttäjätilisi on nyt päivitetty! Tilaamasi vuosilisenssin lasku lähetetään lähiaikoina antamiesi laskutusohjeiden mukaisesti."
+msgstr "Kiitos tilauksestasi! Tilaamasi vuosilisenssin lasku lähetetään lähiaikoina antamiesi laskutusohjeiden mukaisesti."
 
 #: View/Elements/Quiz/edit/Handlebars/choice.short_auto.edit.ctp:12
 msgid "SEPARATE_SEMICOLON"
@@ -1274,7 +1274,7 @@ msgstr "Testi on monistettu"
 
 #: View/Quiz/index.ctp:141
 msgid "DUPLICATE_QUIZ"
-msgstr "Monista testi"
+msgstr "Kopioi testi"
 
 #: Controller/QuizController.php:641
 msgid "STUDENT_ONLINE_AND_GIVING_TEST"
@@ -1768,7 +1768,7 @@ msgstr "Ei löytynyt"
 
 #:
 msgid "DUPLICATE_QUESTION"
-msgstr "Monista kysymys"
+msgstr "Kopio kysymys"
 
 #: 
 msgid "PROCESSING"
@@ -1848,7 +1848,7 @@ msgstr "- Voit peruuttaa tilauksesi milloin tahansa Asetukset-sivultasi."
 
 #:
 msgid "CANCEL_PLAN_BODY"
-msgstr "Tilauksesi on peruutettu. Voit käyttää tiliäsi käyttöaikasi loppuun. Sinulle ei tule enää uusia veloituksia."
+msgstr "Tilauksesi on peruutettu. Voit käyttää sovellusta käyttöaikasi loppuun. Sinulle ei tule enää uusia veloituksia."
 
 #:
 msgid "CANCEL_PLAN_TITLE"
@@ -1876,7 +1876,7 @@ msgstr "Order year licence (continue)"
 
 #:
 msgid "CURRENT_PASSWORD"
-msgstr "Nykyinen paketti"
+msgstr "Nykyinen salasana"
 
 #:
 msgid "CURRENT_PLAN"
@@ -1906,9 +1906,9 @@ msgstr "Testiä EI julkaistu"
 msgid "DEMO_QUIZ_LOADED"
 msgstr "[Verkkotesti] Mallitestit ladattu"
 
-#:
+#:  For downgraded account and purchase for next year (Success modal body),
 msgid "DOWNGRADE_AND_NEXT_YEAR_BODY"
-msgstr "DOWNGRADE_AND_NEXT_YEAR_BODY"
+msgstr "Jatkotilauksesi ja paketin pienentämispyyntösi on vastanotettu. Lähetämme lähiaikoina laskun tilauksesi mukaisesti. Kiitos tilauksestasi!"
 
 #:
 msgid "DOWNGRADE_PLAN"
@@ -1918,7 +1918,7 @@ msgstr "Pienennä pakettia"
 msgid "DOWNGRADE_PLAN_BODY"
 msgstr "Pakettiasi pienennettiin valintasi mukaisesti. Vuosiveloituksesi muuttui edullisemmaksi."
 
-#:
+#: Not something urgent thing, its just ajax response
 msgid "DOWNGRADE_PLAN_SUCCESS"
 msgstr "DOWNGRADE_PLAN_SUCCESS"
 
@@ -1926,9 +1926,9 @@ msgstr "DOWNGRADE_PLAN_SUCCESS"
 msgid "DOWNGRADE_PLAN_TITLE"
 msgstr "Pienennä pakettia"
 
-#:
+#: Email header
 msgid "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
-msgstr "DOWNGRADED_AND_NEXT_YEAR_PURCHASE"
+msgstr "Order year licence (downgrade and continue)"
 
 #:
 msgid "EDIT_PACKAGE"
@@ -1988,7 +1988,7 @@ msgstr "Klikkaa alla olevaa nappia vahvistaaksesi vuositilauksesi. Päivitetty k
 
 #:
 msgid "INACTIVE_LOGOUT"
-msgstr "Kirjauduit automaattisesti ulos, kun tilisi oli käyttämättä 15 minuuttia."
+msgstr "Tilisi oli 15 minuuttia käyttämättä. Kirjauduit automaattisesti ulos."
 
 #:
 msgid "INCL_TAX"
@@ -2168,7 +2168,7 @@ msgstr "Tilisi aktivoitiin ja pakettiasi kasvatettiin valintasi mukaisesti. Kiit
 
 #:
 msgid "SUBSCRITION_CANCEL_TEXT"
-msgstr "Voit käyttää tiliäsi tilausjakson loppuun asti. Sinulle ei tule enää uusia veloituksia."
+msgstr "Voit käyttää sovellusta tilausjakson loppuun asti. Sinulle ei tule enää uusia veloituksia."
 
 #:
 msgid "THANKS_FOR_CONTINUE_SUBSCRIPTION"
@@ -2293,3 +2293,15 @@ msgstr "Order year licence (upgrade mid-term)"
 #: Button
 msgid "DOWNGRADE_AND_BUY_FOR_NEXT_YEAR"
 msgstr "Pienennä pakettia ja tilaa +1 vuosi"
+
+#: Expire date add
+msgid "EXPIRED_ON"
+msgstr "Päättynyt"
+
+#: Banner
+msgid "PASSWORD_CHANGED_FAILED"
+msgstr "Salasanan vaihtaminen epäonnistui! Yritä uudelleen."
+
+#: Banner
+msgid "BUY_CREATE_SUCCESS"
+msgstr "Kiitos tilauksestasi!"
