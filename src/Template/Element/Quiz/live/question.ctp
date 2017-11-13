@@ -10,7 +10,7 @@
             <div class="col-xs-12 col-md-6">
                 <p>
                     <?php if (($question->question_type->template_name == 'header')) : ?>
-                        <span class="h4 header"><?php echo $question->text; ?></span>
+                        <span class="h4 header testheader"><?php echo $question->text; ?></span>
                         <br />
                     <?php elseif (($question->question_type->template_name == 'youtube_video')) : ?>
                         
