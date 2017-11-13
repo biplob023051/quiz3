@@ -125,7 +125,7 @@ $.tablesorter.addParser({
 }); 
 
 $(document).ready(function(){ 
-    var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190);
+    var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190+parseInt(maintHeight));
     $('#answer-table tbody').css({'height' : windowHeight});
     // end of height calculation
     $("#fixTable").tableHeadFixer({"head" : true, "left" : 2});

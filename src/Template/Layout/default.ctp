@@ -63,6 +63,15 @@ use Cake\Routing\Router;
     <?php 
         if (!empty($setting['visible']) && empty($setting['offline_status'])) {
             echo $this->element('Maintenance/alert');
+            echo $this->Html->scriptBlock('
+                var maintHeight = "70";
+                ', array('inline' => false)
+            );
+        } else {
+            echo $this->Html->scriptBlock('
+                var maintHeight = "0";
+                ', array('inline' => false)
+            );
         }
     ?>
     <?= $this->Flash->render() ?>
