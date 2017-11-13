@@ -185,14 +185,12 @@ var window_width = $(window).width();
                                 if (question.value.QuestionType.id == 7) { 
                                     // Change placeholder for explanation text if youtube
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
-                                    alert('7no', window_width);
                                     if (window_width > 767) {
                                         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
                                     }
                                 } else if (question.value.QuestionType.id == 8) { 
                                     // Change placeholder for explanation text if image
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
-                                    alert('8no', window_width);
                                     if (window_width > 767) {
                                         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
                                     }
