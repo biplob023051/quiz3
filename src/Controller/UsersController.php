@@ -758,7 +758,8 @@ class UsersController extends AppController
         \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
 
         // You can find your endpoint's secret in your webhook settings
-        $endpoint_secret = "whsec_glUxw47WE7duw2aaeIRR8AY5YWP8JqR8";
+        //$endpoint_secret = "whsec_glUxw47WE7duw2aaeIRR8AY5YWP8JqR8";
+        $endpoint_secret = "whsec_f9AOrnLDh2wwqPyHWOsbvjTXrK4lwgcE";
 
         $payload = @file_get_contents("php://input");
         $sig_header = $_SERVER["HTTP_STRIPE_SIGNATURE"];

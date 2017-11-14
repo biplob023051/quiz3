@@ -1597,4 +1597,27 @@ class QuizzesController extends AppController
         );
     }
 
+    // Method for quiz auto update
+    public function ajaxQuizUpdate($id = null) {
+        $this->autoRender = false;
+        $output['success'] = false;
+        $quiz = $this->Quizzes->find()->where(['id' => $id, 'user_id' => $this->Auth->user('id')])->first();
+        if (empty($quiz)) {
+            $output['message'] = __('NO_PERMISSION');
+            echo json_encode($output);
+            exit;
+        }
+        if (in_array($this->request->data['field'], ['name', 'description', 'show_result', 'anonymous', 'subjects', 'classes'])) {
+            $data[$this->request->data['field']] = (in_array($this->request->data['field'], ['subjects', 'classes']) && !empty($this->request->data['value'])) ? json_encode($this->request->data['value'], true) : $this->request->data['value'];
+            $quiz = $this->Quizzes->patchEntity($quiz, $data);
+            if ($this->Quizzes->save($quiz)) {
+                $output['success'] = true;
+                $output['message'] = __('SAVE_SUCCESS');
+            } else {
+                $output['message'] = __('QUIZ_SAVE_FAILED');
+            }
+        }
+        echo json_encode($output);
+    }
+
 }

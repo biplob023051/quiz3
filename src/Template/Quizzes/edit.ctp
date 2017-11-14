@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var c_quiz_id = '<?= $data['id']; ?>';
+</script>
 <style type="text/css">
     .subjects, .classes {
         width: 33% !important;
@@ -274,14 +277,16 @@ if (!empty($data['Quiz']['classes'])) {
                     echo $this->Form->input('name', array(
                         'label' => false,
                         'placeholder' => __('NAME_QUIZ'),
-                        'class' => 'form-control input-lg'
+                        'class' => 'input-lg update-now',
+                        'data-current-value' => '',
                     ));
                 } else {
                     echo $this->Form->input('name', array(
                         'label' => false,
                         'default' => $data['Quiz']['name'],
                         'placeholder' => __('NAME_QUIZ'),
-                        'class' => 'form-control input-lg'
+                        'class' => 'input-lg update-now',
+                        'data-current-value' => $data['Quiz']['name']
                     ));
                 }
                 ?>
@@ -292,7 +297,8 @@ if (!empty($data['Quiz']['classes'])) {
                     'label' => false,
                     'default' => $data['Quiz']['description'],
                     'placeholder' => __('DESCRIBE_QUIZ'),
-                    'class' => 'form-control input-lg'
+                    'class' => 'input-lg update-now',
+                    'data-current-value' => $data['Quiz']['description']
                 ));
                 ?>
             </div>

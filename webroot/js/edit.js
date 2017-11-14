@@ -102,9 +102,9 @@ var window_width = $(window).width();
                 choiceContainer = $('#' + questionId).find("div.choices");
 
         webQuiz.addChoice(
-                parseInt(questionId.substr(1, questionId.length - 1)),
-                choiceContainer
-                );
+            parseInt(questionId.substr(1, questionId.length - 1)),
+            choiceContainer
+        );
     });
 
     // biplob added for adding one more row on page load by default    
@@ -496,4 +496,74 @@ var window_width = $(window).width();
         $(this).fadeOut('show');
     });
 
+    // Auto save quiz basic and settings 
+    $("input.update-now").blur(function() {
+        if (($(this).attr('name') == 'name') && ($(this).val() == '')) {
+            return false;
+        }
+        if ($(this).val() == $(this).attr('data-current-value')) {
+            return false;
+        }
+        updateQuiz($(this).attr('name'), $(this).val(), $(this));
+    });
+
+    $("input.update-now").keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  {
+            $(this).blur();
+        }
+    });
+
+    $(document).on('click', '.settings-options input[type="checkbox"]', function(){
+        var element = $(this), field, value;
+        if (element.attr('name') == 'show_result' || element.attr('name') == 'anonymous') {
+            field = element.attr('name');
+            value = element.prop("checked") ? 1 : '';
+        } else if (element.attr('name') == 'subjects[]') {
+            field = 'subjects';
+            value = formatSubjectClass(element, 'subjects');
+        } else {
+            field = 'classes';
+            value = formatSubjectClass(element, 'classes');
+        }
+        updateQuiz(field, value);
+    });
 })(jQuery);
+
+function formatSubjectClass(element, type) {
+    if (element.val() == 0) {
+        if (element.is(':checked')) {
+            var result = $('input[type="checkbox"][name="'+type+'\\[\\]"]').map(function() { return this.value; }).get();        
+        } else {
+            var result = Array();
+        }
+    } else {
+        var result = $('input[type="checkbox"][name="'+type+'\\[\\]"]:checked').map(function() { return this.value; }).get();
+        if (result.length > 0 && result[0] == 0) {
+            result.splice(0, 1);
+        }
+    }
+    return result;
+}
+
+function updateQuiz(field, value, element) {
+    $.ajax({
+        // async: false,
+        dataType: 'json',
+        url: projectBaseUrl + 'quizzes/ajaxQuizUpdate/' + c_quiz_id,
+        type: 'post',
+        data: {field: field, value: value},
+        success: function (response)
+        {
+            if (response.success && element) {
+                element.attr('data-current-value', value);
+                var originalBackgroundColor = element.css('background-color'),
+                originalColor = element.css('color');
+                element.css({ 'background-color' : '#5cb85c', 'color' : 'white' });
+                setTimeout(function(){
+                  element.css({ 'background-color' : originalBackgroundColor, 'color' : originalColor });
+                }, 1000);
+            }
+        }
+    });
+}
