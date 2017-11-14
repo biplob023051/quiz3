@@ -435,8 +435,11 @@ class UsersController extends AppController
 
                 if ($this->request->data['payment_type'] == 'card') {
                     $plan = ($package == 49) ? 'bank-yearly' : 'basic-yearly';
-                    //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");  
-                    \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
+                    if (Configure::read('debug')) {
+                        \Stripe\Stripe::setApiKey(TEST_PRIVATE_KEY);  
+                    } else {
+                        \Stripe\Stripe::setApiKey(LIVE_PRIVATE_KEY);
+                    }
 
                     $customer = \Stripe\Customer::create(array(
                         "card" => $this->request->data['token'],
@@ -541,8 +544,11 @@ class UsersController extends AppController
             $account_level = 1;
         }
         $plan = ($this->request->data['amount'] == 49) ? 'bank-yearly' : 'basic-yearly';
-        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
+        if (Configure::read('debug')) {
+            \Stripe\Stripe::setApiKey(TEST_PRIVATE_KEY);  
+        } else {
+            \Stripe\Stripe::setApiKey(LIVE_PRIVATE_KEY);
+        }
         $customer_id = $this->Auth->user('customer_id');
         if (!$customer_id) {
             $customer = \Stripe\Customer::create(array(
@@ -624,8 +630,11 @@ class UsersController extends AppController
             echo json_encode($output);
             exit;
         }
-        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
+        if (Configure::read('debug')) {
+            \Stripe\Stripe::setApiKey(TEST_PRIVATE_KEY);  
+        } else {
+            \Stripe\Stripe::setApiKey(LIVE_PRIVATE_KEY);
+        }
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
         $subscription_id = $customer->subscriptions->data[0]->id;
@@ -694,8 +703,11 @@ class UsersController extends AppController
     public function reactivatePlan() {
         $this->autoRender = false;
         $output['success'] = false;
-        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
+        if (Configure::read('debug')) {
+            \Stripe\Stripe::setApiKey(TEST_PRIVATE_KEY);  
+        } else {
+            \Stripe\Stripe::setApiKey(LIVE_PRIVATE_KEY);
+        }
         $customer_id = $this->Auth->user('customer_id');
         $customer = \Stripe\Customer::retrieve($customer_id);
         $customer_plan = $customer->subscriptions->data[0]->plan['id'];
@@ -754,12 +766,14 @@ class UsersController extends AppController
 
     // Webhook after successful payment charge
     public function paymentSuccess() {
-        //\Stripe\Stripe::setApiKey("sk_test_c6GKutQfn5K3nL2SgknhSAsm");
-        \Stripe\Stripe::setApiKey("sk_live_Da9dmjdWkfducgld9byZZqiO");
+        if (Configure::read('debug')) {
+            \Stripe\Stripe::setApiKey(TEST_PRIVATE_KEY);  
+        } else {
+            \Stripe\Stripe::setApiKey(LIVE_PRIVATE_KEY);
+        }
 
         // You can find your endpoint's secret in your webhook settings
-        //$endpoint_secret = "whsec_glUxw47WE7duw2aaeIRR8AY5YWP8JqR8";
-        $endpoint_secret = "whsec_f9AOrnLDh2wwqPyHWOsbvjTXrK4lwgcE";
+        $endpoint_secret = Configure::read('debug') ? TEST_ENDPOINT_SECRET : LIVE_ENDPOINT_SECRET;
 
         $payload = @file_get_contents("php://input");
         $sig_header = $_SERVER["HTTP_STRIPE_SIGNATURE"];

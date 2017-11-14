@@ -13,6 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 use Cake\Routing\Router;
+use Cake\Core\Configure;
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,10 +37,22 @@ use Cake\Routing\Router;
         ));
     ?>
     <?php
-    echo $this->Html->scriptBlock('
-        var projectBaseUrl = "'.Router::url('/', true).'";
-        ', array('inline' => false)
-    );
+        echo $this->Html->scriptBlock('
+            var projectBaseUrl = "'.Router::url('/', true).'";
+            ', array('inline' => false)
+        );
+
+        if (Configure::read('debug')) {
+            echo $this->Html->scriptBlock('
+                var PublishableKey = "'.TEST_PUBLIC_KEY.'";
+                ', array('inline' => false)
+            );
+        } else {
+            echo $this->Html->scriptBlock('
+                var PublishableKey = "'.LIVE_PUBLIC_KEY.'";
+                ', array('inline' => false)
+            );
+        }
     ?>
     <?= $this->Html->script(array(
         /* production */
