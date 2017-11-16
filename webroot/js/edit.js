@@ -559,9 +559,9 @@ function updateQuiz(field, value, element) {
                 element.attr('data-current-value', value);
                 var originalBackgroundColor = element.css('background-color'),
                 originalColor = element.css('color');
-                element.css({ 'background-color' : '#5cb85c', 'color' : 'white' });
+                element.animate({ 'background-color' : '#5cb85c', 'color' : 'white' });
                 setTimeout(function(){
-                  element.css({ 'background-color' : originalBackgroundColor, 'color' : originalColor });
+                  element.animate({ 'background-color' : originalBackgroundColor, 'color' : originalColor });
                 }, 1000);
             }
         }

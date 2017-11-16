@@ -122,6 +122,25 @@ $.tablesorter.addParser({
     }, 
     // set type, either numeric or text 
     type: 'numeric' 
+});
+
+$.tablesorter.addParser({ 
+    // set a unique id 
+    id: 'points', 
+    is: function(s) { 
+        // return false so this parser is not auto detected 
+        return false; 
+    }, 
+    format: function(s) { 
+        // format your data for normalization
+        if (!s) {
+            return 0;
+        }
+        var pointParts = s.split('/');
+        return pointParts[0];
+    }, 
+    // set type, either numeric or text 
+    type: 'numeric' 
 }); 
 
 $(document).ready(function(){ 
@@ -136,6 +155,9 @@ $(document).ready(function(){
         headers: { 
             2: { 
                 sorter:'submitted' 
+            },
+            4: { 
+                sorter:'points' 
             } 
         } 
     }); 
@@ -392,6 +414,7 @@ function updateStudentInfo($this) {
         data: {'std_info' : std_info, 'value_info' : value_info},
         success: function (response)
         {
+            console.log(std_info);
             if (response.success || response.success === "true")
             {
                 $this.hide();
@@ -400,6 +423,9 @@ function updateStudentInfo($this) {
                 } else {
                     $this.prev().html(response.changetext + ' <i class="glyphicon pencil-small"></i>').show();
                 }
+                $(".table").trigger("update"); 
+                // var sorting = (std_info.indexOf('class') !== -1) ? [[3,0]] : [[1,0]];
+                // $(".table").trigger("sorton",[sorting]);
             } else {
                 alert(response.message);
             }
@@ -520,6 +546,9 @@ function testFunc() {
                         }
                         inputField.parents('.read-essay').first().prev().children().text(marks);
                     }
+                    $(".table").trigger("update"); 
+                    // var sorting = [[5,0]]; 
+                    // $(".table").trigger("sorton",[sorting]); 
                 } else {
                     alert('Something went wrong, try again later');
                 }

@@ -1,7 +1,9 @@
 <?= $this->Form->create('Student'); ?>
-
 <div class="panel panel-primary" id="small-margin">
     <div class="panel-heading">
+        <div class="widget-modal">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <h4><?php echo __('QUIZ_STUDENT_VIEW'); ?></h4>
