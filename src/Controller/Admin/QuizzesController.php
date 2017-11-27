@@ -15,7 +15,7 @@ use Cake\Utility\Hash;
 class QuizzesController extends AppController
 {
     public $paginate = [
-        'limit' => 3,
+        'limit' => 10,
         'sortWhitelist' => [
             'id', 'name', 'Users.name', 'created', 'is_approve'
         ]
@@ -54,17 +54,45 @@ class QuizzesController extends AppController
         if ($filter == 'all') {
             // Do nothing
             $order = ['Quizzes.is_approve ASC'];
+            $conditions[] = [
+                'OR' => [
+                    [
+                        'Quizzes.parent_quiz_id IS NOT NULL',
+                    ],
+                    [
+                        'Quizzes.parent_quiz_id IS NULL',
+                        'Quizzes.shared' => 1,
+                        'OR' => [
+                            'Quizzes.is_approve IS NULL',
+                            'Quizzes.is_approve' => 2
+                        ]
+                    ]
+                ] 
+            ];
         } else {    
             // pr($filter);
-            if ($filter == 3) {
-                $conditions[] = ['Quizzes.is_approve IS NULL'];
-            } else {
-                $conditions[] = ['Quizzes.is_approve' =>  $filter];
+            if ($filter == 3) { // Pending quizzes
+                $conditions[] = [
+                    'Quizzes.is_approve IS NULL',
+                    'Quizzes.shared' => 1
+                ];
+            } else if ($filter == 2) { // Declined
+                $conditions[] = [
+                    'Quizzes.is_approve' =>  2,
+                    'Quizzes.shared' => 1
+                ];
+            } else { // Approved
+                $conditions[] = [
+                    'Quizzes.parent_quiz_id IS NOT NULL'
+                ];
             }
             $order = ['Quizzes.created ASC'];
         }
 
-        $conditions[] = ['Quizzes.shared' => 1];
+        // pr($conditions);
+        // exit;
+
+        //$conditions[] = ['Quizzes.shared' => 1];
 
         $contain = ['Users'];
 
@@ -100,26 +128,79 @@ class QuizzesController extends AppController
     public function manageShare() {
         $this->isAdminUser();
         if ($this->request->is('post')) {
-            $quiz = $this->Quizzes->find('all', array(
-                'conditions' => array(
-                    'Quizzes.random_id' => $this->request->data['random_id'],
-                    'Quizzes.shared' => 1
-                )
-            ))->first();
+            if ($this->request->data['is_approve'] == 1) {
+                $contain = ['Questions'  => function($q) {
+                    return $q->contain(['Choices']);
+                }];
+                $message = __('You have successfully approved!');
+            } else {
+                $contain = [];
+                $message = __('You have successfully declined!');
+            }
+
+            $conditions = empty($this->request->data['parent_quiz_id']) ? ['Quizzes.id' => $this->request->data['id'],'Quizzes.shared' => 1] : ['Quizzes.id' => $this->request->data['parent_quiz_id'], 'Quizzes.shared' => 1];
+
+            $quiz = $this->Quizzes->find()->where($conditions)->contain($contain)->first();
 
             // pr($quiz);
+            // pr($this->request->data);
             // exit;
 
             if (empty($quiz)) {
                 $this->Flash->error(__('SOMETHING_WENT_WRONG'));
             } else {
-                $message = ($this->request->data['is_approve'] == 1) ? __('You have successfully approved!') : __('You have successfully declined!');
+                if (!empty($this->request->data['parent_quiz_id'])) {
+                    $sharedCopy = $this->Quizzes->sharedQuizCopy($this->request->data['parent_quiz_id']);
+                }
+                unset($this->request->data['id']);
                 unset($this->request->data['random_id']);
                 $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data, ['validate' => '']);
-                // pr($quiz);
-                // exit;
                 if ($this->Quizzes->save($quiz)) {
-                     $this->Flash->success($message);
+                    if (!empty($sharedCopy)) {
+                        if ($this->Quizzes->delete($sharedCopy)) {
+                            foreach ($sharedCopy->questions as $key => $question) {
+                                $this->Quizzes->Questions->Choices->deleteAll(array('question_id' => $question->id));
+                            }
+                            $this->Quizzes->Questions->deleteAll(array('quiz_id' => $sharedCopy->id));
+                        }
+                    }
+                    if ($this->request->data['is_approve'] == 1) {
+                        $new_quiz = array();
+                        $new_quiz['name'] = $quiz->name;
+                        $new_quiz['user_id'] = $quiz->user_id;
+                        $new_quiz['description'] = $quiz->description;
+                        //$new_quiz['status'] = 1;
+                        $new_quiz['show_result'] = $quiz->show_result;
+                        $new_quiz['anonymous'] = $quiz->anonymous;
+                        $new_quiz['subjects'] = $quiz->subjects;
+                        $new_quiz['classes'] = $quiz->classes;
+                        $new_quiz['is_approve'] = 1;
+                        $new_quiz['parent_quiz_id'] = $quiz->id;
+
+                        foreach ($quiz->questions as $key1 => $question) {
+                            $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
+                            $new_quiz['questions'][$key1]['text'] = $question->text;
+                            $new_quiz['questions'][$key1]['explanation'] = $question->explanation;
+                            $new_quiz['questions'][$key1]['weight'] = $question->weight;
+                            $new_quiz['questions'][$key1]['max_allowed'] = $question->max_allowed;
+                            $new_quiz['questions'][$key1]['case_sensitive'] = $question->case_sensitive;
+                            foreach ($question->choices as $key2 => $choice) {
+                                $new_quiz['questions'][$key1]['choices'][$key2]['text'] = $choice->text;
+                                $new_quiz['questions'][$key1]['choices'][$key2]['points'] = $choice->points;
+                                $new_quiz['questions'][$key1]['choices'][$key2]['weight'] = $choice->weight;
+                            }
+                        }
+
+                        $new_quiz = $this->Quizzes->newEntity($new_quiz, [
+                            'associated' => [
+                                'Questions' => ['associated' => ['Choices']]
+                            ]
+                        ]);
+
+                        $this->Quizzes->save($new_quiz);
+                    }
+
+                    $this->Flash->success($message);
                 } else {
                      $this->Flash->error(__('SOMETHING_WENT_WRONG'));
                 }

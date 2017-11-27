@@ -846,6 +846,9 @@ class UsersController extends AppController
                 $user['expired'] = $this->formatDateObject($expired);
                 $user['customer_id'] = '';
                 $user['plan_switched'] = '';
+                if ($account_level == 2) {
+                    $user['quiz_bank_access'] = true;
+                }
                 $this->Auth->setUser($user);
                 $user['invoice_info'] = $this->request->data['invoice_info'];
                 $user['package'] = ($account_level == 1) ? __('29_EUR') : __('49_EUR');

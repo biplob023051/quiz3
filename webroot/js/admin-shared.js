@@ -4,10 +4,12 @@ $(document).on('change', '#quiz-is-approve', function() {
 
 $(document).on('click', '.decline-quiz', function(e) {
 	e.preventDefault();
-	var random_id = $(this).attr('random-id'),
+	var parent_id = $(this).attr('parent-id'),
+        quiz_id = $(this).attr('quiz-id'),
         quiz_name = $(this).attr('quiz-name'),
         body_html = '';
-        body_html += '<input type="hidden" name="random_id" value="'+random_id+'">';
+        body_html += '<input type="hidden" name="parent_quiz_id" value="'+parent_id+'">';
+        body_html += '<input type="hidden" name="id" value="'+quiz_id+'">';
         body_html += '<input type="hidden" name="is_approve" value="2">';
         body_html += '<div class="form-group required">';
         body_html += '<label for="comment" class="sr-only">Name</label>';
@@ -24,10 +26,10 @@ $(document).on('click', '.decline-quiz', function(e) {
 
 $(document).on('click', '.approve-quiz', function(e) {
     e.preventDefault();
-    var random_id = $(this).attr('random-id'),
+    var quiz_id = $(this).attr('quiz-id'),
         quiz_name = $(this).attr('quiz-name'),
         body_html = '';
-        body_html += '<input type="hidden" name="random_id" value="'+random_id+'">';
+        body_html += '<input type="hidden" name="id" value="'+quiz_id+'">';
         body_html += '<input type="hidden" name="is_approve" value="1">';
         // body_html += '<div class="form-group required">';
         // body_html += '<label for="comment" class="sr-only">Name</label>';

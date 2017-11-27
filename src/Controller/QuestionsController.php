@@ -15,11 +15,9 @@ class QuestionsController extends AppController
         if ($questionId == -1)
             return true;
         // get owner true or false
-        $ownerId = $this->Questions->getQuestionOwner($questionId, $this->Auth->user('id'));
-
+        $ownerId = ($this->Auth->user('account_level') == 51) ? true : $this->Questions->getQuestionOwner($questionId, $this->Auth->user('id'));
         if (is_null($ownerId))
             return false;
-
         return $ownerId;
     }
 
@@ -146,7 +144,7 @@ class QuestionsController extends AppController
                 $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
                 $data['Choice'][0]['text'] = __('ESSAY');
             } else {
-                if (!empty($data['Choice'])) unset($data['Choice']);
+                //if (!empty($data['Choice'])) unset($data['Choice']);
                 $data['Choice'][0]['points'] = !empty($data['Choice'][0]['text']) ? $data['Choice'][0]['text'] : 0;
                 $data['Choice'][0]['text'] = __('ESSAY');
             }
@@ -300,7 +298,7 @@ class QuestionsController extends AppController
 
         $response['success'] = false;
 
-        if (!empty($question) && ($question->quiz->user_id == $this->Auth->user('id'))) {
+        if (!empty($question) && (($question->quiz->user_id == $this->Auth->user('id')) || ($this->Auth->user('account_level')))) {
             $copy_question['quiz_id'] = $question->quiz_id;
             $copy_question['question_type_id'] = $question->question_type_id;
             $copy_question['text'] = $question->text;

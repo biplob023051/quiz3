@@ -258,4 +258,22 @@ class QuizzesTable extends Table
         return $result;
     }
 
+    // Find share quiz
+    public function sharedQuizCopy($id) {
+        $result = $this->find('all', array(
+            'conditions' => array(
+                'Quizzes.parent_quiz_id' => $id
+            )
+        ))
+        ->contain([
+            'Questions' => function($q) {
+                return $q->select([
+                     'Questions.id',
+                     'Questions.quiz_id'
+                ]);
+            }
+        ])->first();
+        return $result;
+    }
+
 }

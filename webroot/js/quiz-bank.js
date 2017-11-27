@@ -114,9 +114,9 @@
 
     $(document).on('click', '.view-quiz', function() {
         // $(this).addClass('remove-view').removeClass('view-quiz');
-        var random_id = $(this).attr('random-id');
+        var quiz_id = $(this).attr('quiz-id');
         $.ajax({
-            data: {random_id : random_id},
+            data: {quiz_id : quiz_id},
             type: 'post',
             url: projectBaseUrl + 'quizzes/ajax_preview',
             dataType: 'html',
@@ -131,8 +131,8 @@
     // import-quiz
     $(document).on('click', '.import-quiz' , function(e){
         e.preventDefault();
-        var random_id = $(this).attr('random-id');
-        importQuiz(random_id, $(this));
+        var quiz_id = $(this).attr('quiz-id');
+        importQuiz(quiz_id, $(this));
     });
 
     $(document).on('click', '.close', function(e){
@@ -141,23 +141,23 @@
 
     // multiple quiz import
     $(document).on('click', '.multiple-import-quiz' , function(e) {
-        var random_id = [];
+        var quiz_id = [];
         $('.chkselect:checked').each(function() {
-            random_id.push($(this).attr('data-id'));
+            quiz_id.push($(this).attr('data-id'));
         });
-        if (random_id.length < 1) {
+        if (quiz_id.length < 1) {
             $("#alert-box").html('<div class="alert alert-danger"><span class="close">&times;</span>'+lang_strings['check_select']+'</div>').show();
             setTimeout(function() {
                 $("#alert-box").fadeOut(3000);
             },3000);
             return false;
         }
-        importQuiz(random_id);
+        importQuiz(quiz_id);
     });
 
-    function importQuiz(random_id, element) {
+    function importQuiz(quiz_id, element) {
         $.ajax({
-            data: {random_id : random_id},
+            data: {quiz_id : quiz_id},
             type: 'post',
             url: projectBaseUrl + 'quizzes/ajax_import',
             dataType: 'json',

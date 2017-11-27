@@ -142,12 +142,16 @@ class QuizzesController extends AppController
         $this->accountStatus();
         // Check permission
         $userId = $this->Auth->user('id');
+
+        $role = $this->Auth->user('account_level');
+        if ($role == '51') {
+            $conditions = ['id' => $quizId];
+        } else {
+            $conditions = ['id' => $quizId, 'user_id' => $userId];
+        }
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $quiz = $this->Quizzes->find()->where(['id' => $quizId, 'user_id' => $userId])->contain([])->first();
-            // pr($this->request->data);
-            // pr($quiz);
-            // exit;
+            $quiz = $this->Quizzes->find()->where($conditions)->contain([])->first();
             if (!empty($this->request->data['subjects'])) {
                 $this->request->data['subjects'] = json_encode($this->request->data['subjects'], true);
             }
@@ -158,14 +162,18 @@ class QuizzesController extends AppController
             $quiz = $this->Quizzes->patchEntity($quiz, $this->request->data);
             if ($this->Quizzes->save($quiz)) {
                 $this->Flash->success(__('QUIZ_SAVED'));
-                return $this->redirect(array('action' => 'index'));
+                if (empty($quiz->parent_quiz_id)) {
+                    return $this->redirect(array('action' => 'index'));
+                } else {
+                    return $this->redirect(array('controller' => 'quizzes', 'action' => 'shared', 'prefix' => 'admin'));
+                }
             } else {
                 $this->Flash->error(__('QUIZ_SAVE_FAILED'));
             }
         }
 
         $query = $this->Quizzes->find()
-            ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $userId])
+            ->where($conditions)
             ->contain([
                 'Questions' => function($q) {
                     $q->contain([
@@ -183,7 +191,6 @@ class QuizzesController extends AppController
 
         $query->hydrate(false);
         $data = $query->first();
-        
 
         if (empty($data))
             throw new NotFoundException;
@@ -192,11 +199,7 @@ class QuizzesController extends AppController
             ->select(['name', 'template_name', 'multiple_choices', 'id', 'type']);
         $query->hydrate(false);
         $data['QuestionTypes'] = $query->toArray();
-        // pr($data);
-        // exit;
-
-        // pr($data['QuestionTypes']);
-        // exit;
+        
         if (!empty($initial)) {
             $this->set(compact('initial'));
         } 
@@ -233,10 +236,6 @@ class QuizzesController extends AppController
             ->where(['Subjects.isactive' => 1, 'Subjects.is_del IS NULL', 'Subjects.type' => 1])
             ->toArray();
 
-
-        // pr($classOptions);
-        // exit;
-
         $subject_cond[] = array(
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
@@ -245,15 +244,12 @@ class QuizzesController extends AppController
         $c_user = $this->Session->read('Auth.User');
         // pr($c_user);
         // exit;
-        if (!empty($c_user['subjects'])) {
+        if (!empty($c_user['subjects']) && ($role != '51')) {
             $selectedSubjects = json_decode($c_user['subjects'], true);
             $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }
 
         $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where($subject_cond)->toArray();
-
-        // pr($subjectOptions);
-        // exit;
 
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
@@ -262,12 +258,6 @@ class QuizzesController extends AppController
         if (!empty($classOptions)) {
             $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
-
-        // pr($this->Session->read('Auth.User'));
-        // exit;
-
-        // pr($data);
-        // exit;
 
         $this->set('data', $data);
         $this->set(compact('lang_strings', 'classOptions', 'subjectOptions'));
@@ -366,9 +356,8 @@ class QuizzesController extends AppController
         
         if (empty($this->request->data['present'])) {
             $conditions = [
-                'Quizzes.random_id' => $this->request->data['random_id'],
-                'Quizzes.shared' => 1,
-                'Quizzes.is_approve' => 1
+                'Quizzes.id' => $this->request->data['quiz_id'],
+                'Quizzes.parent_quiz_id IS NOT NULL',
             ];
         } else {
             $conditions = [
@@ -402,23 +391,23 @@ class QuizzesController extends AppController
         if (empty($data)) {
             $this->set('isError', true);
         } else {
-            $lang_strings[0] = __('CONNECTION_LOST');
-            $lang_strings[1] = __('ALL_QUESTIONS_ANSWERED');
-            $lang_strings[2] = __('QUESTIONS');
-            $lang_strings[3] = __('UNANSWERED');
-            $lang_strings[4] = __('WANT_TURN_IN_QUIZ');
-            $lang_strings[5] = __('FIRST_NAME_REQUIRED');
-            $lang_strings[6] = __('LAST_NAME_REQUIRED');
-            $lang_strings[7] = __('CLASS_REQUIRED');
-            $lang_strings['last_name_invalid'] = __('INVALID_LAST_NAME');
-            $lang_strings['first_name_invalid'] = __('INVALID_FIRST_NAME');
-            $lang_strings['class_invalid'] = __('INVALID_CLASS');
-            $lang_strings['right_click_disabled'] = __('RIGHT_CLICK_DISABLED');
-            $lang_strings['browser_switch'] = __('CANT_SWITCH_TAB');
-            $lang_strings['leave_quiz'] = __('SURELY_LEAVE_QUIZ');
+            // $lang_strings[0] = __('CONNECTION_LOST');
+            // $lang_strings[1] = __('ALL_QUESTIONS_ANSWERED');
+            // $lang_strings[2] = __('QUESTIONS');
+            // $lang_strings[3] = __('UNANSWERED');
+            // $lang_strings[4] = __('WANT_TURN_IN_QUIZ');
+            // $lang_strings[5] = __('FIRST_NAME_REQUIRED');
+            // $lang_strings[6] = __('LAST_NAME_REQUIRED');
+            // $lang_strings[7] = __('CLASS_REQUIRED');
+            // $lang_strings['last_name_invalid'] = __('INVALID_LAST_NAME');
+            // $lang_strings['first_name_invalid'] = __('INVALID_FIRST_NAME');
+            // $lang_strings['class_invalid'] = __('INVALID_CLASS');
+            // $lang_strings['right_click_disabled'] = __('RIGHT_CLICK_DISABLED');
+            // $lang_strings['browser_switch'] = __('CANT_SWITCH_TAB');
+            // $lang_strings['leave_quiz'] = __('SURELY_LEAVE_QUIZ');
 
             $this->set(compact('lang_strings', 'data'));
-            $this->set('quizRandomId', $this->request->data['random_id']);
+            //$this->set('quizRandomId', $this->request->data['random_id']);
 
         }
     }
@@ -1017,25 +1006,28 @@ class QuizzesController extends AppController
             $this->Flash->error($message);
             return $this->redirect(array('controller' => 'quiz', 'action' => 'index'));
         }
-        // pr($quiz);
-        // exit;
-
-
+        $shared_copy = ($quiz->is_approve == 1) ? true : false;
         // Update shared field
         $quiz->shared = empty($shared) ? 1 : NULL;
+        $quiz->is_approve = NULL;
         if ($this->Quizzes->save($quiz)) {
             // Send email to the admin
             if (empty($shared)) {
                 $subject = __('QUIZ_SHARED_EMAIL');
                 $template = 'quiz_shared';
                 $message = __('QUIZ_SHARED_HOLD_APPROVAL');
-
                 $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), $subject, $quiz, $template);
-                //$admin_email = $this->Email->sendMail('biplob.weblancer@gmail.com', $subject, $quiz, $template);
-
-                // pr($admin_email);
-                // exit;
             } else {
+                // If approved delete the shared copy
+                if ($shared_copy) {
+                    $shared = $this->Quizzes->sharedQuizCopy($quiz_id);
+                    if ($this->Quizzes->delete($shared)) {
+                        foreach ($shared->questions as $key => $question) {
+                            $this->Quizzes->Questions->Choices->deleteAll(array('question_id' => $question->id));
+                        }
+                        $this->Quizzes->Questions->deleteAll(array('quiz_id' => $shared->id));
+                    }
+                }
                 $subject = __('Sharing removed!');
                 $template = 'remove_sharing';
                 $message = __('SHARING_REMOVE_SUCCESS');
@@ -1076,8 +1068,7 @@ class QuizzesController extends AppController
         $user_id = $this->Auth->user('id');
         // Get pagination
         $conditions[] = array(
-            'Quizzes.shared' => 1,
-            'Quizzes.is_approve' => 1,
+            'Quizzes.parent_quiz_id IS NOT NULL',
             'Downloads.id IS NULL'
         );
 
@@ -1171,8 +1162,7 @@ class QuizzesController extends AppController
 
         // Get pagination
         $conditions[2] = array(
-            'Quizzes.shared' => 1,
-            'Quizzes.is_approve' => 1,
+            'Quizzes.parent_quiz_id IS NOT NULL',
             'Downloads.id IS NULL'
         );
 
@@ -1250,7 +1240,7 @@ class QuizzesController extends AppController
             if ($imported_quiz_count >= DOWNLOAD_LIMIT) {
                 $response['message'] = __('YOU_HAVE_EXCEEDED_MAX_IMPORT');
             } else {
-                if ((count($this->request->data['random_id'])+$imported_quiz_count) > DOWNLOAD_LIMIT) {
+                if ((count($this->request->data['quiz_id'])+$imported_quiz_count) > DOWNLOAD_LIMIT) {
                     $response['message'] = __('CANT_PROCESS_REQUEST') . ' ' . (DOWNLOAD_LIMIT - $imported_quiz_count);
                 }
             }
@@ -1260,22 +1250,10 @@ class QuizzesController extends AppController
             exit;
         }
 
-        // $quizInfo = $this->Quizzes->find('all', array(
-        //     'conditions' => array(
-        //         'Quizzes.random_id IN' => $this->request->data['random_id'],
-        //         'Quizzes.shared' => 1
-        //     ),
-        //     'contain' => array(
-        //         'Questions' => array(
-        //             'Choices'
-        //         )
-        //     )
-        // ))->toArray();
-
         $quizInfo = $this->Quizzes->find()
         ->where([
-            'Quizzes.random_id IN' => $this->request->data['random_id'],
-            'Quizzes.shared' => 1
+            'Quizzes.id IN' => $this->request->data['quiz_id'],
+            'Quizzes.parent_quiz_id IS NOT NULL'
         ])
         ->contain([
             'Questions' => function($q) {
@@ -1286,11 +1264,9 @@ class QuizzesController extends AppController
         ])
         ->toArray();
 
-        // pr($this->request->data['random_id']);
-        // pr($quizInfo);
-        // exit;
 
-        if (!empty($quizInfo) && (count($quizInfo) == count($this->request->data['random_id']))) {
+
+        if (!empty($quizInfo) && (count($quizInfo) == count($this->request->data['quiz_id']))) {
             foreach ($quizInfo as $key => $quiz) {
                 // Check if already imported
                 $is_imported = $this->Quizzes->Users->Downloads->find('all', array(
@@ -1374,210 +1350,6 @@ class QuizzesController extends AppController
         echo json_encode($response);
         exit;
 
-    }
-
-    // List of shared quiz
-    public function admin_shared() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-        $this->set('title_for_layout',__('SHARED_QUIZ_LIST'));
-
-        if ($this->request->is('post')) {
-            $data = $this->request->data;
-            if (isset($data['Quiz'])) {
-                $filter = $data['Quiz']['is_approve'];
-                $this->Session->write('Quizzes.is_approve', $filter);
-            }
-            $this->redirect(array('controller' => 'quiz', 'action' => 'shared', 'admin' => true));
-        } else {
-            if (!$this->Session->check('Quizzes.is_approve')) {
-                $filter = 'all';
-                $this->Session->write('Quizzes.is_approve', $filter);
-            } else {
-                $filter = $this->Session->read('Quizzes.is_approve');
-            }
-        }
-
-        $this->set(compact('filter'));
-        $this->Paginator->settings = $this->paginate;
-        if ($filter == 'all') {
-            // Do nothing
-            $this->Paginator->settings['order'] = 'Quizzes.is_approve ASC';
-        } else {    
-            // pr($filter);
-            $this->Paginator->settings['conditions'][] = array(
-                'Quizzes.is_approve' => ($filter == 3) ? NULL : $filter,
-            );
-            $this->Paginator->settings['order'] = 'Quizzes.created ASC';
-        }
-
-        $this->Quizzes->Behaviors->load('Containable');
-
-        $this->Paginator->settings['conditions'][] = array(
-            'Quizzes.shared' => 1,
-        );
-
-        $this->Paginator->settings['contain'] = array(
-            'User'
-        );
-
-        // pr($this->Paginator->settings);
-
-        // pr($this->Paginator->paginate('Quiz'));
-        // exit;
-
-        try {
-            $this->set('quizzes', $this->Paginator->paginate('Quiz'));
-        } catch (NotFoundException $e) { 
-            // when pagination error found redirect to first page e.g. paging page not found
-            return $this->redirect(array('controller' => 'quiz', 'action' => 'shared', 'admin' => true));
-        }
-
-        // Language strings
-        $lang_strings['decline_question'] = __('DECLINE_QUIZ');
-        $lang_strings['cancel'] = __('CANCEL');
-        $lang_strings['submit'] = __('SUBMIT');
-        $lang_strings['decline_reason'] = __('ENTER_DECLINE_REASON');
-        $lang_strings['approve_question'] = __('APPROVE_QUIZ');
-        $lang_strings['approve_body'] = __('IF_APPROVE_CAN_DECLINE');
-
-        $this->set(compact('lang_strings'));
-
-    }
-
-    // Admin decline method
-    public function admin_manage_share() {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-
-        if ($this->request->is('post')) {
-            $quiz = $this->Quizzes->find('first', array(
-                'conditions' => array(
-                    'Quizzes.random_id' => $this->request->data['Quiz']['random_id'],
-                    'Quizzes.shared' => 1
-                ),
-                'recursive' => -1,
-                'fields' => array('Quizzes.id')
-            ));
-
-            if (empty($quiz)) {
-                $this->Flash->error(__('SOMETHING_WENT_WRONG'));
-            } else {
-                unset($this->request->data['Quiz']['random_id']);
-                $this->request->data['Quiz']['id'] = $quiz['Quiz']['id'];
-                $message = ($this->request->data['Quiz']['is_approve'] == 1) ? __('APPROVED_SUCCESS') : __('DECLINED_SUCCESS');
-                // pr($this->request->data);
-                // exit;
-                $this->Quizzes->validator()->remove('name');
-                if ($this->Quizzes->save($this->request->data)) {
-                     $this->Flash->success($message);
-                } else {
-                     $this->Flash->error(__('SOMETHING_WENT_WRONG'));
-                }
-            }
-        }
-        $this->redirect($this->referer());
-    }
-
-    // Admin preview quiz
-    public function admin_preview($quiz_id = null) {
-        if ($this->Auth->user('account_level') != 51)
-            throw new ForbiddenException;
-        if (empty($quiz_id)) {
-            $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
-            $this->redirect(array('controller' => 'quiz', 'action' => 'shared', 'admin' => true));
-        }
-
-        $this->Quizzes->Behaviors->load('Containable');
-        $data = $this->Quizzes->find('first', array(
-            'conditions' => array(
-                'Quizzes.id = ' => $quiz_id
-            ),
-            'contain' => array(
-                'Question' => array(
-                    'Choice' => array('order' => array('Choice.weight DESC', 'Choice.id ASC')),
-                    'QuestionType' => array(
-                        'fields' => array('template_name', 'id', 'multiple_choices')
-                    ),
-                    'order' => array('Question.weight DESC', 'Question.id ASC')
-                ),
-                'User'
-            )
-        ));
-
-        if (empty($data))
-            throw new NotFoundException;
-
-        $this->QuestionType->Behaviors->load('Containable');
-        $this->QuestionType->contain();
-        $data['QuestionTypes'] = $this->QuestionType->find('all', array(
-            'fields' => array('name', 'template_name', 'multiple_choices', 'id', 'type')
-        ));
-
-        if (empty($data['Question'])) {
-            $this->set('no_question', true);
-        }
-
-        $lang_strings['empty_question'] = __('NO_EMPTY_QUESTION');
-        $lang_strings['same_choice'] = __('EMPTY_OR_SAME_NOT_ALLOWED');
-        $lang_strings['single_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
-        $lang_strings['correct_answer'] = __('ENTER_CORRECT_ANSWERS');
-        $lang_strings['point_greater'] = __('ONE_CHOICE_GREATER_THAN_ZERO');
-        $lang_strings['two_greater'] = __('TWO_CHOICES_GREATER_THAN_ZERO');
-        $lang_strings['insert_another'] = __('CHOOSE_ANOTHER_CHOOSE');
-        $lang_strings['youtube_url'] = __('ENTER_YOUTUBE_URL');
-        $lang_strings['image_url'] = __('ENTER_IMAGE_URL');
-        $lang_strings['header_q_title'] = __('ENTER_HEADER');
-        $lang_strings['other_q_title'] = __('ENTER_QUESTION');
-
-        $lang_strings['youtube_exp_text'] = __('VIDEO_EXPLANATION');
-        $lang_strings['image_exp_text'] = __('IMAGE_EXPLANATION_TEXT');
-        $lang_strings['other_exp_text'] = __('EXPLANATION_TEXT');
-        $lang_strings['empty_header'] = __('ENTER_HEADER_TEXT');
-
-        // Load available classes (created by admin)
-        $this->loadModel('Subject');
-        $classOptions = $this->Subject->find('list', array(
-            'conditions' => array(
-                'Subject.isactive' => 1,
-                'Subject.is_del' => NULL,
-                'Subject.type' => 1
-            ),
-            'recursive' => -1
-        ));
-
-        $subject_cond[] = array(
-            'Subject.isactive' => 1,
-            'Subject.is_del' => NULL,
-            'Subject.type' => NULL
-        );
-
-        if (!empty($data['User']['subjects'])) {
-            $selectedSubjects = json_decode($data['User']['subjects'], true);
-            $subject_cond[] = array('Subject.id' => $selectedSubjects);
-        }
-
-        $subjectOptions = $this->Subject->find('list', array(
-            'conditions' => $subject_cond,
-            'recursive' => -1
-        ));
-
-        if (!empty($subjectOptions)) {
-            $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
-        }
-        
-        if (!empty($classOptions)) {
-            $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
-        }
-
-        // pr($this->Session->read('Auth.User'));
-        // exit;
-
-        // pr($data);
-        // exit;
-
-        $this->set('data', $data);
-        $this->set(compact('lang_strings', 'classOptions', 'subjectOptions'));
     }
 
     private function quizTypes() {

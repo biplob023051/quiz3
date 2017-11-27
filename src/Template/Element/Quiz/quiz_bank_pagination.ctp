@@ -41,7 +41,7 @@
             <?php else : ?>
                 <?php foreach ($quizzes as $quiz): ?>
                     <tr>
-                        <td class="pbutton text-center"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox('checkbox', array('data-id' => $quiz->random_id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
+                        <td class="pbutton text-center"><?php echo !empty($no_access) ? $this->Form->checkbox('checkbox', array('data-id' => $quiz->id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect', 'disabled' => true)) : $this->Form->checkbox('checkbox', array('data-id' => $quiz->id,'name'=>'data[Quiz][id][]', 'class'=>'chkselect'));?></td>
                         <td class="text-center"><?php echo h($quiz->name); ?></td>
                         <?php
                             $related_subjects = '';
@@ -75,8 +75,8 @@
                         <td class="text-center"><?php echo !empty($related_classes) ? rtrim($related_classes, ', ') : __('UNDEFINED'); ?></td>
                         <td class="text-center"><?php echo $quiz->created; ?></td>
                         <td class="text-center action-box">
-                            <button type="button" class="btn btn-success btn-sm import-quiz"<?php echo !empty($no_access) ? '  disabled' : ''; ?> random-id="<?php echo $quiz->random_id; ?>" title="<?php echo __('IMPORT_QUIZ'); ?>"><i class="glyphicon glyphicon-save"></i></button>
-                            <button type="button" class="btn btn-success btn-sm view-quiz" random-id="<?php echo $quiz->random_id; ?>" title="<?php echo __('PREVIEW_QUIZ'); ?>"><i class="glyphicon glyphicon-search"></i></button>
+                            <button type="button" class="btn btn-success btn-sm import-quiz"<?php echo !empty($no_access) ? '  disabled' : ''; ?> quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('IMPORT_QUIZ'); ?>"><i class="glyphicon glyphicon-save"></i></button>
+                            <button type="button" class="btn btn-success btn-sm view-quiz" quiz-id="<?php echo $quiz->id; ?>" title="<?php echo __('PREVIEW_QUIZ'); ?>"><i class="glyphicon glyphicon-search"></i></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
