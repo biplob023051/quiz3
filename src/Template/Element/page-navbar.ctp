@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <?php echo $this->Html->link('', '/', array('class' => 'navbar-brand')); ?>
+                <?php echo empty($eng_domain) ? $this->Html->link('', '/', array('class' => 'navbar-brand fin-logo')) : $this->Html->link('', '/', array('class' => 'navbar-brand eng-logo')); ?>
             </div>
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="nav navbar-nav navbar-left">
@@ -23,22 +23,24 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo $this->request->base; ?>/users/create"><?php echo __('NOT_ACCOUNT') . ' '; ?><span class="text-primary"><?php echo __('REGISTER_NOW'); ?></span></a></li>
                     <li><a href="<?php echo $this->request->base; ?>/users/login" style="padding-top:8px; padding-bottom:0" ><button type="button" class="btn btn-success"><?php echo __('LOGGIN'); ?></button></a></li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                            <?php echo $this->Quiz->getLang($language); ?>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)" class="my-language" data-value="fi">Suomi</a></li>
-                            <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">English</a></li>
-                            <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI">Svenska</a></li>
-                        </ul>
-                    </li>
+                    <?php if (empty($eng_domain)) : ?>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                <?php echo $this->Quiz->getLang($language); ?>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" class="my-language" data-value="fi">Suomi</a></li>
+                                <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">English</a></li>
+                                <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI">Svenska</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         <?php else : ?>
             <div class="navbar-header">
-                <?php echo $this->Html->link('', '/', array('class' => 'navbar-brand')); ?>
+                <?php echo empty($eng_domain) ? $this->Html->link('', '/', array('class' => 'navbar-brand fin-logo')) : $this->Html->link('', '/', array('class' => 'navbar-brand eng-logo')); ?>
             </div>
         <?php endif; ?>
     </div>

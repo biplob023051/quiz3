@@ -106,7 +106,7 @@ use Cake\Core\Configure;
         <?= $this->fetch('content'); ?>
     <?php endif; ?>
     <div id="footer">
-        <div class="container"></div>
+        <div class="container <?php echo empty($eng_domain) ? 'fin-logo-footer' : 'eng-logo-footer'; ?>"></div>
     </div>
     <?php 
     if ($authUser): // Add these modal if logged in user

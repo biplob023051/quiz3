@@ -1,3 +1,36 @@
+<style type="text/css">
+    @media (min-width: 992px) {
+        .modal-v-lg {
+            width: 1100px;
+            height: 900px; /* control height here */
+        }
+    }
+
+    #quiz-bank {
+        padding: 20px;
+    }
+    .pbutton {
+        max-width: 25px !important;
+        width: auto;
+    }
+
+    .action-box {
+        max-width: 100px !important;
+        width: auto;
+        min-width: 90px !important;
+    } 
+
+    .same-width-btn {
+        width: 160px !important;
+    } 
+
+    .same-width-btn i {
+        top: 3px;
+    } 
+    .sortable {
+        font-size: 14px !important;
+    }
+</style>
 <?php
     $lang_strings['delete_quiz_1'] = __('THERE_ARE');
     $lang_strings['delete_quiz_2'] = __('ANSWERS_COMMA');
@@ -66,14 +99,8 @@
 <!-- $this->Html->script(array('invoice'), array(
     'inline' => false
 )); -->
-<?= 
-$this->Html->script(array('payment'), array(
-    'inline' => false
-));
-?>
-<?=
-$this->assign('title', __('MY_QUIZZES'));
-?>
+<?= $this->Html->script(['jquery.tablesorter.min', 'payment'], ['inline' => false]); ?>
+<?= $this->assign('title', __('MY_QUIZZES')); ?>
 
 <?= $this->Flash->render(); ?>
 
@@ -161,34 +188,35 @@ $this->assign('title', __('MY_QUIZZES'));
         <?php if (!empty($data['quizzes'])) : ?>
             <!-- show quiz list -->
             <table class="table">
+                <thead>
+                    <tr>
+                        <th class="sortable header" colspan="3"><?= __('QUIZ_SORT'); ?></th>
+                    </tr>
+                </thead>
                 <tbody id="quiz-list">
                     <?php foreach ($data['quizzes'] as $id => $quiz): ?> 
                         <?php $class = empty($quiz->status) ? 'incativeQuiz' : 'activeQuiz'; ?>
                         <tr class="<?php echo $class; ?>">
-                            <td style="vertical-align:middle">
-                                
-                                <div style="width: 40%; float: left">
-                                    <?php 
-                                        if (empty($quiz->shared)) {
-                                            echo $this->Html->link($quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false,'class'=>'quiz-name'));
+                            <td style="vertical-align:middle" class="col-md-5">
+                                <?php 
+                                    if (empty($quiz->shared)) {
+                                        echo $this->Html->link($quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false,'class'=>'quiz-name'));
+                                    } else {
+                                        if ($quiz->is_approve == 2) {
+                                            echo $this->Html->link('<i class="glyphicon glyphicon-ban-circle text-danger"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('Share declined') ,'class'=>'quiz-name'));
+                                        } elseif ($quiz->is_approve == 1) {
+                                            echo $this->Html->link('<i class="glyphicon glyphicon-share-alt text-success"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('QUIZ_SHARED') ,'class'=>'quiz-name'));
                                         } else {
-                                            if ($quiz->is_approve == 2) {
-                                                echo $this->Html->link('<i class="glyphicon glyphicon-ban-circle text-danger"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('Share declined') ,'class'=>'quiz-name'));
-                                            } elseif ($quiz->is_approve == 1) {
-                                                echo $this->Html->link('<i class="glyphicon glyphicon-share-alt text-success"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('QUIZ_SHARED') ,'class'=>'quiz-name'));
-                                            } else {
-                                                echo $this->Html->link('<i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('SHARE_PENDING') ,'class'=>'quiz-name'));
-                                            } 
-                                        }
-                                    ?>
-                                </div>
-                                <div style="width: 60%; float: left">
-                                    <?php if ($quiz->status) : ?>
-                                        <?php echo $this->Html->link(__("GIVE_TEST"), '/quizzes/present/' . $quiz->id); ?>
-                                    <?php endif; ?>
-                                    <mark><?php echo $this->Html->link(__("ANSWERS") . '(' . $quiz->student_count . ')', '/quizzes/table/' . $quiz->id); ?></mark>
-                                </div>
-                               
+                                            echo $this->Html->link('<i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp;' . $quiz->name, array('action' => 'edit', $quiz->id) ,array('escape'=>false, 'title' => __('SHARE_PENDING') ,'class'=>'quiz-name'));
+                                        } 
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php if ($quiz->status) : ?>
+                                    <?php echo $this->Html->link(__("GIVE_TEST"), '/quizzes/present/' . $quiz->id); ?>
+                                <?php endif; ?>
+                                <mark><?php echo $this->Html->link(__("ANSWERS") . '(' . $quiz->student_count . ')', '/quizzes/table/' . $quiz->id); ?></mark>
                             </td>
                             <td align="right">
                                 <ul class="nav navbar-nav navbar-right no-margin">
@@ -263,33 +291,4 @@ $this->assign('title', __('MY_QUIZZES'));
 <?php echo $this->element('Invoice/delete_confirm'); ?>
 <?php echo $this->element('Invoice/demo_dialog'); ?>
 <?php echo $this->element('Invoice/payment', ['lang_strings' => $lang_strings]); ?>
-<style type="text/css">
-    @media (min-width: 992px) {
-        .modal-v-lg {
-            width: 1100px;
-            height: 900px; /* control height here */
-        }
-    }
-
-    #quiz-bank {
-        padding: 20px;
-    }
-    .pbutton {
-        max-width: 25px !important;
-        width: auto;
-    }
-
-    .action-box {
-        max-width: 100px !important;
-        width: auto;
-        min-width: 90px !important;
-    } 
-
-    .same-width-btn {
-        width: 160px !important;
-    } 
-
-    .same-width-btn i {
-        top: 3px;
-    } 
-</style>
+<?= $this->Html->script(['quiz-index'], ['inline' => false]); ?>

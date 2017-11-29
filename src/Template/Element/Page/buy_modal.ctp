@@ -205,7 +205,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><?= __('CANCEL'); ?></button>
-            <button class="btn btn-success btn-ok" disabled="disabled" id="create-user"><?= __('SUBMIT'); ?></button>
+            <button class="btn btn-success btn-ok" disabled="disabled" id="create-user"><?= __('BUY'); ?></button>
         </div>
         <?= $this->Form->end(); ?>
     </div>

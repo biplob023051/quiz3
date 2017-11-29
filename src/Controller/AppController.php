@@ -146,6 +146,8 @@ class AppController extends Controller
 
         $this->set('authUser', $this->Auth->user());
         $this->set(compact('language'));
+        $this->set('eng_domain', true);
+        //$this->set('eng_domain', false);
     }
 
 

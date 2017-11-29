@@ -7,7 +7,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <?php echo $this->Html->link('', '/', array('class' => 'navbar-brand')); ?>
+            <?php echo empty($eng_domain) ? $this->Html->link('', '/', array('class' => 'navbar-brand fin-logo')) : $this->Html->link('', '/', array('class' => 'navbar-brand eng-logo')); ?>
         </div>
         <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">

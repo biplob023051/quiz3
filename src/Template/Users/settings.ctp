@@ -85,19 +85,21 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         <?= $this->Form->input('email', ['label' => __("EMAIL"),'disabled' => true]);?>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-        <?php
-        $languages = ['en_GB' => 'English', 'fin' => 'Suomi','sv_FI' => 'Svenska'];
-        echo $this->Form->input('language', [
-            'label' => ['text' => __('LANGUAGE')],
-            'options' => $languages,
-            'div' => array('class' => 'form-group'),
-            'class' => 'form-control'
-        ]);
-        ?>
+<?php if (empty($eng_domain)) : ?>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+            <?php
+            $languages = ['en_GB' => 'English', 'fin' => 'Suomi','sv_FI' => 'Svenska'];
+            echo $this->Form->input('language', [
+                'label' => ['text' => __('LANGUAGE')],
+                'options' => $languages,
+                'div' => array('class' => 'form-group'),
+                'class' => 'form-control'
+            ]);
+            ?>
+        </div>
     </div>
-</div>
+<?php endif; ?>
 <?php if (!empty($subjects)) : ?>
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12" id="subjects">

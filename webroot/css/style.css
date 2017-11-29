@@ -48,7 +48,17 @@ h1 {
     padding:15px;
 }
 .navbar-brand {
+    
+}
+.fin-logo {
     background:url(../img/logo.png) no-repeat top left;
+    height: 31px;
+    width: 155px;
+    display: inline-block;
+    margin-top:7px;
+}
+.eng-logo {
+    background:url(../img/logo-eng.png) no-repeat top left;
     height: 31px;
     width: 155px;
     display: inline-block;
@@ -67,7 +77,12 @@ h1 {
 }
 #footer .container {
     padding-top: 30px;
+}
+#footer .fin-logo-footer {
     background:url(../img/logo-grey.png) no-repeat right center;
+}
+#footer .eng-logo-footer {
+    background:url(../img/logo-grey-eng.png) no-repeat right center;
 }
 .navbar-left {
     border-left:1px solid #3a3a3a;
@@ -688,4 +703,18 @@ i.spanish {
 }
 .m-r-25 {
     margin-right: 25px;
+}
+
+.table>thead>tr>th.sortable {
+    font-weight: bold;
+    cursor:pointer;
+    background: url(../img/sort-up-down.gif) right center no-repeat;
+}
+
+.table>thead>tr>th.headerSortUp {
+    background: url(../img/sort-up.gif) right center no-repeat;
+}
+
+.table>thead>tr>th.headerSortDown {
+    background: url(../img/sort-down.gif) right center no-repeat;
 }

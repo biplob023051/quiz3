@@ -144,20 +144,6 @@ span.score {
     font-weight: bold;
 }
 
-.table>thead>tr>th.sortable {
-    font-weight: bold;
-    cursor:pointer;
-    background: url(../img/sort-up-down.gif) right center no-repeat;
-}
-
-.table>thead>tr>th.headerSortUp {
-    background: url(../img/sort-up.gif) right center no-repeat;
-}
-
-.table>thead>tr>th.headerSortDown {
-    background: url(../img/sort-down.gif) right center no-repeat;
-}
-
 .empty-progress-text {
   color: black;
 }
