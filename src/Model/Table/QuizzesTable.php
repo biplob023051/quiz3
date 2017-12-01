@@ -238,16 +238,16 @@ class QuizzesTable extends Table
                     'Quizzes.id' => $quizId,
                 ),
                 'contain' => array(
-                    'Users', 
-                    'Questions' => function($q) {
-                        return $q->where(['Questions.question_type_id IN' => [1,2,3,4,5]])
-                        ->order(['Questions.weight DESC', 'Questions.id ASC'])
-                        ->contain([
-                            'Answers', 
-                            'Choices', 
-                            'QuestionTypes'
-                        ]);
-                    }, 
+                    // 'Users', 
+                    // 'Questions' => function($q) {
+                    //     return $q->where(['Questions.question_type_id IN' => [1,2,3,4,5]])
+                    //     ->order(['Questions.weight DESC', 'Questions.id ASC'])
+                    //     ->contain([
+                    //         'Answers', 
+                    //         'Choices', 
+                    //         'QuestionTypes'
+                    //     ]);
+                    // }, 
                     'Students' => function($q) use ($studentOptions) {
                         return $q->where($studentOptions)->contain(['Rankings', 'Answers']);
                     }

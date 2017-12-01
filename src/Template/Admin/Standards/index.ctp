@@ -1,6 +1,7 @@
 <?php use Cake\Routing\Router; ?>
 <?= $this->Flash->render(); ?>
 <?php $this->assign('title', $title_for_layout); ?>
+<?php $languages = $this->Quiz->allLanguages(); ?>
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
@@ -31,6 +32,7 @@
                     <tr>
                         <th class="text-center col-md-1"><?= $this->Paginator->sort('id', __('ID')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('title', __('TITLE')); ?></th>
+                        <th class="text-center"><?= $this->Paginator->sort('language', __('LANGUAGE')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('created', __('CREATED')); ?></th>
                         <th class="text-center col-md-1"><?= $this->Paginator->sort('isactive', __('STATUS')); ?></th>
                         <th class="text-center col-md-1"><?= __('ACTION'); ?></th>
@@ -44,6 +46,7 @@
                             <tr>
                                 <td class="text-center"><?= h($standard->id); ?></td>
                                 <td class="text-center"><?= h($standard->title); ?></td>
+                                <td class="text-center"><?= h($languages[$standard->language]); ?></td>
                                 <td class="text-center"><?= h($standard->created); ?></td>
                                  <td class="text-center" nowrap="nowrap">
                                     <?php if($standard->isactive):?>

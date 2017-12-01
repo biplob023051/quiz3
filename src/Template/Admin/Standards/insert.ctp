@@ -17,7 +17,13 @@
             echo $this->Form->create($standard, [
                 'novalidate' => true
             ]); 
-            echo $this->Form->input('title', array('label'=>array('text'=>__('TITLE'), 'class' => 'col-md-3'), 'placeholder' => __('ENTER_CLASS_NAME')));
+            echo $this->Form->input('title', ['label'=> ['text'=>__('TITLE')], 'placeholder' => __('ENTER_CLASS_NAME')]);
+            echo $this->Form->input('language', [
+                'label' => ['text' => __('LANGUAGE')],
+                'options' => $this->Quiz->allLanguages(),
+                'empty' => __('SELECT_LANGUAGE'),
+                'default' => false
+            ]);
             echo $this->Form->button(__('SAVE'), ['class' => 'btn btn-primary btn-xlarge', 'escape' => true]) . ' ';
             echo empty($this->request->query['redirect_url']) ? $this->Html->link(__('BACK'), ['controller'=>'standards','action'=>'index'], ['class'=>'btn btn-danger']) : $this->Html->link(__('BACK'), urldecode($this->request->query['redirect_url']), ['class'=>'btn btn-danger']); 
         ?>

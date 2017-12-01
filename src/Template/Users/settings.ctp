@@ -89,10 +89,9 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
             <?php
-            $languages = ['en_GB' => 'English', 'fin' => 'Suomi','sv_FI' => 'Svenska'];
             echo $this->Form->input('language', [
                 'label' => ['text' => __('LANGUAGE')],
-                'options' => $languages,
+                'options' => $this->Quiz->allLanguages(),
                 'div' => array('class' => 'form-group'),
                 'class' => 'form-control'
             ]);
@@ -126,6 +125,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         </div>
     </div>
 </div>
+<?php if ($authUser['account_level'] != 51) : ?>
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-3">
         <?php 
@@ -163,20 +163,20 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
             ]);
         ?>
     </div>
-    <?php if ($authUser['account_level'] != 51) : ?>
-        <div class="col-xs-12 col-md-2">
-            <div class="form-group text" style="margin-top: 22px;">
-                <a href="javascript:void(0)" class="btn btn-green form-control" data-toggle="modal" data-target="#invoice-payment"><i class="glyphicon glyphicon-edit"></i> 
-                    <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
-                        <?= __('REACTIVATE_BUTTON'); ?>
-                    <?php else : ?>
-                        <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
-                    <?php endif; ?>
-                </a>
-            </div>
+    
+    <div class="col-xs-12 col-md-2">
+        <div class="form-group text" style="margin-top: 22px;">
+            <a href="javascript:void(0)" class="btn btn-green form-control" data-toggle="modal" data-target="#invoice-payment"><i class="glyphicon glyphicon-edit"></i> 
+                <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
+                    <?= __('REACTIVATE_BUTTON'); ?>
+                <?php else : ?>
+                    <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('UPGRADE_ACCOUNT'); ?>
+                <?php endif; ?>
+            </a>
         </div>
-    <?php endif; ?>
+    </div>
 </div>
+<?php endif; ?>
 <hr>
 <div class="row">
     <div class="col-xs-12 col-md-2 col-md-offset-3">

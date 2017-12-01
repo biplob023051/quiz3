@@ -30,9 +30,10 @@
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" class="my-language" data-value="fi">Suomi</a></li>
-                                <li><a href="javascript:void(0)" class="my-language" data-value="en_GB">English</a></li>
-                                <li><a href="javascript:void(0)" class="my-language" data-value="sv_FI">Svenska</a></li>
+                                <?php $languages = $this->Quiz->allLanguages(); ?>
+                                <?php foreach ($languages as $key => $language) : ?>
+                                    <li><a href="javascript:void(0)" class="my-language" data-value="<?= $key ?>"><?= $language; ?></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </li>
                     <?php endif; ?>

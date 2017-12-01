@@ -190,7 +190,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="sortable header" colspan="3"><?= __('QUIZ_SORT'); ?></th>
+                        <th class="sortable header" style="border-right: 1px solid #eee"><?= __('QUIZ_SORT'); ?></th>
+                        <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody id="quiz-list">

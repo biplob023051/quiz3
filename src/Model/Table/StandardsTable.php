@@ -62,6 +62,10 @@ class StandardsTable extends Table
                 ]
             ]);
 
+        $validator
+            ->requirePresence('language', 'create')
+            ->notEmpty('language', 'LANGUAGE_REQUIRED');
+
         return $validator;
     }
 

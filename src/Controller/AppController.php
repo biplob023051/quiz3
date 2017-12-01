@@ -131,23 +131,27 @@ class AppController extends Controller
             }
         } 
 
+        $eng_domain = false;
         // check user language, default language finish
-        $language = $this->Auth->user('language');
-        if (empty($language)) {
-            $language = $this->Cookie->read('site_language');
+        if (!$eng_domain) {
+            $language = $this->Auth->user('language');
+            if (empty($language)) {
+                $language = $this->Cookie->read('site_language');
+            }
+            if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
+                $language = 'fi';
+        } else {
+            $language = 'en_GB';
         }
-        if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
-            $language = 'fi';
         Configure::write('Config.language', $language);
         I18n::locale($language);
+        
         if ($this->Session->check('Choice') && ($this->request->action != 'removeChoice' || $this->request->action != 'isAuthorized')) {
             $this->Session->delete('Choice');
         }
 
         $this->set('authUser', $this->Auth->user());
-        $this->set(compact('language'));
-        $this->set('eng_domain', true);
-        //$this->set('eng_domain', false);
+        $this->set(compact('language', 'eng_domain'));
     }
 
 

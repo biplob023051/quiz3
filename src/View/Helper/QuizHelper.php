@@ -79,4 +79,9 @@ class QuizHelper extends Helper {
 		return $lang_str;
 	}
 
+	// Get available languages
+	public function allLanguages() {
+		return ['en_GB' => 'English', 'fin' => 'Suomi', 'sv_FI' => 'Svenska'];
+	}
+
 }

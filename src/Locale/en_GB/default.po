@@ -2310,3 +2310,7 @@ msgstr "No reason has been provided!"
 #: 
 msgid "SHARING_REMOVE_SUCCESS"
 msgstr "You have successfully remove sharing"
+
+#:
+msgid "QUIZ_HAS_NOT_FOUND"
+msgstr "Quiz has not found"

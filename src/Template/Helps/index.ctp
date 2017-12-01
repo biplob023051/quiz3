@@ -1,3 +1,4 @@
+<?= $this->assign('title', $title_for_layout); ?>
 <!-- Help list -->
 <div class="well">
     <div role="tabpanel">
