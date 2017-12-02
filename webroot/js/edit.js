@@ -567,3 +567,35 @@ function updateQuiz(field, value, element) {
         }
     });
 }
+
+// On resize window
+$(window).resize(function () {
+    waitForFinalEvent(function(){
+        checkSize();
+    }, 500, "some unique string");
+});
+
+var waitForFinalEvent = (function () {
+  var timers = {};
+  return function (callback, ms, uniqueId) {
+    if (!uniqueId) {
+      uniqueId = "Don't call this twice without a uniqueId";
+    }
+    if (timers[uniqueId]) {
+      clearTimeout (timers[uniqueId]);
+    }
+    timers[uniqueId] = setTimeout(callback, ms);
+  };
+})();
+
+function checkSize() {
+    var win = $(window);
+    console.log('width', win.width());
+    if (win.width() < 975) {
+        console.log('First');
+        $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
+    } else {
+        console.log('Last');
+        $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+    }
+}
