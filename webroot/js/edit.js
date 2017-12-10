@@ -185,13 +185,13 @@ var window_width = $(window).width();
                                 if (question.value.QuestionType.id == 7) { 
                                     // Change placeholder for explanation text if youtube
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['youtube_exp_text']);
-                                    if (window_width > 767) {
+                                    if (window_width > 975) {
                                         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
                                     }
                                 } else if (question.value.QuestionType.id == 8) { 
                                     // Change placeholder for explanation text if image
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['image_exp_text']);
-                                    if (window_width > 767) {
+                                    if (window_width > 975) {
                                         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
                                     }
                                     $('#from-web').hide();
@@ -590,12 +590,9 @@ var waitForFinalEvent = (function () {
 
 function checkSize() {
     var win = $(window);
-    console.log('width', win.width());
     if (win.width() < 975) {
-        console.log('First');
         $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
     } else {
-        console.log('Last');
         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
     }
 }
