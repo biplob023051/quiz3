@@ -52,7 +52,7 @@ class StudentsController extends AppController
             // exit;
             // update ranking score as well
             $ranking = $this->Students->Rankings->findByStudentId($data['student_id'])->first();
-            $ranking->score = $ranking->score + $data['score'] - (int) $data['current_score'];
+            $ranking->score = $ranking->score + $data['score'] - (float) $data['current_score'];
             $this->Students->Rankings->save($ranking);
             $response['success'] = true;
             $response['score'] = $ranking->score;

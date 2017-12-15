@@ -2306,94 +2306,27 @@ msgstr "Salasanan vaihtaminen epäonnistui! Yritä uudelleen."
 msgid "BUY_CREATE_SUCCESS"
 msgstr "Kiitos tilauksestasi!"
 
-#:
-msgid "Q1_NAME"
-msgstr "MALLITESTI: Fruits and vegetables"
+# Sprint 11/2017
+#: 
+msgid "DECLINE_REASON_TITLE"
+msgstr "Hylkäyksen syy"
+
+#: 
+msgid "NO_REASON_BODY"
+msgstr "Syytä ei ole ilmoitettu"
+
+#: Banner
+msgid "SHARING_REMOVE_SUCCESS"
+msgstr "Testin jako on peruutettu"
 
 #:
-msgid "Q1_DESC"
-msgstr "Tässä kokeessa testataan hedelmien ja vihannesten sanastoa englanniksi. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)"
+msgid "HELP_HEADER"
+msgstr "Apua"
 
 #:
-msgid "Q2_NAME"
-msgstr "MALLITESTI: Musiikin kotitehtävä"
+msgid "QUIZ_SORT"
+msgstr "Testin nimi"
 
 #:
-msgid "Q2_DESC"
-msgstr "Ennen seuraavaa tuntia, katso oheiset videot ja tee niihin liittyvät tehtävät. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)"
-
-#:
-msgid "Q3_NAME"
-msgstr "MALLITESTI: Itsearviolomake"
-
-#:
-msgid "Q3_DESC"
-msgstr "Täytä oheinen itsearviolomake huolellisesti. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)"
-
-#:
-msgid "Q1_QS1_TEXT"
-msgstr "Käännä englanniksi "omena"."
-
-#:
-msgid "Q1_QS1_EXP"
-msgstr "Oikea vastaus +2p"
-
-#:
-msgid "Q1_QS2_TEXT"
-msgstr "Käännä englanniksi "mansikka"."
-
-#:
-msgid "Q1_QS2_EXP"
-msgstr "Oikea vastaus +2p"
-
-#:
-msgid "Q1_QS3_TEXT"
-msgstr "Käännä englanniksi "porkkana."
-
-#:
-msgid "Q1_QS3_EXP"
-msgstr "Oikea vastaus +2p"
-
-#:
-msgid "Q1_QS4_TEXT"
-msgstr "Käännössanat"
-
-#:
-msgid "Q1_QS5_TEXT"
-msgstr "Monivalinnat"
-
-#:
-msgid "Q1_QS6_TEXT"
-msgstr "Mitkä seuraavista ovat hedelmiä?"
-
-#:
-msgid "Q1_QS6_EXP"
-msgstr "Oikeasta vastauksesta +1p"
-
-#:
-msgid "Q1_QS7_TEXT"
-msgstr "Mikä seuraavista on "ananas" englanniksi?"
-
-#:
-msgid "Q1_QS7_EXP"
-msgstr "Oikeasta vastauksesta +1p"
-
-#:
-msgid "Q1_QS8_TEXT"
-msgstr "Avoimet tehtävät"
-
-#:
-msgid "Q1_QS9_TEXT"
-msgstr "Muodosta englanniksi lause, jossa käytät KAHTA hedelmää"
-
-#:
-msgid "Q1_QS9_EXP"
-msgstr "Hedelmistä 0-2p, muusta lauseesta 0-4p."
-
-#:
-msgid "Q1_QS10_TEXT"
-msgstr "Nimeä englanniksi suosikkihedelmäsi."
-
-#:
-msgid "Q1_QS1_CH1_TEXT"
-msgstr "Nimeä englanniksi suosikkihedelmäsi."
+msgid "QUIZ_HAS_NOT_FOUND"
+msgstr "Ei testejä jonossa"

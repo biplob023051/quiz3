@@ -1,6 +1,7 @@
 var debugVar;
 var uploadObj;
 var window_width = $(window).width();
+setCookie("original_width", window_width, 1);
 (function ($) {
     $(document).on('click', '#upload', function(){
         $(this).addClass('active');
@@ -570,9 +571,10 @@ function updateQuiz(field, value, element) {
 
 // On resize window
 $(window).resize(function () {
-    waitForFinalEvent(function(){
-        checkSize();
-    }, 500, "some unique string");
+    // waitForFinalEvent(function(){
+    //     checkSize();
+    // }, 500, "some unique string");
+    checkSize();
 });
 
 var waitForFinalEvent = (function () {
@@ -590,9 +592,32 @@ var waitForFinalEvent = (function () {
 
 function checkSize() {
     var win = $(window);
-    if (win.width() < 975) {
+    console.log('dynamic width', win.width());
+    console.log('static width', screen.width);
+    if ((win.width() < 975) || (screen.width > 1920) && (win.width() < 977)) {
         $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
     } else {
         $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
     }
+}
+
+// javascript cookie functions
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

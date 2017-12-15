@@ -101,6 +101,7 @@ class QuizzesController extends AppController
 
         //$options['Quizzes.user_id'] = $userId;
         $options['Quizzes.user_id'] = $userId;
+        $options[] = 'Quizzes.parent_quiz_id IS NULL';
 
         // pr($options);
         // exit;

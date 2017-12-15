@@ -2301,16 +2301,24 @@ msgstr "Thank you for your order!"
 # Sprint 11/2017
 #: 
 msgid "DECLINE_REASON_TITLE"
-msgstr "Decline Reason for this sharing"
+msgstr "Decline reason for this sharing"
 
 #: 
 msgid "NO_REASON_BODY"
 msgstr "No reason has been provided!"
 
-#: 
+#: Banner
 msgid "SHARING_REMOVE_SUCCESS"
-msgstr "You have successfully remove sharing"
+msgstr "Quiz sharing is cancelled"
+
+#:
+msgid "HELP_HEADER"
+msgstr "Help"
+
+#:
+msgid "QUIZ_SORT"
+msgstr "Quiz name"
 
 #:
 msgid "QUIZ_HAS_NOT_FOUND"
-msgstr "Quiz has not found"
+msgstr "No pending quizzes"
