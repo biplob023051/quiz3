@@ -234,8 +234,6 @@
                 class_list.push($(this).val());
             }
         });
-        // console.log(class_list);
-        // console.log(subject_list);
         $.ajax({
             data: {subject_list : subject_list, class_list : class_list},
             type: 'post',

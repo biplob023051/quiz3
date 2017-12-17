@@ -130,4 +130,4 @@
     }
 </style>
 
-<?= $this->Html->script(array('admin-shared'), array('inline' => false)); ?>
+<?= $this->Html->script(['admin-shared'.$minify], ['inline' => false]); ?>

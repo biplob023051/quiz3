@@ -655,7 +655,6 @@ var webQuiz = {
             existing_options[1] = {};
         } else {
             if ((editing_q_type != 1) && (editing_q_type != 3)) {
-                console.log(editing_q_type)
                 existing_options[0] = {};
                 existing_options[1] = {};
             } else {

@@ -2330,3 +2330,15 @@ msgstr "Testin nimi"
 #:
 msgid "QUIZ_HAS_NOT_FOUND"
 msgstr "Ei testejä jonossa"
+
+#:
+msgid "WRITE_PASSWORD"
+msgstr "Kirjoita salasana"
+
+#:
+msgid "PASSWORD_CONFIRM_MISMATCHED"
+msgstr "Salasanat eivät ole samanlaiset"
+
+#:
+msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
+msgstr "Nykyinen salasanasi oli virheellinen. Yritä uudelleen."

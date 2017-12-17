@@ -1,4 +1,4 @@
-<?= $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array('inline' => false)); ?>
+<?= $this->Html->script(['tinymce/tinymce.min', 'admin-insert-help'.$minify], ['inline' => false]); ?>
 <?= $this->Flash->render(); ?>
 <?php $this->assign('title', $title_for_layout); ?>
 <div class="row">

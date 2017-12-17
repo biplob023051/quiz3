@@ -1811,3 +1811,15 @@ msgstr "Students don't need an account. The teacher will provide the quiz link."
 #:
 msgid "HELP_HEADER"
 msgstr "Hjälp"
+
+#:
+msgid "WRITE_PASSWORD"
+msgstr "Skriv in ditt lösenord"
+
+#:
+msgid "PASSWORD_CONFIRM_MISMATCHED"
+msgstr "Lösenord är inte samma"
+
+#:
+msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
+msgstr "Ditt nuvarande lösenord var ogiltigt. Vänligen försök igen."

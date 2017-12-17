@@ -150,8 +150,11 @@ class AppController extends Controller
             $this->Session->delete('Choice');
         }
 
+        //$minify = !Configure::read('debug') ? '.min' : '';
+        $minify = '.min';
+
         $this->set('authUser', $this->Auth->user());
-        $this->set(compact('language', 'eng_domain'));
+        $this->set(compact('language', 'minify', 'eng_domain'));
     }
 
 

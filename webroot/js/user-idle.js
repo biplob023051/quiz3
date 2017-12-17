@@ -36,10 +36,11 @@ function timerIncrement() {
 }
 
 function startTimer() {
-	$("#s_timer").countdowntimer({
-		seconds : 30,
-        size : "lg"
-	});
+	var seconds = 30;
+	var interval = setInterval(function() {
+	  $('#s_timer').html(seconds + ' ' + lang_seconds);
+	  --seconds;
+	}, 1000);
 	logoutInterval = setInterval(auto_logout, 30000); // 1 minute
 }
 

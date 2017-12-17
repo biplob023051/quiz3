@@ -157,9 +157,6 @@
                 // Set table left column fixed
                 function fixLeft() {
                     var table = $(settings.table);
-
-                    // var fixColumn = settings.left;
-
                     settings.leftColumns = $();
 
                     var tr = table.find("tr");
@@ -168,18 +165,6 @@
                         solverLeftColspan(row, function (cell) {
                             settings.leftColumns = settings.leftColumns.add(cell);
                         });
-                        // var inc = 1;
-
-                        // for(var i = 1; i <= fixColumn; i = i + inc) {
-                        // 	var nth = inc > 1 ? i - 1 : i;
-
-                        // 	var cell = $(row).find("*:nth-child(" + nth + ")");
-                        // 	var colspan = cell.prop("colspan");
-
-                        // 	settings.leftColumns = settings.leftColumns.add(cell);
-
-                        // 	inc = colspan;
-                        // }
                     });
 
                     var column = settings.leftColumns;
@@ -285,15 +270,6 @@
 
 })(jQuery);
 
-/*  cellPos jQuery plugin
- ---------------------
- Get visual position of cell in HTML table (or its block like thead).
- Return value is object with "top" and "left" properties set to row and column index of top-left cell corner.
- Example of use:
- $("#myTable tbody td").each(function(){
- $(this).text( $(this).cellPos().top +", "+ $(this).cellPos().left );
- });
- */
 (function ($) {
     /* scan individual table and set "cellPos" data in the form { left: x-coord, top: y-coord } */
     function scanTable($table) {

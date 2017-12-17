@@ -44,4 +44,4 @@
 <div class="modal fade" id="preview-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
-<?= $this->Html->script(['present'], ['inline' => false]); ?>
+<?= $this->Html->script(['present'.$minify], ['inline' => false]); ?>

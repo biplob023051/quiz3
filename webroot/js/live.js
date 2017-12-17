@@ -39,7 +39,6 @@
 
  	function runAjaxCall(index) {
  		var question = answered[index];
- 		console.log('On processing', index);
  		$.ajax({
             dataType: 'json',
             url: projectBaseUrl + 'students/update_answer',
@@ -52,7 +51,6 @@
 					index++;
 					if (index < glob_index) {
 						runAjaxCall(index);
-						//console.log('current_index', index);
 					} else {
 						glob_index = 0;
 						answered = {};
@@ -145,7 +143,6 @@
 		var std_class = $('#class').val();
 		if ((fname != '') || (lname != '') || (std_class != '')) { // only save if 3 basic information exist
 			// Execute for student information save
-			//$(".basic-info").not($(this)).attr('disabled', true);
 			$.ajax({
 	            dataType: 'json',
 	            url: projectBaseUrl + 'students/update_student',
@@ -154,9 +151,7 @@
 	            success: function (response)
 	            {
 	            	if (response.success) {
-	            		//$(".basic-info").not($(this)).attr('disabled', false);
 	                	$('#studentId').attr('value', response.student_id);
-	                	//console.log('count', $('#student-information').find('.std-basic-info').length);
 	                	if (fname != '') {
 	                		$('#std-fname').removeClass('glyphicon-refresh spinning').addClass('glyphicon-ok-sign text-success');
 	                	}
@@ -178,15 +173,12 @@
 
 
 	// For checkbox and radio buttons
-	//$(".tick-mark").change(function() {
 	$(document).on('change', ".tick-mark", function(){
 		answering($(this));
 	});
 
 	// For text area and text fields
 	$(".typing").doneTyping(function(){
-		// var question_id = $(this).closest('tr').prev().val();
-		// console.log(question_id);
 		answering($(this));
 	});
 
@@ -227,7 +219,6 @@
 			'checkBox' : checkBox,
 			'random_id' : random_id
 		}
-		console.log('On array', glob_index);
 		glob_index++;
 		maxAllowedCheckBoxControl(element);
 	}

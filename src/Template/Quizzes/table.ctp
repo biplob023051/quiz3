@@ -1,7 +1,5 @@
 <?php
-echo $this->Html->css('answer-table', array(
-    'inline' => false
-));
+echo $this->Html->css(['answer-table'.$minify], ['inline' => false]);
 
 $this->assign('title', __('ANSWER_TABLE'));
 ?>
@@ -71,4 +69,12 @@ $this->assign('title', __('ANSWER_TABLE'));
     var onlineStds = <?php echo json_encode($onlineStds) ?>;
 </script>
 
-<?= $this->Html->script(array('tableHeadFixer', 'jquery.tablesorter.min', 'answer-table'), array('inline' => false));?>
+<?= $this->Html->script([
+        'tableHeadFixer'.$minify, 
+        /* production */
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.2/js/jquery.tablesorter.min.js',
+        /*local*/
+        //'jquery.tablesorter.min', 
+        'answer-table'.$minify,
+    ], ['inline' => false]
+);?>

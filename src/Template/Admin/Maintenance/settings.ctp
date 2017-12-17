@@ -1,6 +1,6 @@
 <?php
-    echo $this->Html->script(array('moment', 'bootstrap-datetimepicker.min', 'settings'), array('inline' => false));
-    echo $this->Html->css(array('bootstrap-datetimepicker.min'), array('inline' => false));
+    //echo $this->Html->script(array('moment', 'bootstrap-datetimepicker.min', 'settings'), array('inline' => false));
+    //echo $this->Html->css(array('bootstrap-datetimepicker.min'), array('inline' => false));
     $this->assign('title', $title_for_layout);
 ?>
 <div class="panel panel-default">

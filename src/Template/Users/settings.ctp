@@ -197,4 +197,4 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
     <?= $this->element('Invoice/payment', ['lang_strings' => $lang_strings]); ?>
 <?php endif; ?>
 
-<?= $this->Html->script(array('payment'), array('inline' => false)); ?>
+<?= $this->Html->script(['payment'.$minify], ['inline' => false]); ?>

@@ -75,7 +75,7 @@
     var lang_strings = <?= json_encode($lang_strings) ?>;
 </script>
 
-<?= $this->Html->script('buy', array('inline' => false)); ?>
+<?= $this->Html->script(['buy'.$minify], ['inline' => false]); ?>
 
 <style>
     .ajax-file-upload-statusbar {

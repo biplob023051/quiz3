@@ -2322,3 +2322,15 @@ msgstr "Quiz name"
 #:
 msgid "QUIZ_HAS_NOT_FOUND"
 msgstr "No pending quizzes"
+
+#:
+msgid "WRITE_PASSWORD"
+msgstr "Please write the password"
+
+#:
+msgid "PASSWORD_CONFIRM_MISMATCHED"
+msgstr "Passwords do not match"
+
+#:
+msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
+msgstr "Your current password was incorrect. Please write again."

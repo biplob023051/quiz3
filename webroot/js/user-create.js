@@ -1,7 +1,4 @@
 (function ($) {
-	//$("#UserCreateForm").submit(function(event) {
-        
-    //$("#create_acc").click(function(event) {
     $(document).on('click', "#create_acc", function(event) {
         event.preventDefault();
         // not empty name

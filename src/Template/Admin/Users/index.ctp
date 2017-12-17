@@ -166,4 +166,4 @@
 <script>
     var lang_strings = <?= json_encode($lang_strings); ?>;
 </script>
-<?= $this->Html->script('user-index', ['inline' => false]); ?>
+<?= $this->Html->script('user-index'.$minify, ['inline' => false]); ?>

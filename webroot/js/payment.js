@@ -275,8 +275,8 @@
                 if (response.success) {
                     $('#change-password').modal('hide');
                     $.notify({
-                        icon: 'glyphicon glyphicon-saved',
-                        title: "SUCCESS:",
+                        icon: "",
+                        title: "",
                         message: response.message
                     },{
                         type: 'success',
@@ -285,8 +285,8 @@
                     });
                 } else {
                     $.notify({
-                        icon: 'glyphicon glyphicon-ban-circle',
-                        title: "FAILED:",
+                        icon: "",
+                        title: "",
                         message: response.message
                     },{
                         type: 'danger',

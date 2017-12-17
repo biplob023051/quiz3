@@ -50,4 +50,4 @@
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
-<?= $this->Html->script('contact', array('inline' => false)); ?>
+<?= $this->Html->script(['contact'.$minify], ['inline' => false]); ?>

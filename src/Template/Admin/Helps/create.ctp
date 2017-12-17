@@ -57,8 +57,4 @@
     <?php endif; ?>
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
-<?php
-    echo $this->Html->script(array('tinymce/tinymce.min', 'admin-insert-help'), array(
-        'inline' => false
-    ));
-?>
+<?= $this->Html->script(['tinymce/tinymce.min', 'admin-insert-help'.$minify], ['inline' => false]); ?>

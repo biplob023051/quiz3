@@ -29,12 +29,13 @@ use Cake\Core\Configure;
 
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
-    <?= $this->Html->css(array(
+    <?= $this->Html->css([
             /* production */
-            //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css',
-            'bootstrap.min',
-            'style',
-        ));
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css',
+            /* for local */
+            //'bootstrap.min',
+            'style'.$minify,
+        ]);
     ?>
     <?php
         echo $this->Html->scriptBlock('
@@ -54,15 +55,16 @@ use Cake\Core\Configure;
             );
         }
     ?>
-    <?= $this->Html->script(array(
+    <?= $this->Html->script([
         /* production */
-        //'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
-        //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'
-        'jquery.min.js',
-        'bootstrap.min.js',
-        'bootstrap-notify.min',
-        'language.js'
-    ));
+        'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js',
+        /* For local */
+        // 'jquery.min.js',
+        // 'bootstrap.min.js',
+        // 'bootstrap-notify.min',
+    ]);
     ?>
     <?= $this->fetch('css'); ?>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -71,6 +73,18 @@ use Cake\Core\Configure;
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        $(document).on('click', '.my-language', function(e) {
+            e.preventDefault();
+            $.post(projectBaseUrl + 'users/switchLanguage',
+            {
+                lang: $(this).attr('data-value')
+            },
+            function(data, status){
+                window.location.reload();
+            });
+        });
+    </script>
 </head>
 <body <?php if ($this->request->action == 'login') : ?>style="padding-top:50px;" class="bg-cover"<?php else : ?>style="background:#ffffff; padding-top:50px;"<?php endif; ?>>
     <?php 
@@ -118,10 +132,7 @@ use Cake\Core\Configure;
     </script>
     <?php
     if ($authUser): // Add these script if logged in user
-        echo $this->Html->script(array(
-            'jquery.countdownTimer.min',
-            'user-idle.js',
-        ));
+        echo $this->Html->script(['user-idle' . $minify]);
     endif;
     ?>
     <?= $this->fetch('script'); ?>

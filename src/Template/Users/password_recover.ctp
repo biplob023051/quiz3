@@ -52,4 +52,4 @@
         var url_src = '';
     <?php endif; ?>
 </script>
-<?= $this->Html->script(['video', 'password-recover'], array('inline' => false)); ?>
+<?= $this->Html->script(['video'.$minify, 'password-recover'.$minify], ['inline' => false]); ?>

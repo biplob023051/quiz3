@@ -39,9 +39,7 @@
     }
 </style>
 <?=
-$this->Html->script(array('quiz-bank'), array(
-    'inline' => false
-));
+$this->Html->script(['quiz-bank'.$minify], ['inline' => false]);
 $this->assign('title', $title_for_layout);
 ?>
 <?= $this->Flash->render(); ?>

@@ -1,6 +1,4 @@
-<?php
-    $this->Html->script('buy', array('inline' => false));
-?>
+<?= $this->Html->script(['buy'.$minify], ['inline' => false]); ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
     <h2><?php echo __('PRICES'); ?></h2>

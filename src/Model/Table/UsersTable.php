@@ -160,38 +160,32 @@ class UsersTable extends Table
                     }
                     return false;
                 },
-                'message'=> 'OLD_PASSWORD_DID_NOT_MATCH',
+                'message'=> __('CURRENT_PASSWORD_DID_NOT_MATCH'),
             ])
-            ->notEmpty('old_password');
+            ->notEmpty('old_password', __('WRITE_PASSWORD'));
 
         $validator
             ->add('password1', [
                 'length' => [
                     'rule' => ['minLength', 8],
-                    'message' => 'PASSWORD_MUST_BE_LONGER',
+                    'message' => __('PASSWORD_MUST_BE_LONGER'),
                 ]
             ])
-            ->add('password1',[
-                'match'=>[
-                    'rule'=> ['compareWith','password2'],
-                    'message'=>'Password did not match, please try again',
-                ]
-            ])
-            ->notEmpty('password1');
+            ->notEmpty('password1', __('WRITE_PASSWORD'));
         $validator
             ->add('password2', [
                 'length' => [
                     'rule' => ['minLength', 8],
-                    'message' => 'PASSWORD_MUST_BE_LONGER',
+                    'message' => __('PASSWORD_MUST_BE_LONGER'),
                 ]
             ])
             ->add('password2',[
                 'match'=>[
                     'rule'=> ['compareWith','password1'],
-                    'message'=>'Password did not match, please try again',
+                    'message'=> __('PASSWORD_CONFIRM_MISMATCHED'),
                 ]
             ])
-            ->notEmpty('password2');
+            ->notEmpty('password2', __('WRITE_PASSWORD'));
 
         return $validator;
     }

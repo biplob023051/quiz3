@@ -395,22 +395,23 @@ echo json_encode(array(
 </script>
 
 <?php 
-    echo $this->Html->script(array(
-        'jquery.uploadfile.min',
-        'jquery-ui',
-        /* production */
-        //'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
-        'handlebars.min',
-        'jquery.serializejson.min',
-        'webquiz',
-        'edit',
-        //'qunit-1.17.1',
-        //'tests/edit'
-            ), array('inline' => false)
+    echo $this->Html->script([
+            'jquery.uploadfile.min',
+            /* production */
+            'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.8.1/jquery.serializejson.min.js',
+            /* local */
+            //'jquery-ui',
+            // 'handlebars.min',
+            // 'jquery.serializejson.min',
+            'webquiz'.$minify,
+            'edit'.$minify,
+        ], ['inline' => false]
     );
-    echo $this->Html->css(array(
-        'uploadfile',
-        'jquery-ui'
-            ), array('inline' => false)
+    echo $this->Html->css([
+            'uploadfile'.$minify,
+            'jquery-ui'.$minify
+        ], ['inline' => false]
     );
 ?>

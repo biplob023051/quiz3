@@ -96,10 +96,13 @@
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
-<!-- $this->Html->script(array('invoice'), array(
-    'inline' => false
-)); -->
-<?= $this->Html->script(['jquery.tablesorter.min', 'payment'], ['inline' => false]); ?>
+<?= $this->Html->script([
+    /*production*/
+    'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.2/js/jquery.tablesorter.min.js',
+    /*local*/
+    //'jquery.tablesorter.min', 
+    'payment'.$minify
+], ['inline' => false]); ?>
 <?= $this->assign('title', __('MY_QUIZZES')); ?>
 
 <?= $this->Flash->render(); ?>
