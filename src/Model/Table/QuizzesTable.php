@@ -202,7 +202,7 @@ class QuizzesTable extends Table
                     'Users', 
                     'Questions' => function($q) {
                         $q->where(['Questions.question_type_id IN' => array(1,2,3,4,5)])
-                        ->contain(['Answers', 'Choices', 'QuestionTypes'])
+                        ->contain(['Answers', 'Choices'])
                         ->order(['Questions.weight DESC', 'Questions.id ASC']);
                         return $q;
                     }, 
@@ -238,16 +238,6 @@ class QuizzesTable extends Table
                     'Quizzes.id' => $quizId,
                 ),
                 'contain' => array(
-                    // 'Users', 
-                    // 'Questions' => function($q) {
-                    //     return $q->where(['Questions.question_type_id IN' => [1,2,3,4,5]])
-                    //     ->order(['Questions.weight DESC', 'Questions.id ASC'])
-                    //     ->contain([
-                    //         'Answers', 
-                    //         'Choices', 
-                    //         'QuestionTypes'
-                    //     ]);
-                    // }, 
                     'Students' => function($q) use ($studentOptions) {
                         return $q->where($studentOptions)->contain(['Rankings', 'Answers']);
                     }
@@ -274,6 +264,68 @@ class QuizzesTable extends Table
             }
         ])->first();
         return $result;
+    }
+
+    // Method for question type array
+    public function getQuestionType() {
+        return [
+            '0' => [
+                'id' => 1,
+                'name' => 'MCOC',
+                'template_name' => 'multiple_one',
+                'multiple_choices' => 1,
+                'type' => ''
+            ],
+            '1' => [
+                'id' => 2,
+                'name' => 'STAR',
+                'template_name' => 'short_auto',
+                'multiple_choices' => '',
+                'type' => ''
+            ],
+            '2' => [
+                'id' => 3,
+                'name' => 'MCMC',
+                'template_name' => 'multiple_many',
+                'multiple_choices' => 1,
+                'type' => ''
+            ],
+            '3' => [
+                'id' => 4,
+                'name' => 'STMR',
+                'template_name' => 'short_manual',
+                'multiple_choices' => '',
+                'type' => ''
+            ],
+            '4' => [
+                'id' => 5,
+                'name' => 'ESSAY',
+                'template_name' => 'essay',
+                'multiple_choices' => '',
+                'type' => ''
+            ],
+            '5' => [
+                'id' => 6,
+                'name' => 'HEADER',
+                'template_name' => 'header',
+                'multiple_choices' => '',
+                'type' => 1
+            ],
+            '6' => [
+                'id' => 7,
+                'name' => 'TUBE_VIDEO',
+                'template_name' => 'youtube_video',
+                'multiple_choices' => '',
+                'type' => 1
+            ],
+            '7' => [
+                'id' => 8,
+                'name' => 'IMAGE',
+                'template_name' => 'image_url',
+                'multiple_choices' => '',
+                'type' => 1
+            ]
+        ];
     }
 
 }

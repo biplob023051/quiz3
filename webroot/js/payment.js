@@ -252,8 +252,8 @@
             },
             error: function()
             {
-                // alert('Something went wrong, please try again later');
-                // window.location.reload();
+                alert('Something went wrong, please try again later');
+                window.location.reload();
             }
         });    
     });

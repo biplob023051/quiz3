@@ -5,15 +5,6 @@
         alert(lang_strings['right_click_disabled']);
     });
  
-	// if (!student_id || student_id == '') {
-	// 	$(".ajax-loader").show();
-	// 	//$( "#StudentLiveForm" ).prop( "disabled", true );
-	// 	$("#StudentLiveForm :input").attr("disabled", true);
-	// 	var fname = $('#fname').val();
-	// 	var lname = $('#lname').val();
-	// 	var std_class = $('#class').val();
-	// 	setTimeout(saveStudentRecord,1000);
-	// }
 	var interval;
 	var answered = {};
  	var std_updated = false;

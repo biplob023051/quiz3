@@ -38,18 +38,13 @@ class QuizzesController extends AppController
         $this->set(compact('quizDetails','sl'));
     }
 
+    // Method for quiz listing - checked, opmized code
     public function index() {
         $userId = $this->Auth->user('id');
-        // pr($userId);
-        // exit;
         $this->set('quizTypes', $this->quizTypes());
         $this->set('quizSharedType', $this->quizSharedType());
-
         $userPermissions = $this->userPermissions();
-        // pr($userPermissions);
-        // exit;
         $this->set(compact('userPermissions'));
-
         if ($this->request->is('post')) {
             $data = $this->request->data;
             if (isset($data['status'])) {
@@ -64,9 +59,7 @@ class QuizzesController extends AppController
                 $filter = $this->Session->read('Quizzes.status');
             }
         }
-
         $orders = array();
-
         switch ($filter) {
             case 'all':
                 $orders = array('Quizzes.status DESC');
@@ -99,12 +92,8 @@ class QuizzesController extends AppController
                 break;
         }
 
-        //$options['Quizzes.user_id'] = $userId;
         $options['Quizzes.user_id'] = $userId;
         $options[] = 'Quizzes.parent_quiz_id IS NULL';
-
-        // pr($options);
-        // exit;
 
         $quizzes = $this->Quizzes->find()
         ->where($options)
@@ -119,8 +108,6 @@ class QuizzesController extends AppController
             }
         ])
         ->order($orders)->toArray();
-// pr($quizzes);
-// exit;
         if (empty($quizzes)) {
             $quiz_created = $this->Quizzes->find('all')
             ->where(['Quizzes.user_id' => $userId])
@@ -139,18 +126,10 @@ class QuizzesController extends AppController
     }
 
     public function edit($quizId, $initial = '') {
-
         $this->accountStatus();
         // Check permission
-        $userId = $this->Auth->user('id');
-
-        $role = $this->Auth->user('account_level');
-        if ($role == '51') {
-            $conditions = ['id' => $quizId];
-        } else {
-            $conditions = ['id' => $quizId, 'user_id' => $userId];
-        }
-        
+        $c_user = $this->Session->read('Auth.User');
+        $conditions = ($c_user['account_level'] == 51) ? ['id' => $quizId] : ['id' => $quizId, 'user_id' => $c_user['id']];
         if ($this->request->is(['patch', 'post', 'put'])) {
             $quiz = $this->Quizzes->find()->where($conditions)->contain([])->first();
             if (!empty($this->request->data['subjects'])) {
@@ -181,9 +160,6 @@ class QuizzesController extends AppController
                         'Choices' => function($q2) {
                             return $q2->order(['Choices.weight DESC', 'Choices.id ASC']);
                         },
-                        'QuestionTypes' => function($q3) {
-                            return $q3->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
-                        }
                     ])
                     ->order(['Questions.weight DESC', 'Questions.id ASC']);
                     return $q;
@@ -193,13 +169,13 @@ class QuizzesController extends AppController
         $query->hydrate(false);
         $data = $query->first();
 
+        // pr($data);
+        // exit;
+
         if (empty($data))
             throw new NotFoundException;
 
-        $query = $this->Quizzes->Questions->QuestionTypes->find()
-            ->select(['name', 'template_name', 'multiple_choices', 'id', 'type']);
-        $query->hydrate(false);
-        $data['QuestionTypes'] = $query->toArray();
+        $data['QTypes'] = $this->Quizzes->getQuestionType();
         
         if (!empty($initial)) {
             $this->set(compact('initial'));
@@ -242,24 +218,17 @@ class QuizzesController extends AppController
             'Subjects.is_del IS NULL',
             'Subjects.type IS NULL'
         );
-        $c_user = $this->Session->read('Auth.User');
-        // pr($c_user);
-        // exit;
-        if (!empty($c_user['subjects']) && ($role != '51')) {
+        if (!empty($c_user['subjects']) && ($c_user['account_level'] != 51)) {
             $selectedSubjects = json_decode($c_user['subjects'], true);
             $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }
-
         $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where($subject_cond)->toArray();
-
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
         }
-        
         if (!empty($classOptions)) {
             $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
-
         $this->set('data', $data);
         $this->set(compact('lang_strings', 'classOptions', 'subjectOptions'));
     }
@@ -373,11 +342,8 @@ class QuizzesController extends AppController
                 'Questions' => function($q) {
                     $q->contain([
                         'Choices' => function($q) {                        
-                        return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
-                        },
-                        'QuestionTypes' => array(
-                            'fields' => array('QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices')
-                        )
+                            return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
+                        }
                     ])
                     ->order(['Questions.weight DESC', 'Questions.id ASC']);
                     return $q;
@@ -386,30 +352,11 @@ class QuizzesController extends AppController
             ]
         ])->first();
 
-        // pr($data);
-        // exit;
-
         if (empty($data)) {
             $this->set('isError', true);
         } else {
-            // $lang_strings[0] = __('CONNECTION_LOST');
-            // $lang_strings[1] = __('ALL_QUESTIONS_ANSWERED');
-            // $lang_strings[2] = __('QUESTIONS');
-            // $lang_strings[3] = __('UNANSWERED');
-            // $lang_strings[4] = __('WANT_TURN_IN_QUIZ');
-            // $lang_strings[5] = __('FIRST_NAME_REQUIRED');
-            // $lang_strings[6] = __('LAST_NAME_REQUIRED');
-            // $lang_strings[7] = __('CLASS_REQUIRED');
-            // $lang_strings['last_name_invalid'] = __('INVALID_LAST_NAME');
-            // $lang_strings['first_name_invalid'] = __('INVALID_FIRST_NAME');
-            // $lang_strings['class_invalid'] = __('INVALID_CLASS');
-            // $lang_strings['right_click_disabled'] = __('RIGHT_CLICK_DISABLED');
-            // $lang_strings['browser_switch'] = __('CANT_SWITCH_TAB');
-            // $lang_strings['leave_quiz'] = __('SURELY_LEAVE_QUIZ');
-
-            $this->set(compact('lang_strings', 'data'));
-            //$this->set('quizRandomId', $this->request->data['random_id']);
-
+            $QTypes = $this->Quizzes->getQuestionType();
+            $this->set(compact('data', 'QTypes'));
         }
     }
 
@@ -426,7 +373,6 @@ class QuizzesController extends AppController
 
         if (!empty($this->request->query['runningFor']) && ($this->request->query['runningFor'] == $this->Session->read('started'))) {
             // Do nothing
-            //$this->Session->delete($this->request->query['runningFor']);
         } else {
             // remove session and start new
             $this->Session->delete('started');
@@ -450,9 +396,6 @@ class QuizzesController extends AppController
                 ->contain([
                     'Choices' => function($q) {
                         return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
-                    },
-                    'QuestionTypes' => function($q) {
-                        return $q->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
                     }
                 ]);
             },
@@ -470,8 +413,6 @@ class QuizzesController extends AppController
             $this->render('no_question');
         } else {
             $this->Session->write('user_language', $data->user->language);
-            // pr($this->Session->read('user_language'));
-            // exit;
             I18n::locale($data->user->language);
             // check user access level
             if ((($data->user->account_level == 0) || 
@@ -487,9 +428,6 @@ class QuizzesController extends AppController
                 ->where(['Students.id' => (int) $this->Session->read('student_id')])
                 ->contain(['Answers', 'Rankings'])
                 ->first();
-                // pr($student);
-                // exit;
-                // $this->request->data = $student;
                 $this->set(compact('student'));
             }
 
@@ -510,11 +448,8 @@ class QuizzesController extends AppController
 
             $lang_strings['disabled_submit'] = __('ANSWERS_SAVING');
             $lang_strings['enabled_submit'] = __('WANT_TURN_IN_QUIZ');
-
-            $this->set('data', $data);
-            $this->set(compact('lang_strings'));
-            $this->set(compact('quizRandomId'));
-
+            $QTypes = $this->Quizzes->getQuestionType();
+            $this->set(compact('lang_strings', 'QTypes', 'quizRandomId', 'data'));
         }
     }
 
@@ -977,7 +912,6 @@ class QuizzesController extends AppController
         }
         echo json_encode($response);
         exit;
-
     }
 
     // Method for sharing quiz

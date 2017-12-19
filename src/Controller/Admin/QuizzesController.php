@@ -225,29 +225,19 @@ class QuizzesController extends AppController
                     return $q->contain([
                             'Choices' => function($q) {
                                 return $q->order(['Choices.weight DESC', 'Choices.id ASC']);
-                            },
-                            'QuestionTypes' => function($q) {
-                                return $q->select(['QuestionTypes.template_name', 'QuestionTypes.id', 'QuestionTypes.multiple_choices']);
                             }
-
                         ])
                         ->order(['Questions.weight DESC', 'Questions.id ASC']);
                 }
             ])
             ->first();
 
-        // pr($data);
-        // exit;
-
         if (empty($data)) {
             $this->Flash->error(__('Quiz not found'));
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'shared'));
         }
 
-        $data->question_type = $this->Quizzes->Questions->QuestionTypes->find('all')->select(['name', 'template_name', 'multiple_choices', 'id', 'type'])->toArray();
-
-        // pr($data);
-        // exit;
+        $data->question_type = $this->Quizzes->getQuestionType();
 
         if (empty($data->questions)) {
             $this->set('no_question', true);
@@ -280,9 +270,6 @@ class QuizzesController extends AppController
         ])
         ->toArray();
 
-        // pr($classOptions);
-        // exit;
-
         $subject_cond[] = array(
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
@@ -293,13 +280,7 @@ class QuizzesController extends AppController
             $selectedSubjects = json_decode($data->user->subjects, true);
             $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }
-
-        // pr($subject_cond);
-        // exit;
-
         $subjectOptions = $this->Subjects->find('list')->where($subject_cond)->toArray();
-        // pr($subjectOptions);
-        // exit;
 
         if (!empty($subjectOptions)) {
             $subjectOptions = array(0 => __('ALL_SUBJECT')) + $subjectOptions;
@@ -309,16 +290,8 @@ class QuizzesController extends AppController
             $classOptions = array(0 => __('ALL_CLASS')) + $classOptions;
         }
 
-        // pr($this->Session->read('Auth.User'));
-        // exit;
-
-        // pr($data);
-        // exit;
-
         $this->set('data', $data);
         $this->set(compact('lang_strings', 'classOptions', 'subjectOptions'));
-
-        //$this->render('\Quizzes\preview');
     }
 
     private function quizTypes() {

@@ -122,6 +122,7 @@
                     }
 
                     $choices_number = count($question->choices);
+                    $question->question_type = (object) $QTypes[$question->question_type_id-1];
                     if (!$question->question_type->multiple_choices && $choices_number > 1) {
                         for ($i = 1; $i < $choices_number; ++$i) {
                             unset($question->choices[$i]);
@@ -130,7 +131,7 @@
 
                     $question->number = $i;
                     echo $this->element('Quiz/live/question', array('question' => $question));
-                    if (!in_array($question['question_type_id'], $othersQuestionType)) { 
+                    if (!in_array($question->question_type_id, $othersQuestionType)) { 
                         // only considered main question for numbering
                         // not others type questions
                         ++$i;

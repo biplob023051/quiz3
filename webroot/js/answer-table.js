@@ -41,8 +41,19 @@ function getUpdated() {
                 }
 
             } else {
-                clearInterval(interval);
                 $("#prev_data").html(data);
+                // New code for fixing if student goes offline
+                if (new_data.studentIds.length == 0) {
+                    $.grep(old_data.onlineStds, function(el) {
+                        if ($.inArray(el, new_data.onlineStds) == -1) {
+                            $('tr#student-'+el).find('.online').remove();
+                            $('tr#student-'+el).find('.question-serial').addClass('small-padding-true');
+                        } 
+                    });
+                    return false;
+                }
+                // End of new codes
+                clearInterval(interval);
                 var openTab = getCookie("tabInfo");
                 $.ajax({
                     async: false,

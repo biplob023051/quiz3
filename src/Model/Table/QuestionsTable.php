@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * Questions Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Quizzes
- * @property \Cake\ORM\Association\BelongsTo $QuestionTypes
  * @property \Cake\ORM\Association\HasMany $Answers
  * @property \Cake\ORM\Association\HasMany $Choices
  *
@@ -45,10 +44,6 @@ class QuestionsTable extends Table
 
         $this->belongsTo('Quizzes', [
             'foreignKey' => 'quiz_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('QuestionTypes', [
-            'foreignKey' => 'question_type_id',
             'joinType' => 'INNER'
         ]);
         $this->hasMany('Answers', [
@@ -103,7 +98,6 @@ class QuestionsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['quiz_id'], 'Quizzes'));
-        $rules->add($rules->existsIn(['question_type_id'], 'QuestionTypes'));
 
         return $rules;
     }
@@ -113,5 +107,12 @@ class QuestionsTable extends Table
         $question = $this->get($questionId, ['contain' => ['Quizzes']]);
         // if questionId found by $owner_id set true, otherwise false
         return (!empty($question) && ($question->quiz->user_id == $owner_id)) ? true : false;
+    }
+
+    // Check if multiple choice or not
+    public function isMultipleChoice($questionTypeId) {
+        $question_types = $this->Quizzes->getQuestionType();
+        $type = $question_types[$questionTypeId-1];
+        return empty($type['multiple_choices']) ? NULL : 1;
     }
 }

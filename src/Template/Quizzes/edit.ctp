@@ -163,8 +163,7 @@ unset($data['is_approve']);
 unset($data['comment']);
 
 
-foreach ($data['QuestionTypes'] as $key => $value) {
-    unset($data['QuestionTypes'][$key]);
+foreach ($data['QTypes'] as $key => $value) {
     $data['QuestionTypes'][$key]['QuestionType']['name'] = $value['name'];
     $data['QuestionTypes'][$key]['QuestionType']['template_name'] = $value['template_name'];
     $data['QuestionTypes'][$key]['QuestionType']['multiple_choices'] = $value['multiple_choices'];
@@ -175,7 +174,7 @@ foreach ($data['QuestionTypes'] as $key => $value) {
 $data['Question'] = $data['questions'];
 unset($data['questions']);
 foreach ($data['Question'] as $key => $question) {
-    $data['Question'][$key]['QuestionType'] = $data['Question'][$key]['question_type'];
+    $data['Question'][$key]['QuestionType'] = $data['QTypes'][$question['question_type_id']-1];
     unset($data['Question'][$key]['question_type']);
     $data['Question'][$key]['Choice'] = $data['Question'][$key]['choices'];
     unset($data['Question'][$key]['choices']);
@@ -183,6 +182,8 @@ foreach ($data['Question'] as $key => $question) {
     unset($data['Question'][$key]['created']);
     unset($data['Question'][$key]['modified']);
 }
+
+unset($data['QTypes']);
 // pr($data);
 // exit;
 use Cake\Routing\Router;

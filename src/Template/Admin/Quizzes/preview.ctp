@@ -98,7 +98,7 @@
             $i = 1;
             $othersQuestionType = array(6, 7, 8); // this categories for others type questions
             foreach ($data->questions as $question) {
-                
+                $question->question_type = (object) $data->question_type[$question->question_type_id-1];
                 $choices_number = count($question->choices);
                 if (!$question->question_type->multiple_choices && $choices_number > 1) {
                     for ($i = 1; $i < $choices_number; ++$i) {
