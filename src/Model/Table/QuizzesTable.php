@@ -127,7 +127,7 @@ class QuizzesTable extends Table
         return $result;
     }
 
-    public function quizDetails($quizId, $filter) {
+    public function quizDetails($quizId, $filter = array(), $student_id = null) {
         $studentOptions = array();
         
         if (isset($filter['daterange']) && $filter['daterange'] !== 'all') {
@@ -194,6 +194,10 @@ class QuizzesTable extends Table
         // pr($studentOptions);
         // exit;
 
+        if (!empty($student_id)) {
+            $studentOptions['Students.id'] = $student_id;
+        }
+
         $result = $this->find('all', array(
                 'conditions' => array(
                     'Quizzes.id' => $quizId,
@@ -209,7 +213,7 @@ class QuizzesTable extends Table
                     'Students' => function($q) use ($studentOptions) {
                         return $q->where($studentOptions)->contain(['Rankings', 'Answers']);
                     }, 
-                    'Rankings'
+                    //'Rankings'
                 )
             )
         )->first();

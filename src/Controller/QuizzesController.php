@@ -30,11 +30,10 @@ class QuizzesController extends AppController
 
     public function ajaxStudentUpdate() {
         $this->viewBuilder()->layout('ajax');
-        $student = $this->Quizzes->Students->get($this->request->data['student_id'], ['contain' => ['Answers']]);
-        $this->set('value1', $student);
         $filter = $this->Session->read('Filter');
-        $quizDetails = $this->Quizzes->quizDetails($student['quiz_id'], $filter);
+        $quizDetails = $this->Quizzes->quizDetails($this->request->data['quiz_id'], $filter, $this->request->data['student_id']);
         $sl = (int)$this->request->data['sl'];
+        $this->set('value1', $quizDetails->students[0]);
         $this->set(compact('quizDetails','sl'));
     }
 

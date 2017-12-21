@@ -1,6 +1,6 @@
 <?php foreach ($value3->answers as $key4 => $value4) : ?>
     <?php if ($value1->id == $value4->student_id) : ?>
-        <?php if (($value3->question_type->id == 1) || ($value3->question_type->id == 3)) : ?>
+        <?php if (($value3->question_type_id == 1) || ($value3->question_type_id == 3)) : ?>
             <?php if (empty($value4->text)) : ?>
                 <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
@@ -17,7 +17,7 @@
                 <?php endif; ?>     
             <?php endif; ?>
         <!-- automatic rating -->
-        <?php elseif ($value3->question_type->id == 2) : ?>
+        <?php elseif ($value3->question_type_id == 2) : ?>
             <?php if (empty($value4->text)) : ?>
                 <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>
@@ -34,7 +34,7 @@
                 <?php endif; ?>     
             <?php endif; ?> 
         <!-- short manual scoring -->
-        <?php elseif ($value3->question_type->id == 4) : ?>
+        <?php elseif ($value3->question_type_id == 4) : ?>
             <?php if (empty($value4->text)) : ?>
                 <p class="text-danger"><span class="label"><?php echo __('NOT_ANSWERED'); ?></span></p>
             <?php else : ?>

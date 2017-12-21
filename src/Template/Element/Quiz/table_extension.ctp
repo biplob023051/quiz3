@@ -49,13 +49,11 @@
                         <?php if (empty($quizDetails->anonymous)) : ?>
                             <td class="class-th"><span class="std-info"><?php echo !empty($value1->class) ? $value1->class : __('CLASS'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_CLASS'); ?>" class="form-control update-std" name="class" data-rel="class-<?php echo $value1->id; ?>" value="<?php echo $value1->class; ?>"></td>
                         <?php endif; ?>
-                        <?php foreach ($quizDetails->rankings as $key2 => $value2) : ?>
-                            <?php if ($value1->id == $value2->student_id) : ?>
-                                <td class="point-th">
-                                    <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value2->score+0); ?></span>/<?php echo ($value2->total+0); ?>
-                                </td>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                        
+                        <td class="point-th">
+                            <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value1->ranking->score+0); ?></span>/<?php echo ($value1->ranking->total+0); ?>
+                        </td>
+                           
                         <td class="progress-section">
                             <?php
                                 $answer_array = array();

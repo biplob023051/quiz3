@@ -17,13 +17,10 @@
 <?php if (empty($quizDetails->anonymous)) : ?>
     <td class="class-th"><?php echo $value1->class; ?></td>
 <?php endif; ?>
-<?php foreach ($quizDetails->rankings as $key2 => $value2) : ?>
-    <?php if ($value1->id == $value2->student_id) : ?>
-        <td class="point-th">
-            <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value2->score+0); ?></span>/<?php echo ($value2->total+0); ?>
-        </td>
-    <?php endif; ?>
-<?php endforeach; ?>
+
+<td class="point-th">
+    <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value1->ranking->score+0); ?></span>/<?php echo ($value1->ranking->total+0); ?>
+</td>
 <td class="progress-section">
     <?php
         $answer_array = array();

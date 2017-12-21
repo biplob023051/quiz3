@@ -84,12 +84,13 @@ function updateIndividulaStudent(student_id) {
         $("tr#student-" + student_id).find('.ajax-loader').show();
         var sl = parseInt($("tr#student-" + student_id).find('.question-serial').text());
     }
+    var quizId = parseInt($("#quizId").text());
     $.ajax({
         async: false,
         dataType: 'html',
         type: "POST",
         url: projectBaseUrl + 'quizzes/ajax_student_update',
-        data: {student_id:student_id, sl:sl},
+        data: {student_id:student_id, sl:sl, quiz_id: quizId},
         async: true,
         success: function(data) {
             if ($("tr#student-" + student_id).length == 0) {
@@ -107,7 +108,6 @@ function updateIndividulaStudent(student_id) {
             testFunc();
             $(".table").trigger("update");
             $("#fixTable").tableHeadFixer({"head" : true, "left" : 2});
-            //$(".table").tablesorter({ selectorHeaders: 'thead th.sortable' });
         }
     });
 }

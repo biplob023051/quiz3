@@ -61,7 +61,7 @@
 		?>
 		<div class="col-md-12">
 			<h3><?php echo __('YOUR_RESULTS'); ?></h3>
-			<h2><?php echo __('TOTAL') . ': ' . ($student_result->rankings[0]->score+0) . '/' . ($student_result->rankings[0]->total+0); ?><?php echo !empty($pending) ? ' (' . $pending . ' ' . __('YOUR_ANSWER_WAITING_RATING') . ')' : ''; ?></h2>
+			<h2><?php echo __('TOTAL') . ': ' . ($student_result->ranking->score+0) . '/' . ($student_result->ranking->total+0); ?><?php echo !empty($pending) ? ' (' . $pending . ' ' . __('YOUR_ANSWER_WAITING_RATING') . ')' : ''; ?></h2>
 		</div>
 		<?php echo $result_html; ?>
 	</div>

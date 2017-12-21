@@ -18,12 +18,7 @@
                     <?php echo '<span class="gray-color">' . __('CLASS') . '</span>' . $value1->class; ?>
                 </div>
                 <div class="col-md-3 col-xs-2">
-                    <?php 
-                        foreach ($quizDetails->rankings as $key2 => $value2) { 
-                            if ($value1->id == $value2->student_id) {  
-                            echo '<span class="gray-color">' . __('TOTAL') . '</span>' . ($value2->score+0) . '/' . ($value2->total+0);  break; 
-                            }  
-                        } 
+                    <?= '<span class="gray-color">' . __('TOTAL') . '</span>' . ($value1->ranking->score+0) . '/' . ($value1->ranking->total+0);
                     ?>
                 </div>
             </div>

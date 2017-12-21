@@ -49,7 +49,10 @@ class StudentsTable extends Table
         $this->hasMany('Answers', [
             'foreignKey' => 'student_id'
         ]);
-        $this->hasMany('Rankings', [
+        // $this->hasMany('Rankings', [
+        //     'foreignKey' => 'student_id'
+        // ]);
+        $this->hasOne('Rankings', [
             'foreignKey' => 'student_id'
         ]);
     }

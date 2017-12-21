@@ -86,7 +86,7 @@ class StudentsController extends AppController
         $data = array();
         $points = 0;
         $total_change = false;
-        $ranking = $student->rankings[0];
+        $ranking = $student->ranking;
 
         if (!empty($student->answers)) { // Check if answer exist, then modify or delete
             foreach ($student->answers as $key => $answer) {
@@ -296,9 +296,9 @@ class StudentsController extends AppController
             }
             
             // save data in ranking table
-            $data['rankings'][0]['quiz_id'] = $quiz->id;
-            $data['rankings'][0]['total'] = $total;
-            $data['rankings'][0]['score'] = 0;
+            $data['ranking']['quiz_id'] = $quiz->id;
+            $data['ranking']['total'] = $total;
+            $data['ranking']['score'] = 0;
 
             $data['fname'] = !empty($this->request->data['fname']) ? $this->request->data['fname'] : '';
             $data['lname'] = !empty($this->request->data['lname']) ? $this->request->data['lname'] : '';
@@ -359,6 +359,7 @@ class StudentsController extends AppController
         $this->Session->delete('student_id');
         // save std id
         if (!empty($quiz->show_result)) {
+            $this->Session->write('show_result', true);
             return $this->redirect(array('action' => 'success', $student_id));
         } else {
             return $this->redirect(array('action' => 'success'));
@@ -367,9 +368,9 @@ class StudentsController extends AppController
     
     public function success($std_id = null) {
         I18n::locale($this->Session->read('user_language'));
-        if ($std_id) { // show result true
+        if ($std_id && $this->Session->check('show_result')) { // show result true
             $student_result = $this->Students->find('all')
-            ->where(['id' => $std_id])
+            ->where(['Students.id' => $std_id])
             ->contain(['Answers', 'Rankings'])
             ->first();
 
@@ -437,7 +438,7 @@ class StudentsController extends AppController
             $response['student_id'] = $studentInfo->id;
             $response['student_full_name'] = $studentInfo->fname . ' ' . $studentInfo->lname;
             $response['student_class'] = $studentInfo->class;
-            $response['student_score'] = $studentInfo->rankings[0]->score . '/' . $studentInfo->rankings[0]->total;
+            $response['student_score'] = $studentInfo->ranking->score . '/' . $studentInfo->ranking->total;
         } 
         echo json_encode($response);
         exit;
