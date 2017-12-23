@@ -75,7 +75,14 @@ class StudentsController extends AppController
             $student_id = $this->Session->read('student_id');
         } 
 
-        $student = $this->Students->findById($student_id)->contain(['Rankings', 'Answers'])->first();
+        $student = $this->Students->findById($student_id)->contain(
+            [
+                'Rankings', 
+                'Answers' => function ($q) {
+                    return $q->where(['question_id' => $this->request->data['question_id']]);
+                }
+            ]
+        )->first();
 
         $checkbox_record_delete = $this->request->data['checkbox_record_delete'];
         $checkBox = $this->request->data['checkBox'];

@@ -411,8 +411,6 @@ class QuizzesController extends AppController
             $this->set('name', $data->name);
             $this->render('no_question');
         } else {
-            $this->Session->write('user_language', $data->user->language);
-            I18n::locale($data->user->language);
             // check user access level
             if ((($data->user->account_level == 0) || 
                 (($data->user->account_level == 1) && (strtotime($data->user->expired) < time()))) 
@@ -420,6 +418,9 @@ class QuizzesController extends AppController
                 $this->Flash->error(__('ONLY_FOURTY_STUDENTS'));
                 return $this->redirect(array('controller' => 'quizzes', 'action' => 'no_permission'));
             }
+
+            $this->Session->write('user_language', $data->user->language);
+            I18n::locale($data->user->language);
 
             // Check session if student page reloaded
             if ($this->Session->check('student_id')) {

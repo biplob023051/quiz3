@@ -43,13 +43,13 @@ function getUpdated() {
             } else {
                 $("#prev_data").html(data);
                 // New code for fixing if student goes offline
+                $.grep(old_data.onlineStds, function(el) {
+                    if ($.inArray(el, new_data.onlineStds) == -1) {
+                        $('tr#student-'+el).find('.online').remove();
+                        $('tr#student-'+el).find('.question-serial').addClass('small-padding-true');
+                    } 
+                });
                 if (new_data.studentIds.length == 0) {
-                    $.grep(old_data.onlineStds, function(el) {
-                        if ($.inArray(el, new_data.onlineStds) == -1) {
-                            $('tr#student-'+el).find('.online').remove();
-                            $('tr#student-'+el).find('.question-serial').addClass('small-padding-true');
-                        } 
-                    });
                     return false;
                 }
                 // End of new codes
@@ -60,7 +60,7 @@ function getUpdated() {
                     dataType: 'JSON',
                     type: "POST",
                     url: projectBaseUrl + 'quizzes/ajax_update',
-                    data: {quizId:quizId, currentTab:openTab, old_data:old_data.studentIds, new_data:new_data.studentIds},
+                    data: {quizId:quizId, old_data:old_data.studentIds, new_data:new_data.studentIds},
                     async: true,
                     success: function(data) {
                         $.each(data, function(index, value) {
