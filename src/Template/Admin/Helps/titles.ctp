@@ -3,10 +3,11 @@
 ?>
 <?= $this->Flash->render() ?>
 <?php $this->assign('title', $title_for_layout); ?>
+<?php $languages = $this->Quiz->allLanguages(); ?>
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
-            <li><?php echo $this->Html->link(__('MAIN_TITLE_LIST'),array('controller'=>'helps','action'=>'titles'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li class="active"><?php echo $this->Html->link(__('MAIN_TITLE_LIST'),array('controller'=>'helps','action'=>'titles'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
             <li><?php echo $this->Html->link(__('NEW_MAIN_TITLE'),array('controller'=>'helps','action'=>'add'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
             <li><?php echo $this->Html->link(__('HELPS_LIST'),array('controller'=>'helps','action'=>'index'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
             <li><?php echo $this->Html->link(__('NEW_HELP'),array('controller'=>'helps','action'=>'insert'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
@@ -24,6 +25,7 @@
                     <tr>
                         <th class="text-center col-md-1"><?= __('ID'); ?></th>
                         <th class="text-center"><?= __('MAIN_TITLE'); ?></th>
+                        <th class="text-center"><?= __('LANGUAGE'); ?></th>
                         <th class="text-center"><?= __('CREATED'); ?></th>
                         <th class="text-center col-md-1"><?= __('SORT'); ?></th>
                         <th class="text-center col-md-1"><?= __('STATUS'); ?></th>
@@ -35,6 +37,7 @@
                         <tr>
                             <td class="text-center"><?php echo h($help->id); ?></td>
                             <td class="text-center"><?php echo $this->Html->link(h($help->title), array('action' => 'index', $help->id), array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?></td>
+                            <td class="text-center"><?= h($languages[$help->language]); ?></td>
                             <td class="text-center"><?php echo h($help->created); ?></td>
                             <td class="text-center" nowrap="nowrap">
                                     <?php echo $this->Form->postLink('<span class="glyphicon glyphicon-arrow-up"></span>', array('action' => 'moveup', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))), array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>

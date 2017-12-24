@@ -43,17 +43,17 @@ class MaintenanceController extends AppController
 
     public function importQuizzes($user_id) {
         $this->loadModel('Quizzes');
-        $quizes[0]['name'] = __('Q1_NAME');
-        $quizes[0]['description'] = __('Q1_DESC');
+        $quizes[0]['name'] = 'MALLITESTI: Fruits and vegetables';
+        $quizes[0]['description'] = 'Tässä kokeessa testataan hedelmien ja vihannesten sanastoa englanniksi. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)';
         $quizes[0]['student_count'] = 9;
 
-        $quizes[1]['name'] = __('Q2_NAME');
-        $quizes[1]['description'] = __('Q2_DESC');
+        $quizes[1]['name'] = 'MALLITESTI: Musiikin kotitehtävä';
+        $quizes[1]['description'] = 'Ennen seuraavaa tuntia, katso oheiset videot ja tee niihin liittyvät tehtävät. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)';
         $quizes[1]['student_count'] = 9;
         $quizes[1]['show_result'] = 1;
 
-        $quizes[2]['name'] = __('Q3_NAME');
-        $quizes[2]['description'] = __('Q3_DESC');
+        $quizes[2]['name'] = 'MALLITESTI: Itsearviolomake';
+        $quizes[2]['description'] = 'Täytä oheinen itsearviolomake huolellisesti. (MALLITESTI: voit poistaa tämän testin kun et tarvitse sitä enää.)';
         $quizes[2]['student_count'] = 9;
 
         foreach ($quizes as $key1 => $quiz) {
@@ -72,52 +72,52 @@ class MaintenanceController extends AppController
                 if ($key1 == 0) { // Quiz 1
                     $questions[0]['quiz_id'] = $new_quiz->id;
                     $questions[0]['question_type_id'] = 2;
-                    $questions[0]['text'] = __('Q1_QS1_TEXT');
-                    $questions[0]['explanation'] = __('Q1_QS1_EXP');
+                    $questions[0]['text'] = 'Käännä englanniksi "omena".';
+                    $questions[0]['explanation'] = 'Oikea vastaus +2p';
                     $questions[0]['weight'] = 3;
                     $questions[1]['quiz_id'] = $new_quiz->id;
                     $questions[1]['question_type_id'] = 2;
-                    $questions[1]['text'] = __('Q1_QS2_TEXT');
-                    $questions[1]['explanation'] = __('Q1_QS2_EXP');
+                    $questions[1]['text'] = 'Käännä englanniksi "mansikka".';
+                    $questions[1]['explanation'] = 'Oikea vastaus +2p';
                     $questions[1]['weight'] = 2;
                     $questions[2]['quiz_id'] = $new_quiz->id;
                     $questions[2]['question_type_id'] = 2;
-                    $questions[2]['text'] = __('Q1_QS3_TEXT');
-                    $questions[2]['explanation'] = __('Q1_QS3_EXP');
+                    $questions[2]['text'] = 'Käännä englanniksi "porkkana.';
+                    $questions[2]['explanation'] = 'Oikea vastaus +2p';
                     $questions[2]['weight'] = 1;
 
                     $questions[3]['quiz_id'] = $new_quiz->id;
                     $questions[3]['question_type_id'] = 6;
-                    $questions[3]['text'] = __('Q1_QS4_TEXT');
+                    $questions[3]['text'] = 'Käännössanat';
                     $questions[3]['weight'] = 4;
 
                     $questions[4]['quiz_id'] = $new_quiz->id;
                     $questions[4]['question_type_id'] = 6;
-                    $questions[4]['text'] = __('Q1_QS5_TEXT');
+                    $questions[4]['text'] = 'Monivalinnat';
 
                     $questions[5]['quiz_id'] = $new_quiz->id;
                     $questions[5]['question_type_id'] = 3;
-                    $questions[5]['text'] = __('Q1_QS6_TEXT');
-                    $questions[5]['explanation'] = __('Q1_QS6_EXP');
+                    $questions[5]['text'] = 'Mitkä seuraavista ovat hedelmiä?';
+                    $questions[5]['explanation'] = 'Oikeasta vastauksesta +1p';
                     $questions[5]['max_allowed'] = 3;
 
                     $questions[6]['quiz_id'] = $new_quiz->id;
                     $questions[6]['question_type_id'] = 1;
-                    $questions[6]['text'] = __('Q1_QS7_TEXT');
-                    $questions[6]['explanation'] = __('Q1_QS7_EXP');
+                    $questions[6]['text'] = 'Mikä seuraavista on "ananas" englanniksi?';
+                    $questions[6]['explanation'] = 'Oikeasta vastauksesta +1p';
 
                     $questions[7]['quiz_id'] = $new_quiz->id;
                     $questions[7]['question_type_id'] = 6;
-                    $questions[7]['text'] = __('Q1_QS8_TEXT');
+                    $questions[7]['text'] = 'Avoimet tehtävät';
 
                     $questions[8]['quiz_id'] = $new_quiz->id;
                     $questions[8]['question_type_id'] = 5;
-                    $questions[8]['text'] = __('Q1_QS9_TEXT');
-                    $questions[8]['explanation'] = __('Q1_QS9_EXP');
+                    $questions[8]['text'] = 'Muodosta englanniksi lause, jossa käytät KAHTA hedelmää';
+                    $questions[8]['explanation'] = 'Hedelmistä 0-2p, muusta lauseesta 0-4p.';
 
                     $questions[9]['quiz_id'] = $new_quiz->id;
                     $questions[9]['question_type_id'] = 4;
-                    $questions[9]['text'] = __('Q1_QS10_TEXT');
+                    $questions[9]['text'] = 'Nimeä englanniksi suosikkihedelmäsi.';
                     
                     foreach ($questions as $key2 => $question) {
                         $new_question = $this->Quizzes->Questions->newEntity();

@@ -59,8 +59,13 @@ class HelpsController extends AppController
                 $youtube = explode('&', $youtube[1]);   
                 $this->request->data['url_src'] = $youtube[0];
             }
-// pr($this->request->data);
-// exit;
+            if (!empty($this->request->data['parent_id'])) {
+                // Get language of parent_id and set language for child item
+                $parentHelp = $this->Helps->get($this->request->data['parent_id']);
+                $this->request->data['language'] = $parentHelp->language;
+            }
+    // pr($this->request->data);
+    // exit;
             $help = $this->Helps->patchEntity($help, $this->request->data);
             // pr($help);
             // exit;
