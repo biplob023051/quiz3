@@ -277,7 +277,8 @@ class UsersController extends AppController
         ->where([
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.type IS NULL'
+            'Subjects.type IS NULL',
+            'Subjects.language' => $this->Auth->user('language')
         ])
         ->toArray();
         

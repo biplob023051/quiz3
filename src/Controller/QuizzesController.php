@@ -9,6 +9,9 @@ use Cake\Utility\Hash;
 use Cake\Core\Configure;
 use Cake\I18n\I18n;
 
+use App\Event\Statistics;
+use Cake\Event\Event;
+
 /**
  * Quizzes Controller
  *
@@ -168,9 +171,6 @@ class QuizzesController extends AppController
         $query->hydrate(false);
         $data = $query->first();
 
-        // pr($data);
-        // exit;
-
         if (empty($data))
             throw new NotFoundException;
 
@@ -207,15 +207,20 @@ class QuizzesController extends AppController
 
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
-
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])
-            ->where(['Subjects.isactive' => 1, 'Subjects.is_del IS NULL', 'Subjects.type' => 1])
+            ->where([
+                'Subjects.isactive' => 1, 
+                'Subjects.is_del IS NULL', 
+                'Subjects.type' => 1,
+                'Subjects.language' => $data['language']
+            ])
             ->toArray();
 
         $subject_cond[] = array(
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.type IS NULL'
+            'Subjects.type IS NULL',
+            'Subjects.language' => $data['language']
         );
         if (!empty($c_user['subjects']) && ($c_user['account_level'] != 51)) {
             $selectedSubjects = json_decode($c_user['subjects'], true);
@@ -237,18 +242,15 @@ class QuizzesController extends AppController
         $this->accountStatus(); 
 
         $userId = $this->Auth->user('id');
-        // if (!$this->Users->canCreateQuiz($userId))
-        //     return $this->redirect(array('action' => 'index'));  
 
         $quiz = $this->Quizzes->newEntity();
-        $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('NAME_QUIZ'), 'user_id' => $userId]);
+        $quiz = $this->Quizzes->patchEntity($quiz, ['name' => __('NAME_QUIZ'), 'user_id' => $userId, 'language' => $this->Auth->user('language')]);
        
         if (!$this->Quizzes->save($quiz)) {
             $this->Flash->error(__('Quiz Save Failed'));    
             return $this->redirect($this->referer());
         }
-        // pr($quiz);
-        // exit;
+
         if (!$this->Quizzes->updateAll(
             ['random_id' => $quiz->id . $this->randText(2, true)], 
             ['id' => $quiz->id])
@@ -259,41 +261,22 @@ class QuizzesController extends AppController
         }
         
         //save statistics data
-        $statisticsTable = TableRegistry::get('Statistics');
-        $statistic = $statisticsTable->newEntity();
-        $statistic->user_id = $userId;
-        $statistic->type = 'quiz_create';
-        $statistic->created = date("Y-m-d H:i:s");
-        $statisticsTable->save($statistic);
-
-        // pr($quiz);
-        // pr($statisticsTable);
-        // exit;
+        $this->eventManager()->attach(new Statistics($this));
+        $event = new Event('Model.Quizzes.quiz_create', $this, [
+            'user_id' => $userId
+        ]);
+        $this->eventManager()->dispatch($event);
 
         // check if free user creating first quiz send email notification to admin
         $user = $this->Auth->user();
         if (empty($user['account_level']) || ($user['account_level'] == 22)) { // if this is the free user
             // check if its first quiz
             $quiz_count = $this->Quizzes->find()->where(['Quizzes.user_id' => $userId])->count();
-            // pr($quiz_count);
-            // exit;
-            // $quiz_count = $query->select(['count' => $query->func()->count('*')])->toArray();
-            // pr($quiz_count);
-            // exit;
-
             if ($quiz_count == 1) {
-                $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
-                // pr($admin_email);
-                // exit;
+                $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
             } 
         }
-
-        return $this->redirect(array(
-                    'controller' => 'quizzes',
-                    'action' => 'edit',
-                    $quiz->id,
-                    'initial'
-        ));
+        return $this->redirect(['controller' => 'quizzes', 'action' => 'edit', $quiz->id, 'initial']);
     }
 
     public function present($id) {
@@ -692,67 +675,6 @@ class QuizzesController extends AppController
         $this->autoRender = false;
         $quizId = $this->request->data['quiz_id'];
 
-
-// select * from bdg left join res on bdg.bid = res.bid ;
-// select * from (answers as Answer left join questions as Question on Answer.question_id = Question.id) 
-//     left join quizzes as Quiz on Question.quiz_id = Quiz.id;
-
-// select * from (bdg left join res on bdg.bid = res.bid) 
-//     left join dom on res.rid = dom.rid where dom.rid is NULL;
-// select * from (bdg left join res on bdg.bid = res.bid) 
-//     left join dom on res.rid = dom.rid where res.rid is NULL;
-// select * from (bdg left join res on bdg.bid = res.bid) 
-//     left join dom on res.rid = dom.rid 
-//     where dom.rid is NULL and res.rid is not NULL;
-
-
-        // $this->Quizzes->virtualFields['no_of_answers'] = 'select count(*) from (answers as Answers left join questions as Questions on Answers.question_id = Questions.id) left join quizzes as Quizzes on Questions.quiz_id = Quizzes.id where Quizzes.id = {$quizId}';
-
-        // $this->Quizzes->virtualFields = array(
-        //     'question_count' => 'SELECT count(*) FROM questions as Questions WHERE Questions.quiz_id = Quizzes.id'
-        // );
-
-        // $quizzes = $this->Quizzes->find()
-        // ->where($options)
-        // ->contain([
-        //     'Questions' => function($q) {
-        //         $q->select([
-        //              'Questions.quiz_id',
-        //              'total' => $q->func()->count('Questions.quiz_id')
-        //         ])
-        //         ->group(['Questions.quiz_id']);
-        //         return $q;
-        //     }
-        // ])
-        // ->order($orders)->toArray();
-
-
-        // $quizInfo = $this->Quizzes->find('all')
-        // ->where(['Quizzes.id' => $quizId])
-        // ->contain([
-        //     'Questions' => function($q) {
-        //         $q->select([
-        //             'Questions.id',
-        //             'Questions.quiz_id',
-        //             'no_of_questions' => $q->func()->count('Questions.quiz_id')
-        //         ])
-        //         ->group(['Questions.quiz_id'])
-        //         ->contain([
-        //             'Answers' => function ($q2) {
-        //                $q2->select([
-        //                      'Answers.question_id',
-        //                      'no_of_answers' => $q2->func()->count('Answers.question_id')
-        //                 ])
-        //                 ->group(['Answers.question_id']);
-        //                 return $q2;
-        //             }
-        //         ]);
-        //         return $q;
-        //     }
-        // ])
-        // ->first();
-
-
         $quizInfo = $this->Quizzes->find()
         ->where(['Quizzes.id' => $quizId, 'Quizzes.user_id' => $this->Auth->user('id')])
         //->where(['Quizzes.id' => $quizId])
@@ -870,6 +792,7 @@ class QuizzesController extends AppController
             $new_quiz['anonymous'] = $quiz->anonymous;
             $new_quiz['subjects'] = $quiz->subjects;
             $new_quiz['classes'] = $quiz->classes;
+            $new_quiz['language'] = $quiz->language;
 
             foreach ($quiz->questions as $key1 => $question) {
                 $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
@@ -981,13 +904,15 @@ class QuizzesController extends AppController
         $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type IS NULL',
             'Subjects.isactive' => 1,
-            'Subjects.is_del IS NULL'
+            'Subjects.is_del IS NULL',
+            'Subjects.language' => $this->Auth->user('language')
         ])->toArray();
 
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type' => 1,
             'Subjects.isactive' => 1,
-            'Subjects.is_del IS NULL'
+            'Subjects.is_del IS NULL',
+            'Subjects.language' => $this->Auth->user('id')
         ])->toArray();
 
         // Selected subjects
@@ -1004,7 +929,8 @@ class QuizzesController extends AppController
         // Get pagination
         $conditions[] = array(
             'Quizzes.parent_quiz_id IS NOT NULL',
-            'Downloads.id IS NULL'
+            'Downloads.id IS NULL',
+            'Quizzes.language' => $this->Auth->user('language')
         );
 
         $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
@@ -1048,15 +974,15 @@ class QuizzesController extends AppController
         $subjectOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type IS NULL',
             'Subjects.isactive' => 1,
-            'Subjects.is_del IS NULL'
+            'Subjects.is_del IS NULL',
+            'Subjects.language' => $this->Auth->user('id')
         ])->toArray();
 
-        // pr($subjectOptions);
-        // exit;
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type' => 1,
             'Subjects.isactive' => 1,
-            'Subjects.is_del IS NULL'
+            'Subjects.is_del IS NULL',
+            'Subjects.language' => $this->Auth->user('id')
         ])->toArray();
 
         if (empty($this->request->data['subject_list'])) {
@@ -1065,16 +991,7 @@ class QuizzesController extends AppController
                 $this->request->data['subject_list'] = json_decode($selectedSubjects, true);
             } 
         }
-
-        if (empty($this->request->data['page_no'])) {
-            $this->request->query['page'] = 1;
-        } else {
-            $this->request->query['page'] = $this->request->data['page_no'];
-        }
-
-        // pr($this->request->data);
-        // exit;
-
+        $this->request->query['page'] = !empty($this->request->data['page_no']) ? $this->request->data['page_no'] : 1;
         if (!empty($this->request->data['subject_list'])) {
             foreach ($this->request->data['subject_list'] as $term) {
                 $term = trim($term);
@@ -1083,7 +1000,6 @@ class QuizzesController extends AppController
                 }
             }
         }
-
         if (!empty($this->request->data['class_list'])) {
             foreach ($this->request->data['class_list'] as $term) {
                 $term = trim($term);
@@ -1094,11 +1010,11 @@ class QuizzesController extends AppController
         }
 
         $user_id = $this->Auth->user('id');
-
         // Get pagination
         $conditions[2] = array(
             'Quizzes.parent_quiz_id IS NOT NULL',
-            'Downloads.id IS NULL'
+            'Downloads.id IS NULL',
+            'Quizzes.language' => $this->Auth->user('language')
         );
 
         if (!empty($this->request->data['order_type']) && !empty($this->request->data['order_field'])) {
@@ -1110,15 +1026,7 @@ class QuizzesController extends AppController
             $order = ['Quizzes.created ASC'];
         }
 
-        // pr($this->Paginator->settings);
-        // exit;
-
-        // pr($this->request->params);
-        // exit;
-
         try {
-            // pr($conditions);
-            // exit;
             $quizzes = $this->paginate($this->Quizzes->find()->where($conditions)
                 ->join([
                     'Downloads' => [
@@ -1131,7 +1039,6 @@ class QuizzesController extends AppController
                     ]
                 ])
                 ->order($order)
-                //->page($this->request->params['named']['page'])
             );
         } catch (NotFoundException $e) { 
             $this->request->query['page'] = 1;
@@ -1148,7 +1055,6 @@ class QuizzesController extends AppController
                 ])
             );
         }
-
         $this->set(compact('quizzes', 'subjectOptions', 'classOptions'));
         $this->render('/Element/Quiz/quiz_bank_pagination');
     }
@@ -1164,14 +1070,9 @@ class QuizzesController extends AppController
 
         $user_id = $this->Auth->user('id');
 
-        // pr($this->request->data);
-        // exit;
-
         // Check maximum import permission
         if ($this->Auth->user('account_level') == 22) {
             $imported_quiz_count = $this->Quizzes->Users->Downloads->find()->where(['Downloads.user_id' => $user_id])->count();
-            // pr($imported_quiz_count);
-            // exit;
             if ($imported_quiz_count >= DOWNLOAD_LIMIT) {
                 $response['message'] = __('YOU_HAVE_EXCEEDED_MAX_IMPORT');
             } else {
@@ -1188,7 +1089,8 @@ class QuizzesController extends AppController
         $quizInfo = $this->Quizzes->find()
         ->where([
             'Quizzes.id IN' => $this->request->data['quiz_id'],
-            'Quizzes.parent_quiz_id IS NOT NULL'
+            'Quizzes.parent_quiz_id IS NOT NULL',
+            'Quizzes.language' => $this->Auth->user('language')
         ])
         ->contain([
             'Questions' => function($q) {
@@ -1219,9 +1121,6 @@ class QuizzesController extends AppController
                     $download->user_id = $user_id;
                     $download->quiz_id = $quiz->id;
 
-                    // pr($download);
-                    // exit;
-
                     $new_quiz = array();
                     $new_quiz['name'] = __('COPY_OF') . ' ' . $quiz->name;
                     $new_quiz['user_id'] = $user_id;
@@ -1231,9 +1130,7 @@ class QuizzesController extends AppController
                     $new_quiz['anonymous'] = $quiz->anonymous;
                     $new_quiz['subjects'] = $quiz->subjects;
                     $new_quiz['classes'] = $quiz->classes;
-
-                    // pr($new_quiz);
-                    // exit;
+                    $new_quiz['language'] = $this->Auth->user('language');
 
                     foreach ($quiz->questions as $key1 => $question) {
                         $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;

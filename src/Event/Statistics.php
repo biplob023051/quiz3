@@ -15,7 +15,8 @@ class Statistics implements EventListenerInterface {
 	public function implementedEvents() 
 	{
 		return [
-			'Model.Users.login' => 'userLogin'
+			'Model.Users.login' => 'userLogin',
+            'Model.Quizzes.quiz_create' => 'quizCreate'
 		];
 	}
 
@@ -30,4 +31,16 @@ class Statistics implements EventListenerInterface {
         $this->Statistics->save($entity);
         return true;
 	}
+
+    public function quizCreate(Event $event) {
+        $this->Statistics = TableRegistry::get('Statistics');
+        $data = [
+            'user_id' => $event->data['user_id'],
+            'type' => 'quiz_create',
+            'created' => date("Y-m-d H:i:s"),
+        ];
+        $entity = $this->Statistics->newEntity($data);
+        $this->Statistics->save($entity);
+        return true;
+    }
 } 

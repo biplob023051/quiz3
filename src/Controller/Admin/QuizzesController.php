@@ -169,13 +169,13 @@ class QuizzesController extends AppController
                         $new_quiz['name'] = $quiz->name;
                         $new_quiz['user_id'] = $quiz->user_id;
                         $new_quiz['description'] = $quiz->description;
-                        //$new_quiz['status'] = 1;
                         $new_quiz['show_result'] = $quiz->show_result;
                         $new_quiz['anonymous'] = $quiz->anonymous;
                         $new_quiz['subjects'] = $quiz->subjects;
                         $new_quiz['classes'] = $quiz->classes;
                         $new_quiz['is_approve'] = 1;
                         $new_quiz['parent_quiz_id'] = $quiz->id;
+                        $new_quiz['language'] = $quiz->language;
 
                         foreach ($quiz->questions as $key1 => $question) {
                             $new_quiz['questions'][$key1]['question_type_id'] = $question->question_type_id;
@@ -266,14 +266,16 @@ class QuizzesController extends AppController
         ->where([
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.type' => 1
+            'Subjects.type' => 1,
+            'Subjects.language' => $data->language
         ])
         ->toArray();
 
         $subject_cond[] = array(
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.type IS NULL'
+            'Subjects.type IS NULL',
+            'Subjects.language' => $data->language
         );
 
         if (!empty($data->user->subjects)) {
