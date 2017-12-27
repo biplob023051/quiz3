@@ -120,7 +120,7 @@ class UsersController extends AppController
         $this->set(compact('lang_strings', 'site_language'));
 
         $this->loadModel('Helps');
-        $create_video = $this->Helps->getVideoByType('create');
+        $create_video = $this->Helps->getVideoByType('create', $this->getDefaultLanguage());
         $this->set(compact('create_video', 'user'));
 
     }

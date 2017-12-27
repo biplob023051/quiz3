@@ -158,7 +158,7 @@ class PagesController extends AppController
     public function index()
     {
         $this->loadModel('Helps');
-        $home_video = $this->Helps->getVideoByType('home');
+        $home_video = $this->Helps->getVideoByType('home', $this->getDefaultLanguage());
         $this->set(compact('home_video'));
         $this->set('title_for_layout', __('WELCOME'));   
     }

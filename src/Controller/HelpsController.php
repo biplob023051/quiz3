@@ -12,7 +12,8 @@ class HelpsController extends AppController
 {
     public function index() {
         $this->set('title_for_layout',__('HELP_HEADER'));
-        $helps = $this->Helps->parentsOptions();
+        $language = $this->Auth->user('language');
+        $helps = $this->Helps->parentsOptions($language);
         foreach ($helps as $parent_id => $value) {
             $helps[$value] = $this->Helps->find('all', array(
                 'conditions' => array(

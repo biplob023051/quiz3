@@ -1,11 +1,12 @@
 <link href="https://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
 <script src="https://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
+<?php $this->assign('title',$title_for_layout); ?>
 <?= $this->Flash->render(); ?>
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
             <li><?php echo $this->Html->link(__('SITE_VIDEOS'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
-            <li><?php echo $this->Html->link(__('CREATE_VIDEOS'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
+            <li class="active"><?php echo $this->Html->link(__('CREATE_VIDEOS'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li> 
         </ul>
     </div>
 </div>
@@ -24,6 +25,12 @@
                 echo $this->Form->hidden('photo');
                 echo $this->Form->hidden('temp_photo');
                 echo $this->Form->input('type', array('label'=>array('text'=>__('DISPLAY_PAGE')),'options' => $siteOptions, 'empty' => __('SELECT_ONE') ));
+                echo $this->Form->input('language', [
+                    'label' => ['text' => __('LANGUAGE')],
+                    'options' => $this->Quiz->allLanguages(),
+                    'empty' => __('SELECT_LANGUAGE'),
+                    'default' => false
+                ]);
                 echo $this->Form->input('title', array('label'=>array('text'=>__('Title')), 'placeholder' => __('INSERT_VIDEO_TITLE')));
                 echo $this->Form->input('sub_title', array('label'=>array('text'=>__('SUB_TITLE')), 'placeholder' => __('INSERT_VIDEO_SUB_TITLE')));
                 echo $this->Form->input('url', array('label'=>array('text'=>__('YOUTUBE_URL')), 'placeholder' => __('INSERT_YOUTUBE_URL_HERE')));

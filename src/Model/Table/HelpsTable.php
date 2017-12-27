@@ -113,6 +113,10 @@ class HelpsTable extends Table
         $validator
             ->requirePresence('title', 'create')
             ->notEmpty('title', 'TITLE_REQUIRED');
+        $validator
+            ->requirePresence('language', 'create')
+            ->notEmpty('language', 'LANGUAGE_REQUIRED');
+
         return $validator;
     }
 
@@ -140,21 +144,27 @@ class HelpsTable extends Table
                 ]
             ]);
 
+        $validator
+            ->requirePresence('language', 'create')
+            ->notEmpty('language', 'LANGUAGE_REQUIRED');
+
         return $validator;
     }
 
     // list of active parent 
-    public function parentsOptions() {
+    public function parentsOptions($language = null) {
+        $conditions = !empty($language) ? ['status' => 1, 'type' => 'help', 'parent_id IS NULL', 'language' => $language] : ['status' => 1, 'type' => 'help', 'parent_id IS NULL'];
         $options = $this->find('list', ['keyField' => 'id', 'valueField' => 'title'])
-            ->where(['status' => 1, 'type' => 'help', 'parent_id IS NULL'])
+            ->where($conditions)
             ->order(['lft'=>' DESC', 'rght'=>' ASC'])
             ->toArray();
         return $options;
     } 
 
-    public function getVideoByType($type = null) {
+    public function getVideoByType($type = null, $language = null) {
+        $conditions = !empty($language) ? ['type' => $type, 'status' => 1, 'language' => $language] : ['type' => $type, 'status' => 1];
         $video = $this->find('all')
-            ->where(['type' => $type, 'status' => 1])
+            ->where($conditions)
             ->order(['id' => 'desc'])
             ->first();
         $video = !empty($video) ? $video->toArray() : array();

@@ -1,10 +1,12 @@
 <?php use Cake\Routing\Router; ?>
 <?= $this->Html->script('jquery.colorbox-min', array('inline' => false)); ?>
+<?php $this->assign('title',$title_for_layout); ?>
 <?= $this->Flash->render(); ?>
+<?php $language = $this->Quiz->allLanguages(); ?>
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-pills">
-            <li><?= $this->Html->link(__('SITE_VIDEOS'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
+            <li class="active"><?= $this->Html->link(__('SITE_VIDEOS'),array('controller'=>'helps','action'=>'videos'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
             <li><?= $this->Html->link(__('CREATE_VIDEOS'),array('controller'=>'helps','action'=>'create'),array("role"=>"button", "class"=>"btn btn-link"));?></li>
         </ul>
     </div>
@@ -23,6 +25,7 @@
                         <th class="text-center"><?= __('SUB_TITLE'); ?></th>
                         <th class="text-center"><?= __('DISPLAY_PAGE'); ?></th>
                         <th class="text-center"><?= __('URL'); ?></th>
+                        <th class="text-center"><?= __('LANGUAGE'); ?></th>
                         <th class="text-center"><?= __('CREATED'); ?></th>
                         <th class="text-center col-md-1"><?= __('SORT'); ?></th>
                         <th class="text-center col-md-1"><?= __('STATUS'); ?></th>
@@ -37,6 +40,7 @@
                             <td class="text-center"><?= h($help->sub_title); ?></td>
                             <td class="text-center"><?= $siteOptions[$help->type]; ?></td>
                             <td class="text-center"><?= h($help->url); ?></td>
+                            <td class="text-center"><?= $language[$help->language]; ?></td>
                             <td class="text-center"><?= h($help->created); ?></td>
                             <td class="text-center" nowrap="nowrap">
                                 <?= $this->Form->postLink('<span class="glyphicon glyphicon-arrow-up"></span>', array('action' => 'moveup', $help->id,'?'=>array('redirect_url'=>urlencode(Router::reverse($this->request, true)))), array('class'=>'btn btn-primary btn-xs','escape'=>false)); ?>

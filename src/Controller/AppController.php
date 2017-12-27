@@ -131,7 +131,7 @@ class AppController extends Controller
             }
         } 
 
-        $eng_domain = false;
+        $eng_domain = (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) ? true : false;
         // check user language, default language finish
         if (!$eng_domain) {
             $language = $this->Auth->user('language');
@@ -150,8 +150,8 @@ class AppController extends Controller
             $this->Session->delete('Choice');
         }
 
-        //$minify = !Configure::read('debug') ? '.min' : '';
-        $minify = '.min';
+        $minify = !Configure::read('debug') ? '.min' : '';
+        //$minify = '.min';
 
         $this->set('authUser', $this->Auth->user());
         $this->set(compact('language', 'minify', 'eng_domain'));
@@ -263,7 +263,7 @@ class AppController extends Controller
     {
         $this->loadModel('Settings');
         $this->Settings->cacheQueries = true;
-        $settings = $this->Settings->find('list', ['keyField' => 'field', 'valueField' => 'value'])->toArray();
+        $settings = $this->Settings->find('list', ['keyField' => 'field', 'valueField' => 'value'])->where(['language' => $this->getDefaultLanguage()])->toArray();
         return $settings;
     }
 
@@ -305,5 +305,17 @@ class AppController extends Controller
         $time->i18nFormat('yyyy-MM-dd HH:mm:ss'); // outputs '2014-04-20 22:10'
         $time->i18nFormat(Time::UNIX_TIMESTAMP_FORMAT); // outputs '1398031800'
         return $time;
+    }
+
+    // Method for return site default language based on domain
+    public function getDefaultLanguage() {
+        if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+            return 'en_GB';
+        } else {
+            $language = $this->Cookie->read('site_language');
+            if (empty($language) || !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
+                $language = 'fi';
+            return $language;
+        }
     }
 }

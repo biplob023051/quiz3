@@ -81,7 +81,7 @@ class QuizHelper extends Helper {
 
 	// Get available languages
 	public function allLanguages() {
-		return ['en_GB' => 'English', 'fin' => 'Suomi', 'sv_FI' => 'Svenska'];
+		return ['en_GB' => 'English', 'fi' => 'Suomi', 'sv_FI' => 'Svenska'];
 	}
 
 }
