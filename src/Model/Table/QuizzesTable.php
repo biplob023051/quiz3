@@ -277,57 +277,57 @@ class QuizzesTable extends Table
                 'id' => 1,
                 'name' => 'MCOC',
                 'template_name' => 'multiple_one',
-                'multiple_choices' => 1,
-                'type' => ''
+                'multiple_choices' => true,
+                'type' => null
             ],
             '1' => [
                 'id' => 2,
                 'name' => 'STAR',
                 'template_name' => 'short_auto',
-                'multiple_choices' => '',
-                'type' => ''
+                'multiple_choices' => false,
+                'type' => null
             ],
             '2' => [
                 'id' => 3,
                 'name' => 'MCMC',
                 'template_name' => 'multiple_many',
-                'multiple_choices' => 1,
-                'type' => ''
+                'multiple_choices' => true,
+                'type' => null
             ],
             '3' => [
                 'id' => 4,
                 'name' => 'STMR',
                 'template_name' => 'short_manual',
-                'multiple_choices' => '',
-                'type' => ''
+                'multiple_choices' => false,
+                'type' => null
             ],
             '4' => [
                 'id' => 5,
                 'name' => 'ESSAY',
                 'template_name' => 'essay',
-                'multiple_choices' => '',
-                'type' => ''
+                'multiple_choices' => false,
+                'type' => null
             ],
             '5' => [
                 'id' => 6,
                 'name' => 'HEADER',
                 'template_name' => 'header',
-                'multiple_choices' => '',
-                'type' => 1
+                'multiple_choices' => false,
+                'type' => true
             ],
             '6' => [
                 'id' => 7,
                 'name' => 'TUBE_VIDEO',
                 'template_name' => 'youtube_video',
-                'multiple_choices' => '',
-                'type' => 1
+                'multiple_choices' => false,
+                'type' => true
             ],
             '7' => [
                 'id' => 8,
                 'name' => 'IMAGE',
                 'template_name' => 'image_url',
-                'multiple_choices' => '',
-                'type' => 1
+                'multiple_choices' => false,
+                'type' => true
             ]
         ];
     }

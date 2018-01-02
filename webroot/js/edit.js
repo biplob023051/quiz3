@@ -575,6 +575,9 @@ $(window).resize(function () {
 
 function checkSize() {
     var win = $(window);
+    if (screen.width - win.width() < 20) {
+        return false;
+    }
     if ((win.width() < 975) || (screen.width > 1920) && (win.width() < 977)) {
         $('#QuestionExplanation').closest('.row').children().css({marginTop: '0px'});
     } else {
