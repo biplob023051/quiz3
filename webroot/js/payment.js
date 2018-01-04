@@ -328,4 +328,11 @@
         $('form#quiz-filter').submit();
     });
 
+    $('#change-password').on('shown.bs.modal', function (e) {
+        $('#change-form')[0].reset();
+        $('#old-password-error').hide();
+        $('#password1-error').hide();
+        $('#password2-error').hide();
+    });
+
 })(jQuery);

@@ -49,7 +49,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <?= $this->Form->submit(__("SAVE"), ['class' => 'btn btn-info btn-block', 'id' => 'submit-change']); ?>
+                        <?= $this->Form->submit(__("SAVE"), ['class' => 'btn btn-info2 btn-block', 'id' => 'submit-change']); ?>
                     </div>
                 </div>
                 <?= $this->Form->end(); ?>

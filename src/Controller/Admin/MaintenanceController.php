@@ -14,31 +14,43 @@ class MaintenanceController extends AppController
     public function settings() {
         $this->isAdminUser();
         if ($this->request->is(array('post','put'))) {
-            $setting = $this->_getSettings();
-            if (!empty($this->request->data['offline_status']) && $this->Auth->user('id') != 1) {
-                $this->Flash->error(__('Sorry, you are not authorized to make the site offline!'));
-                return $this->redirect($this->referer());
-            }
-            
-            foreach ($this->request->data as $key => $value) {
-                if (array_key_exists($key, $setting) && $setting[$key] != $value) {
-                    $this->Settings->updateAll(array('value' => $value), array('field' => $key));
+            if (!empty($this->request->data['language'])) {
+                $language = $this->request->data['language'];
+                unset($this->request->data['language']);
+                $setting = $this->_getSettings($language);
+                if (!empty($this->request->data['offline_status']) && $this->Auth->user('id') != 1) {
+                    $this->Flash->error(__('OFFLINE_NO_PERMISSION'));
+                    return $this->redirect($this->referer());
                 }
-            }
-            
-            if (empty($this->request->data['offline_status'])) {
-                $this->Settings->updateAll(array('value' => NULL), array('field' => 'offline_status'));
-            }
+                
+                foreach ($this->request->data as $key => $value) {
+                    if (array_key_exists($key, $setting) && $setting[$key] != $value) {
+                        $this->Settings->updateAll(array('value' => $value), array('field' => $key, 'language' => $language));
+                    }
+                }
+                
+                if (empty($this->request->data['offline_status'])) {
+                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'offline_status', 'language' => $language));
+                }
 
-            if (empty($this->request->data['visible'])) {
-                $this->Settings->updateAll(array('value' => NULL), array('field' => 'visible'));
+                if (empty($this->request->data['visible'])) {
+                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'visible', 'language' => $language));
+                }
+                $this->Flash->success(__('SETTINGS_SAVED_SUCCESSFULLY'));
+            } else {
+                $this->Flash->error(__('SOMETHING_NOT_RIGHT'));    
             }
-
-            
-            $this->Flash->success(__('Changes have been saved'));
             return $this->redirect($this->referer());
         }
-        $this->set('title_for_layout', __('System Settings'));
+        $this->loadModel('Settings');
+        $site_settings = [];
+        $settings = $this->Settings->find('all', ['keyField' => 'field', 'valueField' => 'value'])->toArray();
+        foreach ($settings as $key => $setting) {
+            $site_settings[$setting->language][$setting->field] = $setting->value;
+        }
+        $this->set(compact('site_settings'));
+
+        $this->set('title_for_layout', __('SYSTEM_SETTINGS'));
 
     }
 
