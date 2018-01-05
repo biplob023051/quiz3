@@ -402,8 +402,8 @@ class QuizzesController extends AppController
                 return $this->redirect(array('controller' => 'quizzes', 'action' => 'no_permission'));
             }
 
-            $this->Session->write('user_language', $data->user->language);
-            I18n::locale($data->user->language);
+            $this->Session->write('user_language', $data->language);
+            I18n::locale($data->language);
 
             // Check session if student page reloaded
             if ($this->Session->check('student_id')) {
@@ -912,7 +912,7 @@ class QuizzesController extends AppController
             'Subjects.type' => 1,
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.language' => $this->Auth->user('id')
+            'Subjects.language' => $this->Auth->user('language')
         ])->toArray();
 
         // Selected subjects
@@ -975,14 +975,14 @@ class QuizzesController extends AppController
             'Subjects.type IS NULL',
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.language' => $this->Auth->user('id')
+            'Subjects.language' => $this->Auth->user('language')
         ])->toArray();
 
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])->where([
             'Subjects.type' => 1,
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
-            'Subjects.language' => $this->Auth->user('id')
+            'Subjects.language' => $this->Auth->user('language')
         ])->toArray();
 
         if (empty($this->request->data['subject_list'])) {

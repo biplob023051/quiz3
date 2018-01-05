@@ -345,9 +345,8 @@ class UsersController extends AppController
         $lang_strings['invalid_email'] = __('INVALID_EMAIL');
         $lang_strings['not_found_email'] = __('EMAIL_NOT_REGISTERED');
         $this->set(compact('lang_strings'));
-
         $this->loadModel('Helps');
-        $password_video = $this->Helps->getVideoByType('password');
+        $password_video = $this->Helps->getVideoByType('password', $this->getDefaultLanguage());
         $this->set(compact('password_video'));
     }
 
@@ -374,7 +373,7 @@ class UsersController extends AppController
         // pr($user);
         // exit;
         if (empty($user)) {
-            $this->Flash->error(__('Password Reset Link Expired.'));
+            $this->Flash->error(__('PASSWORD_RESET_LINK_EXPIRED'));
             return $this->redirect(array('controller' => 'users', 'action' => 'passwordRecover'));
         }
 
@@ -398,7 +397,7 @@ class UsersController extends AppController
             }
         } 
         unset($user->password);
-        $lang_strings['empty_password'] = __('Require New Password');
+        $lang_strings['empty_password'] = __('NEW_PASSWORD_REQUIRED');
         $lang_strings['varify_password'] = __('PASSWORD_NOT_MATCH');
         $lang_strings['character_count'] = __('PASSWORD_MUST_BE_LONGER');
         $this->set(compact('lang_strings', 'user'));

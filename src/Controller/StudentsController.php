@@ -355,7 +355,8 @@ class StudentsController extends AppController
         unset($this->request->data['Answer']);
         unset($this->request->data['data']);
 
-        $student_id = $this->request->data['id'];
+        $student_id = $this->Session->read('student_id');
+        if (!$student_id) $student_id = $this->request->data['id'];  
         unset($this->request->data['id']);
         $this->Students->updateAll($this->request->data, ['id' => $student_id]);
     

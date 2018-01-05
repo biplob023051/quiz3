@@ -44,6 +44,7 @@
         'trial_limit' => __('TRIAL_LIMIT'),
     ];
     $limitOptions = [50 => 50, 100 => 100, 500 => 500, 1000 => 1000];
+    $languages = $this->Quiz->allLanguages();
 ?>
 <div class="panel panel-default" id="manage-user">
     <!-- <div class="panel-heading">
@@ -81,6 +82,7 @@
                         <th class="text-center" style="width: 1%"><?= $this->Paginator->sort('id', __('ID')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('name', __('NAME')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('email', __('EMAIL')); ?></th>
+                        <th class="text-center"><?= $this->Paginator->sort('language', __('LANG')); ?></th>
                         <th class="text-center"><?= $this->Paginator->sort('UserStatistic.created', __('LAST_LOGIN'), ['model' => 'UserStatistic']); ?></th>
                         
                         <th class="text-center"><?= __('LOGIN_COUNT'); ?></th>
@@ -101,6 +103,7 @@
                                     <td class="text-center"><?= $user->id; ?></td>
                                     <td class="text-center"><span class="user-info"><?= h($user->name); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_NAME'); ?>" class="form-control update-user" name="class" data-rel="name-<?= $user->id; ?>" value="<?= $user->name; ?>" data-value="<?= $user->name ?>"></td>
                                     <td class="text-center"><span class="user-info"><?= h($user->email); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?= __('ENTER_EMAIL'); ?>" class="form-control update-user" name="email" data-rel="email-<?= $user->id; ?>" value="<?= $user->email; ?>" data-value="<?= $user->email; ?>"></td>
+                                    <td class="text-center"><?= $languages[$user->language]; ?></td>
                                     <td class="text-center"><?= !empty($user->user_statistic->created) ? h($user->user_statistic->created->todatestring()) : ''; ?></td>
                                     <td class="text-center"><?= !empty($user->statistics[0]['total_login']) ? $user->statistics[0]['total_login'] : '0'; ?></td>
                                     <td class="text-center"><?= !empty($user->quizzes[0]['total_quiz']) ? $user->quizzes[0]['total_quiz'] : '0'; ?></td>
@@ -129,6 +132,7 @@
                                     <td class="text-center"><?= $user->id; ?></td>
                                     <td class="text-center"><?= h($user->name); ?></td>
                                     <td class="text-center"><?= h($user->email); ?></td>
+                                    <td class="text-center"><?= $languages[$user->language]; ?></td>
                                     <td class="text-center"><?= !empty($user->user_statistic->created) ? h($user->user_statistic->created->todatestring()) : ''; ?></td>
                                     <td class="text-center"><?= !empty($user->statistics[0]['total_login']) ? $user->statistics[0]['total_login'] : '0'; ?></td>
                                     <td class="text-center"><?= !empty($user->quizzes[0]['total_quiz']) ? $user->quizzes[0]['total_quiz'] : '0'; ?></td>
