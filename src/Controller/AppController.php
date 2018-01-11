@@ -78,15 +78,7 @@ class AppController extends Controller
                     'passwordHasher' => [
                         'className' => 'Simple',
                         'hashType' => 'sha256'
-                        // 'hashers' => [
-                        //     'Default',
-                        //     'Weak' => ['hashType' => 'sha1']
-                        // ]
                     ]
-                    // 'passwordHasher' => [
-                    //     'className' => 'Simple',
-                    //     'hashType' => 'sha256'
-                    // ]
                 ]
             ],
             'loginAction' => [
@@ -150,8 +142,8 @@ class AppController extends Controller
             $this->Session->delete('Choice');
         }
 
-        $minify = !Configure::read('debug') ? '.min' : '';
-        //$minify = '.min';
+        //$minify = !Configure::read('debug') ? '.min' : '';
+        $minify = '.min';
 
         $this->set('authUser', $this->Auth->user());
         $this->set(compact('language', 'minify', 'eng_domain'));
@@ -259,11 +251,12 @@ class AppController extends Controller
      * Get global site settings
      * @return array
      */
-    public function _getSettings()
+    public function _getSettings($language = null)
     {
+        $language = empty($language) ? $this->getDefaultLanguage() : $language;
         $this->loadModel('Settings');
         $this->Settings->cacheQueries = true;
-        $settings = $this->Settings->find('list', ['keyField' => 'field', 'valueField' => 'value'])->where(['language' => $this->getDefaultLanguage()])->toArray();
+        $settings = $this->Settings->find('list', ['keyField' => 'field', 'valueField' => 'value'])->where(['language' => $language])->toArray();
         return $settings;
     }
 

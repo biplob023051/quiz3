@@ -6,6 +6,9 @@ use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Core\Configure;
 
+use App\Event\Statistics;
+use Cake\Event\Event;
+
 /**
  * Users Controller
  *
@@ -17,16 +20,6 @@ class UsersController extends AppController
         'limit' => 50,
         'maxLimit' => 1000,
         'order' => ['Users.id' => 'ASC'],
-        // 'sortWhitelist' => [
-        //     'id',
-        //     'name',
-        //     'email',
-        //     'account_level',
-        //     'created',
-        //     'expired',
-        //     'isactive',
-        //     'UserStatistic.created'
-        // ]
     ];
 
     public function initialize()
@@ -114,12 +107,9 @@ class UsersController extends AppController
                 ->group(['Quizzes.user_id']);
                 return $q;
             },
-            'UserStatistic'
         ];
         
         try {
-            //$this->paginate['sortWhitelist'] = $this->Users->schema()->columns();
-            //$this->paginate['sortWhitelist'][] = 'UserStatistic.created';
             $users = $this->paginate(
                 $this->Users->find('all')
                 ->where($conditions)
@@ -244,17 +234,28 @@ class UsersController extends AppController
                 }
                 $user['quiz_bank_access'] = true;
                 $this->Auth->setUser($user);
-                //save statistics data
-                $statisticsTable = TableRegistry::get('Statistics');
-                $statistic = $statisticsTable->newEntity();
-                $statistic->user_id = $this->Auth->user('id');
-                $statistic->type = 'user_login';
-                $statistic->created = date("Y-m-d H:i:s");
-                $statisticsTable->save($statistic);
+                //Login Event.
+                $this->eventManager()->attach(new Statistics($this));
+                $event = new Event('Model.Users.login', $this, [
+                    'user_id' => $user['id']
+                ]);
+                $this->eventManager()->dispatch($event);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('USERNAME_OR_PASSWORD_INCORRECT'));
         }
 
+    }
+
+    // Temp method to sync
+    public function temp($id_start = 0) {
+        $id_end = $id_start + 100;
+        for($i = 1; $i <= $id_end; $i++) {
+            $stat = $this->Users->Statistics->find()->where(['user_id' => $i, 'type' => 'user_login'])->order(['created' => 'DESC'])->first();
+            if (!empty($stat)) {
+                $this->Users->updateAll(['last_login' => $stat->created], ['id' => $stat->user_id]);
+            }
+        }
+        exit;
     }
 }

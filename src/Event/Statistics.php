@@ -22,13 +22,16 @@ class Statistics implements EventListenerInterface {
 
 	public function userLogin(Event $event) {
 		$this->Statistics = TableRegistry::get('Statistics');
+        $datetime = date("Y-m-d H:i:s");
         $data = [
             'user_id' => $event->data['user_id'],
             'type' => 'user_login',
-            'created' => date("Y-m-d H:i:s"),
+            'created' => $datetime,
         ];
         $entity = $this->Statistics->newEntity($data);
         $this->Statistics->save($entity);
+        $this->Statistics->Users->updateAll(['last_login' => $datetime], ['id' => $event->data['user_id']]
+        );
         return true;
 	}
 
