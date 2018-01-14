@@ -30,7 +30,7 @@
         <tr>
             <td>&nbsp;</td>
             <td><?= $this->Html->link(__('REGISTER_NOW'), '/users/create', array('class' => 'btn btn-success')); ?></td>
-            <td><button type="button" id="buy-button-49" class="btn btn-success"><?= __('BUY'); ?></button></td>
+            <td><button type="button" id="buy-button" class="btn btn-success"><?= __('BUY'); ?></button></td>
         </tr>
     </tbody>
 </table>

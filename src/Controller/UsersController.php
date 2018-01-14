@@ -64,7 +64,8 @@ class UsersController extends AppController
             return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
         }
         $user = $this->Users->newEntity();
-        $site_language = Configure::read('Config.language');
+        // Mandatory english language is from English domain
+        $site_language = (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) ? 'en_GB' : Configure::read('Config.language');
         if ($this->request->is('post')) {
             require_once(ROOT . '/vendor' . DS . '/recaptcha/src/autoload.php');
             $secret = RECAPTCHA_SERVER_KEY;
@@ -98,7 +99,7 @@ class UsersController extends AppController
                     return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
                     // End of new code
                 } else {
-                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                    $this->Flash->error(__('USER_COULD_NOT_BE_SAVED_TRY_AGAIN'));
                 }
             } else {
                 foreach ($resp->getErrorCodes() as $code) {
@@ -408,10 +409,13 @@ class UsersController extends AppController
         $this->autoRender = false;
         $output['success'] = false;
         if ($this->request->is(array('post', 'put'))) {
-            //$this->request->data['activation'] = $this->randText(16);
             $this->request->data['activation'] = NULL;
-            //ate("Y-m-d H:i:s")
             $date = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+            // For english domain its always 49 package
+            if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+                $this->request->data['package'] = 49;
+                $this->request->data['payment_type'] = 'card';
+            }
             if ($this->request->data['package'] == 29) {
                 $package =  __('29_EUR');
                 $this->request->data['account_level'] = 1;
@@ -422,7 +426,7 @@ class UsersController extends AppController
             $package = $this->request->data['package'];
             unset($this->request->data['package']);
             $this->request->data['expired'] = $date;
-            $this->request->data['language'] = Configure::read('Config.language');
+            $this->request->data['language'] = (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) ? 'en_GB' : Configure::read('Config.language');
             $user = $this->Users->newEntity();
             $user = $this->Users->patchEntity($user, $this->request->data);
             // pr($user);

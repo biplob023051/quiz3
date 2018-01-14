@@ -4,8 +4,10 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
 <script src="https://js.stripe.com/v2/"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<?= $this->Html->script(['jquery.uploadfile.min'], ['inline' => false]); ?>
-<?= $this->Html->css(['uploadfile'], ['inline' => false]); ?>
+<?php if (empty($eng_domain)) : ?>
+    <?= $this->Html->script(['jquery.uploadfile.min'], ['inline' => false]); ?>
+    <?= $this->Html->css(['uploadfile'], ['inline' => false]); ?>
+<?php endif; ?>
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
     <h2><?= __('PRICES'); ?></h2>
@@ -21,20 +23,13 @@
         </div>
     </div>
 </div>
-<?= $this->element('Page/buy_modal'); ?>
+<?= empty($eng_domain) ? $this->element('Page/buy_modal') : $this->element('Page/buy_modal_bank'); ?>
 <?= $this->element('Invoice/invoice_success_dialog'); ?>
-<script id="app-data" type="application/json">
-    <?php
-    // echo json_encode(array(
-    //     'baseUrl' => $this->Html->url('/', true)
-    // ));
-    ?>
-</script>
 <script type="text/javascript">
     var lang_strings = <?= json_encode($lang_strings) ?>;
 </script>
 
-<?= $this->Html->script(['buy'.$minify], ['inline' => false]); ?>
+<?= empty($eng_domain) ? $this->Html->script(['buy'.$minify], ['inline' => false]) : $this->Html->script(['buy_bank'.$minify], ['inline' => false]); ?>
 
 <style>
     .ajax-file-upload-statusbar {
