@@ -124,17 +124,13 @@ class AppController extends Controller
         } 
 
         $eng_domain = (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) ? true : false;
-        // check user language, default language finish
-        if (!$eng_domain) {
-            $language = $this->Auth->user('language');
-            if (empty($language)) {
-                $language = $this->Cookie->read('site_language');
-            }
-            if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
-                $language = 'fi';
-        } else {
-            $language = 'en_GB';
+
+        $language = $this->Auth->user('language');
+        if (empty($language)) {
+            $language = $this->Cookie->read('site_language');
         }
+        if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
+            $language = !$eng_domain ? 'fi' : 'en_GB';
         Configure::write('Config.language', $language);
         I18n::locale($language);
         

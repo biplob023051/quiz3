@@ -4,7 +4,7 @@
         margin-left: -2.9%;
     }
 
-    #subjects .checkbox {
+    .allsubject .checkbox {
         width: 33% !important;
         float: left;
         margin-top: 0px;
@@ -85,26 +85,26 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         <?= $this->Form->input('email', ['label' => __("EMAIL"),'disabled' => true]);?>
     </div>
 </div>
-<?php if (empty($eng_domain)) : ?>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-            <?php
-            echo $this->Form->input('language', [
-                'label' => ['text' => __('LANGUAGE')],
-                'options' => $this->Quiz->allLanguages(),
-                'div' => array('class' => 'form-group'),
-                'class' => 'form-control'
-            ]);
-            ?>
-        </div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
+        <?php
+        echo $this->Form->input('language', [
+            'label' => ['text' => __('LANGUAGE')],
+            'options' => $this->Quiz->allLanguages(),
+            'div' => array('class' => 'form-group'),
+            'class' => 'form-control'
+        ]);
+        ?>
     </div>
-<?php endif; ?>
-<?php if (!empty($subjects)) : ?>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12" id="subjects">
-            <?= $this->Form->input('subjects', [
+</div>
+
+<div class="row">
+    <?php foreach($subjects as $lang => $subject) : ?>
+        <?php $display = ($lang == $user->language) ? 'block' : 'none'; ?>
+        <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12 allsubject" id="subjects-<?= $lang; ?>" style="display: <?= $display; ?>">
+            <?= $this->Form->input('Subject.'.$lang, [
                 'label' => ['text' => __('SUBJECTS'), 'class' => 'col-md-12 new-br'],
-                'options' => $subjects,
+                'options' => $subject,
                 'div' => ['class' => 'form-group'],
                 'class' => 'form-control no-border',
                 'type' => 'select',
@@ -113,8 +113,8 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
             ]);
             ?>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endforeach; ?>
+</div>
 <div class="row">
     <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
         <div class="form-group">
@@ -194,7 +194,6 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
 <?php if ($authUser['account_level'] != 51) : ?>
     <?= $this->element('Invoice/invoice_success_dialog'); ?>
     <?= $this->element('Invoice/invoice_error_dialog'); ?>
-    <?= $this->element('Invoice/payment', ['lang_strings' => $lang_strings]); ?>
+    <?= empty($eng_domain) ? $this->element('Invoice/payment', ['lang_strings' => $lang_strings]) : $this->element('Invoice/payment_bank', ['lang_strings' => $lang_strings]); ?>
 <?php endif; ?>
-
-<?= $this->Html->script(['payment'.$minify], ['inline' => false]); ?>
+<?= empty($eng_domain) ? $this->Html->script(['payment'.$minify], ['inline' => false]) : $this->Html->script(['payment_bank'.$minify], ['inline' => false]); ?>

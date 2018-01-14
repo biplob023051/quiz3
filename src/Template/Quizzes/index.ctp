@@ -94,13 +94,23 @@
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
 </script>
-<?= $this->Html->script([
-    /*production*/
-    'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.2/js/jquery.tablesorter.min.js',
-    /*local*/
-    //'jquery.tablesorter.min', 
-    'payment'.$minify
-], ['inline' => false]); ?>
+<?php if (empty($eng_domain)) : ?>
+    <?= $this->Html->script([
+        /*production*/
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.2/js/jquery.tablesorter.min.js',
+        /*local*/
+        //'jquery.tablesorter.min', 
+        'payment'.$minify
+    ], ['inline' => false]); ?>
+<?php else : ?>
+    <?= $this->Html->script([
+        /*production*/
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.29.2/js/jquery.tablesorter.min.js',
+        /*local*/
+        //'jquery.tablesorter.min', 
+        'payment_bank'.$minify
+    ], ['inline' => false]); ?>
+<?php endif; ?>
 <?= $this->assign('title', __('MY_QUIZZES')); ?>
 
 <?= $this->Flash->render(); ?>
@@ -291,5 +301,5 @@
 <?= $this->element('Invoice/invoice_error_dialog'); ?>
 <?= $this->element('Invoice/delete_confirm'); ?>
 <?= $this->element('Invoice/demo_dialog'); ?>
-<?= (empty($eng_domain)) ? $this->element('Invoice/payment', ['lang_strings' => $lang_strings]) : $this->element('Invoice/payment_eng', ['lang_strings' => $lang_strings]); ?>
+<?= (empty($eng_domain)) ? $this->element('Invoice/payment', ['lang_strings' => $lang_strings]) : $this->element('Invoice/payment_bank', ['lang_strings' => $lang_strings]); ?>
 <?= $this->Html->script(['quiz-index'], ['inline' => false]); ?>

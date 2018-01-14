@@ -537,6 +537,10 @@ class UsersController extends AppController
     public function payment() {
         $this->autoRender = false;
         $output = ['success' => false];
+        // For english domain payment is always 49
+        if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+            $this->request->data['amount'] = 49;   
+        }
         if ($this->request->data['amount'] == 49) {
             $plan = 'bank-yearly';
             $account_level = 2;
@@ -642,7 +646,12 @@ class UsersController extends AppController
         $subscription = \Stripe\Subscription::retrieve($subscription_id);
         if ($this->request->data['utype'] == 'Cancel') {
             $subscription->cancel(array('at_period_end' => true));
-            $plan_switched = ($user['plan_switched'] == 'DOWNGRADE') ? 'CANCELLED_DOWNGRADE' : 'CANCELLED';
+            // For English domain its always CANCELLED
+            if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+                $plan_switched = 'CANCELLED';
+            } else {
+                $plan_switched = ($user['plan_switched'] == 'DOWNGRADE') ? 'CANCELLED_DOWNGRADE' : 'CANCELLED';
+            }
             $output['success'] = true;
             $output['message'] = __('SUBSCRIPTION_CANCELLED_SUCCESS');
         } else {
@@ -718,6 +727,10 @@ class UsersController extends AppController
 
 
         $itemID = $subscription->items->data[0]->id;
+
+        if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+            $this->request->data['utype'] = 2;
+        }
 
         $plan = ($this->request->data['utype'] == 1) ? 'basic-yearly' : 'bank-yearly';
 
