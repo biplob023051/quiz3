@@ -44,7 +44,7 @@
         'trial_limit' => __('TRIAL_LIMIT'),
     ];
     $limitOptions = [50 => 50, 100 => 100, 500 => 500, 1000 => 1000];
-    $languages = $this->Quiz->allLanguages();
+    $languages = ['en_GB' => 'Eng', 'fi' => 'Fin', 'sv_FI' => 'Swe'];
 ?>
 <div class="panel panel-default" id="manage-user">
     <!-- <div class="panel-heading">

@@ -232,12 +232,12 @@ class UsersController extends AppController
         $quiz_bank_access = $this->Auth->user('quiz_bank_access');
         $user = $this->Users->get($user_id, ['contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            // pr($this->request->data);
-            // exit;
-            if (!empty($this->request->data['subjects'])) {
-                $this->request->data['subjects'] = json_encode($this->request->data['subjects']);
+            if (!empty($this->request->data['Subject'][$this->request->data['language']])) {
+                $this->request->data['subjects'] = json_encode($this->request->data['Subject'][$this->request->data['language']]);
+            } else {
+                $this->request->data['subjects'] = NULL;
             } 
-            
+            unset($this->request->data['Subject']);
             if (empty($this->request->data['password'])) {
                 unset($this->request->data['password']);
             }
@@ -251,14 +251,9 @@ class UsersController extends AppController
             if (empty($this->request->data['password'])) {
                 unset($user->password);
             }
-            // pr($user);
-            // exit;
             if ($this->Users->save($user)) {
                 $user->quiz_bank_access = $quiz_bank_access;
                 $this->Auth->setUser($user);
-                // $this->Session->write('Auth.User.language', $data['User']['language']);
-                // $this->Session->write('Auth.User.name', $data['User']['name']);
-                // $this->Session->write('Auth.User.subjects', $data['User']['subjects']);
                 $this->Flash->success(__('SETTINGS_SAVED'));
                 return $this->redirect(array('controller' => 'quizzes'));
             } else {
@@ -273,14 +268,20 @@ class UsersController extends AppController
         // exit;
         //$data['canCreateQuiz'] = $this->Users->canCreateQuiz();
         $this->loadModel('Subjects');
-        $subjects = $this->Subjects->find('list')
+        $allSubjects = $this->Subjects->find('all')
         ->where([
             'Subjects.isactive' => 1,
             'Subjects.is_del IS NULL',
             'Subjects.type IS NULL',
-            'Subjects.language' => $this->Auth->user('language')
+            //'Subjects.language' => $this->Auth->user('language')
         ])
         ->toArray();
+
+        $subjects = [];
+
+        foreach ($allSubjects as $key => $subject) {
+            $subjects[$subject->language][$subject->id] = $subject->title;
+        }
         
         $this->set(compact('user', 'subjects'));
     }

@@ -137,7 +137,6 @@ class QuizzesController extends AppController
             if (!empty($this->request->data['subjects'])) {
                 $this->request->data['subjects'] = json_encode($this->request->data['subjects'], true);
             }
-
             if (!empty($this->request->data['classes'])) {
                 $this->request->data['classes'] = json_encode($this->request->data['classes'], true);
             }
@@ -153,7 +152,6 @@ class QuizzesController extends AppController
                 $this->Flash->error(__('QUIZ_SAVE_FAILED'));
             }
         }
-
         $query = $this->Quizzes->find()
             ->where($conditions)
             ->contain([
@@ -222,7 +220,7 @@ class QuizzesController extends AppController
             'Subjects.type IS NULL',
             'Subjects.language' => $data['language']
         );
-        if (!empty($c_user['subjects']) && ($c_user['account_level'] != 51)) {
+        if (!empty($c_user['subjects']) && ($c_user['account_level'] != 51) && ($c_user['language'] == $data['language'])) {
             $selectedSubjects = json_decode($c_user['subjects'], true);
             $subject_cond[] = array('Subjects.id IN' => $selectedSubjects);
         }

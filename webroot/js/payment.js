@@ -335,4 +335,10 @@
         $('#password2-error').hide();
     });
 
+    // On language change from user settings page
+    $(document).on('change', '#language', function(){
+        $('.allsubject').hide();
+        $('#subjects-' + $(this).val()).show();
+    });
+
 })(jQuery);

@@ -291,5 +291,5 @@
 <?= $this->element('Invoice/invoice_error_dialog'); ?>
 <?= $this->element('Invoice/delete_confirm'); ?>
 <?= $this->element('Invoice/demo_dialog'); ?>
-<?= $this->element('Invoice/payment', ['lang_strings' => $lang_strings]); ?>
+<?= (empty($eng_domain)) ? $this->element('Invoice/payment', ['lang_strings' => $lang_strings]) : $this->element('Invoice/payment_eng', ['lang_strings' => $lang_strings]); ?>
 <?= $this->Html->script(['quiz-index'], ['inline' => false]); ?>

@@ -51,6 +51,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'index']);
 
+    $routes->connect('/robots.txt', ['controller' => 'seo', 'action' => 'robots']);
+
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
