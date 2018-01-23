@@ -233,6 +233,9 @@ class UsersController extends AppController
         $quiz_bank_access = $this->Auth->user('quiz_bank_access');
         $user = $this->Users->get($user_id, ['contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if (strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) {
+                $this->request->data['language'] = $user->language;
+            } 
             if (!empty($this->request->data['Subject'][$this->request->data['language']])) {
                 $this->request->data['subjects'] = json_encode($this->request->data['Subject'][$this->request->data['language']]);
             } else {

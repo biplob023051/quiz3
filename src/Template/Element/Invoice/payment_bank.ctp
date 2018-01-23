@@ -3,10 +3,10 @@
 </script>
 <!-- Modal -->
 <?php
-    if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED'])) {
+    if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) {
         $id_modifier = '_edit';
         $input_name = 'upgrade';
-    } else if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED'])) {
+    } else if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) {
         $id_modifier = '_activate';
         $input_name = 'activate';
     } else {
@@ -21,7 +21,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= __('CLOSE'); ?></span></button>
                 <h4 class="modal-title" id="invoice-dialog-title">
-                    <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED'])) : ?>
+                    <?php if (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                         <?= __('REACTIVATE_SUBSCRIPTION'); ?>
                     <?php else : ?>
                         <?= in_array($authUser['account_level'], [1,2]) ? __('EDIT_PLAN') : __('PURCHASE_YEARLY_LICENCE_49'); ?>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-3"></div>
                     </div>
-                <?php elseif (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id']) && ($authUser['plan_switched'] == 'CANCELLED')) : ?>
+                <?php elseif (in_array($authUser['account_level'], [1,2]) && !empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                     <?= __('CONTINUE_SUBSCRIPTION') ?>
                 <?php endif; ?>
                 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
@@ -106,7 +106,7 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-xs-12 m-b-5"><strong><?= __('PURCHASE'); ?></strong></div>
+                                        <div class="col-xs-12 m-b-5"><strong><?= __('PURCHASE_BENEFIT'); ?></strong></div>
                                         <div class="col-xs-12">
                                             <div class="form-group">
                                                 <ul class="list-unstyled">
@@ -139,9 +139,9 @@
                 <?php endif; ?>
             </div>
             <div class="modal-footer">
-                <?php if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED'])) : ?>
-                    <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_PLAN'); ?></button>
-                <?php elseif (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED'])) : ?>
+                <?php if (in_array($authUser['account_level'], [1,2]) && !in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
+                    <button type="button" class="btn btn-success" disabled="disabled" id="confirm-upgrade"><?= __('CURRENT_49_PLAN'); ?></button>
+                <?php elseif (!empty($authUser['customer_id']) && in_array($authUser['plan_switched'], ['CANCELLED', 'CANCELLED_DOWNGRADE'])) : ?>
                     <button type="button" class="btn btn-success" id="confirm-reactivate"><?= $lang_strings['reactivate']; ?></button>
                 <?php else : ?>
                 <?php endif; ?>

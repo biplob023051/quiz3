@@ -36,12 +36,18 @@
                                         <div id="collapseOne-<?php echo $value->id; ?>" class="panel-collapse collapse <?php if ($key == 0) : ?>in<?php endif; ?>">
                                             <div class="panel-body">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <?php echo $value->body; ?>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?php echo $value->url_src; ?>" frameborder="0" allowfullscreen></iframe>
-                                                    </div>
+                                                    <?php if (!empty($value->url_src)) : ?>
+                                                        <div class="col-sm-6">
+                                                            <?php echo $value->body; ?>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?php echo $value->url_src; ?>" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                    <?php else : ?>
+                                                        <div class="col-sm-12">
+                                                            <?php echo $value->body; ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </div>

@@ -85,6 +85,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         <?= $this->Form->input('email', ['label' => __("EMAIL"),'disabled' => true]);?>
     </div>
 </div>
+<?php if (empty($eng_domain)) : ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
         <?php
@@ -97,6 +98,7 @@ $userSubjects = !empty($user->subjects) ? json_decode($user->subjects, true) : a
         ?>
     </div>
 </div>
+<?php endif; ?>
 
 <div class="row">
     <?php foreach($subjects as $lang => $subject) : ?>

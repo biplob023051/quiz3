@@ -80,15 +80,15 @@ class HelpsTable extends Table
             ->requirePresence('parent_id', 'create')
             ->notEmpty('parent_id', 'MAIN_TITLE_REQUIRED');
 
-        $validator
-            ->requirePresence('url', 'create')
-            ->notEmpty('url', 'REQUIRED_YOUTUBE_URL')
-            ->add('url', [
-                'valid-url' => [
-                    'rule' => 'url',
-                    'message' => 'REQUIRED_YOUTUBE_URL'
-                ]
-            ]);
+        // $validator
+        //     ->requirePresence('url', 'create')
+        //     ->notEmpty('url', 'REQUIRED_YOUTUBE_URL')
+        //     ->add('url', [
+        //         'valid-url' => [
+        //             'rule' => 'url',
+        //             'message' => 'REQUIRED_YOUTUBE_URL'
+        //         ]
+        //     ]);
 
         return $validator;
     }

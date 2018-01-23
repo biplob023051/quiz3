@@ -28,7 +28,7 @@ class QuizzesController extends AppController
         parent::initialize();
         $this->loadComponent('Paginator');
         $this->loadComponent('Email');
-        $this->Auth->allow(['live', 'no_permission']);
+        $this->Auth->allow(['live', 'noPermission']);
     }
 
     public function ajaxStudentUpdate() {
@@ -396,8 +396,7 @@ class QuizzesController extends AppController
             if ((($data->user->account_level == 0) || 
                 (($data->user->account_level == 1) && (strtotime($data->user->expired) < time()))) 
                 && ($data->student_count >= 40)) {
-                $this->Flash->error(__('ONLY_FOURTY_STUDENTS'));
-                return $this->redirect(array('controller' => 'quizzes', 'action' => 'no_permission'));
+                return $this->redirect(array('controller' => 'quizzes', 'action' => 'noPermission'));
             }
 
             $this->Session->write('user_language', $data->language);
@@ -744,7 +743,8 @@ class QuizzesController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function no_permission() {
+    public function noPermission() {
+        $this->Flash->error(__('ONLY_FOURTY_STUDENTS'));
         $this->set('title_for_layout', __('NO_PERMISSION'));
     }
 

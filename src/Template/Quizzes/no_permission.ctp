@@ -1,6 +1,4 @@
 <div class="container" id="body-content">
-    <?php echo $this->Session->flash('notification'); ?>
-	<?php echo $this->Session->flash('error'); ?>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
            
