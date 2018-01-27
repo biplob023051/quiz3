@@ -25,16 +25,20 @@ class MaintenanceController extends AppController
                 
                 foreach ($this->request->data as $key => $value) {
                     if (array_key_exists($key, $setting) && $setting[$key] != $value) {
-                        $this->Settings->updateAll(array('value' => $value), array('field' => $key, 'language' => $language));
+                        if ($key == 'offline_status' || $key == 'visible') {
+                            $this->Settings->updateAll(array('value' => $value), array('field' => $key));
+                        } else {
+                            $this->Settings->updateAll(array('value' => $value), array('field' => $key, 'language' => $language));
+                        }
                     }
                 }
                 
                 if (empty($this->request->data['offline_status'])) {
-                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'offline_status', 'language' => $language));
+                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'offline_status'));
                 }
 
                 if (empty($this->request->data['visible'])) {
-                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'visible', 'language' => $language));
+                    $this->Settings->updateAll(array('value' => NULL), array('field' => 'visible'));
                 }
                 $this->Flash->success(__('SETTINGS_SAVED_SUCCESSFULLY'));
             } else {
