@@ -348,21 +348,21 @@ class QuizzesController extends AppController
             $randomString = $this->randText(10);
             $this->Session->write('started', $randomString);
             $this->Session->write('random_id', $quizRandomId); // Write random_id on session to keey track of online students
-            $this->redirect(array('controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
+            $this->redirect(['controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => ['runningFor' => $randomString]]);
         }
 
         if (!empty($this->request->query['runningFor']) && ($this->request->query['runningFor'] == $this->Session->read('started'))) {
             // Do nothing
         } else {
             // remove session and start new
-            $this->Session->delete('started');
-            $this->Session->delete('student_id');
-            $this->Session->delete('random_id');
+            // $this->Session->delete('started');
+            // $this->Session->delete('student_id');
+            // $this->Session->delete('random_id');
             $this->Session->destroy();
             $randomString = $this->randText(10);
             $this->Session->write('started', $randomString);
             $this->Session->write('random_id', $quizRandomId);
-            $this->redirect(array('controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => array('runningFor' => $randomString)));
+            $this->redirect(['controller' => 'Quizzes', 'action' => 'live', $quizRandomId, '?' => ['runningFor' => $randomString]]);
         }
 
         $data = $this->Quizzes->find('all')
@@ -399,8 +399,9 @@ class QuizzesController extends AppController
                 return $this->redirect(array('controller' => 'quizzes', 'action' => 'noPermission'));
             }
 
-            $this->Session->write('user_language', $data->language);
-            I18n::locale($data->language);
+            $user_language = ((strpos($_SERVER['SERVER_NAME'], ENG_DOMAIN) !== false) && ($data->language == 'en_GB')) ? 'en_US' : $data->language;
+            $this->Session->write('user_language', $user_language);
+            I18n::locale($user_language);
 
             // Check session if student page reloaded
             if ($this->Session->check('student_id')) {
@@ -435,21 +436,6 @@ class QuizzesController extends AppController
 
     public function finish() {
         
-    }
-
-    public function check_diff_multi($array1, $array2){
-        $result = array();
-        foreach($array1 as $key => $val) {
-             if(isset($array2[$key])){
-               if(is_array($val) && $array2[$key]){
-                   $result[$key] = $this->check_diff_multi($val, $array2[$key]);
-               }
-           } else {
-               $result[$key] = $val;
-           }
-        }
-
-        return $result;
     }
 
     public function table($quizId) {

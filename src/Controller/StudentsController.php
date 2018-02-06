@@ -120,24 +120,20 @@ class StudentsController extends AppController
             $total_change = true;
         }
 
-        // Compare with choice if its correct or not
-        $this->loadModel('Choices');
-        $choices = $this->Choices->find('all')
-        ->where(['Choices.question_id IN' => (int)$this->request->data['question_id']])
-        ->contain(['Questions'])
-        ->toArray();
-        // pr($choices);
-        // exit;
+        $this->loadModel('Questions');
+
+        $question = $this->Questions->get((int)$this->request->data['question_id'], ['contain' => ['Choices']]);
+
         $checkMax = 0;
         $correct_answer = 0;
-        foreach ($choices as $key2 => $value2) {
+        foreach ($question->choices as $key2 => $value2) {
             // get maxvalue as a total point increment
             if ($checkMax < $value2->points) {
                 $checkMax = $value2->points;
             }
 
-            if (($value2->question->question_type_id == 1) || 
-                ($value2->question->question_type_id == 3)) {
+            if (($question->question_type_id == 1) || 
+                ($question->question_type_id == 3)) {
                 // multiple choice one or many
                 if ($value2->text == $this->request->data['text']) {
                     $data['score'] = $value2->points;
@@ -149,7 +145,7 @@ class StudentsController extends AppController
                 } 
 
 
-            } elseif ($value2->question->question_type_id == 2) { // short automatic point
+            } elseif ($question->question_type_id == 2) { // short automatic point
                 $student_answer = $this->request->data['text'];
                 if (empty($this->request->data['case_sensitive'])) {
                     $student_answer = strtolower($student_answer);
@@ -178,7 +174,7 @@ class StudentsController extends AppController
                     }
                 }
                 $data['text'] = $this->request->data['text'];
-            } elseif ($value2->question->question_type_id == 4) {
+            } elseif ($question->question_type_id == 4) {
                 // short manual point
                 $data['score'] = null;
 

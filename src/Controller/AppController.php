@@ -132,14 +132,15 @@ class AppController extends Controller
         if (empty($language) or !file_exists(APP . 'Locale' . DS . $language . DS . 'default.po'))
             $language = !$eng_domain ? 'fi' : 'en_GB';
         Configure::write('Config.language', $language);
-        I18n::locale($language);
+        $loadTranslation = (!empty($eng_domain) && $language == 'en_GB') ? 'en_US' : $language;
+        I18n::locale($loadTranslation);
         
         if ($this->Session->check('Choice') && ($this->request->action != 'removeChoice' || $this->request->action != 'isAuthorized')) {
             $this->Session->delete('Choice');
         }
 
-        //$minify = !Configure::read('debug') ? '.min' : '';
-        $minify = '.min';
+        $minify = !Configure::read('debug') ? '.min' : '';
+        //$minify = '.min';
 
         $this->set('authUser', $this->Auth->user());
         $this->set(compact('language', 'minify', 'eng_domain'));
