@@ -32,7 +32,8 @@
                         'placeholder' => __('FIRST_NAME'),
                         'label' => false,
                         'class' => 'basic-info',
-                        'value' => !empty($student->fname) ? $student->fname : ''
+                        'value' => !empty($student->fname) ? $student->fname : '',
+                        'data-value' => !empty($student->fname) ? $student->fname : '',
                     ));
                     ?>
                     <?php if (!empty($student->fname)) : ?>
@@ -47,7 +48,8 @@
                         'placeholder' => __('LAST_NAME'),
                         'label' => false,
                         'class' => 'basic-info',
-                        'value' => !empty($student->lname) ? $student->lname : ''
+                        'value' => !empty($student->lname) ? $student->lname : '',
+                        'data-value' => !empty($student->lname) ? $student->lname : '',
                     ));
                     ?>
                     <?php if (!empty($student->lname)) : ?>
@@ -62,7 +64,8 @@
                         'placeholder' => __('CLASS'),
                         'label' => false,
                         'class' => 'basic-info',
-                        'value' => !empty($student->class) ? $student->class : ''
+                        'value' => !empty($student->class) ? $student->class : '',
+                        'data-value' => !empty($student->class) ? $student->class : '',
                     ));
                     ?>
                     <?php if (!empty($student->class)) : ?>
@@ -142,30 +145,25 @@
         </table>
     </div>
 </div>
-<?php echo $this->element('Quiz/confirm_submit'); ?>
+<?= $this->element('Quiz/confirm_submit'); ?>
 <div class="row">
     <div class="col-xs-12 col-md-4 pull-right">
-        <span class="text-danger no-internet"><?php echo __('SORRY_LOST_CONNECTION'); ?></span>
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="std_form_submit"><?php echo __('WANT_TURN_IN_QUIZ') ?></button>
+        <span class="text-danger no-internet"><?= __('SORRY_LOST_CONNECTION'); ?></span>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="std_form_submit"><?= __('WANT_TURN_IN_QUIZ') ?></button>
     </div>
 </div>
 
 <div style="display: none">
-<input type="number" name="id" id="studentId" value="<?php echo !empty($student->id) ? $student->id : 0; ?>">
+<input type="number" name="id" id="studentId" value="<?= !empty($student->id) ? $student->id : 0; ?>">
 </div>
 
-<?php echo $this->Form->end(); ?>
+<?= $this->Form->end(); ?>
 
-<?php 
-    echo $this->Html->script(array(
-        'live',
-        ), array('inline' => false)
-    );
-?>
+<?= $this->Html->script(['live'.$minify], ['inline' => false]); ?>
 
 <script type="text/javascript">
-    var lang_strings = <?php echo json_encode($lang_strings) ?>;
-    var random_id = <?php echo $quizRandomId ?>;
+    var lang_strings = <?= json_encode($lang_strings) ?>;
+    var random_id = <?= $quizRandomId ?>;
     // Browser tab navigation
     var vis = (function(){
         var stateKey, eventKey, keys = {

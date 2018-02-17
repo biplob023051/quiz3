@@ -126,21 +126,21 @@ class StudentsController extends AppController
 
         $checkMax = 0;
         $correct_answer = 0;
-        foreach ($question->choices as $key2 => $value2) {
+        foreach ($question->choices as $key2 => $choice) {
             // get maxvalue as a total point increment
-            if ($checkMax < $value2->points) {
-                $checkMax = $value2->points;
+            if ($checkMax < $choice->points) {
+                $checkMax = $choice->points;
             }
 
             if (($question->question_type_id == 1) || 
                 ($question->question_type_id == 3)) {
                 // multiple choice one or many
-                if ($value2->text == $this->request->data['text']) {
-                    $data['score'] = $value2->points;
+                if ($choice->text == $this->request->data['text']) {
+                    $data['score'] = $choice->points;
                     if ((empty($checkbox_record_delete) && !empty($checkBox)) || (!empty($checkbox_record_delete) && empty($checkBox))) {
-                        $correct_answer = $correct_answer + $value2->points;
+                        $correct_answer = $correct_answer + $choice->points;
                     } else {
-                        $correct_answer = $correct_answer - $value2->points;
+                        $correct_answer = $correct_answer - $choice->points;
                     }
                 } 
 
@@ -149,24 +149,24 @@ class StudentsController extends AppController
                 $student_answer = $this->request->data['text'];
                 if (empty($this->request->data['case_sensitive'])) {
                     $student_answer = strtolower($student_answer);
-                    $value2->text = strtolower($value2->text);
+                    $choice->text = strtolower($choice->text);
                 }
                 $student_answer = preg_replace('/\s+/', ' ', trim($student_answer));
-                $ans_string = preg_replace('/\s+/', ' ', trim($value2->text));
+                $ans_string = preg_replace('/\s+/', ' ', trim($choice->text));
 
                 if ($student_answer === $ans_string) { // Compare whole string
-                    $data['score'] = $value2->points;
-                    $correct_answer = $correct_answer + $value2->points;
+                    $data['score'] = $choice->points;
+                    $correct_answer = $correct_answer + $choice->points;
                 } else {
                     $student_answer = preg_replace('/\s+/', '', $student_answer);
-                    $ans_string = preg_replace('/\s+/', '', $value2->text);
+                    $ans_string = preg_replace('/\s+/', '', $choice->text);
                     $words = explode(';', $student_answer);
                     $matched_word = explode(';', $ans_string);
                     foreach ($words as $key => $value) {
                         //if (!empty($value) && (strpos(strtolower($value2['Choice']['text']), strtolower(trim($value))) !== false)) {
                         if (!empty($value) && (in_array($value, $matched_word))) {
-                            $data['score'] = $value2->points;
-                            $correct_answer = $correct_answer + $value2->points;
+                            $data['score'] = $choice->points;
+                            $correct_answer = $correct_answer + $choice->points;
                             break;
                         } else {
                             $data['score'] = 0;
@@ -234,91 +234,63 @@ class StudentsController extends AppController
     // student information updating
     private function recordStudentData() {
         $response = array('success' => false);
-        if ($this->Session->check('student_id')) {
+        $student_id = $this->Session->read('student_id');
+        if (!empty($student_id)) {
             // Update student information
-            $student_id = (int) $this->Session->read('student_id');
-            $student = $this->Students->get($student_id, ['contain' => []]);
-
-            // pr($student);
-            // exit;
-
+            $student = $this->Students->get($student_id);
             $student->fname = !empty($this->request->data['fname']) ? $this->request->data['fname'] : '';
             $student->lname = !empty($this->request->data['lname']) ? $this->request->data['lname'] : '';
-            //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
             $student->class = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
             $student->submitted = date('Y-m-d H:i:s');
             $student = $this->Students->save($student);
         } else {
             // Find quiz id
-            $quiz = $this->Students->Quizzes->findByRandomId((int)$this->request->data['random_id'])->contain(['Questions', 'Users'])->first();
-            $questions = Hash::combine($quiz->questions, '{n}.id', '{n}.id');
-            $data['quiz_id'] = $quiz->id;
-            
-            $total = 0;
-            
-            $this->loadModel('Choices');
-
-            $choices = $this->Choices->find('all', array('conditions' => array('Choices.question_id IN' => $questions)))->contain(['Questions'])->toArray();
-
-            // pr($choices);
-            // exit;
-
-            //pr($choices);
-            $checkQuestion = array();
-            foreach ($choices as $key => $value) {
-                if ($value->question->question_type_id == 1) {
-                    if (!in_array($value->question->id, $checkQuestion)) {
-                        array_push($checkQuestion, $value->question->id);
-                        $checkMax = 0;
-                        foreach ($choices as $key1 => $value1) {
-                            if ($value1->question->question_type_id == 1) {
-                                if ($value->question->id == $value1->question->id) {
-                                    if ($value1->points > 0) {
-                                        $checkMax = $checkMax < $value1->points ? $value1->points : $checkMax;    
-                                    }
-                                }
-                            }
-                        } 
-                        $total = $total + $checkMax;   
-                    }
-                        
-                } elseif (($value->question->question_type_id == 3) || ($value->question->question_type_id == 2)) {
-                    if ($value->points > 0) {
-                        $total = $total + $value->points;    
-                    }
-                        
-                } elseif ($value->question->question_type_id == 4) {
-                    if (!empty($value->points)) {
-                        $total = $total + $value->points;
-                    }
-                } else {
-                    if (!empty($value->points)) {
-                        $total = $total + $value->points;
-                    }
+            $quiz = $this->Students->Quizzes->findByRandomId((int)$this->request->data['random_id'])->contain([
+                'Users',
+                'Questions' => function($q) {
+                    return $q
+                    ->select([
+                        'Questions.id',
+                        'Questions.quiz_id'
+                    ])
+                    ->contain([
+                        'Choices' => function($q) {
+                            return $q
+                            ->select([
+                                'Choices.id', 
+                                'Choices.question_id',
+                                'total' => $q->func()->sum('Choices.points')
+                            ])
+                            ->where([
+                                'Choices.points >' => 0
+                            ]);
+                        }
+                    ]);
                 }
+            ])->first();
+            $total = 0;
+            foreach ($quiz->questions as $key => $question) {
+                if (!empty($question->choices)) {
+                    $total = $question->choices[0]->total;
+                }   
             }
-            
+            $data['quiz_id'] = $quiz->id;
             // save data in ranking table
             $data['ranking']['quiz_id'] = $quiz->id;
             $data['ranking']['total'] = $total;
             $data['ranking']['score'] = 0;
-
             $data['fname'] = !empty($this->request->data['fname']) ? $this->request->data['fname'] : '';
             $data['lname'] = !empty($this->request->data['lname']) ? $this->request->data['lname'] : '';
-            //$data['Student']['class'] = strtolower(preg_replace('/\s+/', '', $this->request->data['class']));
             $data['class'] = !empty($this->request->data['class']) ? strtolower(preg_replace('/\s+/', '', $this->request->data['class'])) : '';
             $data['submitted'] = date('Y-m-d H:i:s');
-
             $data = $this->Students->newEntity($data, [
                 'validate' => 'InitialRecord',
                 'associated' => ['Rankings']
             ]);
-
             $student = $this->Students->save($data);
+            $this->Session->write('student_id', $student->id);
         }
 
-        //pr($quiz->user);
-        //exit;
         if (!empty($student)) {
             // send email to the admin
             // first 3 students answer taken for any first quiz
@@ -326,12 +298,8 @@ class StudentsController extends AppController
             if (!empty($quiz) && (empty($quiz->user->account_level) || ($quiz->user->account_level == 22)) && ($quiz->student_count == 2)) {
                 $user_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] Quiz given to students'), $quiz->user, 'quiz_taken_started');
             }
-            if (!$this->Session->check('student_id')) {
-                $this->Session->write('student_id', $student->id);
-            }
             $response['success'] = true;
             $response['student_id'] = $student->id;
-
             $response['message'] = __('Student saved');
         } else {
             $response['message'] = __('Student saved failed');

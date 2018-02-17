@@ -98,33 +98,16 @@
         }
     });
 
-	$('#fname').doneTyping(function(){
-		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
-		if (navigator.onLine) {
-			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
-			updateStudentBasicInfo();
-		} else {
-			std_updated = true;
-		}
-	});
-
-	$('#lname').doneTyping(function(){
-		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
-		if (navigator.onLine) {
-			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
-			updateStudentBasicInfo();
-		} else {
-			std_updated = true;
-		}
-	});
-
-	$('#class').doneTyping(function(){
-		$(this).parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
-		if (navigator.onLine) {
-			$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
-			updateStudentBasicInfo();
-		} else {
-			std_updated = true;
+	$('#fname, #lname, #class').doneTyping(function(){
+		var $element = $(this);
+		if ($element.val() != '' && $element.val() != $element.attr('data-value')) {
+			$element.parent().next().removeClass('glyphicon-ok-sign text-success').addClass('glyphicon-refresh spinning'); // Upload failed indicator
+			if (navigator.onLine) {
+				$('#std_form_submit').text(lang_strings['disabled_submit']).attr('disabled', true);
+				updateStudentBasicInfo();
+			} else {
+				std_updated = true;
+			}
 		}
 	});
 
@@ -145,12 +128,15 @@
 	                	$('#studentId').attr('value', response.student_id);
 	                	if (fname != '') {
 	                		$('#std-fname').removeClass('glyphicon-refresh spinning').addClass('glyphicon-ok-sign text-success');
+	                		$('#fname').attr('data-value', fname);
 	                	}
 	                	if (lname != '') {
 	                		$('#std-lname').removeClass('glyphicon-refresh spinning').addClass('glyphicon-ok-sign text-success');
+	                		$('#lname').attr('data-value', lname);
 	                	}
 	                	if (std_class != '') {
 	                		$('#std-class').removeClass('glyphicon-refresh spinning').addClass('glyphicon-ok-sign text-success');
+	                		$('#class').attr('data-value', std_class);
 	                	}	    
 	                	$('#std_form_submit').text(lang_strings['enabled_submit']).attr('disabled', false);        	
 	            	} else {
@@ -368,22 +354,5 @@
 	    return false;
 	}
 
-	function saveStudentRecord() {
-    	$.ajax({
-    		async: false,
-	        dataType: 'json',
-	        url: projectBaseUrl + 'students/update_student',
-	        type: 'post',
-	        data: {'fname': fname, 'lname' : lname, 'class' : std_class, 'random_id' : random_id},
-	        success: function (response)
-	        {
-	        	student_id = response.student_id;
-	            $('#studentId').attr('value', response.student_id);
-	            //$( "#StudentLiveForm" ).prop( "disabled", false );
-	            $("#StudentLiveForm :input").attr("disabled", false);
-	            $(".ajax-loader").hide();
-	        }
-	    });
-    }
     //document.getElementById("StudentLiveForm").reset();
 })(jQuery);
