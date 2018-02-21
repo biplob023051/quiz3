@@ -137,10 +137,6 @@ msgstr "Beställ årslicens"
 msgid "GIVE_TEST"
 msgstr "Behåll testet!"
 
-#: View/Quiz/index.ctp:40
-msgid "Answers "
-msgstr "Katso tulokset "
-
 #: View/Quiz/index.ctp:50
 msgid "REMOVE_QUIZ"
 msgstr "Ta bort testet"
@@ -216,7 +212,7 @@ msgid "PASSWORD"
 msgstr "Lösenord"
 
 #: View/User/login.ctp:46
-msgid "Register"
+msgid "REGISTER""
 msgstr "Skapa gratis användarkonto"
 
 #: View/User/login.ctp:59
@@ -481,7 +477,7 @@ msgid "GETTING_STARTED"
 msgstr "Börja här"
 
 #: View/Helps/index.ctp:16
-msgid "Use scenarios"
+msgid "USE_SCENARIOS"
 msgstr "Olika användarsätt"
 
 #: View/Helps/admin_titles.ctp:5
@@ -790,10 +786,6 @@ msgstr "Namn krävs"
 #: Controller/PagesController.php:84
 msgid "REQUIRE_PASSWORD"
 msgstr "Lösenord krävs"
-
-#: Controller/PagesController.php:83
-msgid "EMAIL_REGISTERED"
-msgstr "E-post redan registrerad"
 
 #: Controller/PagesController.php:85
 msgid "PASSWORD_NOT_MATCH"

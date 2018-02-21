@@ -74,11 +74,11 @@ class HelpsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'TITLE_REQUIRED');
+            ->notEmpty('title', __('TITLE_REQUIRED'));
 
         $validator
             ->requirePresence('parent_id', 'create')
-            ->notEmpty('parent_id', 'MAIN_TITLE_REQUIRED');
+            ->notEmpty('parent_id', __('MAIN_TITLE_REQUIRED'));
 
         // $validator
         //     ->requirePresence('url', 'create')
@@ -112,10 +112,10 @@ class HelpsTable extends Table
     {
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'TITLE_REQUIRED');
+            ->notEmpty('title', __('TITLE_REQUIRED'));
         $validator
             ->requirePresence('language', 'create')
-            ->notEmpty('language', 'LANGUAGE_REQUIRED');
+            ->notEmpty('language', __('LANGUAGE_REQUIRED'));
 
         return $validator;
     }
@@ -128,25 +128,25 @@ class HelpsTable extends Table
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title', 'TITLE_REQUIRED');
+            ->notEmpty('title', __('TITLE_REQUIRED'));
 
         $validator
             ->requirePresence('type', 'create')
-            ->notEmpty('type', 'DISPLAY_PAGE_REQUIRED');
+            ->notEmpty('type', __('DISPLAY_PAGE_REQUIRED'));
 
         $validator
             ->requirePresence('url', 'create')
-            ->notEmpty('url', 'REQUIRED_YOUTUBE_URL')
+            ->notEmpty('url', __('REQUIRED_YOUTUBE_URL'))
             ->add('url', [
                 'valid-url' => [
                     'rule' => 'url',
-                    'message' => 'REQUIRED_YOUTUBE_URL'
+                    'message' => __('REQUIRED_YOUTUBE_URL')
                 ]
             ]);
 
         $validator
             ->requirePresence('language', 'create')
-            ->notEmpty('language', 'LANGUAGE_REQUIRED');
+            ->notEmpty('language', __('LANGUAGE_REQUIRED'));
 
         return $validator;
     }

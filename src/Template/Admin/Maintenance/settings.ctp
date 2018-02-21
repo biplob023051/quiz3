@@ -10,7 +10,7 @@
     <div class="panel-body">
     	<?= $this->Flash->render(); ?>
         <?= $this->Form->create('', ['url' => '/admin/maintenance/settings', 'id' => 'settings']); ?>
-        		<h3><?= __('Alert Section'); ?></h3>
+        		<h3><?= __('ALERT_SECTION'); ?></h3>
 	    		<hr>
 				<ul class="nav nav-tabs" id="allTabs">
 					<li class="active"><a data-toggle="tab" href="#fin-settings"><?= __('FIN_SETTINGS'); ?></a></li>
@@ -30,7 +30,7 @@
 				</div>
 			
 			<div class="regSubmit">
-				<input type="submit" value="<?= __('Save settings'); ?>" class="btn btn-primary btn-xlarge">
+				<input type="submit" value="<?= __('SAVE_SETTINGS'); ?>" class="btn btn-primary btn-xlarge">
 			</div>
 		<?= $this->Form->end(); ?>
     </div>

@@ -75,7 +75,7 @@
             <div id="payment-details">
                 <div class="row">
                     <div class="col-md-12">
-                        <small><?= __('TOTAL_PRICE_49'); ?></small>
+                        <strong><?= __('TOTAL_PRICE_49'); ?></strong>
                     </div>
                     <div class="col-md-12">
                         <small id="tax-info"><?= __('INCL_TAX'); ?></small>

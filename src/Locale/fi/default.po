@@ -1918,9 +1918,9 @@ msgstr "Pienennä pakettia"
 msgid "DOWNGRADE_PLAN_BODY"
 msgstr "Pakettiasi pienennettiin valintasi mukaisesti. Vuosiveloituksesi muuttui edullisemmaksi."
 
-#: Not something urgent thing, its just ajax response
-msgid "DOWNGRADE_PLAN_SUCCESS"
-msgstr "DOWNGRADE_PLAN_SUCCESS"
+
+
+
 
 #:
 msgid "DOWNGRADE_PLAN_TITLE"
@@ -2010,9 +2010,9 @@ msgstr "Tarkista luottokorttisi voimassaoloaika"
 msgid "INVOICE_ATTACHMENT"
 msgstr "TAI anna laskutustiedot liitetiedostolla:"
 
-#:
-msgid "INVOICE_ATTACHMENT"
-msgstr "TAI anna laskutustiedot liitetiedostolla:"
+
+
+
 
 #:
 msgid "INVOICE_DOWNGRADE_PLAN"
@@ -2342,3 +2342,104 @@ msgstr "Salasanat eivät ole samanlaiset"
 #:
 msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
 msgstr "Nykyinen salasanasi oli virheellinen. Yritä uudelleen."
+
+#:
+msgid "ACCOUNT_DOWNGRADE_NOTIFICATION"
+msgstr "Pakettiasi pienennettiin valintasi mukaisesti"
+
+#:
+msgid "CAPTCHA_EXPIRED"
+msgstr "Captcha-vahvistus vanheni. Ruksi laatikko uudestaan, kiitos."
+
+#:
+msgid "SYSTEM_SETTINGS"
+msgstr "Järjestelmäasetukset"
+
+#:
+msgid "FIN_SETTINGS"
+msgstr "Suomi"
+
+#:
+msgid "ENG_SETTINGS"
+msgstr "Englanti"
+
+#:
+msgid "SWEDISH_SETTINGS"
+msgstr "Ruotsi"
+
+#:
+msgid "WILDCARD_REPLACE_GUIDE"
+msgstr "Huolto-bannerin teksti. {datetime} and {time} muuttujat käytössäsi"
+
+#:
+msgid "MAITENANCE_DATE_TIME"
+msgstr "Huollon Date-time"
+
+#:
+msgid "ALERT_VISIBLE"
+msgstr "Näytä huolto-banneri"
+
+#:
+msgid "OFFLINE_SECTION"
+msgstr "Sivuston sulkeminen"
+
+#:
+msgid "OFFLINE_MSG"
+msgstr "Suljetun sivuston ilmoitusteksti"
+
+#:
+msgid "MAKE_OFFLINE"
+msgstr "Sulje sivusto"
+
+#:
+msgid "ALERT_SECTION"
+msgstr "Huolto-banneri"
+
+#:
+msgid "SETTINGS_SAVED_SUCCESSFULLY"
+msgstr "Asetukset tallennettiin"
+
+#:
+msgid "SAVE_SETTINGS"
+msgstr "Tallenna asetukset"
+
+#:
+msgid "SELECT_LANGUAGE"
+msgstr "Valitse kieli"
+
+#:
+msgid "REQUIRED_YOUTUBE_URL"
+msgstr "Lisää Youtube-videon linkki"
+
+#:
+msgid "PASSWORD_RESET_LINK_EXPIRED"
+msgstr "Salasanan vaihtolinkki on vanhentunut. Tilaa uusi kirjautumissivulta."
+
+#:
+msgid "NEW_PASSWORD_REQUIRED"
+msgstr "Anna uusi salasana"
+
+#:
+msgid "USER_COULD_NOT_BE_SAVED_TRY_AGAIN"
+msgstr "Käyttäjän tallentaminen epäonnistui! Yritä uudelleen"
+
+#:
+msgid "LANG"
+msgstr "Kieli"
+
+#:
+msgid "FIRST_QUIZ_CREATED"
+msgstr "[Verkkotesti] First quiz created"
+
+#:
+msgid "STARTED_ANSWERING"
+msgstr "[Verkkotesti] Quiz given to students"
+
+#:
+msgid "DEMO_QUIZZES_LOADED"
+msgstr "[Verkkotesti] Demo quizzes loaded"
+
+#:
+msgid "INVALID_TRY"
+msgstr "Valitettavasti ostoksesi ei onnistunut! Yritä uudelleen, kiitos."
+msgstr "Unfortunately purchase didn't register! Please try again."

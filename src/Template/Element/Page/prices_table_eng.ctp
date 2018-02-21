@@ -14,7 +14,7 @@
         </tr>
         <tr>
             <td><?= __('TESTS'); ?></td>
-            <td><?= __('1'); ?></td>
+            <td><?= __('UNLIMITED'); ?></td>
             <td><?= __('UNLIMITED'); ?></td>
         </tr>
         <tr>

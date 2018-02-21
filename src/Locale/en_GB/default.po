@@ -2334,3 +2334,95 @@ msgstr "Passwords do not match"
 #:
 msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
 msgstr "Your current password was incorrect. Please write again."
+
+#:
+msgid "SYSTEM_SETTINGS"
+msgstr "System settings"
+
+#:
+msgid "FIN_SETTINGS"
+msgstr "Fin"
+
+#:
+msgid "ENG_SETTINGS"
+msgstr "Eng"
+
+#:
+msgid "SWEDISH_SETTINGS"
+msgstr "Swe"
+
+#:
+msgid "WILDCARD_REPLACE_GUIDE"
+msgstr "Maintenance banner text. {datetime} and {time} variables available"
+
+#:
+msgid "MAITENANCE_DATE_TIME"
+msgstr "Maintenance Date-time"
+
+#:
+msgid "ALERT_VISIBLE"
+msgstr "Show maintenance banner"
+
+#:
+msgid "OFFLINE_SECTION"
+msgstr "Offline Section"
+
+#:
+msgid "OFFLINE_MSG"
+msgstr "Offline message"
+
+#:
+msgid "MAKE_OFFLINE"
+msgstr "Make site offline"
+
+#:
+msgid "ALERT_SECTION"
+msgstr "Alert Section"
+
+#:
+msgid "SETTINGS_SAVED_SUCCESSFULLY"
+msgstr "Settings saved"
+
+#:
+msgid "SAVE_SETTINGS"
+msgstr "Save settings"
+
+#:
+msgid "SELECT_LANGUAGE"
+msgstr "Choose language"
+
+#:
+msgid "REQUIRED_YOUTUBE_URL"
+msgstr "Add Youtube link"
+
+#:
+msgid "PASSWORD_RESET_LINK_EXPIRED"
+msgstr "Password reset link has expired. Order a new link from login page."
+
+#:
+msgid "NEW_PASSWORD_REQUIRED"
+msgstr "New password required"
+
+#:
+msgid "USER_COULD_NOT_BE_SAVED_TRY_AGAIN"
+msgstr "User saving was failed! Please try again"
+
+#:
+msgid "LANG"
+msgstr "Lang"
+
+#:
+msgid "FIRST_QUIZ_CREATED"
+msgstr "[Verkkotesti] First quiz created"
+
+#:
+msgid "STARTED_ANSWERING"
+msgstr "[Verkkotesti] Quiz given to students"
+
+#:
+msgid "DEMO_QUIZZES_LOADED"
+msgstr "[Verkkotesti] Demo quizzes loaded"
+
+#:
+msgid "INVALID_TRY"
+msgstr "Unfortunately purchase didn't register! Please try again."
