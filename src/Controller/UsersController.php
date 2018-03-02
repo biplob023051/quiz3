@@ -209,7 +209,7 @@ class UsersController extends AppController
                         'user_id' => $user['id']
                     ]);
                     $this->eventManager()->dispatch($event);
-                    return $this->redirect($this->Auth->redirectUrl());
+                    return $this->redirect('/');
                 } else {
                     $this->Session->destroy();
                     $this->Flash->error(__('SORRY_YOUR_ACCOUNT_DISABLED'));
