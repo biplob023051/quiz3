@@ -3,6 +3,7 @@ echo $this->Html->css(['answer-table'.$minify], ['inline' => false]);
 
 $this->assign('title', __('ANSWER_TABLE'));
 ?>
+<?php // pr($quizDetails); exit; ?>
 <?= $this->Form->create('', ['id' => 'answer-table-filter']);  ?>
     <div class="row">
         <div class="alert" id="ajax-message" style="display: none"></div>
@@ -67,6 +68,7 @@ $this->assign('title', __('ANSWER_TABLE'));
 <script type="text/javascript">
     var lang_strings = <?php echo json_encode($lang_strings) ?>;
     var onlineStds = <?php echo json_encode($onlineStds) ?>;
+    var questionCount = <?php echo count($quizDetails['questions']); ?>;
 </script>
 
 <?= $this->Html->script([

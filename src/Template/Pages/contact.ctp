@@ -2,7 +2,7 @@
 <!-- How it works tabs content -->
 <div class="container" id="body-content">
 <h2><?php echo __('CONTACT'); ?></h2>
-<p class="text-muted"><?php echo __('MeSTRADA Oy / Pietu Halonen'); ?><br /><?php echo __('040-5866 105'); ?><br /></p>
+<p class="text-muted"><?php echo __('OWNER_INFO'); ?><br /><?php echo __('OWNER_PHONE'); ?><br /></p>
 <?= $this->Flash->render() ?>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

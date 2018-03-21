@@ -23,7 +23,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Email');
-        $this->Auth->allow(['create', 'success', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage', 'changePassword', 'paymentSuccess']);
+        $this->Auth->allow(['create', 'ajaxUserChecking', 'passwordRecover', 'ajaxEmailChecking', 'resetPassword', 'edit', 'contact', 'buyCreate', 'confirmation', 'logout', 'switchLanguage', 'changePassword', 'paymentSuccess']);
     }
 
     // Method for ajax password update
@@ -82,7 +82,7 @@ class UsersController extends AppController
                 if (!empty($user->id)) {
                     // Send email to user for email confirmation
                     //$user_email = $this->Email->sendMail($user->email, __('CONFIRM_EMAIL'), $user, 'user_email');
-                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
+                    $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('NEW_USER_EMAIL_SUB'), $user, 'user_create', $user->email, true);
                     // $this->request->session()->write('registration', true);
                     // $this->redirect(array('action' => 'success'));
 
@@ -96,7 +96,8 @@ class UsersController extends AppController
                     ]);
                     $this->eventManager()->dispatch($event);
                     //return $this->redirect($this->Auth->redirectUrl());
-                    return $this->redirect(array('controller' => 'quizzes', 'action' => 'index'));
+                    $this->Session->write('registration', true);
+                    $this->redirect(array('action' => 'registration-success'));
                     // End of new code
                 } else {
                     $this->Flash->error(__('USER_COULD_NOT_BE_SAVED_TRY_AGAIN'));
@@ -126,14 +127,26 @@ class UsersController extends AppController
 
     }
 
-    public function success() {
-        $this->set('title_for_layout', __('REGISTRATION_SUCCESS'));
-        if ($this->request->session()->check('registration')) {
+    // Method for registration success redirect page
+    public function registrationSuccess() {
+        if ($this->Session->check('registration')) {
+            $this->set('title_for_layout', __('REGISTRATION_SUCCESS'));
             $this->Session->delete('registration');
         } else {
             $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
             $this->redirect(array('action' => 'login'));
         }
+    }
+
+    // Method for buy success redirect page
+    public function paySuccess() {
+        if ($this->Session->check('payment')) {
+            $this->set('title_for_layout', __('PAYMENT_SUCCESS'));
+            $this->Session->delete('payment');
+        } else {
+            $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
+            $this->redirect(array('action' => 'login'));
+        }    
     }
 
     public function confirmation($code = null) {
@@ -437,7 +450,7 @@ class UsersController extends AppController
             $user = $this->Users->save($user);
             // pr($user);
             // exit;
-            $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] New User!'), $user, 'user_create', $user->email, true);
+            $admin_email = $this->Email->sendMail(Configure::read('AdminEmail'), __('NEW_USER_EMAIL_SUB'), $user, 'user_create', $user->email, true);
 
             if (!empty($user->id)) {
 
@@ -515,10 +528,18 @@ class UsersController extends AppController
                 ]);
                 $this->eventManager()->dispatch($event);
                 //return $this->redirect($this->Auth->redirectUrl());
-                $flash_message = ($this->request->data['account_level'] != 22) ? __('BUY_CREATE_SUCCESS') : __('BUY_FAILED_BUT_ACC_CREATE_SUCCESS');
+                if ($this->request->data['account_level'] != 22) {
+                    $flash_message = __('BUY_CREATE_SUCCESS');
+                    $this->Session->write('payment', true);
+                    $output['success_url'] = 'paySuccess';
+                } else {
+                    $flash_message = __('BUY_FAILED_BUT_ACC_CREATE_SUCCESS');
+                    $this->Session->write('registration', true);
+                    $output['success_url'] = 'registrationSuccess';
+                }
                 $this->Flash->success($flash_message);
-                $output['success'] = true;
                 $output['message'] = $flash_message;
+                $output['success'] = true;
                 // End of new code
             } else {
                 $this->Flash->error(__('SOMETHING_WENT_WRONG'));
@@ -578,6 +599,7 @@ class UsersController extends AppController
               ),
             ));
             $expired = date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d'), date('Y') + 1));
+            $this->Session->write('payment', 1);
             $this->Users->updateAll(
                 [
                     'account_level' => $account_level,
@@ -871,6 +893,7 @@ class UsersController extends AppController
                     $user['quiz_bank_access'] = true;
                 }
                 $this->Auth->setUser($user);
+                $this->Session->write('payment', 1);
                 $user['invoice_info'] = $this->request->data['invoice_info'];
                 $user['package'] = ($account_level == 1) ? __('29_EUR') : __('49_EUR');
                 if (!empty($this->request->data['temp_photo']) && file_exists(WWW_ROOT . 'uploads/tmp/' . $this->request->data['temp_photo'])) {

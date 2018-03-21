@@ -15,10 +15,10 @@
                 <th class="sortable progress-section"><?php echo __('PROGRESS'); ?></th>
                 <?php $i = 1; foreach ($quizDetails->questions as $question): ?>
                     <?php if (!in_array($question->question_type_id, $othersQuestionType)) : ?>
-                        <th class="question-collapse">
+                        <th class="sortable question-collapse">
                             <?php echo $i; ?>
                             . &nbsp;
-                            <?php echo $question->text; ?>
+                            <span class="more"><?php echo $question->text; ?></span>
                         </th>
                     <?php ++$i; endif; ?>
                 <?php endforeach; ?>
@@ -53,21 +53,27 @@
                         <td class="point-th">
                             <span id="studentscr1-<?php echo $value1->id; ?>"><?php echo ($value1->ranking->score+0); ?></span>/<?php echo ($value1->ranking->total+0); ?>
                         </td>
-                           
-                        <td class="progress-section">
-                            <?php
-                                $answer_array = array();
-                                $answer_count = 0;
-                                foreach ($value1->answers as $answer) {
-                                    if (!in_array($answer->question_id, $answer_array)) {
-                                        $answer_array[] = $answer->question_id;
-                                        $answer_count++;
-                                    }
+                        <?php
+                            $answer_array = array();
+                            $answer_count = 0;
+                            foreach ($value1->answers as $answer) {
+                                if (!in_array($answer->question_id, $answer_array)) {
+                                    $answer_array[] = $answer->question_id;
+                                    $answer_count++;
                                 }
-                                $progress = number_format((float)($answer_count/$question_count)*100, 2, '.', '')+0; 
-                            ?>
+                            }
+                            $progress = number_format((float)($answer_count/$question_count)*100, 2, '.', '')+0; 
+                            if ($progress == '100' && $value1->status == '1') {
+                                $color = 'green';
+                                $table_sorter = $progress+1;
+                            } else {
+                                $color = '#337ab7';
+                                $table_sorter = $progress;
+                            }
+                        ?>
+                        <td class="progress-section" data-value="<?= $table_sorter; ?>">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%; background-color: <?= $color; ?>">
                                     <span<?php if (empty($progress)) : ?> class="empty-progress-text"<?php endif; ?>><?php echo $progress; ?>%</span>
                                 </div>
                             </div>

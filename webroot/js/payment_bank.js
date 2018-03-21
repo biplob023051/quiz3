@@ -130,7 +130,11 @@ $(document).on('submit', '#change-form', function(e) {
 });
 
 $('#invoice-success-dialog').on('hidden.bs.modal', function () {
-    window.location.reload();
+    if (typeof paySuccess !== 'undefined' && paySuccess == '1') {
+        window.location = projectBaseUrl + 'users/paySuccess';
+    } else {
+        window.location.reload();
+    }
 });
 
 $(document).on('change', '#quiz-filter select', function () {

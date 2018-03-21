@@ -139,7 +139,7 @@
                     .done(function(data, textStatus, jqXHR) {
                         var data = $.parseJSON(data);
                         if (data.success == true) {
-                            success_url = 1;
+                            success_url = data.success_url;
                             $('#create-user').html(data.message + ' <i class="fa fa-check"></i>');
                             $('#buy-modal').modal('hide');
                             $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
@@ -162,7 +162,7 @@
 
     $('#invoice-success-dialog').on('hidden.bs.modal', function () {
         if (success_url != '') {
-            window.location = projectBaseUrl;
+            window.location = projectBaseUrl + 'users/' + success_url;
         } else {
             window.location.reload();
         }

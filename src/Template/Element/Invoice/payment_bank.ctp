@@ -215,6 +215,7 @@
 </style>
 <?php if (!in_array($authUser['account_level'], [1,2])) : ?>
     <script type="text/javascript">
+        var paySuccess = '';
         var $form = $('#payment-form');
         $form.find('.subscribe').on('click', payWithStripe);
 
@@ -269,6 +270,7 @@
                                 $('#invoice-payment').modal('hide');
                                 $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
                                 $('#pay-body').html(lang_strings['stripe_pay_scs_body']);
+                                paySuccess = 1;
                                 $('#invoice-success-dialog').modal('show');
                             } else {
                                 $form.find('.subscribe').html(data.message).removeClass('success').addClass('alert-danger');
@@ -284,7 +286,11 @@
             });
         }
         $('#invoice-success-dialog').on('hidden.bs.modal', function () {
-            window.location.reload();
+            if (typeof paySuccess !== 'undefined' && paySuccess == '1') {
+                window.location = projectBaseUrl + 'users/paySuccess';
+            } else {
+                window.location.reload();
+            }
         });
         /* Fancy restrictive input formatting via jQuery.payment library*/
         $('input[name=cardNumber]').payment('formatCardNumber');

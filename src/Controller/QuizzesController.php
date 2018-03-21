@@ -271,7 +271,7 @@ class QuizzesController extends AppController
             // check if its first quiz
             $quiz_count = $this->Quizzes->find()->where(['Quizzes.user_id' => $userId])->count();
             if ($quiz_count == 1) {
-                $this->Email->sendMail(Configure::read('AdminEmail'), __('[Verkkotesti] First quiz created'), $user, 'first_quiz_create');
+                $this->Email->sendMail(Configure::read('AdminEmail'), __('FIRST_QUIZ_CREATED'), $user, 'first_quiz_create');
             } 
         }
         return $this->redirect(['controller' => 'quizzes', 'action' => 'edit', $quiz->id, 'initial']);

@@ -154,6 +154,17 @@ $.tablesorter.addParser({
     type: 'numeric' 
 }); 
 
+$.tablesorter.addParser({ 
+    id: "progressbar", 
+    is: function(s) { 
+        return false; 
+    }, 
+    format: function(s, t, node) {
+        return $(node).attr('data-value');
+    }, 
+    type: "numeric" 
+}); 
+
 $(document).ready(function(){ 
     var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190+parseInt(maintHeight));
     $('#answer-table tbody').css({'height' : windowHeight});
@@ -169,6 +180,9 @@ $(document).ready(function(){
             },
             4: { 
                 sorter:'points' 
+            },
+            5: { 
+                sorter:'progressbar' 
             } 
         } 
     }); 
@@ -569,3 +583,34 @@ function testFunc() {
         });
     });
 }
+
+
+// For read more
+var showChar = 40;
+var ellipsestext = "";
+var moretext = "...";
+var lesstext = "...";
+$('.more').each(function() {
+    var content = $(this).html();
+    if(content.length > showChar) {
+        var c = content.substr(0, showChar);
+        var h = content.substr(showChar-1, content.length - showChar);
+        var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span style="display: none;">' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+        $(this).html(html);
+    }
+});
+
+$(document).on('click', '.morelink', function(e){
+    e.preventDefault();
+    if($(this).hasClass("less")) {
+        $(this).removeClass("less");
+        $(this).html(moretext);
+    } else {
+        $(this).addClass("less");
+        $(this).html(lesstext);
+    }
+    $(this).parent().prev().toggle();
+    $(this).prev().toggle();
+    return false;
+});
+// End of read more
