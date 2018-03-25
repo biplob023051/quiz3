@@ -1815,3 +1815,66 @@ msgstr "Lösenord är inte samma"
 #:
 msgid "CURRENT_PASSWORD_DID_NOT_MATCH"
 msgstr "Ditt nuvarande lösenord var ogiltigt. Vänligen försök igen."
+
+#: /pages/contact
+msgid "OWNER_INFO"
+msgstr "MeSTRADA Oy / Pietu Halonen"
+
+#: /pages/contact
+msgid "OWNER_PHONE"
+msgstr "040-5866 105"
+
+#: E-mail subject
+msgid "NEW_USER_EMAIL_SUB"
+msgstr "[Verkkotesti] New User!"
+
+#: E-mail subject
+msgid "FIRST_QUIZ_CREATED"
+msgstr "[Verkkotesti] First quiz created"
+
+#: Registration success start here 
+msgid "REG_TITLE"
+msgstr "Välkommen till Verkkotesti!"
+
+msgid "REG_PARA_1" 
+msgstr "Verkkotesti sparar mycket tid när du får testa dina studenter med deras egna mobiltelefoner (och något som har en webbläsare). Verkkotesti kan också bedöma deras svar automatiskt."
+
+msgid "REG_PARA_2" 
+msgstr "Du har 30 dagar att prova Verkkotesti. Efter 30 dagar du kan köpa en årlig licens (29 € eller 49 €/år) in applikationen."
+
+msgid "REG_STEP_TITLE"
+msgstr "DE NÄSTA STEGEN:"
+
+msgid "STEP_1"
+msgstr "1. Skapa ett test."
+
+msgid "STEP_2"
+msgstr "2. Låt dina stundenter delta testet. Click link Behåll testet!"
+
+msgid "STEP_3"
+msgstr "3. Se hur svarar ankommer till Svarstabell (click link Svar)."
+
+msgid "BEFORE_CONTACT_TEXT" 
+msgstr "Om du har någonting att fråga " 
+
+msgid "CONTACT_TEXT"
+msgstr "ta kontakt."
+
+msgid "HAPPY_TEXT"
+msgstr "Ha så kul med Verkkotesti!"
+
+msgid "TEAM_TEXT" 
+msgstr "- Verkkotesti Team"
+
+msgid "CONTINUE_LINK" 
+msgstr "Fortsätta till Verkkotesti -->"
+
+#: Payment success start here
+msgid "PUR_TITLE" 
+msgstr "Tack så mycket for din inköp!"
+
+msgid "PUR_PARA_1" 
+msgstr "Din 365 dag period börjar idag."
+
+msgid "PUR_PARA_2" 
+msgstr "Din credit card debiteras en gång per år i framtiden om du är en credit card kund. Du kan sluta din prenumeration när som helst på Inställningar sidan."

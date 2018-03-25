@@ -1590,7 +1590,7 @@ msgstr "Luo ja käytä testejä rajattomasti."
 
 #: Elements/Invoice/invoice.ctp:23
 msgid "SHARE_OWN_QUIZZES"
-msgstr "Testipankki: Edellisen lisäksi, jaa omia testejäsi toisten käyttäjien kanssa ja säästä aikaa käyttämällä Testipankin valmiita testejä."
+msgstr "Edellisen lisäksi, jaa omia testejäsi toisten käyttäjien kanssa ja säästä aikaa käyttämällä Testipankin valmiita testejä."
 
 #: 
 msgid "QUIZ_SHARED_HOLD_APPROVAL"
@@ -2442,4 +2442,67 @@ msgstr "[Verkkotesti] Demo quizzes loaded"
 #:
 msgid "INVALID_TRY"
 msgstr "Valitettavasti ostoksesi ei onnistunut! Yritä uudelleen, kiitos."
-msgstr "Unfortunately purchase didn't register! Please try again."
+
+#: /pages/contact
+msgid "OWNER_INFO"
+msgstr "MeSTRADA Oy / Pietu Halonen"
+
+#: /pages/contact
+msgid "OWNER_PHONE"
+msgstr "040-5866 105"
+
+#: E-mail subject
+msgid "NEW_USER_EMAIL_SUB"
+msgstr "[Verkkotesti] New User!"
+
+#: E-mail subject
+msgid "FIRST_QUIZ_CREATED"
+msgstr "[Verkkotesti] First quiz created"
+
+#: Registration success start here 
+msgid "REG_TITLE"
+msgstr "Tervetuloa kokeilemaan Verkkotestiä!"
+
+msgid "REG_PARA_1" 
+msgstr "Verkkotesti säästää valtavasti aikaasi, kun voit pitää kokeita oppilaille mobiililaitteilla (selain riittää). Halutessasi Verkkotesti arvioi oppilaiden vastaukset automaattisesti - voit jättää paperipinot historiaan. :)"
+
+msgid "REG_PARA_2" 
+msgstr "Voit kokeilla Verkkotestiä ilmaiseksi 30 päivää. Kokeilujakson jälkeen voit ostaa vuosilisenssin (29 €/vuosi) klikkaamalla Tilaa vuosilisenssi -nappia. 49 € vuosimaksulla saat pääsyn myös Testipankkiin jolla voit keventää työmääräsi entisestään. Yksityishenkilöille tarjoamme luottokorttimaksua ja kouluille laskutusta."
+
+msgid "REG_STEP_TITLE"
+msgstr "SEURAAVAT ASKELEESI:"
+
+msgid "STEP_1"
+msgstr "1. Luo testi (ennen sitä voit halutessasi klikata Lataa mallitestit -nappia, jos haluat nähdä muutaman mallitestin Verkkotestin käytöstä)."
+
+msgid "STEP_2"
+msgstr "2. Pidä testi luokallesi painamalla Pidä testi! -linkkiä."
+
+msgid "STEP_3"
+msgstr "3. Seuraa oppilaiden vastausten saapumista klikkaamalla Vastaukset -linkkiä."
+
+msgid "BEFORE_CONTACT_TEXT" 
+msgstr "Jos sinulla on jotain kysyttävää, ota toki yhteyttä " 
+
+msgid "CONTACT_TEXT"
+msgstr "täältä."
+
+msgid "HAPPY_TEXT"
+msgstr "Hyvää Verkkotesteilyä!"
+
+msgid "TEAM_TEXT" 
+msgstr "- Verkkotestin tiimi"
+
+msgid "CONTINUE_LINK" 
+msgstr "Jatka Verkkotestiin -->"
+
+#: Payment success start here
+msgid "PUR_TITLE" 
+msgstr "Lämmin kiitos ostoksestasi!"
+
+msgid "PUR_PARA_1" 
+msgstr "Kiitos liittymisestäsi Verkkotestin vuosikäyttäjien joukkoon! 365 päivän maksullinen käyttöaikasi alkaa tänään."
+
+msgid "PUR_PARA_2" 
+msgstr "Luottokorttimaksulla tilauksesi uusiutuu automaattisesti kerran vuodessa. Voit perua tilauksesi milloin vain Verkkotestin asetukset sivulla (klikkaa omaa nimeäsi ylävalikosta). Peruuttaessasi saat tietenkin käyttää jäljellä olevat päivät tilausjaksostasi. Jos koulusi on laskutusasiakas, saat kuukautta ennen tilausjaksosi päättymistä kehoituksen uusia tilauksesi."
+

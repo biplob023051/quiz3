@@ -2426,3 +2426,66 @@ msgstr "[Verkkotesti] Demo quizzes loaded"
 #:
 msgid "INVALID_TRY"
 msgstr "Unfortunately purchase didn't register! Please try again."
+
+#: /pages/contact
+msgid "OWNER_INFO"
+msgstr "MeSTRADA Oy / Pietu Halonen"
+
+#: /pages/contact
+msgid "OWNER_PHONE"
+msgstr "040-5866 105"
+
+#: E-mail subject
+msgid "NEW_USER_EMAIL_SUB"
+msgstr "[Verkkotesti] New User!"
+
+#: E-mail subject
+msgid "FIRST_QUIZ_CREATED"
+msgstr "[Verkkotesti] First quiz created"
+
+#: Registration success start here 
+msgid "REG_TITLE"
+msgstr "Welcome to try Verkkotesti!"
+
+msgid "REG_PARA_1" 
+msgstr "Verkkotesti saves you tons of time when you can test your students with their own mobile phones (and any devices with a web browser). Verkkotesti can also rate the students' answers automatically if you so wish. No need to go through piles of paper exams anymore!"
+
+msgid "REG_PARA_2" 
+msgstr "You have 30 days to try Verkkotesti. After 30 day trial period you can purchase a yearly licence (29 € or 49 €/year) by clicking Upgrade account -button on the app's main page."
+
+msgid "REG_STEP_TITLE"
+msgstr "STEPS TO SUCCESS:"
+
+msgid "STEP_1"
+msgstr "1. Create a test (before that you can click Load demo quizzes -button to see a couple of examples of using Verkkotesti)."
+
+msgid "STEP_2"
+msgstr "2. Let your class take the quiz by clicking Give test! -link."
+
+msgid "STEP_3"
+msgstr "3. See students' answers arrive in the Answer sheet."
+
+msgid "BEFORE_CONTACT_TEXT" 
+msgstr "If you have any questions, don’t hesitate to " 
+
+msgid "CONTACT_TEXT"
+msgstr "contact us."
+
+msgid "HAPPY_TEXT"
+msgstr "Happy quizzing!"
+
+msgid "TEAM_TEXT" 
+msgstr "- Verkkotesti Team"
+
+msgid "CONTINUE_LINK" 
+msgstr "Continue to Verkkotesti -->"
+
+#: Payment success start here
+msgid "PUR_TITLE" 
+msgstr "Thank you for your purchase!"
+
+msgid "PUR_PARA_1" 
+msgstr "Warm thanks for joining yearly Verkkotesti users! Your credit card was charged or invoice will be sent and your 365 day paid period begins today."
+
+msgid "PUR_PARA_2" 
+msgstr "On credit card purchase your order will be automatically charged once a year. You can cancel your subscription anytime on your account’s Settings page. In that case you can of course still use the remaining days of your paid period. If your institution as an invoicing customer, you'll get a reminder to re-new your invoicing order a month before expiring date."

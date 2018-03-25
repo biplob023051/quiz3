@@ -13,6 +13,41 @@ function checkRow(row) {
     }
 }
 
+var globalOffline = {};
+var checkOffline = setInterval(checkOfflineUsers, 10700);
+function checkOfflineUsers() {
+    if (!$.isEmptyObject(globalOffline)) {
+        clearInterval(checkOffline);
+        var postedData = globalOffline;
+        globalOffline = {};
+        $.ajax({
+            async: false,
+            dataType: 'JSON',
+            type: "POST",
+            url: projectBaseUrl + 'students/checkComplete',
+            data: {std_ids : postedData},
+            success: function(response) {
+                if (response.ids.length > 0) {
+                    $.each(response.ids, function(index, std) {
+                        var std_id = std.id;
+                        $progress = $("tr#student-" + std_id).find('.progress[data-value="100"]');
+                        if ($progress.length > 0) {
+                            $progress.attr('data-value', '101');
+                            $progress.find('.progress-bar').css({backgroundColor: 'green'});
+                        }
+                        delete postedData[std_id];
+                    })
+                } 
+                if (!$.isEmptyObject(postedData)) {
+                    for (var student in postedData) { globalOffline[student] = postedData[student]; }
+                }
+                $(".table").trigger("update");
+                checkOffline = setInterval(checkOfflineUsers, 10700);
+            }
+        });
+    }
+}
+
 var interval;
 
 function getUpdated() {
@@ -34,6 +69,7 @@ function getUpdated() {
                         offline = true;
                         $('tr#student-'+el).find('.online').remove();
                         $('tr#student-'+el).find('.question-serial').addClass('small-padding-true');
+                        globalOffline[el] = el;
                     } 
                 });
                 if (offline) {
@@ -47,6 +83,7 @@ function getUpdated() {
                     if ($.inArray(el, new_data.onlineStds) == -1) {
                         $('tr#student-'+el).find('.online').remove();
                         $('tr#student-'+el).find('.question-serial').addClass('small-padding-true');
+                        globalOffline[el] = el;
                     } 
                 });
                 if (new_data.studentIds.length == 0) {
@@ -112,6 +149,124 @@ function updateIndividulaStudent(student_id) {
     });
 }
 
+var headers = { 
+    2: { 
+        sorter:'submitted' 
+    },
+    4: { 
+        sorter:'points' 
+    },
+    5: { 
+        sorter:'progressbar' 
+    } 
+};
+
+if (typeof headerCol.STAR !== 'undefined') {
+    $.each(headerCol.STAR, function(index, item) {
+        // Add in headers
+        headers[item] = {sorter : 'star_' + item};    
+        // Add parser
+        $.tablesorter.addParser({ 
+            id: 'star_' + item, 
+            is: function(s) { 
+                return false; 
+            }, 
+            format: function(s, t, node) {
+                return $(node).find('.score').text();
+            }, 
+            type: "numeric" 
+        });
+
+    });
+}
+
+if (typeof headerCol.MCMC !== 'undefined') {
+    $.each(headerCol.MCMC, function(index, item) {
+        // Add in headers
+        headers[item] = {sorter : 'mcmc_' + item};    
+        // Add parser
+        $.tablesorter.addParser({ 
+            id: 'mcmc_' + item, 
+            is: function(s) { 
+                return false; 
+            }, 
+            format: function(s, t, node) {
+                var score = 0;
+                $(node).find('.score').each(function(){
+                    score = score + parseInt($(this).text());
+                });
+                return score;
+            }, 
+            type: "numeric" 
+        });
+
+    });
+}
+
+if (typeof headerCol.STMR !== 'undefined') {
+    $.each(headerCol.STMR, function(index, item) {
+        // Add in headers
+        headers[item] = {sorter : 'stmr_' + item};    
+        // Add parser
+        $.tablesorter.addParser({ 
+            id: 'stmr_' + item, 
+            is: function(s) { 
+                return false; 
+            }, 
+            format: function(s, t, node) {
+                var iv = $(node).find('input').val();
+                return iv ? iv : 0;
+            }, 
+            type: "numeric" 
+        });
+
+    });
+}
+
+if (typeof headerCol.ESSAY !== 'undefined') {
+    $.each(headerCol.ESSAY, function(index, item) {
+        // Add in headers
+        headers[item] = {sorter : 'essay_' + item};    
+        // Add parser
+        $.tablesorter.addParser({ 
+            id: 'essay_' + item, 
+            is: function(s) { 
+                return false; 
+            }, 
+            format: function(s, t, node) {
+                return $(node).find('.score').text();
+            }, 
+            type: "numeric" 
+        });
+
+    });
+}
+
+// if (col.length > 0) {
+//     $.each(col, function(index, item) {
+//         // Add in headers
+//         headers[item] = {sorter : 'test_' + item};    
+//         // Add parser
+//         $.tablesorter.addParser({ 
+//             // set a unique id 
+//             id: 'test_' + item, 
+//             is: function(s) { 
+//                 // return false so this parser is not auto detected 
+//                 return false; 
+//             }, 
+//             format: function(s) { 
+//                 // format your data for normalization
+//                 if (!s) {
+//                     return 0;
+//                 }
+//                 return s;
+//             }, 
+//             // set type, either numeric or text 
+//             type: 'numeric' 
+//         });
+//     });
+// }
+
 $.tablesorter.addParser({ 
     // set a unique id 
     id: 'submitted', 
@@ -172,19 +327,8 @@ $(document).ready(function(){
     $("#fixTable").tableHeadFixer({"head" : true, "left" : 2});
     interval = setInterval(getUpdated, 5000);
     testFunc();
-
     $(".table").tablesorter({ 
-        headers: { 
-            2: { 
-                sorter:'submitted' 
-            },
-            4: { 
-                sorter:'points' 
-            },
-            5: { 
-                sorter:'progressbar' 
-            } 
-        } 
+        headers: headers 
     }); 
    
 }); 
@@ -595,7 +739,7 @@ $('.more').each(function() {
     if(content.length > showChar) {
         var c = content.substr(0, showChar);
         var h = content.substr(showChar-1, content.length - showChar);
-        var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span style="display: none;">' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+        var html = c + '<span class="moreellipses">' + ellipsestext+ '</span><span class="morecontent"><span style="display: none;">' + h + '</span>&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
         $(this).html(html);
     }
 });

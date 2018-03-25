@@ -21,6 +21,20 @@ class StudentsController extends AppController
         $this->Auth->allow(['updateStudent', 'updateAnswer', 'submit', 'success']);
     }
 
+    // Method for checking if student submitted or not
+    public function checkComplete() {
+        $this->autoRender = false;
+        $ids = $this->Students->find()
+        ->where([
+            'Students.id IN' => $this->request->data['std_ids'],
+            'Students.status' => 1
+        ])
+        ->select(['Students.id'])
+        ->toArray();
+        echo json_encode(['ids' => $ids]);
+        exit;
+    }
+
     public function updateScore() {
         $this->autoRender = false;
         $data = $this->request->data;

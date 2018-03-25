@@ -37,7 +37,7 @@ class UsersController extends AppController
     public function index() {
         $this->isAdminUser();
         $this->set('title_for_layout', __('MANAGE_USER'));
-        $acc_type = 'all';
+        $acc_type = 'active';
         if ($this->request->is(['post','put'])) { // If form submitted
             if (!empty($this->request->data['limit_size'])) {
                 $this->Session->write('limit_size', $this->request->data['limit_size']);

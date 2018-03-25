@@ -130,7 +130,7 @@ class UsersController extends AppController
     // Method for registration success redirect page
     public function registrationSuccess() {
         if ($this->Session->check('registration')) {
-            $this->set('title_for_layout', __('REGISTRATION_SUCCESS'));
+            $this->set('title_for_layout', __('REG_TITLE'));
             $this->Session->delete('registration');
         } else {
             $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));
@@ -141,7 +141,7 @@ class UsersController extends AppController
     // Method for buy success redirect page
     public function paySuccess() {
         if ($this->Session->check('payment')) {
-            $this->set('title_for_layout', __('PAYMENT_SUCCESS'));
+            $this->set('title_for_layout', __('PUR_TITLE'));
             $this->Session->delete('payment');
         } else {
             $this->Flash->error(__('NO_DIRECT_ACCESS_PAGE'));

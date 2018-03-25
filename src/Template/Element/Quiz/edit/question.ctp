@@ -22,7 +22,7 @@ echo json_encode(array(
         <i class="glyphicon glyphicon-resize-vertical"></i>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-md-6">            
+        <div class="col-xs-10 col-md-6">            
             <p>
                 <?php if ($QuestionType['template_name'] == 'header') : ?>
                     <span class="h4 header"><?php echo $text; ?></span>

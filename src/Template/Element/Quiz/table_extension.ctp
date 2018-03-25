@@ -1,14 +1,18 @@
 <?php $othersQuestionType = array(6, 7, 8); // this categories for others type questions ?>
+<?php 
+    $col = 3;
+    $headerCol = []; 
+?>
 <div id="answer-table">
     <table class="table table-hover table-responsive table-striped table-fixed" id="fixTable">
         <thead>
             <tr>
                 <th class="serial sortable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                <?php if (empty($quizDetails->anonymous)) : ?>
+                <?php if (empty($quizDetails->anonymous)) : $col++; ?>
                     <th class="sortable std-name"><?php echo __('NAME'); ?></th>
                 <?php endif; ?>
                 <th class="sortable timestamp"><?php echo __('TIMESTAMP'); ?></th>
-                <?php if (empty($quizDetails->anonymous)) : ?>
+                <?php if (empty($quizDetails->anonymous)) : $col++; ?>
                     <th class="sortable class-th"><?php echo __('CLASS'); ?></th>
                 <?php endif; ?>
                 <th class="sortable point-th"><?php echo __('TOTAL_POINTS'); ?></th>
@@ -20,7 +24,20 @@
                             . &nbsp;
                             <span class="more"><?php echo $question->text; ?></span>
                         </th>
-                    <?php ++$i; endif; ?>
+                    <?php 
+                        ++$i; 
+                        $col++;
+                        if ($question->question_type_id == 2) {
+                            $headerCol['STAR'][] = $col;
+                        } else if ($question->question_type_id == 3) {
+                            $headerCol['MCMC'][] = $col;
+                        } else if ($question->question_type_id == 4) {
+                            $headerCol['STMR'][] = $col;
+                        } else if ($question->question_type_id == 5) {
+                            $headerCol['ESSAY'][] = $col;
+                        }
+                    endif; 
+                    ?>
                 <?php endforeach; ?>
             </tr>
         </thead>
@@ -95,3 +112,7 @@
         </tbody>
     </table>
 </div>
+
+<script type="text/javascript">
+    var headerCol = <?= json_encode($headerCol); ?>;
+</script>

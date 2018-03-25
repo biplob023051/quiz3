@@ -438,8 +438,8 @@ i.share {
     /*border: 1px solid #337ab7;
     border-radius: 5px;*/
     font-weight: bold;
-    font-size: 32px;
-    padding-top: 20px;
+    font-size: 22px;
+    padding-top: 18px;
 }
 
 .youtube {
@@ -711,10 +711,14 @@ i.spanish {
     background: url(../img/sort-up-down.gif) right center no-repeat;
 }
 
-.table>thead>tr>th.headerSortUp {
+.table>thead>tr>th.tablesorter-headerAsc {
     background: url(../img/sort-up.gif) right center no-repeat;
 }
 
-.table>thead>tr>th.headerSortDown {
+.table>thead>tr>th.tablesorter-headerDesc {
     background: url(../img/sort-down.gif) right center no-repeat;
+}
+
+.tablesorter-header-inner {
+    padding-right: 10px !important;
 }
