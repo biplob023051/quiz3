@@ -3,14 +3,10 @@
 	<div class="col-md-12">
 		<p><?= __('REG_PARA_1') ?></p>
 		<p><?= __('REG_PARA_2') ?></p>
-		<p>
-			<h4><?= __('REG_STEP_TITLE'); ?></h4>
-			<ul>
-				<li class="list-group-item"><?= __('STEP_1'); ?></li>
-				<li class="list-group-item"><?= __('STEP_2'); ?></li>
-				<li class="list-group-item"><?= __('STEP_3'); ?></li>
-			</ul>
-		</p>
+		<p><?= __('REG_STEP_TITLE'); ?></p>
+		<p><?= __('STEP_1'); ?></p>
+		<p><?= __('STEP_2'); ?></p>
+		<p><?= __('STEP_3'); ?></p>
 		<p><?= __('BEFORE_CONTACT_TEXT') ?> <?= $this->Html->link(__('CONTACT_TEXT'), ['controller' => 'pages', 'action' => 'contact']); ?></p>
 		<p><?= __('HAPPY_TEXT'); ?></p>
 		<p><?= __('TEAM_TEXT'); ?></p>
