@@ -473,6 +473,7 @@ $(document).ready(function(){
                         $(this).find('.question-serial').html(re_index);
                         re_index++;
                     });
+                    $(".table").trigger("update");
                 } else {
                     $("#ajax-message").removeClass('alert-success');
                     $("#ajax-message").addClass('alert-danger');
