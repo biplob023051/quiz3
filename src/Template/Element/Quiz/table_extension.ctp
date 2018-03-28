@@ -7,9 +7,9 @@
     <table class="table table-hover table-responsive table-striped table-fixed" id="fixTable">
         <thead>
             <tr>
-                <th class="serial sortable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th class="serial sortable cusFixedTh">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <?php if (empty($quizDetails->anonymous)) : $col++; ?>
-                    <th class="sortable std-name"><?php echo __('NAME'); ?></th>
+                    <th class="sortable std-name fixedName cusFixedTh"><?php echo __('NAME'); ?></th>
                 <?php endif; ?>
                 <th class="sortable timestamp"><?php echo __('TIMESTAMP'); ?></th>
                 <?php if (empty($quizDetails->anonymous)) : $col++; ?>
@@ -47,7 +47,7 @@
                 <?php foreach ($quizDetails->students as $key1 => $value1) : $sl++;  ?>
                     <?php //pr($value1); ?>
                     <tr id="student-<?php echo $value1->id; ?>">
-                        <td class="serial">
+                        <td class="serial cusFixedTd">
                             <?php if (in_array($value1->id, $onlineStds)) : ?><?php $paddingClass = 'small-padding-false'; else : $paddingClass = 'small-padding-true'; ?><?php endif; ?>
                             <span class="number-fix question-serial <?php echo $paddingClass; ?>"><?php if (in_array($value1->id, $onlineStds)) : ?><i class="glyphicon online"></i><?php endif; ?><?php echo $sl; ?></span>
                             <button type="button" class="btn btn-danger btn-sm delete-answer" id="<?php echo $value1['id']; ?>" title="<?php echo __('REMOVE_ANSWER'); ?>">
@@ -56,7 +56,7 @@
                             <span class="ajax-loader"><img src="<?php echo $this->request->webroot; ?>img/ajax-loader.gif" /></span>
                         </td>
                         <?php if (empty($quizDetails->anonymous)) : ?>
-                            <td class="std-name">
+                            <td class="std-name cusFixedTd">
                                 <span class="std-info" style="margin-right: 5px;"><?php echo !empty($value1->lname) ? $value1->lname : __('LAST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_LAST_NAME'); ?>" class="form-control update-std" name="lname" data-rel="lname-<?php echo $value1->id; ?>" value="<?php echo $value1->lname; ?>">
                                 
                                 <span class="std-info"><?php echo !empty($value1->fname) ? $value1->fname : __('FIRST_NAME'); ?> <i class="glyphicon pencil-small"></i></span><input type="text" placeholder="<?php echo __('ENTER_FIRST_NAME'); ?>" class="form-control update-std" name="fname" data-rel="fname-<?php echo $value1->id; ?>" value="<?php echo $value1->fname; ?>">

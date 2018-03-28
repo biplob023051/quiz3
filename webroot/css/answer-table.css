@@ -238,3 +238,14 @@ span.score {
 .automatic_rating_box {
   padding-right: 10px;
 }
+
+/*For fix header*/
+.tablesorter-header {
+  z-index: 1;
+}
+.cusFixedTh {
+  z-index: 2 !important;
+}
+.cusFixedTd {
+  z-index: 1;
+}

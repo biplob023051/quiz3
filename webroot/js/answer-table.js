@@ -242,31 +242,6 @@ if (typeof headerCol.ESSAY !== 'undefined') {
     });
 }
 
-// if (col.length > 0) {
-//     $.each(col, function(index, item) {
-//         // Add in headers
-//         headers[item] = {sorter : 'test_' + item};    
-//         // Add parser
-//         $.tablesorter.addParser({ 
-//             // set a unique id 
-//             id: 'test_' + item, 
-//             is: function(s) { 
-//                 // return false so this parser is not auto detected 
-//                 return false; 
-//             }, 
-//             format: function(s) { 
-//                 // format your data for normalization
-//                 if (!s) {
-//                     return 0;
-//                 }
-//                 return s;
-//             }, 
-//             // set type, either numeric or text 
-//             type: 'numeric' 
-//         });
-//     });
-// }
-
 $.tablesorter.addParser({ 
     // set a unique id 
     id: 'submitted', 
@@ -715,6 +690,7 @@ function testFunc() {
                             inputField.parents('.read-essay').first().prev().children().show();
                         }
                         inputField.parents('.read-essay').first().prev().children().text(marks);
+                        inputField.parents('.read-essay').modal('hide');
                     }
                     $(".table").trigger("update"); 
                     // var sorting = [[5,0]]; 
@@ -759,3 +735,10 @@ $(document).on('click', '.morelink', function(e){
     return false;
 });
 // End of read more
+
+// On resize window
+$(window).resize(function () {
+    var windowHeight = parseInt($(window).height()) - (parseInt($('.navbar').height())+parseInt($('.page-header').height())+parseInt($('#answer-table-filter').height())+190+parseInt(maintHeight));
+    $('#answer-table tbody').css({'height' : windowHeight});
+    $('#maintenance-alert').css({width: $(window).width()});
+});
