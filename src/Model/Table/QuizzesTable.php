@@ -315,6 +315,13 @@ class QuizzesTable extends Table
                 'multiple_choices' => false,
                 'type' => true
             ],
+            '8' => [
+                'id' => 9,
+                'name' => 'TEXT_FIELD',
+                'template_name' => 'text_field',
+                'multiple_choices' => false,
+                'type' => true
+            ],
             '6' => [
                 'id' => 7,
                 'name' => 'TUBE_VIDEO',

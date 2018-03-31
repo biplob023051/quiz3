@@ -1,6 +1,6 @@
 <?php 
     // pr($given_answer);
-    $templateOptions = array('header', 'youtube_video', 'image_url');
+    $templateOptions = array('header', 'youtube_video', 'image_url', 'text_field');
     if (!in_array($question->question_type->template_name, $templateOptions))
     echo $this->Form->hidden("Answer.{$question->number}.question_id", array("value" => $question->id, 'data-case' => $question->case_sensitive));
 ?>
@@ -15,7 +15,9 @@
                     <?php elseif (($question->question_type->template_name == 'youtube_video')) : ?>
                         
                     <?php elseif (($question->question_type->template_name == 'image_url')) : ?>
-                        
+
+                    <?php elseif (($question->question_type->template_name == 'text_field')) : ?>
+
                     <?php else : ?>
                         <span class="h4" id="question-title-<?php echo $question->id; ?>">
                             <?php if (!empty($question->given_answer)) : ?>

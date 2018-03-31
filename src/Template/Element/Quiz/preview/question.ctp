@@ -1,5 +1,5 @@
 <?php 
-    $templateOptions = array('header', 'youtube_video', 'image_url');
+    $templateOptions = array('header', 'youtube_video', 'image_url', 'text_field');
     $inlinePointTemplates = array('short_auto', 'short_manual', 'essay');
 ?>
 <tr id="q<?php echo $question->id ?>"<?php if (in_array($question->question_type->template_name, $templateOptions)) : ?> class="others_type<?php if ($question->question_type->template_name == 'header') : ?> header_type<?php endif; ?>"<?php endif; ?>>
@@ -13,6 +13,8 @@
                 <?php elseif ($question->question_type->template_name == 'youtube_video') : ?>
                     
                 <?php elseif ($question->question_type->template_name == 'image_url') : ?>
+
+                <?php elseif ($question->question_type->template_name == 'text_field') : ?>
                     
                 <?php else : ?>
                     <span class="h4"><?php echo '<span class="question_number">' . $question->number . '</span>. ' .  $question->text; ?></span>

@@ -32,6 +32,12 @@
 						        <img class="img-responsive" src="' . $this->Quiz->getImageUtubeChoice($question->id) . '" alt=""/>
 						    </div>
 						</div>';
+					} elseif ($question->question_type_id == 9) { // for youtube type
+						$result_html = $result_html . '<div class="row">
+						    <div class="col-xs-12 col-md-6">
+						        <p>'. $this->Quiz->getImageUtubeChoice($question->id) .'</p>
+						    </div>
+						</div>';
 					} else { // for actual questions
 						$result_html = $result_html . '<h3>' . $i . ') ' . $question->text . '</h3>';
 					}

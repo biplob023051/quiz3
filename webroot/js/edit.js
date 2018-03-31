@@ -168,7 +168,7 @@ var window_width = $(window).width();
 
                                 if (!isMultipleChoices)
                                     questionContainer.find("button.add-choice").hide();
-                                if (question.value.QuestionType.id == 7 || question.value.QuestionType.id == 8) { // hide question text for youtube and image type question
+                                if (question.value.QuestionType.id == 7 || question.value.QuestionType.id == 8 || question.value.QuestionType.id == 9) { // hide question text for youtube and image type question
                                      $('#QuestionText').parent().hide(); 
                                 } else {
                                     $('#QuestionText').parent().show(); 
@@ -196,6 +196,12 @@ var window_width = $(window).width();
                                     }
                                     $('#from-web').hide();
                                     $('#upload').hide();
+                                } else if (question.value.QuestionType.id == 9) { 
+                                    // Change placeholder for explanation text if youtube
+                                    $('#QuestionExplanation').attr('placeholder', lang_strings['text_exp_text']);
+                                    if (window_width > 975) {
+                                        $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+                                    }
                                 } else {
                                     $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
                                 }
@@ -276,7 +282,7 @@ var window_width = $(window).width();
         var questionTypeId = $('#questions select.choice-type-selector').val();
         // current tr
         var currentTr = $('#q-1');
-        if ((questionTypeId != 7) && (questionTypeId != 8)) { // don't validate empty question for youtube or image
+        if ((questionTypeId != 7) && (questionTypeId != 8) && (questionTypeId != 9)) { // don't validate empty question for youtube or image
             if ($('#QuestionText').val() == '') {       
                 var currentEditQid = $("#q" + webQuiz.currentEditQid),
                 choiceContainer = currentEditQid.find("div.choices");
@@ -297,7 +303,7 @@ var window_width = $(window).width();
         if (validationError == false) {
             webQuiz.addNewQuestion(true); // Show Question 
             // delete new empty question for add new question
-            if ((questionTypeId != 7) && (questionTypeId != 8)) { // don't validate empty question for youtube or image
+            if ((questionTypeId != 7) && (questionTypeId != 8) && (questionTypeId != 9)) { // don't validate empty question for youtube or image
                 if ($('#QuestionText').val() == '') {
                     $("#q-1").remove();
                     // trigger click to add extra one choice more by default
@@ -371,7 +377,7 @@ var window_width = $(window).width();
         e.preventDefault();
         var questionTypeId = $('#questions select.choice-type-selector').val();
         
-        if ((questionTypeId != 7) && (questionTypeId != 8)) { // don't validate empty question for youtube or image
+        if ((questionTypeId != 7) && (questionTypeId != 8) && (questionTypeId != 9)) { // don't validate empty question for youtube or image
             if ($('#QuestionText').val() == '') {
                 var currentEditQid = $("#q" + webQuiz.currentEditQid),
                 choiceContainer = currentEditQid.find("div.choices");

@@ -274,6 +274,8 @@ var webQuiz = {
                         tmp.relatedClass = 'youtube';
                     } else if(tmp.question_type_id == 8) {
                         tmp.relatedClass = 'image-url';
+                    } else if(tmp.question_type_id == 9) {
+                        tmp.relatedClass = 'text-field';
                     } else { // if regular questions
                         // do nothing right now
                     }
@@ -450,6 +452,10 @@ var webQuiz = {
             validationError = webQuiz.imageUrlValidation(
                 choiceContainer
             );
+        } else if (questionTypeId == 9) {
+            validationError = webQuiz.textTypeValidation(
+                choiceContainer
+            );
         } else { // header type
             // do nothing
         } 
@@ -477,6 +483,19 @@ var webQuiz = {
             if ($(this).val() == '') {
                 validationError = true;
                 webQuiz.showAlert(lang_strings['image_url']);
+            }
+            
+        });
+        return validationError;
+    },
+    textTypeValidation: function (choiceContainer) 
+    {
+        var validationError = false;
+        // Youtube url validation
+        choiceContainer.find('textarea').each(function(){
+            if ($(this).val() == '') {
+                validationError = true;
+                webQuiz.showAlert(lang_strings['text_required']);
             }
             
         });
@@ -733,11 +752,17 @@ var webQuiz = {
             if ($(window).width() > 975) {
                 $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
             }
+        } else if (questionTypeId == 9) { 
+            // Change placeholder for explanation text if image
+            $('#QuestionExplanation').attr('placeholder', lang_strings['text_exp_text']);
+            if ($(window).width() > 975) {
+                $('#QuestionExplanation').closest('.row').children().css({marginTop: '-47px'});
+            }
         } else {
             $('#QuestionExplanation').attr('placeholder', lang_strings['other_exp_text']);
         }
 
-        if ((questionTypeId == 7) || (questionTypeId == 8)) { // hide question for youtube or image type question
+        if ((questionTypeId == 7) || (questionTypeId == 8) || (questionTypeId == 9)) { // hide question for youtube or image type question
            $('#QuestionText').parent().hide(); 
         } else {
             $('#QuestionText').parent().show(); 

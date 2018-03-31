@@ -203,6 +203,9 @@ class QuizzesController extends AppController
         $lang_strings['drag_drop'] = __('DRAG_DROP');
         $lang_strings['upload'] = __('CHOOSE_FILE');
 
+        $lang_strings['text_exp_text'] = __('TEXT_TYPE_EXPLANATION');
+        $lang_strings['text_required'] = __('TEXT_IS_REQUIRED');
+
         // Load available classes (created by admin)
         $this->loadModel('Subjects');
         $classOptions = $this->Subjects->find('list', ['keyField' => 'id', 'valueField' => 'title'])

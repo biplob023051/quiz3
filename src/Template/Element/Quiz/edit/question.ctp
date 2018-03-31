@@ -30,6 +30,8 @@ echo json_encode(array(
                 <?php elseif ($QuestionType['template_name'] == 'youtube_video') : ?>
                     
                 <?php elseif ($QuestionType['template_name'] == 'image_url') : ?>
+
+                <?php elseif ($QuestionType['template_name'] == 'text_field') : ?>
                     
                 <?php else : ?>
                     <span class="h4"><?php echo '<span class="question_number">' . $number . '</span>. ' .  $text; ?></span>

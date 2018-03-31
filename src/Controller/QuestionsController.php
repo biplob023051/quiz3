@@ -170,6 +170,11 @@ class QuestionsController extends AppController
                 }
 
             }
+        } elseif($data['Question']['question_type_id'] == 9) { // youtube type
+            if (empty($data['Choice'][0]['text'])) {   
+                echo json_encode(array('success' => false, 'message' => __('TEXT_IS_REQUIRED')));
+                exit;
+            }
         }
 
         if ($data['Question']['question_type_id'] == 6) $data['Question']['explanation'] = NULL;
