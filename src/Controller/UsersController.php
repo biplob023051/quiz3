@@ -537,7 +537,7 @@ class UsersController extends AppController
                     $this->Session->write('registration', true);
                     $output['success_url'] = 'registrationSuccess';
                 }
-                $this->Flash->success($flash_message);
+                //$this->Flash->success($flash_message);
                 $output['message'] = $flash_message;
                 $output['success'] = true;
                 // End of new code
@@ -617,7 +617,7 @@ class UsersController extends AppController
             $this->Auth->setUser($user);
             $output['success'] = true;
             $output['message'] = __('THANKS_FOR_PURCHASING');
-            $this->Flash->success($output['message']);
+            //$this->Flash->success($output['message']);
         } else {
             $output['message'] = __('INVALID_TRY');
         } 
@@ -904,7 +904,7 @@ class UsersController extends AppController
                 }
                 $output['success'] = true;
                 $output['message'] = __('THANKS_FOR_PURCHASING');
-                $this->Flash->success($output['message']);
+                //$this->Flash->success($output['message']);
             }
         }
         echo json_encode($output);

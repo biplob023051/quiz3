@@ -301,12 +301,13 @@
             .done(function(data, textStatus, jqXHR) {
                 var data = $.parseJSON(data);
                 if (data.success == true) {
-                    $this.html(data.message + ' <i class="fa fa-check"></i>');
-                    $('#invoice-payment').modal('hide');
-                    $('#pay-title').html(lang_strings['pay_scs_title']);
-                    $('#pay-body').html(lang_strings['pay_scs_body']);
-                    paySuccess = 1;
-                    $('#invoice-success-dialog').modal('show');
+                    // $this.html(data.message + ' <i class="fa fa-check"></i>');
+                    // $('#invoice-payment').modal('hide');
+                    // $('#pay-title').html(lang_strings['pay_scs_title']);
+                    // $('#pay-body').html(lang_strings['pay_scs_body']);
+                    // paySuccess = 1;
+                    // $('#invoice-success-dialog').modal('show');
+                    window.location = projectBaseUrl + 'users/paySuccess';
                 } else {
                     $this.html(data.message).removeClass('success').addClass('alert-danger');
                 }
@@ -404,12 +405,13 @@
                         .done(function(data, textStatus, jqXHR) {
                             var data = $.parseJSON(data);
                             if (data.success == true) {
-                                $form.find('.subscribe').html(data.message + ' <i class="fa fa-check"></i>');
-                                $('#invoice-payment').modal('hide');
-                                $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
-                                $('#pay-body').html(lang_strings['stripe_pay_scs_body']);
-                                paySuccess = 1;
-                                $('#invoice-success-dialog').modal('show');
+                                // $form.find('.subscribe').html(data.message + ' <i class="fa fa-check"></i>');
+                                // $('#invoice-payment').modal('hide');
+                                // $('#pay-title').html(lang_strings['stripe_pay_scs_title']);
+                                // $('#pay-body').html(lang_strings['stripe_pay_scs_body']);
+                                // paySuccess = 1;
+                                // $('#invoice-success-dialog').modal('show');
+                                window.location = projectBaseUrl + 'users/paySuccess';
                             } else {
                                 $form.find('.subscribe').html(data.message).removeClass('success').addClass('alert-danger');
                             }
