@@ -6,13 +6,13 @@
     var $form = $('#UserCreateForm'), success_url = '';
     paymentFormReady = function() {
         if (
-            $form.find('[name=name]').hasClass("success") &&
-            $form.find('[name=email]').hasClass("success") &&
-            $form.find('[name=password]').hasClass("success") &&
-            $form.find('[name=passwordVerify]').hasClass("success") &&
-            $form.find('[name=cardNumber]').hasClass("success") &&
-            $form.find('[name=cardExpiry]').hasClass("success") &&
-            $form.find('[name=cardCVC]').val().length > 1
+            $form.find('input[name=name]').hasClass("success") &&
+            $form.find('input[name=email]').hasClass("success") &&
+            $form.find('input[name=password]').hasClass("success") &&
+            $form.find('input[name=passwordVerify]').hasClass("success") &&
+            $('#cardNumberId').hasClass("success") &&
+            $('#cardExpireId').hasClass("success") &&
+            $('#cardCvcId').val().length > 1
         ) {
             return true;
         } else {
@@ -103,10 +103,10 @@
             Stripe.setPublishableKey(PublishableKey);
             
             /* Create token */
-            var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
+            var expiry = $('#cardExpireId').payment('cardExpiryVal');
             var ccData = {
-                number: $form.find('[name=cardNumber]').val().replace(/\s/g,''),
-                cvc: $form.find('[name=cardCVC]').val(),
+                number: $('#cardNumberId').val().replace(/\s/g,''),
+                cvc: $('#cardCvcId').val(),
                 exp_month: expiry.month, 
                 exp_year: expiry.year
             };
@@ -168,9 +168,9 @@
         }
     });
     /* Fancy restrictive input formatting via jQuery.payment library*/
-    $('input[name=cardNumber]').payment('formatCardNumber');
-    $('input[name=cardCVC]').payment('formatCardCVC');
-    $('input[name=cardExpiry').payment('formatCardExpiry');
+    $('#cardNumberId').payment('formatCardNumber');
+    $('#cardCvcId').payment('formatCardCVC');
+    $('#cardExpireId').payment('formatCardExpiry');
 
     /* Form validation using Stripe client-side validation helpers */
     jQuery.validator.addMethod("cardNumber", function(value, element) {

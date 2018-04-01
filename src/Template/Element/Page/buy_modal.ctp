@@ -123,6 +123,7 @@
                                             placeholder="<?= __('VALID_CARD_REQUIRED'); ?>"
                                             autocomplete="cc-number"
                                             required autofocus 
+                                            id="cardNumberId"
                                         />
                                         <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                     </div>
@@ -140,6 +141,7 @@
                                         placeholder="<?= __('MM-YY'); ?>"
                                         autocomplete="cc-exp"
                                         required 
+                                        id="cardExpireId"
                                     />
                                 </div>
                             </div>
@@ -152,7 +154,8 @@
                                         name="cardCVC"
                                         placeholder="<?= __('CVC_GUIDE'); ?>"
                                         autocomplete="cc-csc"
-                                        required
+                                        required 
+                                        id="cardCvcId"
                                     />
                                 </div>
                             </div>

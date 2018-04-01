@@ -104,6 +104,7 @@
                                                         placeholder="<?= __('VALID_CARD_REQUIRED'); ?>"
                                                         autocomplete="cc-number"
                                                         required autofocus 
+                                                        id="cardNumberId"
                                                     />
                                                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                                 </div>
@@ -121,6 +122,7 @@
                                                     placeholder="<?= __('MM-YY'); ?>"
                                                     autocomplete="cc-exp"
                                                     required 
+                                                    id="cardExpireId"
                                                 />
                                             </div>
                                         </div>
@@ -133,7 +135,8 @@
                                                     name="cardCVC"
                                                     placeholder="<?= __('CVC_GUIDE'); ?>"
                                                     autocomplete="cc-csc"
-                                                    required
+                                                    required 
+                                                    id="cardCvcId"
                                                 />
                                             </div>
                                         </div>
@@ -369,10 +372,10 @@
             Stripe.setPublishableKey(PublishableKey);
             
             /* Create token */
-            var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
+            var expiry = $('#cardExpireId').payment('cardExpiryVal');
             var ccData = {
-                number: $form.find('[name=cardNumber]').val().replace(/\s/g,''),
-                cvc: $form.find('[name=cardCVC]').val(),
+                number: $('#cardNumberId').val().replace(/\s/g,''),
+                cvc: $('#cardCvcId').val(),
                 exp_month: expiry.month, 
                 exp_year: expiry.year
             };
@@ -428,9 +431,9 @@
             }
         });
         /* Fancy restrictive input formatting via jQuery.payment library*/
-        $('input[name=cardNumber]').payment('formatCardNumber');
-        $('input[name=cardCVC]').payment('formatCardCVC');
-        $('input[name=cardExpiry').payment('formatCardExpiry');
+        $('#cardNumberId').payment('formatCardNumber');
+        $('#cardCvcId').payment('formatCardCVC');
+        $('#cardExpireId').payment('formatCardExpiry');
 
         /* Form validation using Stripe client-side validation helpers */
         jQuery.validator.addMethod("cardNumber", function(value, element) {
@@ -474,9 +477,9 @@
         });
 
         paymentFormReady = function() {
-            if ($form.find('[name=cardNumber]').hasClass("success") &&
-                $form.find('[name=cardExpiry]').hasClass("success") &&
-                $form.find('[name=cardCVC]').val().length > 1) {
+            if ($('#cardNumberId').hasClass("success") &&
+                $('#cardExpireId').hasClass("success") &&
+                $('#cardCvcId').val().length > 1) {
                 return true;
             } else {
                 return false;
